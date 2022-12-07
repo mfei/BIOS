@@ -1,0 +1,626 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Over dispersion, Two level hierarchical, random effect}
+\author{Mingwei Fei}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Statistical methods for handling overdispersion}
+ 
+Assume a more general form for the variance function, which may include some additional parameter and the additional parameters may be estimated using moment methods and
+quasi-likelihood methods.
+
+Two-level hierarchical models:
+\begin{itemize}
+	\item [(i)] Standard generalized linear models
+	\item [(ii)] The parameter in the standard generalized linear model is assumed to follow some distribution which contains additional parameters
+	\item [(iii)] Estimation methods include maximum likelihood
+\end{itemize}
+
+
+
+
+
+
+Consider a statistical model with $\xi = (\psi, \lambda)$, in which  $\psi$ is the parameter of interest and  $ \lambda$ is a nuisance parameter. conditional likelihood uses 
+\begin{align*}
+    ln(\psi) &= log P(\textbf{Y}| s, \psi) 
+\end{align*}
+
+as a ‘pseudo’ likelihood function to carry out inference about $\psi$.\\
+Identify $s$ using $P(Y| s, \psi)$ without loss of information about $\psi$. Generally it is difficult to find such s without additional conditions. Assume that there exists such a statistics $s_{\lambda}(\psi)$ such that $s_{\lambda}(\psi_0)$ is sufficient for $\lambda$ and complete for each value $\psi_0$ of $\psi$. There are two scenarios: 1) $s_{\lambda}(\psi)$ is independent of $\psi$. 2) $s_{\lambda}(\psi)$ does depend on $\psi$. \\
+For 1), we can use the conditional distribution of $P(Y| s_{\lambda}, \xi)$, which is independent of $\lambda$. Thus,
+\begin{align*}
+    P(\textbf{Y}; \xi) &= P(\textbf{Y}| s, \psi) P( s, \xi)\\
+    log_c(\psi) &= log P(\textbf{Y}| s_{\lambda}, \psi) = log P(\textbf{Y}| \xi) - log P( s_{\lambda}, \xi)
+\end{align*}
+can be used as the pseudo-likelihood for $\psi$. \\
+
+\subsection{Sufficient statistics of nuisance parameter w distribution free of interest parameter}
+In this case, we don't need to worry about the different values for interested parameters in the denominator. In the denominator, the sufficient statistics for nuisance parameters are fixed, and we can remove them. Only if there are interested parameters, and those values are different, we could not remove them.\\
+
+
+Assume that $y_1, · · · , y_n$ are independent and $y_i$ follows a Poisson distribution with mean $exp(\lambda + \psi x_i)$, where $x_i$ is a covariate of interest. Suppose that $\lambda$ is the nuisance parameter and $\psi$ is the parameter of interest. The joint distribution of $(y_1, · · · , y_n)$ is given by 
+\begin{align*}
+    exp \left( \sum_{i=1}^n y_i(\lambda + \psi x_i) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c \right)
+ \end{align*}
+Thus, $S_n = \sum_{i=1}^n y_i$ is the sufficient and complete statistics for $\lambda$. Since $S_n$ follows a poisson distribution with mean $\sum_{i=1}^n exp(\lambda + \psi x_i)$, the log-likelihood of conditional distribution of $\textbf{Y})$ given $S_n = \sum_{i=1}^n y_i$ is given by
+
+\begin{align*}
+    log p(\textbf{Y}; \xi) &= \sum_{i=1}^n y_i(\lambda + \psi x_i) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c_1\\
+    log p(\textbf{s}; \xi) &= \sum_{i=1}^n y_i log \left( \sum_{i=1}^n exp(\lambda + \psi x_i) \right) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c_2\\
+   log_c p(\psi) &= log p(\textbf{Y}; \xi) - log p(\textbf{s}; \xi) \\
+   &=   \sum_{i=1}^n y_i(\psi x_i) - \sum_{i=1}^n y_i log \left( \sum_{i=1}^n exp(\psi x_i) \right)
+ \end{align*}
+ which is independent of $\lambda$. \\
+ 
+\subsubsection{Negative Binomial distribution - conditional probability free of nuisance parameters}
+Suppose that $y_1, · · · , y_n$ are independently and identically distributed with density function
+\begin{align*}
+	P(y) &= \frac{\Gamma(\psi + y)}{\Gamma (y+1) \Gamma (\psi)} \frac{\lambda^y \psi^{\psi}}{(\lambda + \psi)^{y+\psi} }, y= 0, 1,..  
+\end{align*}
+Find a conditional likelihood score function $U_{\psi}(\xi)$ for $\psi$.\\
+Write the distribution in exponential family
+\begin{align*}
+	P(y) &=exp \left[ log \left( \frac{\Gamma(\psi + y)}{\Gamma (y+1) \Gamma (\psi)} \right) + y log \frac{\lambda }{\lambda + \psi } + \psi log \frac{\psi}{\lambda + \psi} \right] 
+\end{align*}
+In which,
+\begin{align*}
+	\theta &= log \frac{\lambda }{\lambda + \psi }\\
+	b(\theta) &= -\psi log \frac{\psi}{\lambda + \psi} = -\psi log (1-exp \theta)
+\end{align*}
+We can find the distribution from MGF or KGF function
+\begin{align*}
+	M_y(t) &= exp \{\phi [b(\theta + t/\phi) - b(\theta)] \}\\
+	K_y(t) &= log M_y(t) = \phi [b(\theta + t/\phi) - b(\theta)], \qquad \phi = 1
+\end{align*}
+Then 
+\begin{align*}
+	K_y(t) &= -\psi log \left( 1-exp (\theta + t) \right) + \psi log (1-exp \theta) \\
+	&= log \left( \frac{1- e(\theta)}{1- e (\theta) e (t)} \right)^{\psi}
+\end{align*}
+Then 
+\begin{align*}
+	M_y(t) &= \left( \frac{1- e(\theta)}{1- e (\theta) e (t)} \right)^{\psi}
+\end{align*}
+which is the MGF for negative binomial distribution. Then we have
+\begin{align*}
+	\sum_{i=1}^n y_i & \sim NB \left( n\psi, \frac{\lambda}{\lambda + \psi} \right)\\
+	P(S=\sum_{i=1}^n y_i) &=exp \left[ log \left( \frac{\Gamma(n \psi + s)}{\Gamma (s+1) \Gamma (n \psi)} \right) + s log \frac{\lambda }{\lambda + \psi } + n \psi log \frac{\psi}{\lambda + \psi} \right] 
+\end{align*}
+where s is a sufficient statistics for $\lambda$. Now
+\begin{align*}
+	l_c(\psi) &= log P_y(y |\lambda, \psi) - log P_s(S)\\ 
+	&=\sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right) + \sum_{i=1}^n y_i log \frac{\lambda }{\lambda + \psi } + n \psi log \frac{\psi}{\lambda + \psi}\\
+	& - log \left( \frac{\Gamma(n\psi + s)}{\Gamma (s+1) \Gamma (n\psi)} \right) - s log \frac{\lambda }{\lambda + \psi } - n \psi log \frac{\psi}{\lambda + \psi} \\
+	&= \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + s)}{\Gamma (s+1) \Gamma (n\psi)} \right) \\
+	&= \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + \sum_{i=1}^n y_i)}{\Gamma (\sum_{i=1}^n y_i+1) \Gamma (n\psi)} \right)
+\end{align*}
+The score function
+\begin{align*}
+	U_{\psi}(\xi)  &= \partial_{\psi} \left[ \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + \sum_{i=1}^n y_i)}{\Gamma (\sum_{i=1}^n y_i+1) \Gamma (n\psi)} \right) \right] \\
+	&= \partial_{\psi} \left[ \sum_{i=1}^n log \Gamma(\psi + y_i) - log \Gamma (y_i +1) - log \Gamma (\psi) - log \Gamma(n\psi + \sum_{i=1}^n y_i) - log \Gamma (\sum_{i=1}^n y_i+1) -log \Gamma (n\psi)  \right] \\
+	&= \frac{ \Gamma'(\psi + y_i)}{ \Gamma(\psi + y_i)} - \frac{ n\Gamma'(\psi)}{ \Gamma(\psi)} - \frac{n \Gamma'(n\psi + \sum_{i=1}^n y_i)}{ \Gamma(n \psi + \sum_{i=1}^n y_i)} - \frac{ n\Gamma'(n \psi)}{ \Gamma(n \psi)}
+\end{align*} 
+
+\subsection{Sufficient statistics with distribution not free of interest parameter}
+
+The second scenario, the conditional distribution of \textbf{Y} given $\textbf{s}_{\lambda}(\psi)$ is not well defined. Since $\textbf{s}_{\lambda}(\psi)$ depends on $\psi$, it is difficult to calculate the conditional distribution of \textbf{Y} given $\textbf{s}_{\lambda}(\psi)$. However, for a fixed $\psi_0$, we may use
+
+\begin{align}
+	l_c(\xi,\psi_0) &= log P(\textbf{Y}| s_{\lambda}(\psi_0), \xi) = log P(\textbf{Y}| \xi) - log P( s_{\lambda}(\psi_0), \xi)
+\end{align}
+We can see that $P(\textbf{Y}| \xi)$ is now conditional on $\xi$, because it is basically the same. And the conditional score statistics
+\begin{align*}
+	U_{\psi}(\xi) &= \frac{\partial l_c (\xi, \psi_0)}{\partial \psi}|_{\psi_0 = \psi}
+\end{align*}
+It can be shown that 
+\begin{align*}
+	U_{\psi}(\xi) &= \frac{\partial log p(\textbf{Y}| \xi)}{\partial \psi}  - \frac{\partial log p(\textbf{s}; \xi)}{\partial \psi} \\
+	U_{\psi}(\xi) &= \partial_{\psi} log p(\textbf{Y}| \xi) - E[\partial_{\psi} log p(\textbf{Y}|\xi)| s_{\lambda}(\psi)]
+\end{align*}
+We can get conditional score statistics in an alternative way, which is $\frac{\partial log E[p(\textbf{Y}|\xi, \textbf{s})|\textbf{s}]}{\partial \psi}$.\\
+Proof
+\begin{align*}
+	p(\textbf{Y}| \xi) &= p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) p(s_{\lambda}(\psi_0) | \xi)\\
+	log p(\textbf{Y}| \xi) &= log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) + log p(s_{\lambda}(\psi_0) | \xi)\\
+	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)\\
+	E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) & = 0
+\end{align*}
+integral and expectation can switch, distribution integral with no $\psi$
+\begin{align*}
+	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= \partial_{\psi}log p(s_{\lambda}(\psi_0),\xi)\\
+	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &=  E \left( \partial_{\psi}[log p(\textbf{Y}| s_{\lambda},\xi)| s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)
+\end{align*}
+
+\section{Practice}
+
+\subsection{Pair of variables}
+Suppose that $X_i, Y_i$ are independent random variables with an exponential distribution, with $E(X_i)= 1/(\psi \lambda_i)$ and $E(Y_i) = 1/\lambda_i$, for $i=1,2,..n$. The parameters of interest is $\psi$, the $\lambda_i$ is being unknown nuisance parameters.
+
+\begin{itemize}
+	\item [(a)] Write log-likelihood function $ln(\psi, \lambda_1, \lambda_2, ..\lambda_n)$ based on $(X_i, Y_i), i=1,..n$. Derive the score function (only depends on $\psi$) that the maximum likelihood estimator for $\psi$ based on $ln$, and denote the score equation by $S_n(\psi) = 0$.
+	
+\end{itemize}
+  
+\subsection{Exercise}
+Consider pairs of independent random variables $(y_{i1}, y_{i2}), i = 1, · · · , n$ such that both $y_{i1}$ and $y_{i2}$ follow a $N(\mu_i, \psi)$ distribution. Let $\psi$ be the parameter of interest and the $\mu_i$ are nuisance parameters.
+\begin{itemize}
+	\item [(a)] Show that the maximum likelihood estimate of $\psi$ is inconsistent.\\
+	The joint density of $y_{i1}, y_{i2}$
+	\begin{align*}
+		P(y_{i1}, y_{i2}) &= \frac{1}{2\pi \psi} exp \left(-\frac{(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2}{2 \psi} \right)\\
+		P(y_{1}, y_{2}) &=\prod_{i=1}^n \frac{1}{(2\pi \psi)^n} exp \left(- \sum_{i=1}^n  \frac{(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2}{2 \psi} \right)
+	\end{align*}
+	The log-likelihood function
+	\begin{align*}
+		ln(y_{1}, y_{2}) &= -n log(2\pi) - nlog\psi -\sum_{i=1}^n  \frac{(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2}{2 \psi} 
+	\end{align*}
+	Obtain MLE of $\mu_i, \psi$  
+	\begin{align*}
+		\partial_{\mu_i}ln  &=-1/(2\psi) \sum_{i=1}^n -2 (y_{i1} - \mu_i + y_{i2} - \mu_i)= 0, \qquad \hat{\mu_i} \\
+		\mu_i &= 1/2 (y_{i1}+ y_{i2})\\
+		\partial_{\psi}ln  &= -n/\psi +  \frac{\sum_{i=1}^n  [(y_{i1}-\mu_1)^2 + (y_{i2}-\mu_2)^2]}{2\psi^2} = 0\\
+		\hat{\psi} &= 1/2n \left( \sum_{i=1}^n  [(y_{i1}-\mu_1)^2 + (y_{i2}-\mu_2)^2] \right) \\
+		&= \frac{1}{4n} \sum_{i=1}^n  (y_{i1}-y_{i2})^2
+	\end{align*}
+	As $E(y_{i1} - y_{i2}) = 0, Var(y_{i1} - y_{i2}) = 2\psi $
+	\begin{align*}
+		Var(y_{i1} - y_{i2}) &=  E(y_{i1} - y_{i2})^2 - [E(y_{i1} - y_{i2})]^2 = 2\psi, \qquad  E(y_{i1} - y_{i2})^2 = 2\psi\\
+	\end{align*}
+	By WLLN, 
+	\begin{align*}
+		\hat{\psi} &= \frac{1}{4n} \sum_{i=1}^n  (y_{i1}-y_{i2})^2 \xrightarrow{n \rightarrow \infty}  1/4 E(y_{i1} - y_{i2})^2 = \psi/2 \neq \psi
+	\end{align*}
+	So MLE of $\psi$ is not consistent.
+	\item[(b)]  Construct a consistent estimate for $\psi$ based on the available information.\\
+	From part(a), we can construct $\Tilde{\psi} = 2\hat{\psi} = \frac{1}{2n} \sum_{i=1}^n  (y_{i1}-y_{i2})^2$.
+	By WLLN, the
+	\begin{align*}
+		\Tilde{\psi} &= \frac{1}{2n} \sum_{i=1}^n  (y_{i1}-y_{i2})^2 \xrightarrow[n \rightarrow \infty]{p} = \psi
+	\end{align*}   
+	
+	\item[(c)]  Assume that $y_{i1}$ and $y_{i2}$ follow a $N(\mu_i, \psi_i)$ distribution for $i = 1, · · · , n$,
+	where $\mu_i = \beta_0 + \beta_1(x_i - \bar{x})$ and $\psi_i = exp(\alpha_0 + \alpha_1(x_i - \bar{x}))$, in which $x_i$ is
+	a covariate of interest and $\bar{x}$ is the mean of the $x_i$s. Derive the score test statistic for testing homogeneous variance.\\
+	The hypothesis are
+	\begin{align*}
+		H_0 &: \alpha_1 = 0 \\
+		H_1 &: \alpha_1 \neq 0 
+	\end{align*}  
+	The log-likelihood function
+	\begin{align*}
+		\xi &= (\beta_0, \beta_1, \alpha_0, \alpha_1)^T\\
+		ln(y_{1}, y_{2}, \mu_i, \psi_i) &= -n log(2\pi) - \sum_{i=1}^n log\psi_i -\sum_{i=1}^n  \frac{(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2}{2 \psi_i} \\
+		ln(y_{1}, y_{2}, \xi) &= -n log(2\pi) - \sum_{i=1}^n (\alpha_0 + \alpha_1(x_i - \bar{x})) \\
+		& -\sum_{i=1}^n  \frac{(y_{i1}-\beta_0 - \beta_1(x_i - \bar{x}))^2 + (y_{i2}-\beta_0 - \beta_1(x_i - \bar{x}))^2}{2 exp(\alpha_0 + \alpha_1(x_i - \bar{x}))}, \qquad \sum x_i -\bar{x} = 0\\
+		&= -n log(2\pi) - n\alpha_0 -1/2 \sum_{i=1}^n  \frac{(y_{i1}-\beta_0 - \beta_1(x_i - \bar{x}))^2 + (y_{i2}-\beta_0 + \beta_1(x_i - \bar{x}))^2}{exp(\alpha_0 + \alpha_1(x_i - \bar{x}))}
+	\end{align*}
+	We will get the score function and Fisher information for $\xi$
+	\begin{align*}
+		\frac{ \partial ln(\xi)}{\partial \alpha_0} &= - n + 1/2 \sum_{i=1}^n  \frac{(y_{i1}-\beta_0 - \beta_1(x_i - \bar{x}))^2 + (y_{i2}-\beta_0 - \beta_1(x_i - \bar{x}))^2}{exp(\alpha_0 + \alpha_1(x_i - \bar{x}))}\\
+		&= - n + 1/2  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2]\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_0^2} &= -1/2  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2]
+	\end{align*}
+	\begin{align*}
+		\frac{ \partial ln(\xi)}{\partial \alpha_1} &=  1/2  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2] (x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_1^2} &= -1/2  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2](x_i-\bar{x})^2
+	\end{align*}
+	\begin{align*}
+		\frac{ \partial ln(\xi)}{\partial \beta_0} &=  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\beta_0-\beta_1(x_i-\bar{x})) + (y_{i2}-\beta_0-\beta_1(x_i-\bar{x}))] \\
+		\frac{ \partial^2 ln(\xi)}{\partial \beta_0^2} &= - 2\sum_{i=1}^n \psi_i^{-1}
+	\end{align*}
+	\begin{align*}
+		\frac{ \partial ln(\xi)}{\partial \beta_1} &=  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\beta_0-\beta_1(x_i-\bar{x})) + (y_{i2}-\beta_0-\beta_1(x_i-\bar{x}))] (x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \beta_1^2} &= - 2\sum_{i=1}^n \psi_i^{-1}(x_i-\bar{x})^2
+	\end{align*}
+	Other derivatives
+	\begin{align*}
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\alpha_1} &= -1/2  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2](x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\beta_0} &= -  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2](x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\beta_1} &= -  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2](x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_1\beta_0} &= -  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i) + (y_{i2}-\mu_i)](x_i-\bar{x})\\
+		\frac{ \partial^2 ln(\xi)}{\partial \alpha_1\beta_1} &= -  \sum_{i=1}^n \psi_i^{-1} [(y_{i1}-\mu_i) + (y_{i2}-\mu_i)](x_i-\bar{x})^2\\
+		\frac{ \partial^2 ln(\xi)}{\partial \beta_0\beta_1} &= - 2 \sum_{i=1}^n \psi_i^{-1} (x_i-\bar{x})
+	\end{align*}
+	Taking expectation as $I(\xi) = -E (\partial^2 \xi)$
+	\begin{align*}
+		E(y_{i1}-\mu_i)^2 &= \psi_i,\qquad E(y_{i1}) = E(y_{i2}) =\mu_i,\qquad \sum_{i=1}^n x_i- n \bar{x} = 0\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_0^2}] &=-1/2  \sum_{i=1}^n \psi_i^{-1} [E(y_{i1}-\mu_i)^2 + E(y_{i2}-\mu_i)^2]=  -n\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_1^2}] &= -\sum_{i=1}^n (x_i-\bar{x})^2\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \beta_0^2}] &= - 2\sum_{i=1}^n \psi_i^{-1}\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \beta_1^2}] &= - 2\sum_{i=1}^n \psi_i^{-1}(x_i-\bar{x})^2\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\alpha_1}] &= -1/2  \sum_{i=1}^n \psi_i^{-1} [E(y_{i1}-\mu_i)^2 + E(y_{i2}-\mu_i)^2]E(x_i-\bar{x}) = 0\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\beta_0}] &= 0,\qquad
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_0\beta_1}] =  0\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_1\beta_0}] &=  0,\qquad
+		E[\frac{ \partial^2 ln(\xi)}{\partial \alpha_1\beta_1}] =  0\\
+		E[\frac{ \partial^2 ln(\xi)}{\partial \beta_0\beta_1}] &=  - 2 \sum_{i=1}^n \psi_i^{-1} (x_i-\bar{x}) 
+	\end{align*}
+	Then
+	\begin{align*}
+		I(\xi) &= -E (\partial^2 \xi)= \begin{bmatrix}
+			n & 0&  0 &  0\\
+			0 & \sum_{i=1}^n (x_i-\bar{x})^2 & 0  & 0 \\
+			0 & 0&  2\sum_{i=1}^n \psi_i^{-1}  & 2 \sum_{i=1}^n \psi_i^{-1} (x_i-\bar{x}) \\
+			0 &  0& 2 \sum_{i=1}^n \psi_i^{-1} (x_i-\bar{x})   & 2\sum_{i=1}^n \psi_i^{-1}(x_i-\bar{x})^2  \\
+		\end{bmatrix}
+	\end{align*} 
+	Under null hypothesis, we have score test statistics follows a chi-square distribution
+	\begin{align*}
+		\frac{\partial ln}{\partial \Tilde{\xi}}^T I(\Tilde{\xi})^{-1} \frac{\partial ln}{\partial \Tilde{\xi}} & \sim \chi^2(1)
+	\end{align*} 
+	So we have $\Tilde{\psi} = exp(\Tilde{\alpha_0}) $, then $\Tilde{\alpha_0} = ln(\Tilde{\psi}) $.\\
+	From part (a) which $\psi$ is constant, we have $\psi = \frac{1}{4n} \sum_{i=1}^n (y_{i1}- y_{i2})^2$ and then,
+	\begin{align*}
+		\hat{\mu_i} &= 1/2 (y_{i1}+ y_{i2})\\
+		\hat{\psi} &=  \frac{1}{4n} \sum_{i=1}^n  (y_{i1}-y_{i2})^2
+	\end{align*}
+	then the score function under $\Tilde{\xi}$
+	\begin{align*}
+		\dot{l}(\xi) &= \begin{bmatrix}
+			\partial_{\alpha_0} l(\xi) &= - n + 1/2  \sum_{i=1}^n \Tilde{\psi}^{-1} [(y_{i1}-\mu_i)^2 + (y_{i2}-\mu_i)^2] =0 \\
+			\partial_{\alpha_1} l(\xi) &= 1/2  \sum_{i=1}^n \Tilde{\psi}^{-1} 1/2 (y_{i1}-y_{i2})^2 (x_i-\bar{x}) = \frac{1}{4 \Tilde{\psi}} \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x})  \\
+			\partial_{\beta_0} l(\xi) &=\sum_{i=1}^n \Tilde{\psi}^{-1} [(y_{i1}-\beta_0-\beta_1(x_i-\bar{x})) + (y_{i2}-\beta_0-\beta_1(x_i-\bar{x}))] =0  \\
+			\partial_{\beta_1} l(\xi)& =\sum_{i=1}^n \Tilde{\psi}^{-1} [(y_{i1}-\beta_0-\beta_1(x_i-\bar{x})) + (y_{i2}-\beta_0-\beta_1(x_i-\bar{x}))] (x_i-\bar{x})=0 \\
+		\end{bmatrix} \\
+		&= \begin{bmatrix}
+			0\\
+			\frac{1}{4 \Tilde{\psi}} \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x})   \\
+			0 \\
+			0 \\
+		\end{bmatrix}
+	\end{align*} 
+	Under null hypothesis, $2 \sum_{i=1}^n \psi_i^{-1} (x_i-\bar{x}) = 0$, then 
+	\begin{align*}
+		I_n(\Tilde{\xi}) &= \begin{bmatrix}
+			n & 0&  0 &  0\\
+			0 & \sum_{i=1}^n (x_i-\bar{x})^2 & 0  & 0 \\
+			0 & 0&  2\sum_{i=1}^n \Tilde{\psi}^{-1}  & 0\\
+			0 &  0& 0  & 2\sum_{i=1}^n \Tilde{\psi}^{-1}(x_i-\bar{x})^2  \\
+		\end{bmatrix}
+	\end{align*}
+	The score test statistics
+	\begin{align*}
+		SCn &= \frac{\partial ln}{\partial \Tilde{\xi}}^T I_n(\Tilde{\xi})^{-1} \frac{\partial ln}{\partial \Tilde{\xi}}  = (0,\frac{1}{4 \Tilde{\psi}} \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x}), 0, 0 )\\
+		& \begin{bmatrix}
+			n & 0&  0 &  0\\
+			0 & \sum_{i=1}^n (x_i-\bar{x})^2 & 0  & 0 \\
+			0 & 0&  2\sum_{i=1}^n \Tilde{\psi}^{-1}  & 0\\
+			0 &  0& 0  & 2\sum_{i=1}^n \Tilde{\psi}^{-1}(x_i-\bar{x})^2  \\
+		\end{bmatrix}^{-1} \begin{bmatrix}
+			0\\
+			\frac{1}{4 \Tilde{\psi}} \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x})   \\
+			0 \\
+			0 \\
+		\end{bmatrix} \\
+		&= \frac{\left[ \frac{1}{4 \Tilde{\psi}} \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x}) \right]^2}{\sum_{i=1}^n (x_i-\bar{x})^2}
+	\end{align*} 
+	With $\Tilde{\psi} = \frac{1}{4n} \sum_{i=1}^n (y_{i1}- y_{i2})^2$, we have
+	\begin{align*}
+		SCn &= \frac{\left[n^2 \sum_{i=1}^n(y_{i1}-y_{i2})^2 (x_i-\bar{x}) \right]^2}{[\sum_{i=1}^n (y_{i1}- y_{i2})^2]^2 \sum_{i=1}^n (x_i-\bar{x})^2} \sim \chi^2(1)
+	\end{align*} 
+	We will reject the $H_0$ if $SCn > \chi^2(1, 1-\alpha)$.
+\end{itemize}
+
+
+
+\subsection{e}
+Suppose that the vector $Y = (Y_0; Y_1; Y_2)^T$ follows a multinomial distribution with total count m and probability vector $(\gamma_0; \gamma_1; \gamma_2)^T$ with
+\begin{align*}
+	\gamma_j &= {2 \choose j} \pi^j (1-\pi)^{2-j} \theta^{-j(2-j)} /f(\pi, \theta), \qquad j= 0,1,2
+\end{align*} 
+where
+\begin{align*}
+	f(\pi, \theta) &= \sum_{k=0}^2 {2 \choose k} \pi^k (1-\pi)^{2-k} \theta^{-k(2-k)}
+\end{align*} 
+and $0 \leq \pi \leq 1, \theta >0$ are parameters. Furthermore, define $\lambda = log \frac{\pi}{1-\pi}$ and $\psi = log \theta$.
+
+\begin{itemize}
+	\item [(a)] Derive a sufficient statistic for $\lambda$ assuming  $\psi = \psi_0$ is known. Derive a conditional
+	likelihood for $\psi$.\\
+	Write the joint distribution of Y
+	\begin{align*}
+		P(Y) &= {m \choose y_0, y_1, y_2}  \gamma_1^{y_1} \gamma_2^{y_2} \gamma_0^{y_0} \\
+		&= exp \left[ log {m \choose y_0, y_1, y_2} + y_0 log \gamma_0 + y_1 log\gamma_1 + y_2 log \gamma_2 \right]
+	\end{align*}    
+	\begin{align*}
+		\gamma_0 &= {2 \choose 0} \pi^0 (1-\pi)^{2} \theta^{0} /f(\pi, \theta)= (1-\pi)^2/f(\pi, \theta)\\
+		\gamma_1 &= {2 \choose 1} \pi^1 (1-\pi)^{1} \theta^{-1} /f(\pi, \theta)= 2\pi (1-\pi) \theta^{-1}/f(\pi, \theta)\\
+		\gamma_2 &= {2 \choose 2} \pi^2 (1-\pi)^{0} \theta^{0} /f(\pi, \theta)= \pi^2/f(\pi, \theta)
+	\end{align*} 
+	\begin{align*}
+		log P(Y) &=  log {m \choose y_0, y_1, y_2} + y_0 [2log (1-\pi) - log f(\pi,\theta)] \\
+		& + y_1 [log 2 \pi (1-\pi) - log \theta - log f(\pi,\theta)]+ y_2 [2 log \pi - log f(\pi, \theta) ]\\
+		f(\pi, \theta) &= {2 \choose 0} \pi^0 (1-\pi)^{2} \theta^{0} + {2 \choose 1} \pi^1 (1-\pi)^{1} \theta^{-1} + {2 \choose 2} \pi^2 (1-\pi)^{0} \theta^{0}\\
+		log f(\pi, \theta) &=2log (1-\pi) +log 2 \pi (1-\pi) - log \theta + 2 log \pi \\
+		log P(Y) &= log {m \choose y_0, y_1, y_2} + (2y_0 + y_1) log(1-\pi) \\
+		& - (y_0+y_1+y_2) log f(\pi, \theta) + (y_1+ 2y_2) log \pi + y_1 log2 - y_1 log \theta\\
+		m &= y_0 + y_1 + y_2, \qquad y_1 = m- y_0 - y_2\\
+		log P(Y) &= log {m \choose y_0, y_1, y_2} + (m + y_0 - y_2) log(1-\pi) - mlog f(\pi, \theta)\\
+		&+ (m-y_0+y_2)log \pi + y_1 log2 - y_1 log \theta\\
+		&= log {m \choose y_0, y_1, y_2} + m log\left[ \frac{e^{\lambda}}{1+e^{\lambda}}  \frac{1}{1+e^{\lambda}} \frac{(1+e^{\lambda})^2}{1+ 2e^{\lambda-\psi} + e^{2\lambda}} \right] \\
+		& - (y_0- y_2) \lambda + y_1 log 2 - y_1 \psi\\
+	\end{align*} 
+	If assume $\psi = \psi_0$ is known, then a sufficient statistics is $m, y_0-y_2$.
+	\begin{align*}
+		log P(Y)  &= log {m \choose y_0, y_1, y_2} + m log\left[ \frac{e^{\lambda}}{1+ 2e^{\lambda-\psi} + e^{2\lambda}} \right]
+		- (y_0- y_2) \lambda + y_1 log 2 - y_1 \psi
+	\end{align*}   
+	Let $y_2-y_0 =t$, 
+	\begin{align*}
+		P(t)  &= \sum_{t} {m \choose y_0, y_1, y_2} \left[ \frac{e^{\lambda}}{1+ 2e^{\lambda-\psi} + e^{2\lambda}} \right]^m
+		exp(\lambda t)  2^{y_1} exp(-\psi {y_1})\\
+		P(y_1|t)  &=  \frac{P(t, Y)}{P(t)} = \frac{{m \choose y_0, y_1, y_2}  \left[ \frac{e^{\lambda}}{1+ 2e^{\lambda-\psi} + e^{2\lambda}} \right]^m exp(\lambda t)  2^{y_1} exp(-\psi {y_1})}{ \sum_{t} {m \choose y_0, y_1, y_2} \left[ \frac{e^{\lambda}}{1+ 2e^{\lambda-\psi} + e^{2\lambda}} \right]^m
+			exp(\lambda t)  2^{y_1}  exp(-\psi {y_1})} \\
+		&= \frac{\frac{1}{y_0!y_1!y_2!}2^{y_1}exp(-\psi {y_1}) }{\sum_{y'_2-y'_0=t} \frac{1}{y'_0!y'_1!y'_2!}2^{y'_1} exp(-\psi {y'_1})}
+	\end{align*} 
+	The conditional distribution for $\psi$
+	\begin{align*}
+		P(y_1, \psi |t)  &=  \frac{\frac{1}{y_0!y_1!y_2!}2^{y_1}exp(-\psi {y_1}) }{\sum_{y'_2-y'_0=t} \frac{1}{y'_0!y'_1!y'_2!}2^{y'_1} exp(-\psi {y'_1})}
+	\end{align*} 
+	
+	\item[(b)] The data $y_0 = 3; y_1 = 0; y_2 = 2$ were observed. Based on the conditional likelihood
+	of Part (a), compute the exact one-sided p-value for testing $H0 : \theta = 1$ against $H_0 : \theta > 1$ with $\lambda$ unspecified.\\
+	The null hypothesis could be written as 
+	\begin{align*}
+		H_0  &: \psi = 0 \qquad vs. \qquad H_1: \psi \neq 0
+	\end{align*} 
+	From $y_0 = 3; y_1 = 0; y_2 = 2$, we have $t= y_2 - y_0 = -1, m=5$. There are possible 3 combinations that t=-1 as below\\
+	\begin{tabular}{l l l l l}
+		$y_1$ &  $y_2$ & $y_0$ & t & case\\\hline
+		0 & 2  & 3 & -1 & 1\\
+		2 & 1  & 2 & -1 & 2\\
+		4 & 0  & 1 & -1 & 3\\
+		\hline
+	\end{tabular}\\
+	So under $H_0$, the conditional probability for $y_1$ in the above 3 cases are
+	\begin{align*}
+		denominator &= \frac{1}{0!2!3!}2^{0} exp(-\psi {0}) + \frac{1}{1!2!2!}2^{2} exp(-\psi {2}) + \frac{1}{0!4!1!}2^{4} exp(-\psi {4}) \\
+		&= 2/3 exp(-4\psi) + exp(-2\psi) + 1/12 = 21/12\\
+		P(y_1=0, \psi |t=-1)  &=  \frac{\frac{1}{0!2!3!}2^{0}exp(0) }{\sum_{y'_2-y'_0=t} \frac{1}{y'_0!y'_1!y'_2!}2^{y'_1} exp(-\psi {y'_1})} = \frac{1/12}{21/12} = 1/21\\
+		P(y_1=2, \psi |t=-1)  &=  \frac{\frac{1}{1!2!2!}2^{2}exp(0) }{\sum_{y'_2-y'_0=t} \frac{1}{y'_0!y'_1!y'_2!}2^{y'_1} exp(-\psi {y'_1})} = \frac{1/12}{21/12} = 12/21\\
+		P(y_1=4, \psi |t=-1)  &=  \frac{\frac{1}{0!4!1!}2^{4}exp(0) }{\sum_{y'_2-y'_0=t} \frac{1}{y'_0!y'_1!y'_2!}2^{y'_1} exp(-\psi {y'_1})} = \frac{1/12}{21/12} = 8/21
+	\end{align*} 
+	We will reject $H_0$ if $P(y_1|t=-1) < 0.05$. Under the current sample, one sided test p-value for $P(y_1=0|t=-1) = 1/21 = 0.0476$, that $\psi \neq 0$.
+\end{itemize}
+
+
+
+\subsection{b}Consider the following
+\begin{itemize}
+	\item[(a)] For an arbitrary model, consider the conditional score statistic
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}
+	\end{align*} 
+	Show that the conditional score statistic for any model can be written as
+	\begin{align*}
+		U_{\psi}(\xi) &= \partial_{\psi} log p(Y|\xi)- E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*} 
+	The conditional score statistic is the derivative of the conditional distribution
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}\\
+		p(\textbf{Y}| \xi) &= p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) p(s_{\lambda}(\psi_0) | \xi), \qquad p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) = \frac{p(\textbf{Y}| \xi)}{p(s_{\lambda}(\psi_0) | \xi)} \\
+		l_c(\xi, \psi_0) &= log p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)= log p(\textbf{Y}| \xi) - log p(s_{\lambda}(\psi_0) | \xi)
+	\end{align*}
+	Then we need to prove 
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi} = \partial_{\psi} log p(\textbf{Y}| \xi) - \partial_{\psi} log p(s_{\lambda}(\psi_0) | \xi)\\
+		\partial_{\psi} log p(s_{\lambda}(\psi_0) | \xi) &= E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*}
+	We can write
+	\begin{align*}
+		log p(\textbf{Y}| \xi) &= log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) + log p(s_{\lambda}(\psi_0) | \xi)\\
+		E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)
+	\end{align*}    
+	in which, the integral and expectation can switch, then we have
+	\begin{align*}
+		E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) & = \partial_{\psi} E \left([log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) = \partial_{\psi} E \left([log  p(\textbf{Y}| \xi)]\right)= 0
+	\end{align*}      
+	So,
+	\begin{align*}
+		E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= \partial_{\psi}log p(s_{\lambda}(\psi_0),\xi)
+	\end{align*}
+	Then we show
+	\begin{align*}
+		U_{\psi}(\xi) &= \partial_{\psi} log p(Y|\xi)- E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*} 
+	\item[(b)] Suppose that $y_1;.. y_n$ are independent and $y_i$ follows a Poisson distribution with mean $exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2})$, where $(x_{i1}; x_{i2})$ are covariates, $\lambda = (\lambda_0; \lambda_1)$ is the
+	nuisance parameter vector and $\psi$  is the parameter of interest. Derive the conditional
+	likelihood of $\psi$   and show that this conditional likelihood is free of $\lambda$.\\
+	The joint distribution of $(y_1, · · · , y_n)$ is given by 
+	\begin{align*}
+		P(Y|\lambda, \psi)&=  exp \left( \sum_{i=1}^n y_i(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)
+	\end{align*}
+	Thus, $S_0 = \sum_{i=1}^n y_i$ is the sufficient and complete statistics for $\lambda_0$, and $S_1 = \sum_{i=1}^n y_i x_{i1}$ is the sufficient and complete statistics for $\lambda_1$.\\
+	The conditional distribution of $\psi$ given $S_0, S_1$ is given by
+	\begin{align*}
+		p(\textbf{Y}, \psi|S=(S_0, S_1)) &= \frac{exp \left( \sum_{i=1}^n y_i(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)}{\sum_{y' \in S} exp \left( \sum_{i=1}^n y'_i(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - log y'_i! \right)}\\
+		&= \frac{exp \left( S_1 \lambda_0 + S_2 \lambda_1 +  S_3 \psi) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)}{\sum_{y' \in S} exp \left( S'_1\lambda_0 + S'_2 \lambda_1 + S'_3 \psi) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - log y'_i!\right)} \\
+		&= \frac{exp \left( S_3 \psi  - log y_i!\right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}, \qquad S_3 = \sum_{i=1}^n y_i x_{i2}, S'_3 = \sum_{i=1}^n y'_i x_{i2}
+	\end{align*}
+	which is independent of $\lambda$. \\
+	\item[(c)] Derive the conditional score statistic for part (b) and write out a Newton-Raphson algorithm for obtaining the conditional maximum likelihood estimate of $\psi$  based on $U_{\psi}(\xi)$.\\
+	The log likelihood of the conditional distribution is
+	\begin{align*}
+		l_c(\psi) &= S_3 \psi  - log y_i! -log \left[ \sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right) \right], \qquad S_3 = \sum_{i=1}^n y_i x_{i2}, S'_3 = \sum_{i=1}^n y'_i x_{i2}
+	\end{align*} 
+	The score function and observed fisher information is
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}\\
+		&= \psi - \frac{\sum_{y' \in S} S'_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}\\
+		\frac{\partial^2 l_c(\xi, \psi_0)}{\partial \psi^2} &= \left[ \frac{\sum_{y' \in S} S'_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}\right]^2 - \frac{\sum_{y' \in S} S'^2_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}
+	\end{align*}
+	The newton-Raphson algorithm
+	\begin{align*}
+		\psi^{k+1} &= \psi^{k} - \left[\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2} \right]^{-1} U_{\psi}(\psi^{k})
+	\end{align*}
+	where $\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2}, U_{\psi}(\psi^{k})$ are from above equations.
+	
+	\item[(d)] Now suppose that we only have two random variables $y_1 \sim Poisson(\mu_1)$ and $y_2 \sim
+	Poisson(\mu_2)$, where $y_1$ and $y_2$ are independent. We are interested in making inferences on the ratio $\psi = \mu_1/\mu_2$. Let $\xi = (\psi , \lambda)$, where $\lambda$ represents the nuisance parameter.
+	\begin{itemize}
+		\item [(i)] Show that the log-likelihood function of $\xi$ can be written as
+		\begin{align*}
+			l(\xi) &= (y_1 + y_2)\lambda + y_1 log (\psi) - exp(\lambda) (1+\psi)
+		\end{align*}
+		where $\lambda$ is a function of $\mu_2$. Explicitly state what $\lambda$ is.\\
+		Write the joint distribution of $y_1, y_2$
+		\begin{align*}
+			P(y_1, y_2) &= \frac{\mu_1^{y_1} e^{-\mu_1}}{y_1!} \frac{\mu_2^{y_2} e^{-\mu_2}}{y_2!} \\
+			log P(y_1, y_2) &= y_1 log \mu_1 - \mu_1 + y_2 \log \mu_2 - \mu_2 - log y_1! - log y_2!\\
+			&= y_1 log \frac{\mu_1}{\mu_2} + y_1 log \mu_2 + y_2 log \mu_2 -\mu_1 - \mu_2 -log y_1! - log y_2!\\
+			&= y_1 log \frac{\mu_1}{\mu_2} + (y_1+y_2) log \mu_2 - \mu_2(\mu_1/\mu_2 + 1) -log y_1! - log y_2!
+		\end{align*}
+		where 
+		\begin{align*}
+			\psi &=log \frac{\mu_1}{\mu_2} \\
+			\lambda &= log \mu_2
+		\end{align*}
+		\item[(ii)] Derive the conditional likelihood of $\psi$  and write out a Newton-Raphson algorithm for obtaining the conditional maximum likelihood estimate of $\psi$ .\\
+		From part (a), we see $y_1 + y_2$ is the sufficient statistics for $\lambda$, while $y_1 + y_2 \sim Poission (\mu_1+\mu_2)$ then we have conditional distribution of $\psi$ condition on $S = y_1 + y_2$.
+		\begin{align*}
+			Y(\psi|S= y_1+y_2,\lambda) &= \frac{exp \left[ y_1 \psi + (y_1+y_2) \lambda - exp(\lambda)(\psi + 1) -log y_1! - log y_2! \right] }{exp \left[ (y_1+y_2) log (\mu_1+\mu_2) - (\mu_1+\mu_2) -log (y_1+y_2)!  \right]}\\
+			&= \frac{exp \left[ y_1 \psi + S \lambda - exp(\lambda)(\psi + 1) -log y_1! - log y_2! \right] }{exp \left[ S (\lambda + log(\psi + 1)) -  exp(\lambda)(\psi + 1) -log S!  \right]}\\
+			&= \frac{exp \left[ y_1 \psi -log y_1! - log y_2! \right] }{exp \left[ (y_1+ S-y_1) log(\psi + 1)) -log S!  \right]}\\
+			&= {S \choose y_1} \left( \frac{\psi}{1+\psi}\right)^{y_1} \left(\frac{1}{1+\psi} \right)^{S-y_1}
+		\end{align*}
+		The conditional distribution is a binomial, $B(S, \psi/(1+\psi))$.\\
+		The score function and observed fisher information 
+		\begin{align*}
+			log Y(\psi|S,\lambda) &= y_1 log \psi -S log(1+\psi) + log {S \choose y_1} \\
+			\partial_{\psi} log Y(\psi|S,\lambda) &= \frac{y_1}{\psi} - \frac{S}{1+\psi} = 0, \qquad \hat{\psi} = y_1/(S-y_1)\\
+			\partial^2_{\psi} log Y(\psi|S,\lambda) &= -\frac{y_1}{\psi^2} + \frac{S}{(1+\psi)^2}
+		\end{align*}
+		The $CMLE = \hat{\psi} = y_1/(S-y_1)$. And the newton-Raphson equation 
+		\begin{align*}
+			\psi^{k+1} &= \psi^{k} - \left[\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2} \right]^{-1} U_{\psi}(\psi^{k})\\
+			&= \psi^{k} - \left[ -\frac{y_1}{\psi^2} + \frac{S}{(1+\psi)^2}\right]^{-1} \left[\frac{y_1}{\psi} - \frac{S}{1+\psi} \right]|_{\psi = \psi^{k}}\\
+			&=  \psi^{k} + \frac{y_1/\psi^{k} - S/(1+\psi^{k})}{y_1/{\psi^{k}}^2 - S/(1+\psi^{k})^2}
+		\end{align*}
+	\end{itemize}
+\end{itemize}
+
+\subsection{a}
+Suppose that $y_1;... y_n$ are independent Bernoulli random variables, where $y_i  \sim Bernoulli(\pi)$, and we consider a logistic regression so that $logit(\pi) = x'_i\beta$, where $\beta = (\beta_1;... \beta_p)$. Our interest is inference on $(\beta_1; \beta_2)$, with all other parameters being treated as nuisance.
+\begin{itemize}
+	\item [(a)] Derive the conditional likelihood of $(\beta_1; \beta_2)$ and express it in the simplest possible form.\\
+	The joint distribution of $y_1;... y_n$
+	\begin{align*}
+		p(Y) &= \prod_{i=0}^n p_i^{y_i} (1-p_i)^{(1-y_i)}\\
+		log p(Y) &= \sum_{i=0}^n y_i log p_i + (1-y_i) log (1-p_i) = \sum_{i=0}^n y_i log \frac{p_i}{1-p_i}  + log (1-p_i) \\
+		logit(pi) & = log \frac{p_i}{1-p_i} = x'_i\beta , \qquad p_i = \frac{exp(x'_i\beta )}{1+exp(x'_i\beta) } \\
+		log p(Y) &= \sum_{i=0}^n y_i  x'_i\beta  - log (1+exp(x'_i\beta) ) \\
+		&= \sum_{i=0}^n y_i  (x_{i1}\beta_1 + x_{i2}\beta_2 + x_{i3}\beta_3+.. x_{ip}\beta_p) - log (1+exp(x'_i\beta) ) 
+	\end{align*}
+	We can see that $\sum_{i=0}^n x_{i1}y_i$ is a sufficient and complete statistics for $\beta_1$. When only $(\beta_1; \beta_2)$ are the interest, and all other parameters being treated as nuisance. Then $s_j = \sum_{i=0}^n y_ix_{ij}$ is sufficient statistics for $\beta_j$. Let $S= (s_3, s_4,.. s_p)$
+	
+	\begin{align*}
+		P(\beta_1, \beta_2| S)  &= \frac{exp \left[\sum_{i=0}^n (y_i  x_{i1})\beta_1 + (y_i  x_{i2})\beta_2 + .. (y_i  x_{ip})\beta_p - log (1+exp(x'_i\beta) ) \right]}{\sum_{t \in S} exp \left[ (t_i  x_{i1})\beta_1 + (t_i  x_{i2})\beta_2 +... (t_i  x_{ip})\beta_p - log (1+exp(x_{i}^T\beta ) \right]}  \\
+		&= \frac{exp \left( \sum_{i=0}^n (y_i  x_{i1})\beta_1 + (y_i  x_{i2})\beta_2) \right)}{\sum_{t \in S} exp \left( (t_i  x_{i1})\beta_1 + (t_i  x_{i2})\beta_2)\right)}\\
+		&= \frac{exp \left(S_1\beta_1 + S_2 \beta_2) \right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}, \qquad S_j= \sum_{i=0}^n (y_i  x_{ij}), S'_j= \sum_{i=0}^n (t_i  x_{ij})
+	\end{align*}
+	
+	\item[(b)] Derive the score equations for $(\beta_1; \beta_2)$ based on the conditional likelihood derived in part (a).\\
+	The log conditional distribution is
+	\begin{align*}
+		l_c(\beta_1, \beta_2| S) &= log p(Y, \xi) - log p(s,\lambda, \psi_0) =log  P(\beta_1, \beta_2| S)\\
+		l_c(\beta_1, \beta_2| S) &= log \frac{exp \left(S_1\beta_1 + S_2 \beta_2) \right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)} = S_1\beta_1 + S_2 \beta_2 - log \sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)\\
+		\frac{\partial l_c}{\partial \beta_1} &= S_1 - \frac{\sum_{S'} S'_1 exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)} \\
+		\frac{\partial l_c}{\partial \beta_2} &=S_2 - \frac{\sum_{S'} S'_2 exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)} 
+	\end{align*}  
+	The score equations are setting the score function to 0
+	\begin{align*}
+		SCn = 0 &= \begin{bmatrix}
+			S_1 - \frac{\sum_{S'} S'_1 exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}  \\
+			S_2 - \frac{\sum_{S'} S'_2 exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}{\sum_{S'} exp \left( S'_1\beta_1 + S'_2\beta_2)\right)}   \\
+		\end{bmatrix} =\begin{bmatrix}
+			0  \\
+			0  \\
+		\end{bmatrix}
+	\end{align*}
+	\item[(c)] Derive the asymptotic covariance matrix of the conditional maximum likelihood estimates of $(\beta_1; \beta_2)$.\\
+	The Fisher information of $(\beta_1; \beta_2)$
+	\begin{align*}
+		\frac{\partial^2 l_c}{\partial \beta_1^2} &=  \left[\frac{\sum_{T} T_1 exp \left( T_1\beta_1 + T_2\beta_2\right)}{\sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)} \right]^2 - \frac{\sum_{T} T_1^2 exp \left( T_1\beta_1 + T_2\beta_2\right)}{\sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)}\\
+		\frac{\partial^2 l_c}{\partial \beta_2^2} &= \left[\frac{\sum_{T} T_2 exp \left( T_1\beta_1 + T_2\beta_2\right)}{\sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)} \right]^2 - \frac{\sum_{T} T_2^2 exp \left( T_1\beta_1 + T_2\beta_2\right)}{\sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)}\\ 
+		\frac{\partial^2 l_c}{\partial \beta_1 \beta_2} &=\frac{\left[ \sum_{T} T_1 exp \left( T_1\beta_1 + T_2\beta_2\right)\right] \left[ \sum_{T} T_2 exp \left( T_1\beta_1 + T_2\beta_2\right)\right]}{\left[ \sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)\right]^2}  - \frac{\sum_{T} T_1 T_2 exp \left( T_1\beta_1 + T_2\beta_2\right)}{\sum_{T} exp \left( T_1\beta_1 + T_2\beta_2\right)}
+	\end{align*}  
+	Thus the asymptotic covariance matrix $Cov(\beta_1, \beta_2)$ is
+	\begin{align*}
+		Cov(\beta_1, \beta_2) &= I(\beta_1, \beta_2)^{-1}\\
+		I(\beta_1, \beta_2) &= -E \left[ \frac{\partial^2 l_c}{\partial \beta^2} \right] =  -\lim_{n\to\infty} \frac{ I_n(\beta)}{n} \\
+		I_n(\beta) &=- \begin{bmatrix}
+			\frac{\partial^2 l_c}{\partial \beta_1^2}& \frac{\partial^2 l_c}{\partial \beta_1 \beta_2}\\
+			\frac{\partial^2 l_c}{\partial \beta_1 \beta_2} &\frac{\partial^2 l_c}{\partial \beta_2^2}  \\
+		\end{bmatrix}
+	\end{align*}
+	\item[(d)]Derive the conditional score test for testing $H_0: \beta_1= \beta_2 = 0$.\\
+	\begin{align*}
+		SCn &= \frac{\partial l_c}{\partial \Tilde{\beta}}^T I_n(\Tilde{\beta})^{-1} \frac{\partial l_c}{\partial \Tilde{\beta}} \sim \chi^2(1)
+	\end{align*} 
+	SCn is estimated under $H_0, \beta_1=\beta_2 = 0$. The SCn quadratic form is rank 1, so the degrees of freedom is 1.\\
+	We will reject $H_0$ if $SCn > \chi^2(1, \alpha)$.
+\end{itemize}
+
+
+\end{document}

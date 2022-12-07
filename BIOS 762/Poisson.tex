@@ -1,0 +1,191 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\title{BIOS762 - Notes}
+\author{Mingwei Fei}
+
+\begin{document}
+	
+\maketitle
+\section{Poisson distribution and Regression}
+	The binomial distribution is closely related to other distributions. If $Y_1 \sim Poisson(\mu_1)$ and $Y_2 \sim Poisson(\mu_2)$ are independent, then $Y_1$ given $Y_1 + Y_2 = n$ follows a $B(n; \pi)$ distribution, where $\pi = \mu_1/(\mu_1 + \mu_2)$.\\
+	The Poisson distribution is closed under addition. If $Y_1; ... ;Y_n$ are independent Poisson random variables with means $\mu_1; ... ; \mu_n$, respectively, then $S = Y_1 + ... + Y_n \sim Poisson(\mu_1 + ... + \mu_n)$.
+
+\subsection{Log-linear model assumption}
+Poisson regression is a regression technique for modeling count data, such as colony counts for bacteria or viruses and accidents, as a function of a set of covariates.\\
+Poisson Regression assumes
+\begin{itemize}
+\item[(a)] Distribution assumption\\
+$y_i|x_i \sim Poisson(\mu(x_i)), i = 1, .., n$ , and $y = (y_1, y_2,.. y_n)^T$ are mutually independent. 
+
+\item[(b)] Structure assumption\\
+$\mu(x_i)$ is related to $x_i$. 
+   \begin{align*}
+  g( \mu_i) &= x_i^T\beta, 
+\end{align*}
+If $g(\mu)= log \mu$, then it is a log-linear model.
+
+\end{itemize}
+
+ \subsubsection{Likelihood function} 
+The log-likelihood function of poisson regression
+\begin{align*}
+  log (p(\theta)) &= y_i log \lambda - \lambda , \qquad \theta = log \lambda = x_i^T \beta \\
+   ln(\beta) &= \sum_{i=1}^n \left[ y_i \theta -  exp(\theta) \right] = \sum_{i=1}^n \left[ y_i x_i^T \beta -  exp(x_i^T \beta) \right] 
+\end{align*}
+Taking the first derivatives, we have
+\begin{align*}
+  \diffp {ln(\beta)}{\beta} &= \sum_{i=1}^n \left[ y_i x_i - exp(x_i^T\beta) x_i \right] = \sum_{i=1}^n \left[ y_i - \mu_i(\beta)  \right]x_i \\
+&= \sum_{i=1}^n \frac{ y_i - E(y_i) }{Var(y_i)} \partial_{\beta} \mu_i(\beta)
+\end{align*}
+Here is the score function, and relate to $E[y_i], Var[y_i]$ which we don't need the parameteric distribution and can get the quasi-likelihood regarding to derivative to $\mu_i$.
+\begin{align*}
+  \diffp {\theta}{\mu} &=   \diffp {\mu}{\theta}^{-1} = \diffp {\phi \dot{b}_{\theta}}{\theta}^{-1} = \frac{\phi}{\ddot{b}_{\theta}} = \frac{1}{Var(y_i)}
+\end{align*}
+Fisher Information
+\begin{align*}
+  \diffp {ln(\beta)}{\beta \beta} &= \sum_{i=1}^n \left[ - \mu_i(\beta)  \right]x_i ^{\otimes 2}
+\end{align*}
+
+The Newton-Raphson algorithm is given by 
+\begin{align*}
+   \diffp {ln(\hat{\beta})}{\beta} &= 0 = \diffp {ln(\hat{\beta^{\ast}})}{\beta} +  \diffp {ln(\beta^{\ast})}{\beta \beta} (\hat{\beta} - \beta^{\ast}) + o_p(1)\\
+   \hat{\beta} &=  \beta^{\ast} - \{ \diffp {ln(\beta^{\ast})}{\beta \beta} \}^{-1} \diffp {ln(\beta^{\ast})}{\beta} \\
+   \beta^{k+1} &=\beta^{k} + \{ \sum_{i=1}^n \mu_i(\beta)  x_i ^{\otimes 2} \}^{-1}  \sum_{i=1}^n \left[ y_i - \mu_i(\beta)  \right]x_i
+\end{align*}
+
+The deviance function is the twice of the difference of log-likelihood between regression model and saturated model, (treat each $y_i$ as $\mu_i$)
+\begin{align*}
+   ln(\mu_i) &= \sum_{i=1}^n y_i log(\mu_i) + \mu_i\\
+   D(y, \hat{\mu_i}) &= 2[ ln(y_i) - ln(\hat{\mu_i})] =  2 \sum_{i=1}^n[y_i ln(\frac{y_i}{\mu_i}) - (y_i-\mu_i) )] 
+\end{align*}
+
+Poisson regression is useful for modeling event rates as a function of a set of covariates.
+
+\section{Loglinear model in contingency table}
+The poisson distribution and multinomial distribution is correlated.A common use of loglinear models is in modeling cell counts in contingency tables. The models specify how the expected count in each cell depends on both levels of the categorical variables as well as the associations and interactions among them. The loglinear model provides a way of analyzing association and interaction patterns.
+
+Consider a $2 \times 2$ contingency table of two categorical variables X and Y , each with two levels. Assume that we observe n subjects and the cell frequency counts are $n_{i,j}$ for $i = 1, 2; j = 1, 2$. The loglinear model assumes that the cell counts are independent observations from a Poisson distribution. Since the cell probabilities are $\pi_{ij}$, the expected frequencies are ${\mu_{ij} = n \pi_{ij}}$. If X and Y are independent, then $\pi_{ij} = \pi_{i.} \pi_{.j}$ for all i, j = 1, 2. This is also equivalent to
+
+ \begin{align*}
+   log R_{XY} &= log \pi_{11} - log \pi_{12} - log \pi_{21} + log \pi_{22} = 0
+\end{align*}
+
+\subsection{Model assumption}
+Poisson regression is a regression technique for modeling count data, such as colony counts for bacteria or viruses and accidents, as a function of a set of covariates.
+Poisson Regression assumes
+\begin{itemize}
+\item[(a)] Distribution assumption\\
+$y_{ij} \sim Poisson(\mu_{ij}), i = 1, .., n$ , 
+
+\item[(b)] Structure assumption\\
+$\mu_{ij}$ is related to $\lambda$. 
+   \begin{align*}
+  log(\mu_{ij}) &= \lambda + \lambda_i^X + \lambda_j^Y + \lambda_{ij}^{XY}\\
+\lambda_1^X + \lambda_2^X &= 0, \qquad \lambda_1^Y + \lambda_2^Y = 0, \qquad \lambda_{11}^{XY} = \lambda_{22}^{XY} , \qquad \lambda_{12}^{XY} + \lambda_{21}^{XY} = 0
+\end{align*}
+Four identifiable parameters, $\lambda_1^X, \lambda_1^Y, \lambda_{11}^{XY}$
+
+\end{itemize}
+
+ \subsubsection{Odds Ratio} 
+
+$2 \times 2$ contingency table\\
+\begin{tabular}{l r r}
+Source & &   \\\hline
+$exp(\lambda + \lambda_1^X + \lambda_1^Y + \lambda_{11}^{XY})$ & $exp(\lambda + \lambda_1^X - \lambda_1^Y - \lambda_{11}^{XY})$ \\
+$exp(\lambda - \lambda_1^X + \lambda_1^Y - \lambda_{11}^{XY})$ & $exp(\lambda - \lambda_1^X - \lambda_1^Y + \lambda_{11}^{XY})$ \\
+\hline
+\end{tabular}
+ \begin{align*}
+   log R_{XY} &= log \pi_{11} - log \pi_{12} - log \pi_{21} + log \pi_{22} = 4 \lambda_{11}^{XY}
+\end{align*}
+
+ \subsubsection{Likelihood function} 
+The log-likelihood function of poisson regression in contingency table
+\begin{align*}
+	p(\pi_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \pi_{ij}^{n_{ij}}, \qquad \pi_{ij} >0, \quad \sum_{i}\sum_{j} \pi_{ij} = 1 \\
+	p(\mu_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \frac{exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!},  \\
+	ln(\pi_{ij}) & = \sum_{i=1}^2  \sum_{j=1}^2 n_{ij} log (\pi_{ij})\\
+	ln(\mu_{ij}) & = \sum_{i=1}^2  \sum_{j=1}^2 n_{ij} log \mu_{ij} - \mu_{ij}
+\end{align*}
+The likelihood function is same as multinomial distribution, then $\pi_{ij}= \frac{n_{ij}}{n}$. 
+Thus, independence between X and Y can be characterized by the hypothesis as $H_0 : \lambda^{XY}_{11} = 0$. Under $H_0$, the loglinear model is given by
+\begin{align*}
+log (\mu_{ij}) &= \lambda + \lambda_i^X + \lambda_j^Y, \qquad i=1,2; \quad j=1,2
+\end{align*}
+where $\theta = (\pi_{11}, \pi_{12}, \pi_{21})^T$ . Under $H_0, \hat{\pi}_{ij} = n_i \times n_j/n^2$, whereas $ \hat{\pi}_{ij} = n_{ij}/n$ under the alternative hypothesis. Thus, we obtain the likelihood ratio statistic given by
+
+\begin{align*}
+G^2 &= 2[\sum_{i=1}^2 \sum_{j=1}^2 n_{ij} log \frac{n_{ij}}{\mu_{ij}}] \sim \chi^2(1), \qquad \Tilde{\mu}_{ij} = n_{.i}n_{.j}/n
+\end{align*}
+The likelihood ratio test follows a chi-square distribution 
+
+\section{Loglinear model in $I \times J$ contingency table}
+
+ \subsubsection{Likelihood function} 
+The log-likelihood function of poisson regression in contingency table
+\begin{align*}
+	p(\mu_{ij}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!},  \\
+	ln(\mu_{ij}) & = \sum_{i=1}^I  \sum_{j=1}^J n_{ij} log \mu_{ij} - \mu_{ij}\\
+	 log(\mu_{ij}) &= \lambda + \lambda_i^X + \lambda_j^Y + \lambda_{ij}^{XY}
+\end{align*}
+So 
+\begin{align*}
+	ln(\mu_{ij}) & = \sum_{i=1}^I  \sum_{j=1}^J n_{ij} [ \lambda + \lambda_i^X + \lambda_j^Y + \lambda_{ij}^{XY}] - exp( \lambda + \lambda_i^X + \lambda_j^Y + \lambda_{ij}^{XY})\\
+&= n \lambda + \sum_{i=1}^I n_{i+} \lambda_i^X + \sum_{j=1}^J n_{j+} \lambda_j^Y +  \sum_{i=1}^I \sum_{j=1}^J  n_{ij} \lambda_{ij}^{XY} -  \sum_{i=1}^I \sum_{j=1}^J  n_{ij} exp( \lambda + \lambda_i^X + \lambda_j^Y + \lambda_{ij}^{XY})\\
+n_{i+} &=  \sum_{j=1}^J n_{ij}, \qquad n_{+j} =  \sum_{i=1}^I n_{ij}
+\end{align*}
+
+
+\end{document} % This is the end of the document

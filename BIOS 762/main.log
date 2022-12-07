@@ -1,0 +1,685 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  4 DEC 2022 05:59
+entering extended mode
+**./main.tex
+(main.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-02-18> xparse <2020-03-03>
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
+File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count179
+\c@section=\count180
+\c@subsection=\count181
+\c@subsubsection=\count182
+\c@paragraph=\count183
+\c@subparagraph=\count184
+\c@figure=\count185
+\c@table=\count186
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen139
+))
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count187
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count188
+\leftroot@=\count189
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count190
+\DOTSCASE@=\count191
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box47
+\strutbox@=\box48
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count192
+\c@MaxMatrixCols=\count193
+\dotsspace@=\muskip16
+\c@parentequation=\count194
+\dspbrk@lvl=\count195
+\tag@help=\toks16
+\row@=\count196
+\column@=\count197
+\maxfields@=\count198
+\andhelp@=\toks17
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks18
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
+Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks20
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count199
+\calc@Bcount=\count266
+\calc@Adimen=\dimen148
+\calc@Bdimen=\dimen149
+\calc@Askip=\skip52
+\calc@Bskip=\skip53
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count267
+\calc@Cskip=\skip54
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
+\g_MT_multlinerow_int=\count268
+\l_MT_multwidth_dim=\dimen150
+\origjot=\skip55
+\l_MT_shortvdotswithinadjustabove_dim=\dimen151
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen152
+\l_MT_above_intertext_sep=\dimen153
+\l_MT_below_intertext_sep=\dimen154
+\l_MT_above_shortintertext_sep=\dimen155
+\l_MT_below_shortintertext_sep=\dimen156
+\xmathstrut@box=\box49
+\xmathstrut@dim=\dimen157
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/esdiff\esdiff.sty
+Package: esdiff 
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
+ex.def
+File: l3backend-pdftex.def 2021-02-18 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count269
+\l__pdf_internal_box=\box50
+) (main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cf
+g
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mki
+i
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count270
+\scratchdimen=\dimen158
+\scratchbox=\box51
+\nofMPsegments=\count271
+\nofMParguments=\count272
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count273
+\MPscratchDim=\dimen159
+\MPnumerator=\count274
+\makeMPintoPDFobject=\count275
+\everyMPtoPDFconversion=\toks22
+)))
+(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-ba
+se.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+\Gin@req@height=\dimen160
+\Gin@req@width=\dimen161
+)
+! Undefined control sequence.
+l.13  \exercise
+               [Quasi-likelihood, Z-estimate, GEE]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+[1
+
+{C:/Users/mfei/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+! Undefined control sequence.
+l.33  \exercise
+               [Godambe efficiency]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--66
+
+ []
+
+[2]
+! Double superscript.
+l.72 ...riance could be written as $U^{-1}VU^{-1}^
+                                                  T$. \\
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+l.73 The matrix $U^{-1}VU^{-1}^
+                               T$ is called \textit{Godambe information} ma ...
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--75
+
+ []
+
+! Double superscript.
+<argument>  [U_n^{-1} V_n U_n^{-1}^
+                                   T] [n^{1/2} (\hat {\theta }_n - \theta ^{...
+l.83 \end{align*}
+                 
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<argument>  [U_n^{-1} V_n U_n^{-1}^
+                                   T] [n^{1/2} (\hat {\theta }_n - \theta ^{...
+l.83 \end{align*}
+                 
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<argument> ...eta ^{\ast }, U_n^{-1} V_n U_n^{-1}^
+                                                  T) 
+l.87 \end{align*}
+                 
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<argument> ...eta ^{\ast }, U_n^{-1} V_n U_n^{-1}^
+                                                  T) 
+l.87 \end{align*}
+                 
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+l.88 ... for the estimator $U_n^{-1} V_n U_n^{-1}^
+                                                  T$  of the asymptotic vari...
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+
+ []
+
+! Double superscript.
+<argument> ...eta _{\ast })}{\beta }\right )^{-1}^
+                                                  T 
+l.107 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<argument> ...eta _{\ast })}{\beta }\right )^{-1}^
+                                                  T 
+l.107 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+[3]
+! Double superscript.
+<argument> ...athbf {H} \mathbf {D} \right )^{-1}^
+                                                  T \\ &= \sigma ^2 (\mathbf...
+l.114 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<argument> ...athbf {H} \mathbf {D} \right )^{-1}^
+                                                  T \\ &= \sigma ^2 (\mathbf...
+l.114 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+
+Overfull \hbox (23.26321pt too wide) detected at line 114
+[]
+ []
+
+! Undefined control sequence.
+l.121 \exercise
+               [exponential family canonical link]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 138.
+
+[4]
+
+! Package inputenc Error: Unicode character ⋅ (U+22C5)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.147 The function g(⋅
+                        ) is called the link function. If the function conne...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+
+Overfull \hbox (24.74078pt too wide) detected at line 166
+[]
+ []
+
+[5]
+! Undefined control sequence.
+l.172 \exercise
+               [Score test]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (68.8386pt too wide) detected at line 210
+[]
+ []
+
+[6]
+Overfull \hbox (15.63986pt too wide) in paragraph at lines 214--217
+$\OT1/cmr/m/n/10 ([][][\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 ([]) \OMS/cmsy/m/n/10 
+  []\OT1/cmr/m/n/10 ([])][])$ is ac-tu-ally $\OML/cmm/m/it/10 I[]\OT1/cmr/m/n/1
+0 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; Var\OT1/cmr/m/n/10 ([\
+OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ; U\OT1/cmr/m/n/10 )])$. Wh
+ile the $\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (
+\OML/cmm/m/it/10 ; U\OT1/cmr/m/n/10 )] =
+ []
+
+[7]
+! Undefined control sequence.
+l.301 \exercise
+               [MVN]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.304 \exercise
+               [Generalized least square projection]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.311 \exercise
+                [Making inference of interested parameters]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 328--329
+
+ []
+
+! Undefined control sequence.
+l.332 \exercise
+               [Partitioned test, matrix, model]
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.337 \exercise
+               
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (1.37274pt too wide) in paragraph at lines 338--339
+\OT1/cmr/bx/n/10 dis-tri-bu-tion\OT1/cmr/m/n/10 Consider a pair of ran-dom vari
+-ables $(\OML/cmm/m/it/10 X; Y$ \OT1/cmr/m/n/10 and let $\OML/cmm/m/it/10 [] \
+OT1/cmr/m/n/10 = \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/
+m/n/10 )\OML/cmm/m/it/10 ; [] \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (50.47061pt too wide) detected at line 352
+[]
+ []
+
+
+Overfull \hbox (115.0267pt too wide) detected at line 368
+[]
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 369--370
+
+ []
+
+
+Overfull \hbox (66.72824pt too wide) detected at line 385
+[]
+ []
+
+
+Overfull \hbox (33.45656pt too wide) in paragraph at lines 386--387
+\OT1/cmr/m/n/10 of $(\OML/cmm/m/it/10 W; Y\OT1/cmr/m/n/10 )$ and an-other datas
+et with n in-de-pen-dent re-al-iza-tions $(\OML/cmm/m/it/10 X[]; []\OT1/cmr/m/n
+/10 )\OML/cmm/m/it/10 ; ::; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; []\OT1/cmr/m
+/n/10 )$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 386--387
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 395--397
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 397--398
+
+ []
+
+! Undefined control sequence.
+l.408 \exercise
+               
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
+
+ []
+
+[11]
+Overfull \hbox (111.95619pt too wide) detected at line 447
+[]
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 498--502
+
+ []
+
+
+Overfull \hbox (103.80699pt too wide) detected at line 512
+[]
+ []
+
+[13]
+! Undefined control sequence.
+l.530 \exercise
+               
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (4.98642pt too wide) in paragraph at lines 533--535
+\OT1/cmr/m/n/10 Lets re-view the o.p.o onto C(X), and a pro-jec-tion $\OML/cmm/
+m/it/10 A \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 X\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ X[]V[]X\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 X[]V[]$\OT1/cmr/m/n/10 . 
+ []
+
+! Double superscript.
+<recently read> ^
+                 
+l.538 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<recently read> ^
+                 
+l.538 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<recently read> ^
+                 
+l.545 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+! Double superscript.
+<recently read> ^
+                 
+l.545 \end{align*}
+                  
+I treat `x^1^2' essentially like `x^1{}^2'.
+
+[14]
+Overfull \hbox (12.17279pt too wide) in paragraph at lines 566--569
+\OT1/cmr/m/n/10 need to show $\OML/cmm/m/it/10 AX \OT1/cmr/m/n/10 = \OML/cmm/m/
+it/10 X; x \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 C\OT1/cmr/m/n/10 (\OML/cmm/m/it/
+10 X\OT1/cmr/m/n/10 )$, and $\OML/cmm/m/it/10 Aw \OT1/cmr/m/n/10 = 0\OML/cmm/m/
+it/10 ; w \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 C\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
+0 V[]X\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 ; C\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
+V[]X\OT1/cmr/m/n/10 ) =
+ []
+
+
+Overfull \hbox (244.93018pt too wide) detected at line 584
+[]
+ []
+
+
+Overfull \hbox (154.01678pt too wide) detected at line 591
+[]
+ []
+
+
+Overfull \hbox (40.71733pt too wide) detected at line 598
+[]
+ []
+
+[15]
+Overfull \hbox (39.93048pt too wide) detected at line 616
+[]
+ []
+
+
+Overfull \hbox (125.15387pt too wide) detected at line 620
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 623--628
+
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 667--670
+
+ []
+
+[17] [18]
+Overfull \hbox (132.49156pt too wide) detected at line 709
+[]
+ []
+
+
+Overfull \hbox (160.06433pt too wide) detected at line 716
+[]
+ []
+
+
+! LaTeX Error: No counter 'exercise' defined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.721 \setcounter{exercise}{7}
+                              
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.722 \exercise
+               *
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.725 For more information, refer to \url
+                                         {https://github.com/gijs-pennings/l...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (22.63968pt too wide) in paragraph at lines 725--726
+[]\OT1/cmr/m/n/10 For more in-for-ma-tion, re-fer to https://github.com/gijs-pe
+nnings/latex-homework. 
+ []
+
+[19] (main.aux) ) 
+Here is how much of TeX's memory you used:
+ 2456 strings out of 479300
+ 36638 string characters out of 2856026
+ 352432 words of memory out of 3000000
+ 19923 multiletter control sequences out of 15000+200000
+ 411562 words of font info for 55 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 70i,18n,77p,623b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmex10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mfei/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/mfei/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/mfei/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/mfei/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/User
+s/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+7.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr5.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmr7.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmsy5.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/mfei/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/mfei/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (19 pages, 258783 bytes).
+PDF statistics:
+ 128 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
