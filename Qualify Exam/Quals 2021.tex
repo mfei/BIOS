@@ -51,16 +51,553 @@
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-\title{BIOS762 - Notes}
+\title{Likelihood Function}
 \author{Mingwei Fei}
 
 \begin{document}
 	
 	\maketitle
 	
-	\section{Multinomial distribution}
-	Get the covariance matrix for cross-sectional, prospective, retrospective sampling method.\\
-	\subsection{Likelihood for one random variable}
+	\section{Conditional likelihood function}
+	Suppose that $X_i$ and $Y_i$ are independent random variables with an exponential distribution, with $E(X_i) = 1/(\psi \lambda_i)$ and $E(Y_i) = 1/\lambda_i, i=1,..n$. The parameter of interest is $\Psi$ and the $\lambda_i$ being unknown nuisance parameter.
+	
+	\subsection{Full likelihood}
+	Write the log-likelihood based on full data of $l_n(\psi, \lambda_1,.. \lambda_n)$ based on $(X_i, Y_i), i=1,..n$. Derive the score function (which only depends on $\psi$) that defines the MLE for $\psi$ based on $l_n$, and denote the score function by $S_n(\psi) = 0$.
+	
+	The exponential function of independent variables $ X_i, Y_i$
+	\begin{align*}
+		p(x_i) &= {\psi \lambda_i} exp(-{\psi \lambda_i}x_i) \\
+		p(y_i) &= { \lambda_i} exp(- \lambda_i y_i)
+	\end{align*}	
+	Then the joint distribution and log likelihood function
+	\begin{align*}
+	p(x_i, y_i) &= {\psi \lambda_i^2} exp(-{(\psi x_i + y_i) \lambda_i}) \\
+	log p(x_i, y_i) &= -{(\psi + 1) \lambda_i} + log (\psi) + 2 log (\lambda_i)\\
+	l_n(\psi, \lambda_i) &= n log(\psi) + 2 \sum_{i=1}^n log (\lambda_i) - \sum_{i=1}^n (\psi x_i + y_i) \lambda_i
+	\end{align*}	
+
+	The score function based on full data
+	\begin{align*}
+	U(\psi) &= \diffp{l_n}{\psi} = \frac{n}{\psi} - \sum_{i=1}^n x_i \lambda_i = 0 \\
+	U(\lambda_i) &= \diffp{l_n}{{\lambda_i}} = \frac{2}{\lambda_i} - \sum_{i=1}^n x_i \psi + y_i = 0 
+	\end{align*}
+	
+	We have MLE estimated 
+	\begin{align*}
+	\hat{\lambda_i} &= \frac{2}{\psi x_i + y_i} 
+	\end{align*}
+	Then replace the $\lambda_i$ in the score function for $\psi$.
+	\begin{align*}
+	U(\psi) &= \frac{n}{\psi} - \sum_{i=1}^n  \frac{2 x_i}{\psi x_i + y_i} 
+	\end{align*}	
+	
+	Derive the Fisher Information matrix for $\psi, \lambda_1, \lambda_2, ..., \lambda_n$.
+	\begin{align*}
+	I_n(\xi) &= E[-\diffp{l_n}{\xi \xi}]
+	\end{align*}	
+	
+	
+	
+	\subsection{Conditional Logistic distribution}
+	This formula is very similar to logistic model when $y_i = 0,1$.
+	
+	\begin{align*}
+	P(Y_i= y_i|x_i) &= \frac{exp(y_i(\alpha + \sum_{j=1}^p \beta_j x_{ij}))}{1 + exp(\alpha + \sum_{j=1}^p \beta_j x_{ij})}
+	\end{align*}
+	
+	For n independent observations, we have
+	
+	\begin{align*}
+	P(Y_1= y_1, Y_2=y_2,... Y_n= y_n|\xi) &= \frac{exp( (\sum_{i=1}^n y_i) \alpha + \sum_{j=1}^p \beta_j (\sum_{i=1}^n y_i x_i) ))}{ \prod_{i=1} [1 + exp(\alpha + \sum_{j=1}^p \beta_j x_{ij})]}
+	\end{align*}			
+	
+	The sufficient statistics for $\alpha$ is $\sum_{i=1}^n y_i$. We eliminate $\alpha$ by conditioning on $\sum_{i=1}^n y_i$, and obtain 
+	
+	\begin{align*}
+	P(y_1, y_2,... y_n|\xi) &= \frac{exp( \sum_{j=1}^p \beta_j (\sum_{i=1}^n y_i x_i) ))}{\sum_{S(s0)}[ exp( \sum_{j=1}^p (\sum_{i} y_i^{\ast} x_i) \beta_j )]}
+	\end{align*}
+
+Let the sufficient statistics $S_0 = \sum_i y_i$ and $S_j = \sum_i y_i x_{ij}, j = 1,.., p-1$. Based on that, we would like to estimate $\beta_p$.
+After some calculations, we have
+
+	\begin{align*}
+	P(y_1, y_2,... y_n|S_j, j=0,..p-1) &= \frac{p(y_1, y_2,... y_n)}{p(S_j, j=0.., p-1)} \\
+	&= \frac{exp( S_p \beta_p  }{\sum_{S(s0,.. s_{p-1})}[ exp( (\sum_{i} y_i^{\ast} x_{ij}) \beta_p )]}
+	\end{align*}
+
+	\subsection{Binary Matched Pairs}
+	We consider a method for analyzing binary matched-pair data, in which each point in one sample is paired with a point in the other sample. Due to the matching, the responses in the two samples are statistically dependent. Let	$(Yi1, Yi2)$ be the ith pair of observations, $i = 1, .., n$. A logistic regression
+	model for binary matched pairs is defined by
+	
+	\begin{align*}
+	g[P(Y_{it}=1)] &= \alpha_i + \beta x_t
+	\end{align*}	
+	
+	for $i = 1, ..., n$ and $t = 1, 2$, where $g()$ is a link function. This model assumes that each subject has their own probability distribution and all subjects share a common effect $\beta$. For the logit link, we have
+	\begin{align*}
+		P(Y_{i1}=1) &= \frac{exp(\alpha_i)}{1 + exp(\alpha_i)}\\
+		P(Y_{i2}=1) &= \frac{exp(\alpha_i + \beta )}{1 + exp(\alpha_i + \beta)}
+	\end{align*}
+
+	For the ith subject, the odds of $Y_{i2} = 1$ are $exp(\beta)$ times the odds for $Y_{i1}$. Because the number of parameters in model is greater than the sample size n, this causes difficulties with both the fitting process and with the properties of ordinary ML estimators. One way of solving this issue is
+	to use conditional likelihood, which eliminates all the $\alpha_i$ for $i = 1,.., n$.
+	
+	Assuming independence of responses for different subjects as well, although the $y_{i1}, y_{i2}$ may be correlated, but not dependent.
+	
+	the joint probability function for ${(y_{11}, y_{12}), ... , (y_{n1}, y_{n2})}$ is given by
+	\begin{align*}
+		P((y_{1}, y_{2})) &= \prod_{i=1}^n \frac{exp(\alpha_i y_{i1})}{1 + exp(\alpha_i)} \frac{exp[y_{i2}(\alpha_i + \beta )] }{1 + exp(\alpha_i + \beta)} 
+	\end{align*}
+	which is proportional to $exp[\sum_{i=1}^n (y_{i1} + y_{i2} )\alpha_i + \sum_{i=1}^n y_{i2} \beta]$. Thus, $s_i = y_{i1}+y_{i2}$ is the sufficient statistic for $\alpha_i$ for $i = 1, ... , n$.
+	
+	To estimate $\beta$, we eliminate the $\alpha_i$’s by conditioning on all the $s_i$’s. Since ${s_i = 0} = {Y_{i1} = Y_{i2} = 0}$ and ${s_i = 2} = {Y_{i1} = Y_{i2} = 1}$, we have $P(Y_{i1} = Y_{i2} = 0|s_i = 0) = 1$ and $P(Y_{i1} = Y_{i2}  = 1|s_i = 2) = 1$. Furthermore, the conditional distribution of $(Y_{i1} , Y_{i2})$  given	$s_i = 1$ is given by
+	
+	\begin{align*}
+		P((y_{i1}=1, y_{i2}=0)| s_1 =1) &=  \frac{\frac{exp(\alpha_i)}{[1 + exp(\alpha_i)] [1 + exp(\alpha_i + \beta)]}}{\frac{exp(\alpha_i)}{[1 + exp(\alpha_i)] [1 + exp(\alpha_i + \beta)]} + \frac{exp(\alpha_i + \beta)}{[1 + exp(\alpha_i)] [1 + exp(\alpha_i + \beta)]}} \\
+		&= \frac{1}{1 + exp(\beta)}\\
+		P((y_{i1}=0, y_{i2}=1)| s_1 =1) &= \frac{exp(\beta)}{1 + exp(\beta)}
+	\end{align*}
+	
+	In the above derivation, we also used $P(s_i = 1) = P(y_{i1} = 0, y_{i2} = 1) +	P(y_{i2} = 0, y_{i1} = 1)$. Therefore, the joint distribution of the matched pairs	conditional on the $s_i$’s belongs to the exponential family with $\theta = \beta, \phi = 1$ and $b(\theta) = n^{\ast} log[1+exp(\theta)]$, and its probability function is proportional to
+	
+	\begin{align*}
+		\prod_{s_i =1} \left(\frac{1}{1 + exp(\beta)} \right)^{y_{i1}} \left(\frac{exp(\beta)}{1 + exp(\beta)} \right)^{y_{i2}} &= \frac{exp(n_{21} \beta)}{[1+ exp(\beta)]^{n^{\ast}}}
+	\end{align*}
+
+where $n_{21}$ denotes the total number of subjects having $y_{i1} = 0$ and $y_{i2} = 1$ and $n^{\ast}$ denotes the total number of subjects having $y_{i1} + y_{i2} = 1$. Finally we can get MLE of $\beta$.
+
+Start from likelihood, we can perform all kinds of derivation to get 
+\begin{align*}
+	\diffp{ln(\beta)}{\beta} &= \beta n_{21} - n^{\ast} log[1+ exp(\beta)]\\
+	\hat{\beta} &= log \frac{n_{21}}{n^{\ast} - n_{21}}
+\end{align*}
+
+Fisher Information
+\begin{align*}
+	\diffp{ln^2(\beta)}{\beta \beta} &= -n^{\ast} \frac{exp(\beta)}{1+ exp(\beta)} = n^{\ast} \pi_1 \pi_2\\
+	Cov(\beta) &= \frac{1}{I_n(\beta)} \\
+	I_n(\beta) &= E[- \diffp{ln^2(\beta)}{\beta \beta}]\\
+	Cov(\beta) &= \frac{1}{n^{\ast} n_{12}/n_{\ast} n_{21}/n_{\ast}}\\
+	&= \frac{n_{\ast}}{n_{12} n_{21}} = \frac{1}{n_{12}} + \frac{1}{n_{21}}\\
+	se(\beta) &= \sqrt{\frac{1}{n_{12}} + \frac{1}{n_{21}}}
+\end{align*}
+
+
+
+\subsection{Alternative Random Model}
+
+An alternative method is to treat ${\alpha_i}$ as random effects, which leads to a logistic random effects model. In this way, we need to assume a probability distribution for  $\alpha_i$, denoted by $p(\alpha)$, such as a $N(\mu, \sigma^2)$ distribution. By integrating out $\alpha_i$ with respect to $p(\alpha)$, we can obtain a marginal distribution.
+
+In this way, the marginal distribution only contains $\beta$ and the parameters in $p(\alpha)$.
+
+
+\subsubsection{Random model of the nuisance parameter}
+Suppose that conditional on the random variables $b_i, y_i \sim N(b_i + x^T_i\beta, 1), i=1,..n$, where $x_i$ is a $p \times 1$ vector of covariates for the ith subject, and $\beta$ is a $p \times 1$ vector of regression coefficients. Further assume the $b_i$ are i.i.d $N(0, \tau^2)$ random variables, and $\beta, \tau^2$ are unknown. Let $y= (y_1, y_2, .. y_n)'$, derive the marginal distribution of $y, E(y), Cov(y)$. 
+
+The joint distribution
+\begin{align*}
+	p(Y, \beta, b_i) &= \frac{1}{\sqrt{2 \pi}} exp \left( -\frac{(y_i - b_i -x^T\beta)^2}{2 \sigma^2} \right) \frac{1}{\sqrt{2 \pi \tau^2}}  exp \left( -\frac{b_i^2}{2 \tau^2} \right), \qquad \sigma^2 = 1
+\end{align*}
+The likelihood function
+\begin{align*}
+	P(Y, \beta, b) &= \frac{1}{{2 \pi}}^n \frac{1}{{\tau^2}}^{n/2} exp \left( -\frac{(y - b -x^T\beta)^T (y - b -x^T\beta) }{2} -\frac{b^T b}{2 \tau^2} \right)  , \quad \frac{1}{{2 \pi}}^n \frac{1}{{\tau^2}}^{n/2} = C_1\\
+	&= C_1 exp \left( -\frac{(y -x^T\beta)^T (y -x^T\beta) -2 (y-x^T\beta)b + b^T b}{2} -\frac{b^T b}{2 \tau^2} \right)  \\
+	&= C_1 exp \left( -\frac{1}{2} (y -x^T\beta)^T (y -x^T\beta) + (y-x^T\beta)b -\frac{1}{2} b^T b -\frac{1}{2 \tau^2} b^T b \right)  \\
+	&= C_1 exp ( -\frac{1}{2} (1+ \frac{1}{\tau^2}) [b^T b - 2(1+ \frac{1}{\tau^2})^{-1} (y- x^T \beta)b + (1 + \frac{1}{\tau^2})^{-2} (y-x^T\beta)^T (y- x^T\beta)]\\
+	& -\frac{1}{2} (y -x^T\beta)^T (y -x^T\beta) + \frac{1}{2} (1+ \frac{1}{\tau^2})^{-1} (y -x^T\beta)^T (y -x^T\beta)  )\\
+	&= C_1 C_2 exp ( -\frac{1}{2} (1+ \frac{1}{\tau^2}) [b^T b - 2(1+ \frac{1}{\tau^2})^{-1} (y- x^T \beta)b + (1 + \frac{1}{\tau^2})^{-2} (y-x^T\beta)^T (y- x^T\beta)]), \\
+	& \qquad exp(- \frac{1}{2}[1-(1+ \frac{1}{\tau^2})^{-1}]  (y -x^T\beta)^T (y -x^T\beta)) = C_2
+\end{align*}
+
+We will integrate out $b_i$ to get the marginal distribution of y 
+
+\begin{align*}
+	P(Y, \beta) &= \int C_1 exp ( -\frac{1}{2} (1+ \frac{1}{\tau^2}) [b^T b - 2(1+ \frac{1}{\tau^2})^{-1} (y- x^T \beta)b + (1 + \frac{1}{\tau^2})^{-2} (y-x^T\beta)^T (y- x^T\beta)]  - C_2)\\
+	&=  C_1 C_2 {\sqrt{2\pi (1+ \frac{1}{\tau^2})}}^{n} \int \frac{1}{\sqrt{2\pi (1+ \frac{1}{\tau^2})}}^n exp(- \frac{(b - \frac{y-x^T\beta}{1 + \frac{1}{\tau^2}})^2}{2 (1+ \frac{1}{\tau^2})}) db \\
+	&=  C_1 C_2 {\sqrt{2\pi (1+ \frac{1}{\tau^2})}}^{n}\\
+	&= \frac{1}{{2 \pi}}^n \frac{1}{{\tau^2}}^{n/2} {\sqrt{2\pi (1+ \frac{1}{\tau^2})}}^{n} C_2\\
+	&=\frac{1}{{2 \pi}}^{n/2}  (1+ {{\tau^2}})^{-n/2} exp(- \frac{1}{2}[(1+ \tau^2))^{-1}]  (y -x^T\beta)^T (y -x^T\beta))
+\end{align*}
+
+So $Y \sim N( X^T \beta, (1+\tau^2)I_{n \times n}), E[y]= X \beta, Cov(y) = (1+\tau^2)I_{n \times n}$.
+
+\subsubsection{MLE}
+Derive the MLE of $\beta, \tau$ in closed form based on marginal likelihood of $y$.
+
+From the above marginal likelihood which only depends on $\beta, \tau$, we have
+
+\begin{align*}
+	ln(\beta, \tau) &= -\frac{n}{2} log (2 \pi) -\frac{n}{2} log(1+ \tau^2) -\frac{(y-x^T \beta)^T (y-x^T \beta)}{2 (1+\tau^2)} \\
+	\diffp{ln(\beta, \tau)}{\beta} &= \frac{2 (y-X^T \beta) X}{2 (1+\tau^2)}\\
+	\diffp{ln(\beta, \tau)}{{\tau^2}} &= -\frac{n}{2} \frac{1}{1+ \tau^2} + \frac{ (y-x^T \beta)^T (y-x^T \beta)}{2 (1+\tau^2)^2}
+\end{align*}
+
+We have
+\begin{align*}
+	\diffp{ln(\beta, \tau)}{\beta} &= 0, \qquad X^T y - X^T X \beta = 0, \hat{\beta} = (X^T X)^{-1} X^T Y\\
+	\diffp{ln(\beta, \tau)}{{\tau^2}} &= 0, \qquad \tau^2 = \frac{(y-x^T \beta)^T (y-x^T \beta) - n}{n}
+\end{align*}
+
+\subsubsection{Hypothesis Testing}
+
+In random model, the most common hypothesis test is to test the random effect variance is 0, which shows that it is not random. In the model, we assume every $y_i$ has its own model, and now we would like to test this assumption is not correct. 
+
+Hypothesis are
+\begin{align*}
+	H_0 &: \tau^2 = 0  \\
+	H_1 &: \tau^2 \neq 0
+\end{align*}
+
+We can use score test
+\begin{align*}
+	SCn & = \diffp{ln(\Tilde{\xi})}{{\tau^2}} E[-\diffp{ln^2(\Tilde{\xi})}{{\tau^2}{\tau^2}}]^{-1} \diffp{ln(\Tilde{\xi})}{{\tau^2}} 
+\end{align*}
+
+Under $H_0$, we have the restricted MLE of $\Tilde{\beta}$
+\begin{align*}
+	ln(\beta, \tau^2 = 0) & = \frac{(y-x^T \beta)^T (y-x^T \beta)}{2}\\
+	\Tilde{\beta} &= (X^T X)^{-1} X^T Y
+\end{align*}
+So $\Tilde{\xi} = ((X^T X)^{-1} X^T Y, 0)^T$, then the score function
+\begin{align*}
+	\diffp{ln(\beta, \tau)}{\beta} &= \frac{2 (y-X^T \beta) X}{2 (1+\tau^2)} = 0\\
+	\diffp{ln(\beta, \tau)}{{\tau^2}} &= -\frac{n}{2}  + \frac{ (y-x^T \beta)^T (y-x^T \beta)}{2 } = -\frac{n}{2}  + \frac{Y^T (I-M) Y}{2}
+\end{align*}
+The Fisher Information
+\begin{align*}
+	\diffp{ln(\beta, \tau)}{\beta \beta} &= - (1+ \tau^2)^{-1} X^T X \\
+	\diffp{ln^2(\beta, \tau)}{{\tau^2} {\tau^2}} &= \frac{n}{2} \frac{1}{(1+\tau^2)^2} - \frac{(y-x^T \beta)^T (y-x^T \beta)}{(1+\tau^2)^3}  \\
+	\diffp{ln^2(\beta, \tau)}{{\beta} {\tau^2}} & = -(Y- X^T \beta) X (1+ \tau^2)^{-2}\\
+\end{align*}
+So 
+\begin{align*}
+	I_n({\xi}) &= E[-\diffp{ln^2({\xi})}] = \begin{pmatrix*}
+		(1+ \tau^2)^{-1} X^T X  &  (Y- X^T \beta) X (1+ \tau^2)^{-2}\\
+		(Y- X^T \beta) X (1+ \tau^2)^{-2} & -\frac{n}{2} \frac{1}{(1+\tau^2)^2} + \frac{(y-x^T \beta)^T (y-x^T \beta)}{(1+\tau^2)^3} 
+	\end{pmatrix*}
+\end{align*}
+
+Under $H_0$, we have the Fisher information
+
+\begin{align*}
+	I_n(\Tilde{\xi}) &= E[-\diffp{ln^2(\Tilde{\xi})}] = \begin{pmatrix*}
+		 X^T X  &  0\\
+		0 & -\frac{n}{2} + {(y-x^T \beta)^T (y-x^T \beta)} 
+	\end{pmatrix*}\\
+& = \begin{pmatrix*}
+	X^T X  &  0\\
+	0 & \frac{n}{2} 
+\end{pmatrix*}
+\end{align*}
+
+Note that $(y-X \beta) \sim N(0, I_{n \times n})$ under $H_0$, and thus $(y-X \beta)^T (y-X \beta) \sim \chi^2(n)$ and $E[(y-X \beta)^T (y-X \beta)] = n$.
+
+The score test
+\begin{align*}
+	SCn & = \left(-\frac{n}{2}  + \frac{ (y-x^T \beta)^T (y-x^T \beta)}{2 }\right)^2  \frac{2}{n} 1{\partial_{\tau^2} ln(\Tilde{\xi}) > 0} \\
+	& \sim 0.5 \chi^2(0) + 0.5 \chi^2(1)
+\end{align*}
+
+\subsubsection{Confidence Interval}
+If we would like to get the $96 \%$ confidence interval for $\tau^2$, then we need to get the distribution of $\tau^2$ .
+
+We need to use the Wald statistics, get the $\hat{\tau^2}$ and $Cov(\hat{\tau^2})$. The confidence interval
+
+\begin{align*}
+	CI & = \{ \tau^2 : (\hat{\tau}^2 - \tau^2)^T Cov(\hat{\tau}^2)^{-1} (\hat{\tau}^2 - \tau^2) < \chi^2_{0.95}(1)\}
+\end{align*}
+Where $\hat{\tau}^2 = \frac{1}{n} (Y- X\beta)^T (Y- X\beta) - 1$ is the MLE, and the Fisher information
+\begin{align*}
+	I_n(\tau^2) & = E[- \partial_{\tau^2}ln^2(\tau^2)] = n (1+\tau^2)^{-3} - n (1+\tau^2)^{-2}
+\end{align*}
+
+\begin{align*}
+	CI & = \{ \tau^2 : (\frac{1}{n} (Y- X\beta)^T (Y- X\beta) - 1 - \tau^2)^T n (1+\tau^2)^{-3} - n (1+\tau^2)^{-2} (\frac{1}{n} (Y- X\beta)^T (Y- X\beta) - 1 - \tau^2) < \chi^2_{0.95}(1)\}
+\end{align*}
+
+
+	\section{Likelihood function in regression model/ different link functions}
+	
+	
+	\section{Likelihood function for random effect, two level distribution}
+	
+\subsection{Bayesian Statistics}
+The Bayesian statistics could be used to construct likelihood function, we introduce hidden variables that could be integrate out to get the marginal distribution.
+
+The below question is about "matched pair"
+
+Consider independent observations $(X_1, Y_1),..., (X_n; Y_n)$ where $Y_i$ takes values 0 and
+1. Suppose that $X_i|(Y_i = m) \sim N(\mu_m, \sigma^2)$ and $P(Y_i = m) = \pi_m$ for $m = 0, 1$, where
+$\pi_0 + \pi_1 = 1$, and $0 < \pi_0 < 1$. Show that $P(Y_i = m|X_i), m = 0, 1$, satisfies the logistic model, that is
+	\begin{align*}
+		logit \left(P(Y_i = 1|X_i,\alpha) \right) = \alpha_0 + \alpha_1 X_i
+	\end{align*}
+
+	We have distribution of $P(Y_i = m|X_i), m = 0, 1$ 
+	\begin{align*}
+		P(Y_i=m |X_i,\alpha) & = \frac{P(Y_i, X_i)}{P(X_i)} = \frac{P(X_i|Y_i) P(Y_i)}{P(X_i)}\\
+		P(Y_i=1 |X_i,\alpha) &= \frac{P(X_i|Y_i=1) P(Y_i=1)}{P(X_i)} \\
+		&= \frac{exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1}{exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1 + exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0}\\
+		P(Y_i=0 |X_i,\alpha) &= \frac{P(X_i|Y_i=0) P(Y_i=0)}{P(X_i)}\\
+		&= \frac{exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0}{exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1 + exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0}\\
+		logit \left(P(Y_i = 1|X_i,\alpha) \right) &= log \frac{ P(Y_i=1 |X_i,\alpha)}{P(Y_i=0 |X_i,\alpha)} \\
+		&= log(\pi_1/\pi_0) - \frac{(x_i-\mu_1)^2}{2\sigma^2} + \frac{(x_i-\mu_0)^2}{2\sigma^2}\\
+		&= log(\pi_1/\pi_0) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2} + \frac{(\mu_1-\mu_0)}{\sigma^2}x_i\\
+		\text{In which,}  \alpha &= (\alpha_0, \alpha_1) = \left(log(\pi_1/\pi_0) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T
+	\end{align*}
+     
+	\subsubsection{Likelihood function for conditional distribution}
+	item[(b)] Based on the logistic model in part (a), give the explicit form of the Newton-Raphson
+	algorithm for calculating the maximum likelihood estimate of $\alpha$, denoted by $\hat{\alpha} =
+	(\hat{\alpha_0}, \hat{\alpha_1})$, and derive the asymptotic covariance matrix of $\alpha$.
+	
+	This question will need to give the likelihood function first. 
+	
+	
+	$Y_i|X_i$ follows a binomial distribution
+	\begin{align*}
+		p(Y_i|\alpha) &= P(Y_i=1 |X_i,\alpha)^{I(y_i=1)} P(Y_i=0 |X_i,\alpha)^{I(y_i=0)}\\
+		log p(Y_i|\alpha) &= I(y_i=1) log P(Y_i=1 |X_i,\alpha) + I(y_i=0) log P(Y_i=0 |X_i,\alpha)\\
+		ln (Y_i|\alpha) &= \sum_{i=1}^n I(y_i=1) log P(Y_i=1 |X_i,\alpha) + I(y_i=0) log P(Y_i=0 |X_i,\alpha)\\
+		&= \sum_{i=1}^n I(y_i=1) log P(Y_i=1) + (1-I(y_i=1)) log (1-P(Y_i=1)) \\
+		&= \sum_{i=1}^n I(y_i=1) log P(Y_i=1)/(1-P(Y_i=1)) + log (1-P(Y_i=1))
+	\end{align*}
+	Let $\theta = log P(Y_i=1)/(1-P(Y_i=1))$
+	\begin{align*}
+		ln (Y_i|\theta) &= \sum_{i=1}^n I(y_i=1) \theta - log (1 + exp(\theta) )\\
+		ln (Y_i|\alpha) &= \sum_{i=1}^n y_i (\alpha_0 + \alpha_1 x_i) - log \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)
+	\end{align*}    
+	Find MLE for $\alpha$
+	\begin{align*}
+		\frac{\partial ln (Y_i|\alpha)}{\partial \alpha_0}  &= \sum_{i=1}^n y_i - \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)^{-1} exp(\alpha_0 + \alpha_1 x_i)\\
+		\frac{\partial ln (Y_i|\alpha)}{\partial \alpha_1}  &= \sum_{i=1}^n y_i x_i- \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)^{-1} exp(\alpha_0 + \alpha_1 x_i) x_i\\
+		\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_0^2}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2}, \qquad E[-\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_0^2}] = n \pi_1 (1-\pi_1) \\
+		\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_1^2}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2} x_ix_i^T \\
+		\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_0\alpha_1}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2} x_i\\
+		I_n(\alpha) &= -E[ \frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha^2}]\\
+		&= \begin{bmatrix}
+			n \pi_1 (1-\pi_1) &   \sum_{i=1}^n \pi_1 (1-\pi_1)x_i\\
+			\sum_{i=1}^n \pi_1 (1-\pi_1)x_i &  \sum_{i=1}^n \pi_1 (1-\pi_1)x_ix_i^T\\
+		\end{bmatrix}
+	\end{align*}  
+	So the N-R algorithm is 
+	\begin{align*}
+		\alpha_{k+1} = \alpha_{k} - I_n(\alpha_k)^{-1} \frac{\partial ln(Y_i|\alpha_k)}{\partial \alpha_k}
+	\end{align*}      
+	The asymptotic distribution of $\alpha$ by CLT and covariance matrix 
+	\begin{align*}
+		\sqrt{n} (\hat{\alpha} - \alpha) & \xrightarrow[]{d} N \left(0, \Sigma \right) \\
+		\Sigma & = \{ \frac{1}{n} I_n(\alpha) \}^{-1}
+	\end{align*} 
+
+\subsubsection{Likelihood function for joint distribution}
+	Write down the joint distribution of $\{(X_i Y_i): i=1,2..n \}$ and calculate the
+	maximum likelihood estimate of $\theta$, denoted by $\theta_F$ , and its asymptotic covariance
+	matrix.\\
+	The joint distribution of $\{(X_i Y_i): i=1,2..n \}$
+	\begin{align*}
+		p(X_i, Y_i) &= P(X_i|Y_i) P(Y_i) \\
+		p(Y_i=1, X_i) &= \frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1\\
+		p(Y_i=0, X_i) &=\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0\\
+		p(X_i, Y_i) &= P(Y_i=1, X_i)^{I(y_i=1)} P(Y_i=0, X_i)^{I(y_i=0)}\\
+		& = {\{\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1\}}^{y_i} {\{\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0\}}^{1-y_i}\\
+		log p(X_i, Y_i) &= log \frac{1}{\sqrt{2\pi}\sigma} + y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu_i)^2}{2\sigma^2} y_i - \frac{(x_i-\mu_0)^2}{2\sigma^2} (1-y_i)
+	\end{align*} 
+	The log-likelihood function of $\{(X_i, Y_i): i=1,2..n \}$
+	\begin{align*}
+		ln(X, Y) &= nlog \frac{1}{\sqrt{2\pi}\sigma} + \sum_{i=1}^n y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu_1)^2}{2\sigma^2} y_i - \frac{(x_i-\mu_0)^2}{2\sigma^2} (1-y_i)
+	\end{align*} 
+	The MLE of $\theta$ could get by taking derivatives to log-likelihood function
+	\begin{align*}
+		\frac{\partial ln p(X, Y|\theta)}{\partial \pi_1}  &= \sum_{i=1}^n y_i/\pi_1 - (1-y_i)/(1-\pi_1)=0\\
+		\frac{\partial ln p(X, Y|\theta)}{\partial \mu_1}  &= \sum_{i=1}^n \frac{y_i(x_i-\mu_1)}{\sigma^2}=0     \\
+		\frac{\partial ln p(X, Y|\theta)}{\partial \mu_0}  &= \sum_{i=1}^n \frac{(1-y_i)(x_i-\mu_0)}{\sigma^2}=0\\
+		\frac{\partial ln p(X, Y|\theta)}{\partial \sigma^2}  &= -\frac{n}{2}{1/\sigma^2} + \sum_{i=1}^n \frac{(x_i-\mu_1)^2y_i}{2\sigma^4} + \sum_{i=1}^n \frac{(x_i-\mu_0)^2(1-y_i)}{2\sigma^4} = 0\\
+		\hat{\sigma^2} &= \frac{\sum_{i=1}^n [(x_i-\mu_1)^2y_i + (x_i-\mu_0)^2(1-y_i)]}{n}\\
+		\hat\pi_1 &= \frac{\sum_{i=1}^n y_i}{n}, \qquad \hat{\mu_1} =  \frac{\sum_{i=1}^n x_iy_i}{\sum_{i=1}^n y_i}, \qquad \hat{\mu_0} =  \frac{\sum_{i=1}^n x_i(1-y_i)}{\sum_{i=1}^n (1-y_i)}
+	\end{align*} 
+	The Fisher information matrix 
+	\begin{align*}
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \pi_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\pi_1^2} - \frac{(1-y_i)}{(1-\pi_1)^2} , \qquad E[-\frac{\partial ln^2(X, Y|\theta)}{\partial \pi_1^2}] =  \frac{1}{\pi_1(1-\pi_1)}\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\sigma^2}, \qquad E[-\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_1^2} ]= \frac{\pi_1}{\sigma^2}\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_0^2}  &= \sum_{i=1}^n -\frac{(1-y_i)}{\sigma^2}, \qquad E[- \frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_0^2}] = \frac{1-\pi_1}{\sigma^2}\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial (\sigma^2)^2}  &= \frac{n}{2 (\sigma^2)^2} - \sum_{i=1}^n \frac{(x_i-\mu_1)^2y_i}{(\sigma^2)^3} - \sum_{i=1}^n \frac{(x_i-\mu_0)^2(1-y_i)}{(\sigma^2)^3}\\
+		E[-\frac{\partial ln^2 (X, Y|\theta)}{\partial (\sigma^2)^2}] &= \frac{1}{2\sigma^4} \\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \pi_1\mu_1}  &=0\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \pi_1\mu_0}  &=0\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \pi_1\sigma}  &=0\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_1\mu_0}  &=0\\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_1\sigma}  &= \sum_{i=1}^n - \frac{y_i(x_i-\mu_1)}{(\sigma^2)^2} , \qquad E[-\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_1\sigma}] = 0  \\
+		\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_0\sigma}  &= \sum_{i=1}^n - \frac{(1-y_i)(x_i-\mu_0)}{(\sigma^2)^2} , \qquad E[-\frac{\partial ln^2 (X, Y|\theta)}{\partial \mu_0\sigma}] = 0 \\
+	\end{align*} 
+	So we have covariance matrix, by CLT
+	\begin{align*}    
+		I(\theta) &=\frac{1}{n} I_n(\theta)= \frac{1}{n} E[- \frac{\partial ln^2 p(X,Y|\theta)}{\partial \theta^2}]
+		= \begin{bmatrix}
+			\frac{1}{\pi_1(1-\pi_1)} & 0 & 0 & 0\\
+			0 & \frac{\pi_1}{\sigma^2} & 0 & 0\\
+			0 & 0 & \frac{1-\pi_1}{\sigma^2} & 0\\
+			0 & 0 & 0 & \frac{1}{2\sigma^4} \\
+		\end{bmatrix}\\
+		\sqrt{n} (\hat{\theta} - \theta) & \xrightarrow[]{d} N \left(0, \Sigma \right), \qquad
+		\Sigma(\theta) = I(\theta)^{-1} = \begin{bmatrix}
+			\pi_1(1-\pi_1) & 0 & 0 & 0\\
+			0 & \frac{\sigma^2}{ \pi_1} & 0 & 0\\
+			0 & 0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
+			0 & 0 & 0 & 2\sigma^4 \\
+		\end{bmatrix}
+	\end{align*} 
+
+\subsubsection{Fisher Information, Delta Method, Asymptotic Covariance}
+
+	Calculate the asymptotic covariance matrix of $h(\hat\theta^F )$.
+	\begin{align*}    
+		h(\theta^F ) &= (\alpha_0, \alpha_1)= \left(log(\frac{\pi_1}{1-\pi_1}) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T\\
+		\frac{\partial h(\theta^F)}{\partial \pi_1} & = (\frac{1}{\pi_1}+\frac{1}{1-\pi_1} , 0)^T\\
+		\frac{\partial h(\theta^F )}{\partial \mu_1} & = (-\frac{\mu_1}{\sigma^2}, \frac{1}{\sigma^2})^T\\
+		\frac{\partial h(\theta^F )}{\partial \mu_0} & = (\frac{\mu_0}{\sigma^2}, -\frac{1}{\sigma^2})^T\\
+		\frac{\partial h(\theta^F )}{\partial \sigma^2} & = \left(-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}, -\frac{(\mu_1-\mu_0)}{\sigma^4} \right)^T\\
+		\sqrt{n} (h(\hat\theta^F ) - h(\theta^F )) & \xrightarrow[]{d} N \left(0, \Sigma_ h \right)
+	\end{align*}   
+	By delta method, 
+	\begin{align*}    
+		\Sigma^{h} &= h(\theta^F )'\Sigma(\theta) (\theta^F )'^T\\
+		&=\begin{bmatrix}
+			\frac{1}{\pi_1}+\frac{1}{1-\pi_1} & -\frac{\mu_1}{\sigma^2} & \frac{\mu_0}{\sigma^2} &-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}\\
+			0 & \frac{1}{\sigma^2} & -\frac{1}{\sigma^2} & -\frac{(\mu_1-\mu_0)}{\sigma^4}\\
+		\end{bmatrix}\begin{bmatrix}
+			\pi_1(1-\pi_1) & 0 & 0 & 0\\
+			0 & \frac{\sigma^2}{ \pi_1} & 0 & 0\\
+			0 & 0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
+			0 & 0 & 0 & 2\sigma^4 \\
+		\end{bmatrix}\begin{bmatrix}
+			\frac{1}{\pi_1}+\frac{1}{1-\pi_1} & 0 \\
+			-\frac{\mu_1}{\sigma^2} & \frac{1}{\sigma^2}\\
+			\frac{\mu_0}{\sigma^2} & -\frac{1}{\sigma^2}\\
+			-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4} & -\frac{(\mu_1-\mu_0)}{\sigma^4} \\
+		\end{bmatrix}\\
+		&= \begin{bmatrix}
+			\frac{1}{\pi_1(1-\pi_1)} + \frac{\mu_0}{(1-\pi_1)\sigma^2} + \frac{\mu_1}{\pi_1\sigma^2} + \frac{(\mu_0^2 - \mu_1^2)^2}{2\sigma^4} & -\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4} \\
+			-\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4}  & \frac{1}{\sigma^2 \pi_1(1-\pi_1)} + \frac{2(\mu_1-\mu_0)^2}{\sigma^4}\\
+		\end{bmatrix}
+	\end{align*}   
+
+\subsubsection{Invariance of MLE estimator}
+MLE estimators does not depend on the log-likelihood function. And it does not change with the form.
+
+	In this part, suppose that $\mu_0= \mu_1$. Show that $Cov(\hat\alpha)^{-1} Cov(h(\hat\theta^F))$ converges to a matrix which does not depend on $\theta$. Interpret this result.
+	
+	When the parameters change, the likelihood function will change, and so does the Fisher Information. So we need to recalculate all the covariance matrix. 
+	
+	If $\mu_0= \mu_1$, then $\alpha = (\alpha_0, \alpha_1)^T = \left(log(\pi_1/\pi_0) ,  0 \right)^T$
+	The covariance matrix of $\alpha$
+	\begin{align*}    
+		\alpha_0 & = log(\pi_1/\pi_0)\\
+		ln (Y_i|\alpha) &= \sum_{i=1}^n y_i (\alpha_0) - log \left(1 + exp(\alpha_0) \right)\\
+		\frac{\partial ln (Y_i|\alpha)}{\partial \alpha_0}  &= \sum_{i=1}^n y_i -\frac{exp\alpha_0}{1+ exp\alpha_0}\\
+		\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_0^2}  &= \sum_{i=1}^n -\frac{exp\alpha_0}{(1+ exp\alpha_0)^2}\\
+		I_n(\alpha) &= E[-\frac{\partial ln^2 (Y_i|\alpha)}{\partial \alpha_0^2}] = \sum_{i=1}^n \frac{exp\alpha_0}{(1+ exp\alpha_0)^2}
+	\end{align*} 
+
+Need to pay attention that, we used the logistic model for $Y|X$ to get the Fisher information for $\alpha$.
+
+\begin{align*}
+	ln(\theta) &= nlog \frac{1}{\sqrt{2\pi}\sigma} + \sum_{i=1}^n y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu)^2}{2\sigma^2} \\
+	\frac{\partial ln (\theta)}{\partial \pi_1}  &= \sum_{i=1}^n \frac{y_i}{\pi_1} - \frac{1-y_i}{1-\pi_1} \\
+	\frac{\partial ln^2 (\theta)}{\partial \pi_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\pi_1^2} - \frac{1-y_i}{(1-\pi_1)^2} , \qquad E[-\frac{\partial ln^2 p(\theta)}{\partial \pi_1^2}] = n\frac{\pi_1}{(1-\pi_1))}\\
+	\frac{\partial ln (\theta)}{\partial \mu}  &= \sum_{i=1}^n \frac{x_i-\mu}{\sigma^2}  \\
+	\frac{\partial ln^2 (\theta)}{\partial \mu^2}  &= \sum_{i=1}^n -\frac{1}{\sigma^2}  \\  
+	\frac{\partial ln (\theta)}{\partial \sigma^2}  &=-\frac{n}{2}{1/\sigma^2} + \sum_{i=1}^n \frac{(x_i-\mu)^2}{2\sigma^4} \\
+	\frac{\partial ln^2 (\theta)}{\partial (\sigma^2)^2}  &= \frac{n}{2(\sigma^2)^2} - \sum_{i=1}^n \frac{(x_i-\mu)^2}{\sigma^6}, \qquad E[-\frac{\partial ln^2 p(\theta)}{\partial (\sigma^2)^2}] = \frac{n}{2\sigma^4}  \\ 
+	\frac{\partial ln^2 (\theta)}{\partial \mu\sigma^2}  &= \sum_{i=1}^n- \frac{x_i-\mu}{\sigma^4} , \qquad E[-\frac{\partial ln^2 (\theta)}{\partial \mu\sigma^2}] = 0
+\end{align*}
+	
+	
+	Then we have Fisher information $I_n(\theta) $
+	\begin{align*}   
+		I_n(\theta) &= E[-\frac{\partial ln^2 (\theta)}{\partial \theta^2}] \\
+		&= \begin{bmatrix}
+			n\frac{\pi_1}{(1-\pi_1))}  & 0 & 0 \\
+			0 & \frac{n}{\sigma^2}   &  0 \\
+			0 &  0 & \frac{n}{2\sigma^4} \\
+		\end{bmatrix}\\
+		Cov(\hat\alpha)^{-1} &= I_n(\alpha) = n\pi_1(1-\pi_1)\\
+		\frac{\partial h}{\partial \theta} &= (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0)
+	\end{align*} 
+	Then we have
+	\begin{align*}   
+		Cov(\hat\alpha)^{-1} \Sigma^{h} &= I_n(\alpha) \frac{\partial h}{\partial \theta} I_n(\theta)^{-1} \frac{\partial h}{\partial \theta}^T\\
+		&=  n\pi_1(1-\pi_1)  (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0) \begin{bmatrix}
+			\pi_1(1-\pi_1)/n  & 0 & 0 \\
+			0 & \sigma^2/n   &  0 \\
+			0 &  0 & 2\sigma^4/n \\
+		\end{bmatrix} (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0)^T\\   
+		&= 1
+	\end{align*}     
+	So we have $Cov(\hat\alpha)^{-1} Cov(h(\hat\theta^F))$ converges to a matrix which does not depend on $\theta$.
+	
+	\subsubsection{Different Scenarios}
+	Now suppose that $\pi_1$ is known. Will the results of (b) - (e) be changed? Please
+	explain. If so, then derive the corresponding results and compare with those obtained
+	above.
+	
+	If $\pi_1$ is known,
+	\begin{itemize}
+		\item [(i)] For (b), does not change as the parameters are $\alpha = (\alpha_0, \alpha_1)^T$ which does not involve $\pi_1$.
+		\begin{align*}
+			I_n(\alpha) &= -E[ \frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha^2}]\\
+			&= \begin{bmatrix}
+				n \pi_1 (1-\pi_1) &   \sum_{i=1}^n \pi_1 (1-\pi_1)x_i\\
+				\sum_{i=1}^n \pi_1 (1-\pi_1)x_i &  \sum_{i=1}^n \pi_1 (1-\pi_1)x_ix_i^T\\
+			\end{bmatrix}\\
+			Cov(\alpha) &= I_n(\alpha)^{-1} = \frac{1}{[\sum_{i=1}^n n x_i^2 - (\sum_{i=1}^n x_i)^2]\pi_1 (1-\pi_1)}  \begin{bmatrix}
+				\sum_{i=1}^n n x_i^2 &   -\sum_{i=1}^n x_i\\
+				-\sum_{i=1}^n x_i\sum_{i=1}^n \pi_1 (1-\pi_1)x_i & n\\
+			\end{bmatrix}
+		\end{align*} 
+		\item[(ii)] For (c), it involves $\pi_1$, so the result will change. We have covariance matrix for $\theta = (\mu_1, \mu_0, \sigma^2)^T$, 
+		\begin{align*}    
+			I(\theta) &= E[- \frac{1}{n} \frac{\partial ln^2 p(X,Y|\theta)}{\partial \theta^2}], \qquad
+			= \begin{bmatrix}
+				\frac{\pi_1}{\sigma^2} & 0 & 0\\
+				0 & \frac{1-\pi_1}{\sigma^2} & 0\\
+				0 & 0 & \frac{1}{2\sigma^4} \\
+			\end{bmatrix}\\
+			\sqrt{n} (\hat{\theta} - \theta) & \xrightarrow[]{d} N \left(0, \Sigma \right), \qquad
+			\Sigma = I(\theta)^{-1} = \begin{bmatrix}
+				\frac{\sigma^2}{ \pi_1} & 0 & 0\\
+				0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
+				0 & 0 & 2\sigma^4 \\
+			\end{bmatrix}
+		\end{align*} 
+		\item[(iii)] For (d), the $h(\theta)$ does not involve $\pi_1$, but the Jacobian matrix and $I(\theta)$ will change when $\pi_1$ is known. We have covariance matrix for $h(\theta) = c(\mu, \sigma^2)$.
+		\begin{align*}    
+			h(\theta^F ) &= (\alpha_0, \alpha_1)= \left(log(\frac{\pi_1}{1-\pi_1}) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T\\
+			\sqrt{n} (h(\hat\theta^F ) - h(\theta^F )) & \xrightarrow[]{d} N \left(0, \Sigma_ h \right)\\
+			h(\theta^F )' &= \begin{bmatrix}
+				-\frac{\mu_1}{\sigma^2} & \frac{\mu_0}{\sigma^2} &-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}\\
+				\frac{1}{\sigma^2} & -\frac{1}{\sigma^2} & -\frac{(\mu_1-\mu_0)}{\sigma^4}\\
+			\end{bmatrix}\\
+			\Sigma(\theta) &= \begin{bmatrix}
+				\frac{\sigma^2}{ \pi_1} & 0 & 0\\
+				0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
+				0 & 0 & 2\sigma^4 \\
+			\end{bmatrix}\\
+			\Sigma^{h} &= h(\theta^F )'\Sigma(\theta) (\theta^F )'^T\\
+			&= \begin{bmatrix}
+				\frac{\mu_0}{(1-\pi_1)\sigma^2} + \frac{\mu_1}{\pi_1\sigma^2} + \frac{(\mu_0^2 - \mu_1^2)^2}{2\sigma^4} & -\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4} \\
+				-\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4}  &  \frac{2(\mu_1-\mu_0)^2}{\sigma^4}\\
+			\end{bmatrix}
+		\end{align*}
+		\item[(iv)] For (e), the only parameter that need to estimate is $\alpha_0 = log(\pi_1/(1-\pi_1))$, which is now known. The question is meaningless. 
+	\end{itemize}
+
+	
+
+
+
+	
+	\section{Likelihood for one random variable}
 	To calculate the covariance matrix, we will use the MGF and take derivatives. Or use the cumulant function KGF to get the covariance.\\
 	Use one random variable for the two way contingency table. While the Fisher information is the inverse of the covariance matrix, however we don't use Fisher information to calculate covariance matrix due to the math computation.\\
 	For one random variable Y:
@@ -177,24 +714,21 @@ We need to pay attention that, the $\pi_1, \pi_2, .. \pi_I$ are joint distribute
 	\end{align*} 
 \subsection{Retrospective vs. Prospective vs. Cross Sectional Study}
 	\subsubsection{Retrospective}
-	In retrospective study, we know the response and further select patients accordingly, in other words, the columns margin is fixed. So we know the percentage of X in the Y categories. 
-	
 	For retrospective study, the Y is fixed
 	\begin{align*}
 		\theta &= p(X=1|Y=1) = \frac{\pi_{11}}{\pi_{11} + \pi_{21}}\\
 		1- \theta &= p(X=0|Y=1) = \frac{\pi_{21}}{\pi_{11} + \pi_{21}}\\
 		\gamma &= p(X=1|Y=0) = \frac{\pi_{12}}{\pi_{12} + \pi_{22}}\\
-		1- \gamma &= p(X=0|Y=0) = \frac{\pi_{22}}{\pi_{12} + \pi_{22}}
+		1- \gamma &= p(X=0|Y=0) = \frac{\pi_{22}}{\pi_{12} + \pi_{22}}\\
 	\end{align*} 
-	$X|Y$ are binomial distribution, which is different from above multinomial distribution. And the $X|Y=0, X|Y=1$ are independent. 
-	
+	$X|Y$ are binomial distribution, which is different from above multinomial distribution. And the $X|Y=0, X|Y=1$ are independent. \\
 	\begin{align*}
 		p(\theta, \gamma) &= \theta^{n_{11}} (1-\theta)^{n_{21}} \gamma^{n_{12}} (1-\gamma)^{n_{22}}\\
 		ln p(\theta, \gamma) &= n_{11}log\theta + n_{21}(1-\theta) + n_{12}log \gamma + n_{22}log(1-\gamma)\\
 		\frac{\partial ln}{\partial \theta} &= \frac{n_{11}}{\theta} - \frac{n_{21}}{1-\theta} = 0\\
 		\hat{\theta} &= \frac{n_{11}}{n_{11}+ n_{21}}\\
 		\frac{\partial ln}{\partial \gamma} &= \frac{n_{12}}{\gamma} - \frac{n_{22}}{1-\gamma} = 0\\
-		\hat{\gamma} &= \frac{n_{12}}{n_{12}+ n_{22}}
+		\hat{\gamma} &= \frac{n_{12}}{n_{12}+ n_{22}}\\
 	\end{align*} 
 	Then get covariance matrix by delta method, binomial distribution variance is $np(1-p)$\\
 	\begin{align*}
@@ -219,22 +753,7 @@ We need to pay attention that, the $\pi_1, \pi_2, .. \pi_I$ are joint distribute
 		&= \frac{{n_{22}n_{11}}}{(n_{21}n_{12})} \sqrt{\frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}\\
 	\end{align*}
 \subsubsection{Prospective}
-In prospective study, the row margin is fixed. We will need to figure out how many parameters are needed to construct the likelihood function.
-
-We have
-	\begin{align*}
-	P(Y=1|X=1) &= \frac{\pi_{11}}{\pi_{11} + \pi_{12}} = \theta\\
-	P(Y=0|X=1) &= \frac{\pi_{12}}{\pi_{11} + \pi_{12}} = 1 - P(Y=1|X=1)\\
-	P(Y=1|X=  0) &= \frac{n_{21}}{n_{21}+ n_{22}} = \gamma \\
-	P(Y= 0|X=  0) &=  \frac{n_{22}}{n_{21}+ n_{22}} = 1 - P(Y=1|X=  0)
-\end{align*}
-
-So the likelihood function
-\begin{align*}
-	P(\theta, \gamma) &= \theta^{n_{11}} (1-\theta)^{n_{12}} \gamma^{n_{21}} (1-\gamma)^{n_{22}}
-\end{align*}
-
-The standard error for odds ratio in prospective study
+The standard error for odds ratio in prospective study\\
 	\begin{align*}
 		se(\hat R) &= \hat{R} \sqrt{\frac{1}{n_{1.}\hat{\pi}_{Y=2|X=1}\hat{\pi}_{Y=1|X=1} } + \frac{1}{n_{2.}\hat{\pi}_{Y=2|X=2} \hat {\pi}_{Y=1|X=2} } }\\
 		\hat{\pi}_{Y=2|X=1} &= \frac{n_{12}}{n_{11}+ n_{12}}\\
@@ -247,8 +766,8 @@ The standard error for odds ratio in prospective study
 	\end{align*}
 	
 	\subsubsection{Cross-Sectional}
-	For cross-sectional study, we only have the total n fixed. That is the difference for each scenario. 
-	To calculate the covariance matrix, we will use the MGF and take derivatives. Or use the cumulant function KGF to get the covariance.
+	For cross-sectional study, we only have the total n fixed. That is the difference for each scenario. \\
+	To calculate the covariance matrix, we will use the MGF and take derivatives. Or use the cumulant function KGF to get the covariance.\\
 	Use one random variable for the two way contingency table. While the Fisher information is the inverse of the covariance matrix, however we don't use Fisher information to calculate covariance matrix due to the math computation.\\
 	
 	Show that the sample odds ratio $\hat R = n_{22}n_{11}/(n_{21}n_{12})$ has the same standard error for cross-sectional, prospective and retrospective studies.
@@ -265,14 +784,23 @@ The standard error for odds ratio in prospective study
 Similarly the coefficient of a particular covariate is associated with the odds ratio of the covariate, which is invariant with prospective and retrospective studies. Check out p747.
 
 
+\subsection{Hypergeometric distribution} 
+Dervie the hypergeometric distribution 
+\begin{align*}
+	p(n_{11}|n_{1.}, n_{.1}, n, \Xi) &=  \frac{p(n_{11}, n_{1.}, n_{.1}, |n)}{p( n_{1.}, n_{.1}, |n)} \\
+	&= \frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \Xi^{n_{11}} 
+	\frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \\
+	&=  \frac{n! n_{1.}! (n-n_{1.})!}{n_{1.}! (n-n_{1.})! n_{11}!n_{12}!n_{21}!n_{22}!} \\
+	&= {n \choose n_{1.}} {n_{1.} \choose n_{11}} {n-n_{1.} \choose n_{.1}-n_{11}} 
+\end{align*}
+
 
 
 \subsection{Contingency Table- Relationship between Poisson and Multinomial distribution}
 Consider a $I \times J$ contingency table of cell counts, where each cell count is denoted by $n_{ij}, i=1,..I, j=1,..J$, and thus $n_{ij}$ denotes the cell count of ith row and jth column, and $n_{ij} \sim Poisson (\mu_{ij})$ and independent. Further, let $n= \sum_{j=1}^J \sum_{i=1}^I n_{ij}$ denote the grand total.
 
-
-\subsubsection{Conditional distribution based on total}
- Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$ conditional on grand total n.
+\begin{itemize}
+	\item [(a)] Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$ conditional on grand total n.
 	By poisson distribution of each cell counts
 	\begin{align*}
 	n &= \sum_{i=1}^I \sum_{j=1}^J n_{ij} \sim \frac{exp(-\mu) \mu^n }{n!}, \qquad \mu= \sum_{i=1}^I \sum_{j=1}^J \mu_{ij}\\ 
@@ -281,29 +809,21 @@ Consider a $I \times J$ contingency table of cell counts, where each cell count 
 	&= {n \choose n_{11} n_{12} ... n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\mu } \right)	^{n_{ij}}
 	\end{align*}	
 The joint distribution is Multinomial ($n; \pi_{11}, \pi_{12},.. \pi_{IJ}$), where $\pi_{ij} = \frac{\mu_{ij}}{\sum_{i=1}^I \sum_{j=1}^J \mu_{ij} }$
-
-\subsubsection{Conditional distribution based on row total}	
-	 Suppose all of the rows margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+	\item [(b)] Suppose all of the rows margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
 \begin{align*}
 	n_{i+} &= \sum_{j=1}^J n_{ij}\\
 	n_{i+} & \sim Poisson (\sum_{j=1}^J \mu_{ij})\\
 	p(n_{11},..n_{ij}|n_{i+}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{i=1}^I \frac{exp(-\mu_i) \mu_i^{n_{i+}}}{n_{i+}!}\\
 	&= \prod_{i=1}^I {n_{i+} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{j=1}^J \mu_{ij}} \right)^{n_{ij}}
 \end{align*}
-
-\subsubsection{Conditional distribution based on column total}
-	
-	Suppose all of the columns margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+	\item [(c)] Suppose all of the columns margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
 \begin{align*}
 	n_{+j} &= \sum_{i=1}^I n_{ij}\\
 	n_{+j} & \sim Poisson (\sum_{i=1}^I \mu_{ij})\\
 	p(n_{11},..n_{ij}|n_{+j}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{j=1}^J \frac{exp(-\mu_i) \mu_i^{n_{+j}}}{n_{+j}!}\\
 	&= \prod_{j=1}^J {n_{+j} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{i=1}^I \mu_{ij}} \right)^{n_{ij}}
 \end{align*}	
-
-\subsubsection{Conditional distribution of $n_{11}$}
-	
-	Suppose that $I=2$ and $J=2$, and both the rows margins and column margins are fixed. Derive the joint distribution of $(n_{11}|n_{1+}, n_{+1} n)$, where $n_{1+} = n_{11} + n_{12}, n_{+1} = n_{11}+ n_{21}$.
+	\item [(d)] Suppose that $I=2$ and $J=2$, and both the rows margins and column margins are fixed. Derive the joint distribution of $(n_{11}|n_{1+}, n_{+1} n)$, where $n_{1+} = n_{11} + n_{12}, n_{+1} = n_{11}+ n_{21}$.
 \begin{align*}
 	p(n_{11}|n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
 		p(n_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \frac{exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!} \\
@@ -344,10 +864,7 @@ Which we can rewrite
 	& \Bigg{/}  \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1+} \choose x} {n - n_{1+} \choose n_{+1}-x} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}}\right) ^x
 \end{align*}
 
-
-\subsubsection{Cell Probability Model}
-
-Let $\pi_{ij}$ denote the cell probability and assume n is fixed. Consider testing $H_0: \pi_{ij} = \pi_{i+} \pi_{+j}, i=1,..I, j=1,..J$. Derive the MLE of $\pi_{ij}$ under $H_0$.
+\item[(e)] Let $\pi_{ij}$ denote the cell probability and assume n is fixed. Consider testing $H_0: \pi_{ij} = \pi_{i+} \pi_{+j}, i=1,..I, j=1,..J$. Derive the MLE of $\pi_{ij}$ under $H_0$.
 
 The $H_0$ could be written as 
 \begin{align*}
@@ -383,9 +900,7 @@ Similarly, we have $\hat{\pi}_{+j} = \frac{n_{+j}}{n}$, the MLE of $\pi_{ij}$ un
 	\hat{\pi}_{ij} &= \hat{\pi}_{i+} \hat{\pi}_{+j} = \frac{n_{i+} n_{+j}}{n^2}
 \end{align*}
 
-\subsubsection{Likelihood Ratio Test based on likelihood}
-
-Derive the likelihood ratio test for the hypothesis in part (e) and derive its asymptotic distribution under $H_0$.
+\item[(f)] Derive the likelihood ratio test for the hypothesis in part (e) and derive its asymptotic distribution under $H_0$.
 From part (e), we have the parameter estimates under $H_0$. While under alternative hypothesis, we have $\mu_{ij} = n_{ij}$. 
 \begin{align*}
 	LRT_n &= 2(LR(\pi_{H_1}) - LR(\pi_{H_0})) =2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{ij} - \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} \right)\\
@@ -398,9 +913,7 @@ Note that the full model has $(IJ-1)$ parameters, and the null hypothesis has $(
 	&= (I-1)(J-1)
 \end{align*}
 
-\subsubsection{Conditional Probability}
-
-Suppose that $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance. Derive the conditional likelihood of $(\pi_{11}, \pi_{12})$ and the conditional MLE's of  $(\pi_{11}, \pi_{12})$.
+\item[(g)] Suppose that $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance. Derive the conditional likelihood of $(\pi_{11}, \pi_{12})$ and the conditional MLE's of  $(\pi_{11}, \pi_{12})$.
 If not specified, we treat as general contingency table that total n is fixed. If only $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance, then we will set the rest of the parameters as one parameter, and get its distribution, which is to find the sufficient statistics for rest of the parameters.
 Write the Multinomial distribution in exponential family distribution.\\
 We can find marginal distribution by summing over along all possible values of $(n_{11}, n_{12})$. Note that $n_{11} \leq \min{n_{1+} - n_{12}, n_{+1}}$ for a given value of $n_{12}$. Similarly, $n_{12} \leq \min{n_{1+}- n_{11}, n_{+1}}$ for a given value of $n_{11}$. \\
@@ -422,6 +935,7 @@ The conditional distribution
 \end{align*}
 And $\hat{\pi}_{11}, \hat{\pi}_{12}$ are the CMLE that maximize $p(n_{11}, n_{12}|n_{13}, ...n_{IJ}, n)$.
 
+\end{itemize}
 
 
 \section{Practice}
@@ -581,246 +1095,9 @@ And $\hat{\pi}_{11}, \hat{\pi}_{12}$ are the CMLE that maximize $p(n_{11}, n_{12
 	\end{align*}
 	From above, we have $(\pi_{1+}\pi_{0+})^{-1} + (\pi_{+1}\pi_{+0})^{-1} \leq (\pi_{1+}\pi_{+0})^{-1} + (\pi_{+1}\pi_{0+})^{-1}$.
 \end{itemize}
-\subsection{Logistic Regression}
-Consider independent observations $(X_1, Y_1),..., (X_n; Y_n)$ where $Y_i$ takes values 0 and
-1. Suppose that $X_i|(Y_i = m) \sim N(\mu_m, \sigma^2)$ and $P(Y_i = m) = \pi_m$ for $m = 0, 1$, where
-$\pi_0 + \pi_1 = 1$, and $0 < \pi_0 < 1$.
-\begin{itemize}
-	\item [(a)] Show that $P(Y_i = m|X_i), m = 0, 1$, satisfies the logistic model, that is
-	\begin{align*}
-		logit \left(P(Y_i = 1|X_i,\alpha) \right) = \alpha_0 + \alpha_1 X_i
-	\end{align*}
-	We have distribution of $P(Y_i = m|X_i), m = 0, 1$ 
-	\begin{align*}
-		P(Y_i=m |X_i,\alpha) & = \frac{P(Y_i, X_i)}{P(X_i)} = \frac{P(X_i|Y_i) P(Y_i)}{P(X_i)}\\
-		P(Y_i=1 |X_i,\alpha) &= \frac{P(X_i|Y_i=1) P(Y_i=1)}{P(X_i)} \\
-		&= \frac{exp(-1/2\sigma^2 (x_i-\mu_i)^2) \pi_1}{exp(-1/2\sigma^2 (x_i-\mu_i)^2) \pi_1 + exp(-1/2\sigma^2 (x_i-\mu_1)^2)  \pi_0}\\
-		P(Y_i=0 |X_i,\alpha) &= \frac{P(X_i|Y_i=0) P(Y_i=0)}{P(X_i)}\\
-		&= \frac{exp(-1/2\sigma^2 (x_i-\mu_1)^2)  \pi_0}{exp(-1/2\sigma^2 (x_i-\mu_i)^2) \pi_1 + exp(-1/2\sigma^2 (x_i-\mu_1)^2)  \pi_0}\\
-		logit \left(P(Y_i = 1|X_i,\alpha) \right) &= log \frac{ P(Y_i=1 |X_i,\alpha)}{P(Y_i=0 |X_i,\alpha)} \\
-		&= log(\pi_1/\pi_0) - \frac{(x_i-\mu_1)^2}{2\sigma^2} + \frac{(x_i-\mu_0)^2}{2\sigma^2}\\
-		&= log(\pi_1/\pi_0) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2} + \frac{(\mu_1-\mu_0)}{\sigma^2}x_i\\
-		\text{In which,}  \alpha &= (\alpha_0, \alpha_1) = \left(log(\pi_1/\pi_0) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T
-	\end{align*}     
-	
-	\item[(b)] Based on the logistic model in part (a), give the explicit form of the Newton-Raphson
-	algorithm for calculating the maximum likelihood estimate of $\alpha$, denoted by $\hat{\alpha} =
-	(\hat{\alpha_0}, \hat{\alpha_1})$, and derive the asymptotic covariance matrix of $\alpha$.\\
-	$Y_i|X_i$ follows a binomial distribution
-	\begin{align*}
-		p(Y_i|\alpha) &= P(Y_i=1 |X_i,\alpha)^{I(y_i=1)} P(Y_i=0 |X_i,\alpha)^{I(y_i=0)}\\
-		log p(Y_i|\alpha) &= I(y_i=1) log P(Y_i=1 |X_i,\alpha) + I(y_i=0) log P(Y_i=0 |X_i,\alpha)\\
-		ln p(Y_i|\alpha) &= \sum_{i=1}^n I(y_i=1) log P(Y_i=1 |X_i,\alpha) + I(y_i=0) log P(Y_i=0 |X_i,\alpha)\\
-		&= \sum_{i=1}^n I(y_i=1) log P(Y_i=1) + (1-I(y_i=1)) log (1-P(Y_i=1)) \\
-		&= \sum_{i=1}^n I(y_i=1) log P(Y_i=1)/(1-P(Y_i=1)) + log (1-P(Y_i=1))\\
-	\end{align*}
-	Let $\theta = log P(Y_i=1)/(1-P(Y_i=1))$
-	\begin{align*}
-		ln p(Y_i|\theta) &= \sum_{i=1}^n I(y_i=1) \theta - log (1 + exp(\theta) )\\
-		ln p(Y_i|\alpha) &= \sum_{i=1}^n y_i (\alpha_0 + \alpha_1 x_i) - log \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)
-	\end{align*}    
-	Find MLE for $\alpha$
-	\begin{align*}
-		\frac{\partial ln p(Y_i|\alpha)}{\partial \alpha_0}  &= \sum_{i=1}^n y_i - \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)^{-1} exp(\alpha_0 + \alpha_1 x_i)\\
-		\frac{\partial ln p(Y_i|\alpha)}{\partial \alpha_1}  &= \sum_{i=1}^n y_i x_i- \left(1 + exp(\alpha_0 + \alpha_1 x_i) \right)^{-1} exp(\alpha_0 + \alpha_1 x_i) x_i\\
-		\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_0^2}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2}, \qquad E[-\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_0^2}] = n \pi_1 (1-\pi_1) \\
-		\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_1^2}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2} x_ix_i^T \\
-		\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_0\alpha_1}  &=- \sum_{i=1}^n \frac{exp(\alpha_0 + \alpha_1 x_i)}{[1+ exp(\alpha_0 + \alpha_1 x_i)]^2} x_i\\
-		I_n(\alpha) &= -E[ \frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha^2}]\\
-		&= \begin{bmatrix}
-			n \pi_1 (1-\pi_1) &   \sum_{i=1}^n \pi_1 (1-\pi_1)x_i\\
-			\sum_{i=1}^n \pi_1 (1-\pi_1)x_i &  \sum_{i=1}^n \pi_1 (1-\pi_1)x_ix_i^T\\
-		\end{bmatrix}
-	\end{align*}  
-	So the N-R algorithm is 
-	\begin{align*}
-		\alpha_{k+1} = \alpha_{k} - I_n(\alpha_k)^{-1} \frac{\partial ln p(Y_i|\alpha_k)}{\partial \alpha_k}
-	\end{align*}      
-	The asymptotic distribution of $\alpha$ by CLT and covariance matrix 
-	\begin{align*}
-		\sqrt{n} (\hat{\alpha} - \alpha) & \xrightarrow[]{d} N \left(0, \Sigma \right) \\
-		\Sigma & = \{ \frac{1}{n} I_n(\alpha) \}^{-1}
-	\end{align*} 
-	\item[(c)] Write down the joint distribution of $\{(X_i Y_i): i=1,2..n \}$ and calculate the
-	maximum likelihood estimate of $\theta$, denoted by $\theta_F$ , and its asymptotic covariance
-	matrix.\\
-	The joint distribution of $\{(X_i Y_i): i=1,2..n \}$
-	\begin{align*}
-		p(X_i, Y_i) &= P(X_i|Y_i) P(Y_i) \\
-		p(Y_i=1, X_i) &= \frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1\\
-		p(Y_i=0, X_i) &=\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0\\
-		p(X_i, Y_i) &= P(Y_i=1, X_i)^{I(y_i=1)} P(Y_i=0, X_i)^{I(y_i=0)}\\
-		& = {\{\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_1)^2) \pi_1\}}^{y_i} {\{\frac{1}{\sqrt{2\pi}\sigma} exp(-1/2\sigma^2 (x_i-\mu_0)^2)  \pi_0\}}^{1-y_i}\\
-		log p(X_i, Y_i) &= log \frac{1}{\sqrt{2\pi}\sigma} + y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu_i)^2}{2\sigma^2} y_i - \frac{(x_i-\mu_0)^2}{2\sigma^2} (1-y_i)
-	\end{align*} 
-	The log-likelihood function of $\{(X_i Y_i): i=1,2..n \}$
-	\begin{align*}
-		log p(X, Y) &= nlog \frac{1}{\sqrt{2\pi}\sigma} + \sum_{i=1}^n y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu_1)^2}{2\sigma^2} y_i - \frac{(x_i-\mu_0)^2}{2\sigma^2} (1-y_i)
-	\end{align*} 
-	The MLE of $\theta$ could get by taking derivatives to log-likelihood function
-	\begin{align*}
-		\frac{\partial ln p(X, Y|\theta)}{\partial \pi_1}  &= \sum_{i=1}^n y_i/\pi_1 - (1-y_i)/(1-\pi_1)=0\\
-		\frac{\partial ln p(X, Y|\theta)}{\partial \mu_1}  &= \sum_{i=1}^n \frac{y_i(x_i-\mu_1)}{\sigma^2}=0     \\
-		\frac{\partial ln p(X, Y|\theta)}{\partial \mu_0}  &= \sum_{i=1}^n \frac{(1-y_i)(x_i-\mu_0)}{\sigma^2}=0\\
-		\frac{\partial ln p(X, Y|\theta)}{\partial \sigma^2}  &= -\frac{n}{2}{1/\sigma^2} + \sum_{i=1}^n \frac{(x_i-\mu_1)^2y_i}{2\sigma^4} + \sum_{i=1}^n \frac{(x_i-\mu_0)^2(1-y_i)}{2\sigma^4} = 0\\
-		\hat{\sigma^2} &= \frac{\sum_{i=1}^n [(x_i-\mu_1)^2y_i + (x_i-\mu_0)^2(1-y_i)]}{n}\\
-		\hat\pi_1 &= \frac{\sum_{i=1}^n y_i}{n}, \qquad \hat{\mu_1} =  \frac{\sum_{i=1}^n x_iy_i}{\sum_{i=1}^n y_i}, \qquad \hat{\mu_0} =  \frac{\sum_{i=1}^n x_i(1-y_i)}{\sum_{i=1}^n (1-y_i)}
-	\end{align*} 
-	The Fisher information matrix 
-	\begin{align*}
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \pi_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\pi_1^2} - \frac{(1-y_i)}{(1-\pi_1)^2} , \qquad E[-\frac{\partial ln^2 p(X, Y|\theta)}{\partial \pi_1^2}] =  \frac{1}{\pi_1(1-\pi_1)}\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\sigma^2}, \qquad E[-\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_1^2} ]= \frac{\pi_1}{\sigma^2}\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_0^2}  &= \sum_{i=1}^n -\frac{(1-y_i)}{\sigma^2}, \qquad E[- \frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_0^2}] = \frac{1-\pi_1}{\sigma^2}\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial (\sigma^2)^2}  &= \frac{n}{2 (\sigma^2)^2} - \sum_{i=1}^n \frac{(x_i-\mu_1)^2y_i}{(\sigma^2)^3} - \sum_{i=1}^n \frac{(x_i-\mu_0)^2(1-y_i)}{(\sigma^2)^3}\\
-		E[-\frac{\partial ln^2 p(X, Y|\theta)}{\partial (\sigma^2)^2}] &= \frac{1}{2\sigma^4} \\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \pi_1\mu_1}  &=0\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \pi_1\mu_0}  &=0\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \pi_1\sigma}  &=0\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_1\mu_0}  &=0\\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_1\sigma}  &= \sum_{i=1}^n - \frac{y_i(x_i-\mu_1)}{(\sigma^2)^2} , \qquad E[-\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_1\sigma}] = 0  \\
-		\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_0\sigma}  &= \sum_{i=1}^n - \frac{(1-y_i)(x_i-\mu_0)}{(\sigma^2)^2} , \qquad E[-\frac{\partial ln^2 p(X, Y|\theta)}{\partial \mu_0\sigma}] = 0 \\
-	\end{align*} 
-	So we have covariance matrix, by CLT
-	\begin{align*}    
-		I(\theta) &= E[- \frac{1}{n} \frac{\partial ln^2 p(X,Y|\theta)}{\partial \theta^2}], \qquad
-		= \begin{bmatrix}
-			\frac{1}{\pi_1(1-\pi_1)} & 0 & 0 & 0\\
-			0 & \frac{\pi_1}{\sigma^2} & 0 & 0\\
-			0 & 0 & \frac{1-\pi_1}{\sigma^2} & 0\\
-			0 & 0 & 0 & \frac{1}{2\sigma^4} \\
-		\end{bmatrix}\\
-		\sqrt{n} (\hat{\theta} - \theta) & \xrightarrow[]{d} N \left(0, \Sigma \right), \qquad
-		\Sigma(\theta) = I(\theta)^{-1} = \begin{bmatrix}
-			\pi_1(1-\pi_1) & 0 & 0 & 0\\
-			0 & \frac{\sigma^2}{ \pi_1} & 0 & 0\\
-			0 & 0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
-			0 & 0 & 0 & 2\sigma^4 \\
-		\end{bmatrix}
-	\end{align*} 
-	\item[(d)] Calculate the asymptotic covariance matrix of $h(\hat\theta^F )$.
-	\begin{align*}    
-		h(\theta^F ) &= (\alpha_0, \alpha_1)= \left(log(\frac{\pi_1}{1-\pi_1}) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T\\
-		\frac{\partial h(\theta^F)}{\partial \pi_1} & = (\frac{1}{\pi_1}+\frac{1}{1-\pi_1} , 0)^T\\
-		\frac{\partial h(\theta^F )}{\partial \mu_1} & = (-\frac{\mu_1}{\sigma^2}, \frac{1}{\sigma^2})^T\\
-		\frac{\partial h(\theta^F )}{\partial \mu_0} & = (\frac{\mu_0}{\sigma^2}, -\frac{1}{\sigma^2})^T\\
-		\frac{\partial h(\theta^F )}{\partial \sigma^2} & = \left(-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}, -\frac{(\mu_1-\mu_0)}{\sigma^4} \right)^T\\
-		\sqrt{n} (h(\hat\theta^F ) - h(\theta^F )) & \xrightarrow[]{d} N \left(0, \Sigma_ h \right)
-	\end{align*}   
-	By delta method, 
-	\begin{align*}    
-		\Sigma^{h} &= h(\theta^F )'\Sigma(\theta) (\theta^F )'^T\\
-		&=\begin{bmatrix}
-			\frac{1}{\pi_1}+\frac{1}{1-\pi_1} & -\frac{\mu_1}{\sigma^2} & \frac{\mu_0}{\sigma^2} &-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}\\
-			0 & \frac{1}{\sigma^2} & -\frac{1}{\sigma^2} & -\frac{(\mu_1-\mu_0)}{\sigma^4}\\
-		\end{bmatrix}\begin{bmatrix}
-			\pi_1(1-\pi_1) & 0 & 0 & 0\\
-			0 & \frac{\sigma^2}{ \pi_1} & 0 & 0\\
-			0 & 0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
-			0 & 0 & 0 & 2\sigma^4 \\
-		\end{bmatrix}\begin{bmatrix}
-			\frac{1}{\pi_1}+\frac{1}{1-\pi_1} & 0 \\
-			-\frac{\mu_1}{\sigma^2} & \frac{1}{\sigma^2}\\
-			\frac{\mu_0}{\sigma^2} & -\frac{1}{\sigma^2}\\
-			-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4} & -\frac{(\mu_1-\mu_0)}{\sigma^4} \\
-		\end{bmatrix}\\
-		&= \begin{bmatrix}
-			\frac{1}{\pi_1(1-\pi_1)} + \frac{\mu_0}{(1-\pi_1)\sigma^2} + \frac{\mu_1}{\pi_1\sigma^2} + \frac{(\mu_0^2 - \mu_1^2)^2}{2\sigma^4} & -\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4} \\
-			-\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4}  & \frac{1}{\sigma^2 \pi_1(1-\pi_1)} + \frac{2(\mu_1-\mu_0)^2}{\sigma^4}\\
-		\end{bmatrix}
-	\end{align*}   
-	\item[(e)] In this part, suppose that $\mu_0= \mu_1$. Show that $Cov(\hat\alpha)^{-1} Cov(h(\hat\theta^F))$ converges to a matrix which does not depend on $\theta$. Interpret this result.\\
-	If $\mu_0= \mu_1$, then $\alpha = (\alpha_0, \alpha_1)^T = \left(log(\pi_1/\pi_0) ,  0 \right)^T$
-	The covariance matrix of $\alpha$
-	\begin{align*}    
-		\alpha_0 & = log(\pi_1/\pi_0)\\
-		ln p(Y_i|\alpha) &= \sum_{i=1}^n y_i (\alpha_0) - log \left(1 + exp(\alpha_0) \right)\\
-		\frac{\partial ln p(Y_i|\alpha)}{\partial \alpha_0}  &= \sum_{i=1}^n y_i -\frac{exp\alpha_0}{1+ exp\alpha_0}\\
-		\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_0^2}  &= \sum_{i=1}^n -\frac{exp\alpha_0}{(1+ exp\alpha_0)^2}\\
-		I_n(\alpha) &= E[-\frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha_0^2}] = \sum_{i=1}^n \frac{exp\alpha_0}{(1+ exp\alpha_0)^2}\\
-		log p(\theta) &= nlog \frac{1}{\sqrt{2\pi}\sigma} + \sum_{i=1}^n y_i log\pi_1 + (1-y_i) log(1-\pi_1) - \frac{(x_i-\mu)^2}{2\sigma^2} \\
-		\frac{\partial ln p(\theta)}{\partial \pi_1}  &= \sum_{i=1}^n \frac{y_i}{\pi_1} - \frac{1-y_i}{1-\pi_1} \\
-		\frac{\partial ln^2 p(\theta)}{\partial \pi_1^2}  &= \sum_{i=1}^n -\frac{y_i}{\pi_1^2} - \frac{1-y_i}{(1-\pi_1)^2} , \qquad E[-\frac{\partial ln^2 p(\theta)}{\partial \pi_1^2}] = n\frac{\pi_1}{(1-\pi_1))}\\
-		\frac{\partial ln p(\theta)}{\partial \mu}  &= \sum_{i=1}^n \frac{x_i-\mu}{\sigma^2}  \\
-		\frac{\partial ln^2 p(\theta)}{\partial \mu^2}  &= \sum_{i=1}^n -\frac{1}{\sigma^2}  \\  
-		\frac{\partial ln p(\theta)}{\partial \sigma^2}  &=-\frac{n}{2}{1/\sigma^2} + \sum_{i=1}^n \frac{(x_i-\mu)^2}{2\sigma^4} \\
-		\frac{\partial ln^2 p(\theta)}{\partial (\sigma^2)^2}  &= \frac{n}{2(\sigma^2)^2} - \sum_{i=1}^n \frac{(x_i-\mu)^2}{\sigma^6}, \qquad E[-\frac{\partial ln^2 p(\theta)}{\partial (\sigma^2)^2}] = \frac{n}{2\sigma^4}  \\ 
-		\frac{\partial ln^2 p(\theta)}{\partial \mu\sigma^2}  &= \sum_{i=1}^n- \frac{x_i-\mu}{\sigma^4} , \qquad E[-\frac{\partial ln^2 p(\theta)}{\partial \mu\sigma^2}] = 0
-	\end{align*} 
-	Then we have Fisher information $I_n(\theta) $
-	\begin{align*}   
-		I_n(\theta) &= E[-\frac{\partial ln^2 p(\theta)}{\partial \theta^2}] \\
-		&= \begin{bmatrix}
-			n\frac{\pi_1}{(1-\pi_1))}  & 0 & 0 \\
-			0 & \frac{n}{\sigma^2}   &  0 \\
-			0 &  0 & \frac{n}{2\sigma^4} \\
-		\end{bmatrix}\\
-		Cov(\hat\alpha)^{-1} &= I_n(\alpha) = n\pi_1(1-\pi_1)\\
-		\frac{\partial h}{\partial \theta} &= (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0)\\
-	\end{align*} 
-	Then we have
-	\begin{align*}   
-		Cov(\hat\alpha)^{-1} \Sigma^{h} &= I_n(\alpha) \frac{\partial h}{\partial \theta} I_n(\theta)^{-1} \frac{\partial h}{\partial \theta}^T\\
-		&=  n\pi_1(1-\pi_1)  (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0) \begin{bmatrix}
-			\pi_1(1-\pi_1)/n  & 0 & 0 \\
-			0 & \sigma^2/n   &  0 \\
-			0 &  0 & 2\sigma^4/n \\
-		\end{bmatrix} (\frac{1}{\pi_1(1-\pi_1)}, 0 , 0)^T\\   
-		&= 1
-	\end{align*}     
-	So we have $Cov(\hat\alpha)^{-1} Cov(h(\hat\theta^F))$ converges to a matrix which does not depend on $\theta$.
-	\item[(f)]Now suppose that $\pi_1$ is known. Will the results of (b) - (e) be changed? Please
-	explain. If so, then derive the corresponding results and compare with those obtained
-	above.\\
-	If $\pi_1$ is known,
-	\begin{itemize}
-		\item [(i)] For (b), does not change as the parameters are $\alpha = (\alpha_0, \alpha_1)^T$ which does not involve $\pi_1$.
-		\begin{align*}
-			I_n(\alpha) &= -E[ \frac{\partial ln^2 p(Y_i|\alpha)}{\partial \alpha^2}]\\
-			&= \begin{bmatrix}
-				n \pi_1 (1-\pi_1) &   \sum_{i=1}^n \pi_1 (1-\pi_1)x_i\\
-				\sum_{i=1}^n \pi_1 (1-\pi_1)x_i &  \sum_{i=1}^n \pi_1 (1-\pi_1)x_ix_i^T\\
-			\end{bmatrix}\\
-			Cov(\alpha) &= I_n(\alpha)^{-1} = \frac{1}{[\sum_{i=1}^n n x_i^2 - (\sum_{i=1}^n x_i)^2]\pi_1 (1-\pi_1)}  \begin{bmatrix}
-				\sum_{i=1}^n n x_i^2 &   -\sum_{i=1}^n x_i\\
-				-\sum_{i=1}^n x_i\sum_{i=1}^n \pi_1 (1-\pi_1)x_i & n\\
-			\end{bmatrix}
-		\end{align*} 
-		\item[(ii)] For (c), it involves $\pi_1$, so the result will change. We have covariance matrix for $\theta = (\mu_1, \mu_0, \sigma^2)^T$, 
-		\begin{align*}    
-			I(\theta) &= E[- \frac{1}{n} \frac{\partial ln^2 p(X,Y|\theta)}{\partial \theta^2}], \qquad
-			= \begin{bmatrix}
-				\frac{\pi_1}{\sigma^2} & 0 & 0\\
-				0 & \frac{1-\pi_1}{\sigma^2} & 0\\
-				0 & 0 & \frac{1}{2\sigma^4} \\
-			\end{bmatrix}\\
-			\sqrt{n} (\hat{\theta} - \theta) & \xrightarrow[]{d} N \left(0, \Sigma \right), \qquad
-			\Sigma = I(\theta)^{-1} = \begin{bmatrix}
-				\frac{\sigma^2}{ \pi_1} & 0 & 0\\
-				0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
-				0 & 0 & 2\sigma^4 \\
-			\end{bmatrix}
-		\end{align*} 
-		\item[(iii)] For (d), the $h(\theta)$ does not involve $\pi_1$, but the Jacobian matrix and $I(\theta)$ will change when $\pi_1$ is known. We have covariance matrix for $h(\theta) = c(\mu, \sigma^2)$.
-		\begin{align*}    
-			h(\theta^F ) &= (\alpha_0, \alpha_1)= \left(log(\frac{\pi_1}{1-\pi_1}) +\frac{\mu_0^2 - \mu_1^2}{2\sigma^2},  \frac{(\mu_1-\mu_0)}{\sigma^2} \right)^T\\
-			\sqrt{n} (h(\hat\theta^F ) - h(\theta^F )) & \xrightarrow[]{d} N \left(0, \Sigma_ h \right)\\
-			h(\theta^F )' &= \begin{bmatrix}
-				-\frac{\mu_1}{\sigma^2} & \frac{\mu_0}{\sigma^2} &-\frac{(\mu_0^2 - \mu_1^2)}{2\sigma^4}\\
-				\frac{1}{\sigma^2} & -\frac{1}{\sigma^2} & -\frac{(\mu_1-\mu_0)}{\sigma^4}\\
-			\end{bmatrix}\\
-			\Sigma(\theta) &= \begin{bmatrix}
-				\frac{\sigma^2}{ \pi_1} & 0 & 0\\
-				0 & \frac{\sigma^2}{ 1-\pi_1} & 0\\
-				0 & 0 & 2\sigma^4 \\
-			\end{bmatrix}\\
-			\Sigma^{h} &= h(\theta^F )'\Sigma(\theta) (\theta^F )'^T\\
-			&= \begin{bmatrix}
-				\frac{\mu_0}{(1-\pi_1)\sigma^2} + \frac{\mu_1}{\pi_1\sigma^2} + \frac{(\mu_0^2 - \mu_1^2)^2}{2\sigma^4} & -\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4} \\
-				-\frac{1}{\sigma^2}(\frac{\mu_0}{1-\pi_1} + \frac{\mu_1}{\pi_1}) + \frac{(\mu_1-\mu_0)(\mu_0^2- \mu_1^2)}{\sigma^4}  &  \frac{2(\mu_1-\mu_0)^2}{\sigma^4}\\
-			\end{bmatrix}
-		\end{align*}
-		\item[(iv)] For (e), the only parameter that need to estimate is $\alpha_0 = log(\pi_1/(1-\pi_1))$, which is now known. The question is meaningless. 
-	\end{itemize}
-\end{itemize}
+
+
+
+
 
 \end{document}

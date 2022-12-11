@@ -56,7 +56,7 @@
 
 %%% The "real" document content comes below...
 
-\title{Over dispersion, Two level hierarchical, random effect}
+\title{Quasi-likelihood}
 \author{Mingwei Fei}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -64,137 +64,164 @@
 \begin{document}
 \maketitle
 
-\section{Statistical methods for handling overdispersion}
+\section{Quasi function}
+ Suppose that $y_1, ..., y_n$ are independent where $E(y_i)= \mu_i, Var(y_i) = \mu_i^2$ and assume that $\mu_i = exp(x_i^T\beta)$. Derive the quasi log-likelihood and quasi score function of $\beta$.
  
-Assume a more general form for the variance function, which may include some additional parameter and the additional parameters may be estimated using moment methods and
-quasi-likelihood methods.
-
-Two-level hierarchical models:
-\begin{itemize}
-	\item [(i)] Standard generalized linear models
-	\item [(ii)] The parameter in the standard generalized linear model is assumed to follow some distribution which contains additional parameters
-	\item [(iii)] Estimation methods include maximum likelihood
-\end{itemize}
-
-
-
-
-
-
-Consider a statistical model with $\xi = (\psi, \lambda)$, in which  $\psi$ is the parameter of interest and  $ \lambda$ is a nuisance parameter. conditional likelihood uses 
+ The quasi log-likelihood function
 \begin{align*}
-    ln(\psi) &= log P(\textbf{Y}| s, \psi) 
-\end{align*}
-
-as a ‘pseudo’ likelihood function to carry out inference about $\psi$.\\
-Identify $s$ using $P(Y| s, \psi)$ without loss of information about $\psi$. Generally it is difficult to find such s without additional conditions. Assume that there exists such a statistics $s_{\lambda}(\psi)$ such that $s_{\lambda}(\psi_0)$ is sufficient for $\lambda$ and complete for each value $\psi_0$ of $\psi$. There are two scenarios: 1) $s_{\lambda}(\psi)$ is independent of $\psi$. 2) $s_{\lambda}(\psi)$ does depend on $\psi$. \\
-For 1), we can use the conditional distribution of $P(Y| s_{\lambda}, \xi)$, which is independent of $\lambda$. Thus,
+	I_q(\mu) &= \sum_{i=1}^n lq(\mu_i)\\
+	l_q(\mu_i) &=\int_{y_i}^{\mu_i} \frac{y_i- t}{\sigma^2 V_i (t)} dt\\
+	Var(y_i) &= \mu_i^2,  \qquad \sigma^2 = 1, V_i(\mu_i) = \mu_i^2\\
+	V_i (t) &= \mu_i^2, \qquad  \frac{y_i- t}{\sigma^2 V_i (t)} = \frac{y_i - t}{t^2}
+\end{align*} 
+By integrating of t
 \begin{align*}
-    P(\textbf{Y}; \xi) &= P(\textbf{Y}| s, \psi) P( s, \xi)\\
-    log_c(\psi) &= log P(\textbf{Y}| s_{\lambda}, \psi) = log P(\textbf{Y}| \xi) - log P( s_{\lambda}, \xi)
-\end{align*}
-can be used as the pseudo-likelihood for $\psi$. \\
-
-\subsection{Sufficient statistics of nuisance parameter w distribution free of interest parameter}
-In this case, we don't need to worry about the different values for interested parameters in the denominator. In the denominator, the sufficient statistics for nuisance parameters are fixed, and we can remove them. Only if there are interested parameters, and those values are different, we could not remove them.\\
-
-
-Assume that $y_1, · · · , y_n$ are independent and $y_i$ follows a Poisson distribution with mean $exp(\lambda + \psi x_i)$, where $x_i$ is a covariate of interest. Suppose that $\lambda$ is the nuisance parameter and $\psi$ is the parameter of interest. The joint distribution of $(y_1, · · · , y_n)$ is given by 
+	lq(\mu_i) &= \int_{y_i}^{\mu_i} \frac{y_i - t}{t^2} dt\\
+	&= -\frac{y_i}{\mu_i} + 1 -log \frac{\mu_i}{y_i} = 1- \frac{y_i}{\mu_i} + log \frac{y_i}{\mu_i}
+\end{align*} 
+Then the quasi log-likelihood
 \begin{align*}
-    exp \left( \sum_{i=1}^n y_i(\lambda + \psi x_i) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c \right)
- \end{align*}
-Thus, $S_n = \sum_{i=1}^n y_i$ is the sufficient and complete statistics for $\lambda$. Since $S_n$ follows a poisson distribution with mean $\sum_{i=1}^n exp(\lambda + \psi x_i)$, the log-likelihood of conditional distribution of $\textbf{Y})$ given $S_n = \sum_{i=1}^n y_i$ is given by
-
-\begin{align*}
-    log p(\textbf{Y}; \xi) &= \sum_{i=1}^n y_i(\lambda + \psi x_i) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c_1\\
-    log p(\textbf{s}; \xi) &= \sum_{i=1}^n y_i log \left( \sum_{i=1}^n exp(\lambda + \psi x_i) \right) - \sum_{i=1}^n exp(\lambda + \psi x_i) +c_2\\
-   log_c p(\psi) &= log p(\textbf{Y}; \xi) - log p(\textbf{s}; \xi) \\
-   &=   \sum_{i=1}^n y_i(\psi x_i) - \sum_{i=1}^n y_i log \left( \sum_{i=1}^n exp(\psi x_i) \right)
- \end{align*}
- which is independent of $\lambda$. \\
- 
-\subsubsection{Negative Binomial distribution - conditional probability free of nuisance parameters}
-Suppose that $y_1, · · · , y_n$ are independently and identically distributed with density function
-\begin{align*}
-	P(y) &= \frac{\Gamma(\psi + y)}{\Gamma (y+1) \Gamma (\psi)} \frac{\lambda^y \psi^{\psi}}{(\lambda + \psi)^{y+\psi} }, y= 0, 1,..  
-\end{align*}
-Find a conditional likelihood score function $U_{\psi}(\xi)$ for $\psi$.\\
-Write the distribution in exponential family
-\begin{align*}
-	P(y) &=exp \left[ log \left( \frac{\Gamma(\psi + y)}{\Gamma (y+1) \Gamma (\psi)} \right) + y log \frac{\lambda }{\lambda + \psi } + \psi log \frac{\psi}{\lambda + \psi} \right] 
-\end{align*}
-In which,
-\begin{align*}
-	\theta &= log \frac{\lambda }{\lambda + \psi }\\
-	b(\theta) &= -\psi log \frac{\psi}{\lambda + \psi} = -\psi log (1-exp \theta)
-\end{align*}
-We can find the distribution from MGF or KGF function
-\begin{align*}
-	M_y(t) &= exp \{\phi [b(\theta + t/\phi) - b(\theta)] \}\\
-	K_y(t) &= log M_y(t) = \phi [b(\theta + t/\phi) - b(\theta)], \qquad \phi = 1
-\end{align*}
-Then 
-\begin{align*}
-	K_y(t) &= -\psi log \left( 1-exp (\theta + t) \right) + \psi log (1-exp \theta) \\
-	&= log \left( \frac{1- e(\theta)}{1- e (\theta) e (t)} \right)^{\psi}
-\end{align*}
-Then 
-\begin{align*}
-	M_y(t) &= \left( \frac{1- e(\theta)}{1- e (\theta) e (t)} \right)^{\psi}
-\end{align*}
-which is the MGF for negative binomial distribution. Then we have
-\begin{align*}
-	\sum_{i=1}^n y_i & \sim NB \left( n\psi, \frac{\lambda}{\lambda + \psi} \right)\\
-	P(S=\sum_{i=1}^n y_i) &=exp \left[ log \left( \frac{\Gamma(n \psi + s)}{\Gamma (s+1) \Gamma (n \psi)} \right) + s log \frac{\lambda }{\lambda + \psi } + n \psi log \frac{\psi}{\lambda + \psi} \right] 
-\end{align*}
-where s is a sufficient statistics for $\lambda$. Now
-\begin{align*}
-	l_c(\psi) &= log P_y(y |\lambda, \psi) - log P_s(S)\\ 
-	&=\sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right) + \sum_{i=1}^n y_i log \frac{\lambda }{\lambda + \psi } + n \psi log \frac{\psi}{\lambda + \psi}\\
-	& - log \left( \frac{\Gamma(n\psi + s)}{\Gamma (s+1) \Gamma (n\psi)} \right) - s log \frac{\lambda }{\lambda + \psi } - n \psi log \frac{\psi}{\lambda + \psi} \\
-	&= \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + s)}{\Gamma (s+1) \Gamma (n\psi)} \right) \\
-	&= \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + \sum_{i=1}^n y_i)}{\Gamma (\sum_{i=1}^n y_i+1) \Gamma (n\psi)} \right)
-\end{align*}
-The score function
-\begin{align*}
-	U_{\psi}(\xi)  &= \partial_{\psi} \left[ \sum_{i=1}^n log \left( \frac{\Gamma(\psi + y_i)}{\Gamma (y_i +1) \Gamma (\psi)} \right)- log \left( \frac{\Gamma(n\psi + \sum_{i=1}^n y_i)}{\Gamma (\sum_{i=1}^n y_i+1) \Gamma (n\psi)} \right) \right] \\
-	&= \partial_{\psi} \left[ \sum_{i=1}^n log \Gamma(\psi + y_i) - log \Gamma (y_i +1) - log \Gamma (\psi) - log \Gamma(n\psi + \sum_{i=1}^n y_i) - log \Gamma (\sum_{i=1}^n y_i+1) -log \Gamma (n\psi)  \right] \\
-	&= \frac{ \Gamma'(\psi + y_i)}{ \Gamma(\psi + y_i)} - \frac{ n\Gamma'(\psi)}{ \Gamma(\psi)} - \frac{n \Gamma'(n\psi + \sum_{i=1}^n y_i)}{ \Gamma(n \psi + \sum_{i=1}^n y_i)} - \frac{ n\Gamma'(n \psi)}{ \Gamma(n \psi)}
+	I_q(\mu) &= \sum_{i=1}^n 1- \frac{y_i}{\mu_i} + log \frac{y_i}{\mu_i}\\
+	I_q(\beta) &= \sum_{i=1}^n 1- \frac{y_i}{exp(x_i^T\beta)} + log \frac{y_i}{exp(x_i^T\beta)} \\
+	&=  \sum_{i=1}^n 1- \frac{y_i}{exp(x_i^T\beta)} + log y_i - {(x_i^T\beta)} 
 \end{align*} 
 
-\subsection{Sufficient statistics with distribution not free of interest parameter}
-
-The second scenario, the conditional distribution of \textbf{Y} given $\textbf{s}_{\lambda}(\psi)$ is not well defined. Since $\textbf{s}_{\lambda}(\psi)$ depends on $\psi$, it is difficult to calculate the conditional distribution of \textbf{Y} given $\textbf{s}_{\lambda}(\psi)$. However, for a fixed $\psi_0$, we may use
-
-\begin{align}
-	l_c(\xi,\psi_0) &= log P(\textbf{Y}| s_{\lambda}(\psi_0), \xi) = log P(\textbf{Y}| \xi) - log P( s_{\lambda}(\psi_0), \xi)
-\end{align}
-We can see that $P(\textbf{Y}| \xi)$ is now conditional on $\xi$, because it is basically the same. And the conditional score statistics
+The quasi score function
 \begin{align*}
-	U_{\psi}(\xi) &= \frac{\partial l_c (\xi, \psi_0)}{\partial \psi}|_{\psi_0 = \psi}
-\end{align*}
-It can be shown that 
+	Q(\beta) &= \sum_{i=1}^n \diffp{\mu_i}{{\beta_j}} \frac{y_i - exp(x_i^T \beta)}{exp(2 x_i^T \beta)} \\
+	\diffp{\mu_i}{{\beta}} &= exp( x_i^T \beta) x_{ij} \\
+	V(\beta) &= diag \{ exp(2 x_i^T \beta) \} \\
+	Q(\beta) &=  \sum_{i=1}^n  \frac{y_i - exp(x_i^T \beta)}{exp( x_i^T \beta)} x_{i} = D^T V(\beta)^{-1} (Y- \mu) 
+\end{align*} 
+
+The $D_i$ could be considered as the product of the diagonal matrix of $diag\{exp( x_i^T \beta) \}$ and $x_i$
 \begin{align*}
-	U_{\psi}(\xi) &= \frac{\partial log p(\textbf{Y}| \xi)}{\partial \psi}  - \frac{\partial log p(\textbf{s}; \xi)}{\partial \psi} \\
-	U_{\psi}(\xi) &= \partial_{\psi} log p(\textbf{Y}| \xi) - E[\partial_{\psi} log p(\textbf{Y}|\xi)| s_{\lambda}(\psi)]
-\end{align*}
-We can get conditional score statistics in an alternative way, which is $\frac{\partial log E[p(\textbf{Y}|\xi, \textbf{s})|\textbf{s}]}{\partial \psi}$.\\
-Proof
+	\mu_i &= exp(X_i^T \beta) = exp(x_{i1} \beta_1 + x_{i2} \beta_2 + .. + x_{ip} \beta_p)\\
+	\diffp{\mu_i}{{\beta_j}} &= exp( x_i^T \beta) x_{ij} \\
+	D_i(\beta) &= \diffp{\mu_i}{{\beta}} = \begin{pmatrix}
+		\diffp{\mu_i}{{\beta_1}}  \\
+		\diffp{\mu_i}{{\beta_2}} \\
+		..  \\
+		\diffp{\mu_i}{{\beta_p}} 
+	\end{pmatrix} \\
+ &= exp(x_i^T \beta) \begin{pmatrix}
+x_{i1}  \\
+x_{i2}\\
+..  \\
+x_{ip}\\
+\end{pmatrix} = \begin{pmatrix}
+exp(x_i^T \beta) x_{i1}  \\
+exp(x_i^T \beta) x_{i2}\\
+..  \\
+exp(x_i^T \beta) x_{ip}\\
+\end{pmatrix}\\
+D(\beta) &= \begin{pmatrix}
+	exp(x_1^T \beta) & 0  & 0...& \\
+	0 & exp(x_2^T \beta) & 0 ..& \\
+	.&..&..&  \\
+	..& ..&  exp(x_n^T \beta)
+\end{pmatrix} \begin{pmatrix}
+	x_{1}^T  \\
+	x_{2}^T \\
+	..  \\
+	x_{n}^T\\
+\end{pmatrix}\\
+ &= \begin{pmatrix}
+exp(x_1^T \beta) & 0  & 0...& \\
+0 & exp(x_2^T \beta) & 0 ..& \\
+.&..&..&  \\
+..& ..&  exp(x_n^T \beta)
+\end{pmatrix} \begin{pmatrix}
+x_{11} & x_{12} ... & x_{1p}  \\
+x_{21} & x_{22} ... & x_{2p}  \\
+.. &.. & ..&  \\
+x_{n1} & x_{n2} ... & x_{np} \\
+\end{pmatrix} 
+\end{align*} 
+Then the formula
 \begin{align*}
-	p(\textbf{Y}| \xi) &= p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) p(s_{\lambda}(\psi_0) | \xi)\\
-	log p(\textbf{Y}| \xi) &= log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) + log p(s_{\lambda}(\psi_0) | \xi)\\
-	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)\\
-	E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) & = 0
-\end{align*}
-integral and expectation can switch, distribution integral with no $\psi$
-\begin{align*}
-	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= \partial_{\psi}log p(s_{\lambda}(\psi_0),\xi)\\
-	E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &=  E \left( \partial_{\psi}[log p(\textbf{Y}| s_{\lambda},\xi)| s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)
+	 D^T V(\beta)^{-1} e &=  \begin{pmatrix}
+	 	x_{11} & x_{21} ... & x_{n1}  \\
+	 	x_{12} & x_{22} ... & x_{n2}  \\
+	 	.. &.. & ..&  \\
+	 	x_{1p} & x_{2p} ... & x_{np} \\
+	 \end{pmatrix} \begin{pmatrix}
+	 exp(x_1^T \beta) & 0  & 0...& \\
+	 0 & exp(x_2^T \beta) & 0 ..& \\
+	 .&..&..&  \\
+	 ..& ..&  exp(x_n^T \beta)
+ \end{pmatrix}\\
+& \begin{pmatrix}
+ exp(2 x_1^T \beta)^{-1} & 0  & 0...& \\
+ 0 & exp(2 x_2^T \beta)^{-1} & 0 ..& \\
+ .&..&..&  \\
+ ..& ..&  exp(2 x_n^T \beta)^{-1}
+\end{pmatrix} \begin{pmatrix}
+y_{1} - \mu_1  \\
+y_{2}- \mu_1 \\
+..  \\
+y_{n}- \mu_1\\
+\end{pmatrix}\\
+&= \begin{pmatrix}
+	x_{11} & x_{21} ... & x_{n1}  \\
+	x_{12} & x_{22} ... & x_{n2}  \\
+	.. &.. & ..&  \\
+	x_{1p} & x_{2p} ... & x_{np} \\
+\end{pmatrix} \begin{pmatrix}
+	exp(-x_1^T \beta) & 0  & 0...& \\
+	0 & exp(-x_2^T \beta) & 0 ..& \\
+	.&..&..&  \\
+	..& ..&  exp(-x_n^T \beta)
+\end{pmatrix}\begin{pmatrix}
+y_{1} - \mu_1  \\
+y_{2}- \mu_1 \\
+..  \\
+y_{n}- \mu_1\\
+\end{pmatrix}\\
+U(\beta_j) &= \sum_{i=1}^n x_{ij} exp(-x_i^T \beta) (y_i - exp(x_i^T \beta))\\
+U(\beta) &= \sum_{i=1}^n x_{i} exp(-x_i^T \beta) (y_i - exp(x_i^T \beta)) = \sum_{i=1}^n \frac{x_i y_i}{exp(x_i^T \beta)} - x_i
 \end{align*}
 
-\section{Practice}
+\subsection{Asymptotic Distribution of $\beta$}
+The sandwich theorem could be used to derive the covariance of $\beta$. By Taylor expansion, we have 
+\begin{align*}
+	\hat{\beta} - \beta_{\ast} &= - \left( \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \diffp{ln(\beta_{\ast}}{\beta} (1+O(n)) \\
+	\sqrt{n} (\hat{\beta} - \beta_{\ast}) &= - \left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \frac{1}{\sqrt{n}} \diffp{ln(\beta_{\ast}}{\beta} 
+\end{align*}
+$\beta_{\ast}$ is the solution to the score function
+\begin{align*}
+	E[\diffp{ln(\beta_{\ast})}{\beta}] &= 0
+\end{align*}
+While $\hat{\beta}$ is the solution to the score function
+\begin{align*}
+	\diffp{ln(\hat{\beta})}{\beta} &= 0
+\end{align*}
+By WLLN,
+\begin{align*}
+ \left( \diffp{ln({\beta}_{\ast})}{\beta \beta} \right) & =   E[ \diffp{ln({\beta_{\ast}})}{\beta \beta}] = D^T V(\beta)^{-1} D
+\end{align*}
+So we have the covariance of $\beta$
+\begin{align*}
+	Cov \left(\sqrt{n} (\hat{\beta})\right) &= \left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \frac{1}{n} Cov(\diffp{ln(\hat{\beta})}{\beta})  [\left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1}]^T\\
+	Cov(\diffp{ln(\hat{\beta})}{\beta})	&= D^T V(\beta)^{-1} V(\beta) V(\beta)^{-1} D\\
+	&= D^T V(\beta)^{-1} D
+\end{align*}
+By Sandwich theorem,
+\begin{align*}
+	Cov \left(\sqrt{n} (\hat{\beta})\right) &= \left(\frac{1}{n} D^T V(\beta)^{-1} D \right)^{-1} \left(\frac{1}{n} D^T V(\beta)^{-1}  D\right) \left(\frac{1}{n} D^T V(\beta)^{-1} D  \right)^{-1}\\
+	&= \{D^T V(\beta)^{-1} D\}^{-1}
+\end{align*}
 
-\subsection{Pair of variables}
+By the above formula, 
+\begin{align*}
+	Cov (\hat{\beta}) &= \{D^T V(\beta)^{-1} D\}^{-1} = (X^T X)^{-1}
+\end{align*}
+
+Thus the asymptotic distribution
+\begin{align*}
+	\sqrt{n} (\hat{\beta} - \beta_{\ast}) &=N(0, n(X^T X)^{-1}) 
+\end{align*}
+
 Suppose that $X_i, Y_i$ are independent random variables with an exponential distribution, with $E(X_i)= 1/(\psi \lambda_i)$ and $E(Y_i) = 1/\lambda_i$, for $i=1,2,..n$. The parameters of interest is $\psi$, the $\lambda_i$ is being unknown nuisance parameters.
 
 \begin{itemize}

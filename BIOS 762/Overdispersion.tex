@@ -1,0 +1,416 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Over dispersion, Quasi-likelihood}
+\author{Mingwei Fei}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{Statistical methods for handling overdispersion}
+ 
+Assume a more general form for the variance function, which may include some additional parameter and the additional parameters may be estimated using moment methods and
+quasi-likelihood methods.
+
+Two-level hierarchical models:
+\begin{itemize}
+	\item [(i)] Standard generalized linear models
+	\item [(ii)] The parameter in the standard generalized linear model is assumed to follow some distribution which contains additional parameters
+	\item [(iii)] Estimation methods include maximum likelihood
+\end{itemize}
+
+
+\subsection{Quasi-likelihood}
+
+
+ Quasi-likelihood: We don't know the distribution of $y_i$, only know the $E(y_i), Var(y_i)$, so we can get the quasi function of $S_n(\mu_i, \sigma^2)$, and then we need to know the link between $\mu_i$ and $\beta$. Furthermore, we will use the sandwich estimate.\\
+	It usually is used in overdispersion, also two level hierarchical model and random effect models could be used in overdispersion as well.\\
+	Quasi-likelihood provides an important method for making statistical inference without making parametric assumption. Suppose independence, so we have covariance matrix only with diagonal element. We only know mean, but variance is unknown $\sigma^2 = \phi^{-1}$. $Cov(Y) =  \sigma^2 diag\{v_i(\mu)\}$, in which $v_i(\mu)$ is known, but $\sigma^2$ unknown.\\
+	When estimating $\beta$ using the quasi score function, we don't need to estimate $\sigma^2$ as it dropped out of the equation. But we can estimate through the variance of Y. 
+	Quasi-likelihood can be applied to independent and dependent observations.\\
+	
+\subsection{Z-estimate}
+ Z-estimate: give the estimating equation of $\beta$ instead, here we introduce the random effect. $H(\beta)$ We don't know any information about Var(Y).\\
+	To solve $\beta$, we always need score function, so we will need to know the score function from either way. Z-estimator is more generalized than quasi-likelihood estimator. \\
+	\begin{align}
+		D_{\mu}(\theta)^T (Y-\mu) &= \sum_{i=1}^n \frac{\partial \mu_i(x_i, \beta)}{\partial \beta} (y_i-\mu_i)\\
+		\mu_i &= x_i^T \beta
+	\end{align}
+Generalized Estimating Equations: the quasi-likelihood and Z-estimators and GEE could all be considered as they assume the score functions. But GEE could be specialized to handle longitudinal data. GEE is semi-parametric, as it does not need to estimate all the parameters, which is widely used. 
+
+
+
+
+
+Consider testing linear hypothesis
+\begin{align*}
+	H_0 &: R \xi = b_0
+\end{align*}
+Let $R=(I_r, 0), R \xi = \xi{(1)}$ and $\xi^T = (\xi{(1)}^T, \xi(2)^T)^T$, in which $\xi(1), \xi(2)$ are, respectively, $r \times 1$ and $(q-r) \times 1$ subvectors of $\xi$. Under $H_0$, the constrained ML estimate of $\xi$ is denoted by $\Tilde{\xi} = (b_0^T, \Tilde{\xi})(2)^T)^T$. We define $\hat{\xi}(2)(\xi(1))$ as a function of $\xi(1)$, which maximizes $ln(\xi(1), \xi(2))$ for each $\xi(1)$. Thus $\Tilde{\xi}(2) = \hat{\xi}(2)(b_0)$\\
+Thus, the hypothesis test could be written as
+\begin{align*}
+	H_0 &: \xi(1) = b_0 \qquad  H_1 : \xi(1) \neq b_0
+\end{align*}
+
+
+	Let 
+	\begin{align*}
+		h(\xi, U) &= \left( h_1(\xi, U)^T,  h_2(\xi, U)^T\right)^T
+	\end{align*}
+	Under $H_0$, $\Tilde{\xi} = (b_0, \Tilde{\xi_2}^T)^T$, solve $S_{n,2}(\hat{\xi(2)}) = 0$
+	\begin{align*}
+		S_n(\hat{\xi}) &= \sum_{0}^n h\left( \hat{\xi}, U\right) = 0
+	\end{align*}
+	Write in matrix
+	\begin{align*}
+		\dot{S_n}(\xi) &= \partial_{\xi} S_n(\xi) =  \begin{pmatrix}
+			S_{n,11}  & S_{n,12} \\
+			S_{n,21} &  S_{n,22}  \\
+		\end{pmatrix}
+	\end{align*}
+	And
+	\begin{align*}
+		\dot{S_n}(\xi)^{-1} &= \begin{pmatrix}
+			S_{n}^{11}  & S_{n}^{12} \\
+			S_{n}^{21} &  S_{n}^{22}  \\
+		\end{pmatrix}
+	\end{align*}
+	The Score test statistics
+	\begin{align*}
+		SC_n &= S_{n}(\Tilde{\xi})^T Var(S_n(\Tilde{\xi}))^{-1} S_{n}(\Tilde{\xi})= S_{n}(\Tilde{\xi})^T I_n(\Tilde{\xi})^{-1} S_{n}(\Tilde{\xi}), \qquad \text{if generalized linear model}\\
+		SC_n &= S_{n,1}(\Tilde{\xi})^T \Sigma^{11}(\Tilde{\xi}) S_{n,1}(\Tilde{\xi}) , 
+	\end{align*}
+	As the $\hat{\xi}(2)$ are the MLE of ${\xi}(2)$ given ${\xi}(1) = b_0$, $S(\hat{\xi}(2)) = 0$. Only the $S(\hat{\xi}(1)) \neq 0$.
+	\begin{align*}
+		\Sigma^{11}(\Tilde{\xi}) &= \{(I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22}) (\sum_{i=1}^n [h(\Tilde{\xi}) - \bar{h}(\Tilde{\xi})]^{\otimes 2}) (I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22})^T\}^{-1}
+	\end{align*}
+	$(\sum_{i=1}^n [h(\Tilde{\xi}) - \bar{h}(\Tilde{\xi})]^{\otimes 2})$ is actually $I_n(\xi), Var([h(\xi,U)])$. While the $E[h(\xi,U)] = 0$ in the above cases, but not here. So we need to get the sample mean of $\bar{h}(\Tilde{\xi}) = (1/n) \sum_{i=1}^n [h(\Tilde{\xi})]$. \\
+	Using CLT, we have 
+	\begin{align*}
+		\sqrt{n}^{-1} S_n(\xi(\ast))  & \rightarrow N(0, Var[h(\Tilde{\xi}, U)])_{\ast} 
+	\end{align*} 
+	Need to pay attention that, use $I_n(\xi)$ the observed fisher information.\\
+	Show how the $(I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22})$ come in play, using Taylor series
+	\begin{align*}
+		\Tilde{\xi}(2) - \xi(2)_{\ast} &= - S_{n,22}^{-1}(S_{\ast}) S_{n,2}(\xi_{\ast}) + O_p(n^{-1})\\
+		S_{n,1}(\Tilde{\xi}) &= S_{n,1}(\xi_{\ast}) + S_{n,12}(\xi_{\ast}) (\Tilde{\xi}(2) -\xi(2)_{\ast}) + O_p(n) 
+	\end{align*} 
+	The above equations include $(\Tilde{\xi}(2) -\xi(2)_{.})$. We could 
+	\begin{align*}
+		S_{n,1}(\Tilde{\xi}) &= [I_r, - S_{n,12} S_{n,22}^{-1}] S_{n}(\xi_{\ast}) + O_p(1)
+	\end{align*} 
+ Rao's Score test in GLM
+	For a fixed $\xi(1)$, we define 
+	\begin{align*}
+		(\xi(1), \Tilde{\xi}(2)(\xi(1))) &= argmax_{\xi{(2)}} ln(\xi{(1)}, \xi(2))
+	\end{align*} 
+	The quantity $ln(\xi{(1)},  \Tilde{\xi}(2)(\xi(1)))$ is called the profile likelihood. \\
+	According to the partition $(\xi{(1)}^T, \xi(2)^T)$ of $\xi^T$, we define
+	\begin{align*}
+		\partial_{\xi}ln(\xi)^T &= (\dot{L}_1^T, \dot{L}_2^T),\\
+		\ddot{L}(\xi) &= \partial_{\xi}^2 ln = \begin{pmatrix}
+			L_{11} & L_{12}\\
+			L_{21} & L_{22}\\
+		\end{pmatrix} , \qquad \ddot{L}(\xi)^{-1} = (\partial_{\xi}^2 ln)^{-1} =\begin{pmatrix}
+			L^{11} & L^{12}\\
+			L^{21} & L^{22}\\
+		\end{pmatrix} 
+	\end{align*} 
+	Then Score test statistics
+	\begin{align*}
+		SC_n &= \partial_{\xi}ln(\xi)^T Var \left(\partial_{\xi}ln(\xi) \right)^{-1} \partial_{\xi}ln(\xi)\\
+		&= (\dot{L}_1^T, \dot{L}_2^T) E \left[ \ddot{L}(\xi)\right]^{-1}  \begin{pmatrix}
+			\dot{L}_1\\
+			\dot{L}_2\\
+		\end{pmatrix} 
+	\end{align*} 
+	We need to calculate $\partial_{\xi}ln(\Tilde{\xi})$ and $\partial_{\xi}^2 ln(\Tilde{\xi}))$ (or $E[\partial_{\xi}ln(\Tilde{\xi})^{\otimes 2}]$). It can be shown that 
+	\begin{align*}
+		\partial_{\xi}ln(\Tilde{\xi}) &= (\dot{L}_1(\Tilde{\xi})^T, 0^T)^T \\
+	\end{align*} 
+	Thus, using equation we can show that
+	\begin{align*}
+		SC_n &= - (\dot{L}_1(\Tilde{\xi})^T, 0^T) \begin{pmatrix}
+			L^{11} & L^{12}\\
+			L^{21} & L^{22}\\
+		\end{pmatrix}  \begin{pmatrix}
+			\dot{L}_1(\Tilde{\xi})\\
+			0\\
+		\end{pmatrix} \\
+		&= -\dot{L}_1(\Tilde{\xi})^T L^{11}(\Tilde{\xi}) \dot{L}_1(\Tilde{\xi})
+	\end{align*} 
+	
+Connection between the ML estimates of $\xi$ under $H_0$ and the estimates under the unrestricted space.
+	Using a Taylor's series expansion, we get expansion at $\Tilde{\xi}$
+	\begin{align*}
+		0  &= \frac{\partial ln \hat{\xi}}{\partial \xi} = \partial_{\xi} ln(\Tilde{\xi}) + \ddot{L}(\Tilde{\xi})[\hat{\xi} - \Tilde{\xi}] [1+ O_p(1/\sqrt{n})]
+	\end{align*} 
+	Thus, because $\dot{L}_2(\Tilde{\xi}) = 0$, we have
+	\begin{align*}
+		\begin{pmatrix}
+			\dot{L}_1(\Tilde{\xi})\\
+			0\\
+		\end{pmatrix}   &= - \begin{pmatrix}
+			L_{11} & L_{12}\\
+			L_{21} & L_{22}\\
+		\end{pmatrix} \begin{pmatrix}
+			\hat{\xi} - b_0\\
+			\hat{\xi}(2) - \Tilde{\xi}(2)\\
+		\end{pmatrix}
+	\end{align*} 
+	Thus
+	\begin{align*}
+		\hat{\xi} - \Tilde{\xi}  &= - [\ddot{L}(\Tilde{\xi})]^{-1} \dot{L}(\Tilde{\xi}) + O_p(1/n)\\
+		& L_{21} (\hat{\xi} - b_0) + L_{22} (\hat{\xi}(2) - \Tilde{\xi}(2)) = 0
+	\end{align*} 
+	So we can get the connection between $\hat{\xi}_1$ and $b_0$
+	\begin{align*}
+		\hat{\xi}(1) - b_0  &= - L^{11} \dot{L}_1(\Tilde{\xi}) + O_p(1/n)\\
+		\hat{\xi}(2) - \Tilde{\xi}(2)(b_0) & = - L_{22}^{-1}L_{21} (\hat{\xi}(1) - b_0) 
+	\end{align*} 
+
+\subsection{Two level hierarchical overdispersion model score test}
+
+Level 1: $y_i|\theta_i \sim D(\theta_i, 1), i=1,2,... n $, which is either poisson or binomial distribution\\
+Level 2: $\theta_i$ is a random variable, $E[\theta_i] = k(x_i^T \beta)= \mu(\theta_i), Var[\theta_i] = \tau f_i(x_i^T \beta)$, $\theta_i$ is the canonical parameter in exponential family model.\\
+Let $\alpha = (\beta, \tau)$, the observed data log-likelihood (two level model) by integral out the $\theta_i$
+\begin{align*}
+	ln(\alpha) &= \sum_{i=1}^n log \int D(\theta_i,1) p(\theta_i, \tau) d\theta_i
+\end{align*} 
+The hypothesis
+\begin{align*}
+	H_0 &: \tau = 0, \qquad H_1 : \tau \neq 0
+\end{align*} 
+The score test
+\begin{align*}
+	SC_n &=  \partial_{\alpha} ln(\Tilde{\alpha})^T [I_n(\Tilde{\alpha})]^{-1} \partial_{\alpha} ln(\Tilde{\alpha})
+\end{align*} 
+Under $H_0: \tau = 0$, the score test statistics could be further written as
+\begin{align*}
+	\dot{L} &= (\frac{\partial ln(\alpha)}{\partial {\beta}}, \frac{\partial ln(\alpha)}{\partial {\tau}}  )^T =(\dot{L}_1 , \dot{L}_2)^T,\\
+	\dot{L}_1(\Tilde{\alpha}) &= \partial_{\beta} ln(\Tilde{\alpha}) = 0, \qquad \dot{L}_2 (\Tilde{\alpha})= \partial_{\tau} ln(\Tilde{\alpha})\\
+	\ddot{L} &=\partial^2_{\alpha} ln(\alpha) = \begin{pmatrix}
+		L_{11} & L_{12}  \\
+		L_{21} & L_{22}  \\
+	\end{pmatrix}, \qquad \ddot{L}^{-1} = \begin{pmatrix}
+		L^{11} & L^{12}  \\
+		L^{21} & L^{22}  \\
+	\end{pmatrix}\\
+	SC_n &= - \dot{L}_2^T [L^{22}(\Tilde{\alpha})] \dot{L}_2, \\
+	&= \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}^T \frac{1}{\sigma_{\tau}^2} \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}
+\end{align*}
+where $\sigma^2_{\tau} = (L^{22})^{-1}$, which is the (2,2) block of the inverse of
+\begin{align*}
+	I_n(\alpha) &=  \begin{pmatrix}
+		\frac{\partial^2 ln(\Tilde{\alpha})}{\partial \beta^2} & \frac{\partial^2 ln(\Tilde{\alpha})}{\partial \beta \tau}  \\
+		\frac{\partial^2 ln(\Tilde{\alpha})}{\partial \tau \beta} & \frac{\partial^2 ln(\Tilde{\alpha})}{\partial \beta^2}  \\
+	\end{pmatrix}, \qquad L^{22} =\left( I_{\tau \tau} - I_{\tau \beta} I_{\beta^2}^{-1} I_{\beta \tau}\right)^{-1}
+\end{align*} 
+We expand the $p(y_i|\theta_i)$ in a Taylor series about $E[\theta_i] = k(x_i^T\beta)$
+\begin{align*}
+	p(y_i|\theta_i)  &= p(y_i|E[\theta_i]) + p^{(1)}(y_i|E[\theta_i]) (\theta_i- E[\theta_i]) + \frac{1}{2} p^{(2)}(y_i|E[\theta_i]) (\theta_i- E[\theta_i])^2 +..\\
+	p(y_i|\theta_i)  &= p(y_i|E[\theta_i]) + \sum_{r=2}^n \frac{(\theta_i- E[\theta_i])^r}{r!} H^{\ast}(y_i, \theta_i) 
+\end{align*} 
+where $H^{\ast}(y_i, \theta_i) = p^{(r)}(y_i|E[\theta_i])|_{\theta_i= E(\theta_i)}$.
+Therefore,
+\begin{align*}
+	p(y_i)  &= E_{\theta_i}[p(y_i|\theta_i)] 
+	= p(y_i|E[\theta_i]) \{1 + \sum_{r=2}^n \frac{\gamma^r}{r!} H_r(y_i, E[\theta_i]) \}
+\end{align*} 
+where 
+\begin{align*}
+	H_r(y_i, E[\theta_i]) & =H^{\ast}_r(y_i, E[\theta_i]) p(y_i|E[\theta_i])^{-1}\\
+	\gamma_r &= E[\theta_i - E(\theta_i)]^{\gamma}, \qquad E(\theta_i) = k(x_i^T\beta)
+\end{align*}
+We have log-likelihood of the expanded taylor series
+\begin{align*}
+	log l_i & = log p(y_i|E[\theta_i]) + log  \{1 + \sum_{r=2}^n \frac{\gamma^r}{r!} H_r(y_i, E[\theta_i]) \}\\
+	ln(\alpha) &= \sum_{i=1}^n log p(y_i|E[\theta_i]) + log  \{1 + \sum_{r=2}^n \frac{\gamma^r}{r!} H_r(y_i, E[\theta_i]) \}, \qquad \gamma^r = 0(\tau), r>=3\\
+	&= \sum_{i=1}^n log p(y_i|E[\theta_i]) + log  \{1 + \frac{E(\theta_i-E(\theta_i))^2}{2} \left( \frac{\partial^2 p(y_i|\theta_i)}{\partial \theta_i^2} p(y_i|\theta_i)^{-1}\right)\}\\
+	p(y_i|\theta_i) &= exp\{ y_i \theta_i - b(\theta_i)\}\\
+	\frac{\partial p(y_i|\theta_i)}{\partial \theta_i} &= exp\{ y_i \theta_i - b(\theta_i)\} (y_i- \dot{b}(\theta_i))\\
+	\frac{\partial^2 p(y_i|\theta_i)}{\partial \theta_i^2} &= exp\{ y_i \theta_i - b(\theta_i)\} (y_i- \dot{b}(\theta_i))^2 +  exp\{ y_i \theta_i - b(\theta_i)\}(-\ddot{b}(\theta_i))\\
+	&= p(y_i|\theta_i) \left[(y_i- \dot{b}(\theta_i))^2 -\ddot{b}(\theta_i) \right]\\
+	&= p(y_i|\theta_i) \left[(y_i- \mu_i)^2 -\ddot{b}(\theta_i) \right]
+\end{align*}
+Now the score test statistics
+\begin{align*}
+	\dot{L}_2(\Tilde{\alpha}) &= \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}  = \sum_{i=1}^n \frac{\partial l_i}{\partial \tau}\Bigg|_{\tau=0} = \sum_{i=1}^n T_i(\Tilde{\alpha})\\
+	\Tilde{\alpha} &= c(\Tilde{\beta}, 0)^T\\
+	ln(\alpha) &=\sum_{i=1}^n  log p(y_i|E[\theta_i]) + log \left( 1+ \frac{1}{2} \left[(y_i- \mu_i)^2 -\ddot{b}(\theta_i) \right]E(\theta_i-E(\theta_i))^2 \right)\\
+	&= \sum_{i=1}^n  log p(y_i|E[\theta_i]) + log \left( 1+ \frac{1}{2} \left[(y_i- \mu_i)^2 -\ddot{b}(\theta_i) \right]\tau f_i \right)\\
+	T_i(\Tilde{\alpha}) &= \frac{1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i)] f_i}{1+1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i)]\tau f_i}\Bigg|_{\tau=0}\\
+	&= \frac{1}{2} f_i\{ (y_i-\mu_i)^2- \ddot{b}(\theta_i)\}, \qquad \mu_{\theta_i} = E(\theta_i)
+\end{align*}
+The general forms of $I_{\beta^2}, I_{\beta\tau}, I_{\tau^2}, I_{\tau\beta}$ and Fisher information $I_n(\alpha)$.
+\begin{align*}
+	W_{1i} &= diag\{W_{11}, W_{12},.. \}\\
+	W_{1i}&= -E [\frac{\partial^2 ln(\alpha)}{\partial \mu_i^2}]\Bigg|_{\tau = 0} = \ddot{b}(\theta_i)\\
+	W_{2i} &= diag\{W_{21}, W_{22},.. \}\\ 
+	W_{2i} &=  I_{\tau \mu_i} =-E [\frac{\partial^2 ln(\alpha)}{\partial \tau \mu}]\Bigg|_{\tau = 0} = \frac{1}{2} f_i b^{(3)}(\theta_i)\\
+	I_{\tau^2} &=-E [\frac{\partial^2 ln(\alpha)}{\partial \tau^2}]\Bigg|_{\tau = 0} \\
+	\frac{\partial^2 ln(\alpha)}{\partial \tau^2} &= -\frac{\left(1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i) ] f_i\right)^2}{\left(1+1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i)]\tau f_i \right)^2} \\
+	I_{\tau^2} &= E \left[  \frac{\left(1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i)] f_i \right)^2}{\left(1+1/2 [(y_i-\mu_i)^2-\ddot{b}(\theta_i)]\tau f_i \right)^2} \right]\Bigg|_{\tau = 0}\\
+	&= E \left[ \frac{1}{4}\left( [(y_i-\mu_i)^2-\ddot{b}(\theta_i)] f_i \right)^2 \right]\Bigg|_{\tau = 0} = \frac{1}{4} f_i^2 E \left[ \left( [(y_i-\mu_i)^2-\ddot{b}(\theta_i)]  \right)^2 \right]\Bigg|_{\tau = 0}\\
+	&= \frac{1}{4} \sum_{i=1}^n  f_i^2 \left( 2 (\ddot{b}(\theta_i))^2 + b^{(4)}(\theta_i) \right)
+\end{align*}
+By delta method,
+\begin{align*}
+	I_{\beta \beta} &= D_{\mu}(\beta)^T  W_1 D_{\mu}(\beta) \\
+	I_{\beta \tau} &= D_{\mu}(\beta)^T W_2 1_n
+\end{align*}
+where $D_{\mu}(\beta) = \partial \mu/ \partial \beta$ is an $ n \times p$ matrix and $b^{(4)}(\theta_i)$ denotes the fourth derivative of $b(\theta_i)$ with respect to $\theta_i$. 
+
+\subsection{Logistic random model score test}
+The logistic random effect model
+\begin{align*}
+	y_i|\theta_i & \sim B(m_i, \pi_i), \qquad \pi_i = \frac{e^{\theta_i}}{1+e^{\theta_i}} ,\qquad \theta_i = x_i^T \beta + \sigma z_i\\
+	E(z_i) &= 0, \qquad Var(z_i) = 1
+\end{align*}
+
+Here we don't know the distribution of the random effect variable. We only know the expectation and variance.
+Then we have $Var(\theta_i) = \sigma^2, \tau = \sigma^2, f_i = 1$.
+
+\begin{align*}
+	P(y_i|\theta_i) &= {m_i \choose y_i} \pi_i^{y_i} (1-\pi_i)^{m_i-y_i}\\
+	log P(y_i|\theta_i) &= y_i log \pi_i + {m_i-y_i} log (1-\pi_i) + log {m_i \choose y_i}\\
+	&= y_i log(\frac{\pi}{1-\pi}) + m_i log (1-\pi_i) + log {m_i \choose y_i}
+\end{align*}
+Let $log(\frac{\pi}{1-\pi}) = \theta_i$,
+\begin{align*}
+	log P(y_i|\theta_i) &=  y_i log(\frac{\pi}{1-\pi}) + m_i log (1-\pi_i) + log {m_i \choose y_i}\\
+	&= y_i \theta_i - m_i log(1+ e^{\theta_i}) + c(y_i)
+\end{align*}
+
+Then $b(\theta_i) = m_i log(1+ e^{\theta_i})$. 
+\begin{align*}
+	\dot{b}(\theta_i) &= \frac{m_i e^{\theta_i}}{(1+e^{\theta_i})} = m_i \pi_i\\
+	\ddot{b}(\theta_i) &= \frac{m_i e^{\theta_i}}{(1+e^{\theta_i})^2} = m_i \pi_i (1-\pi_i)\\
+	b^{(3)}(\theta_i) &= \frac{m_i e^{\theta_i} - m_i e^{2 \theta_i}}{(1+e^{\theta_i})^3} = \frac{\partial}{\partial \pi_i} \left( m_i \pi_i (1-\pi_i) \right) \frac{\partial \pi_i}{\partial \theta_i}\\ &= m_i \pi_i [(1-\pi_i)^2 - \pi_i(1-\pi_i)] = m_i(\pi_i + 2\pi_i^3 -3\pi_i^2)\\
+	b^{(4)}(\theta_i) &= \frac{\partial}{\partial \pi_i}  \left( m_i(\pi_i + 2\pi_i^3 -3\pi_I^2) \right) \frac{\partial \pi_i}{\partial \theta_i} = m_i(1 + 6\pi_i^2 -6 \pi_i)\pi_i(1-\pi_i)
+\end{align*}
+Also, we have fisher information
+\begin{align*}
+	\dot{L}_{\tau}(\Tilde{\alpha}) &=  \sum_{i=1}^n \frac{1}{2} f_i\{ (y_i-\mu_i)^2- \ddot{b}(\theta_i)\}  = \frac{1}{2} \sum_{i=1}^n (y_i- m_i\pi_i )^2- m_i \pi_i (1-\pi_i)\\
+	I_{\tau\tau} &=\frac{1}{4} \sum_{i=1}^n 2 (\ddot{b}(\theta_i))^2 + b^{(4)}(\theta_i)= \frac{1}{4} \sum_{i=1}^n  2 m_i^2 \pi_i^2 (1-\pi_i)^2 + m_i(1 + 6\pi_i^2 -6 \pi_i)\pi_i(1-\pi_i)   \\
+	D_{\theta}(\beta) &= \frac{\partial \theta_i}{\partial \beta}= x_i\\
+	W_{1i} &= \ddot{b}(\theta_i) = m_i \pi_i (1-\pi_i)\\
+	I_{\beta \beta} &= D_{\mu}(\beta)^T  W_1 D_{\mu}(\beta) = X^T diag \{m_i \pi_i (1-\pi_i)\}X\\
+	W_{2i} &= \frac{1}{2} f_i b^{(3)}(\theta_i) =\frac{1}{2} m_i(\pi_i + 2\pi_i^3 -3\pi_i^2)\\
+	I_{\beta \tau} &= D_{\mu}(\beta)^T W_2 1_n = \frac{1}{2} X^T diag\{ m_i(\pi_i + 2\pi_i^3 -3\pi_i^2)\} 1_n
+\end{align*}
+For hypothesis test, $H_0: \tau = 0$, the score test
+\begin{align*}
+	SC_n &= \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}^T \frac{1}{\sigma_{\tau}^2} \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}\\
+	\sigma_{\tau}^2 &= I_{\tau \tau} - I_{\tau \beta} I_{\beta^2}^{-1} I_{\beta \tau} \\
+	&= I_{\tau\tau} -  (X^T W_2 1_n)^T (X^T W_1 X)^{-1} X^T W_2 1_n \\
+	&=I_{\tau\tau} - 1_n^T W_2 W_1^{-1/2} W_1^{1/2} X (X^T W_1 X)^{-1} X^T W_1^{1/2} W_1^{-1/2} W_2 1_n \\
+	&= I_{\tau\tau} - \alpha^T  H \alpha
+\end{align*}
+where 
+\begin{align*}
+	\alpha &= \left( \frac{W_{21}}{\sqrt{W_{11}}}, \frac{W_{22}}{\sqrt{W_{12}}} ,... \frac{W_{2n}}{\sqrt{W_{1n}}} \right)^T\\
+	H &= (h_{ij}) = W_1^{1/2} X (X^T W_1 X)^{-1} X^T W_1^{1/2}\\
+	\sigma^2_{\tau} &= I_{\tau\tau} - \sum_{i,j} \frac{W_{2i}W_{2j}}{\sqrt{W_{1i}W_{1j}}} h_{ij}
+\end{align*}
+
+\subsection{Poisson random model score test}
+The poisson random effect model
+\begin{align*}
+	y_i|\theta_i & \sim Poisson(\mu_i), \qquad \mu_i = exp(\theta_i) ,\qquad \theta_i = x_i^T \beta + \sigma z_i\\
+	E(z_i) &= 0, \qquad Var(z_i) = 1, \qquad f_i =1, \qquad \tau = \sigma^2\\
+	p(y_i|\theta_i) &= exp(-\mu_i + y_i log \mu_i - log y_i!) \\
+	\theta_i &= log \mu_i, \qquad \mu_i = exp(\theta_i) = b(\theta)
+\end{align*}
+Then Fisher information matrix
+\begin{align*}
+	\dot{b}(\theta_i) &= exp(\theta_i) = \mu_i\\
+	\ddot{b}(\theta_i) &= exp(\theta_i) = \mu_i\\
+	b^{(3)}(\theta_i) &= exp(\theta_i) = \mu_i\\
+	b^{(4)}(\theta_i) &= exp(\theta_i) = \mu_i\\
+	\dot{L}_{\tau}(\Tilde{\alpha}) &=  \sum_{i=1}^n \frac{1}{2} f_i\{ (y_i-\mu_i)^2- \ddot{b}(\theta_i)\}  =\frac{1}{2} \sum_{i=1}^n (y_i-\mu_i)^2- \mu_i \\
+	I_{\tau\tau} &=\frac{1}{4} \sum_{i=1}^n 2 (\ddot{b}(\theta_i))^2 + b^{(4)}(\theta_i)= \frac{1}{4} \sum_{i=1}^n 2 \mu_i^2 + \mu_i  \\
+	D_{\theta}(\beta) &= [\frac{\partial \theta_i}{\partial \beta}]= (x_1, x_2..)^T = X  \\
+	W_{1i} &= \ddot{b}(\theta_i) = exp(\theta_i) = \mu_i\\
+	I_{\beta \beta} &= D_{\mu}(\beta)^T  W_1 D_{\mu}(\beta) = X^T diag \{\mu_i\}X\\
+	W_{2i} &= \frac{1}{2} f_i b^{(3)}(\theta_i) =\frac{1}{2} \mu_i \\
+	I_{\beta \tau} &= D_{\mu}(\beta)^T W_2 1_n = \frac{1}{2} X^T diag\{ \mu_i\} 1_n
+\end{align*}
+Therefore, the score test for $H_0: \tau = 0$
+\begin{align*}
+	SC_n &= \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}^T \frac{1}{\sigma_{\tau}^2} \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}\\
+	\sigma_{\tau}^2 &= I_{\tau \tau} - I_{\tau \beta} I_{\beta^2}^{-1} I_{\beta \tau} \\
+	&= I_{\tau\tau} - (X^T W_2 1_n)^T (X^T W_1 X)^{-1} X^T W_2 1_n , \qquad W_2 = 1/2 W_1\\
+	&= I_{\tau\tau} - \frac{1}{4} 1_n^T (X^T W_1 1_n)^T (X^T W_1 X)^{-1} X^T W_1 1_n \\
+	&=I_{\tau\tau} -\frac{1}{4}  1_n^T W_1 W_1^{-1/2} \left[ W_1^{1/2} X (X^T W_1 X)^{-1} X^T W_1^{1/2}\right] W_1^{-1/2} W_1 1_n \\
+	M_{ W_1^{1/2} X} &= W_1^{1/2} X (X^T W_1 X)^{-1} X^T W_1^{1/2} \qquad \text{o.p.o}\\
+	\sigma_{\tau}^2 &= I_{\tau\tau} -\frac{1}{4} 1_n^T W_1 W_1^{-1/2}  W_1^{-1/2} W_1 1_n \\
+	&= I_{\tau\tau} -\frac{1}{4} W_1 1_n = \frac{1}{4} \sum_{i=1}^n 2 \mu_i^2 + \mu_i - \frac{1}{4} \sum_{i=1}^n \mu_i \\
+	&= \frac{1}{2} \sum_{i=1}^n \mu_i^2
+\end{align*}
+Therefore
+\begin{align*}
+	SC_n &= \frac{\partial ln(\Tilde{\alpha})}{\partial \tau}^T \frac{1}{\sigma_{\tau}^2} \frac{\partial ln(\Tilde{\alpha})}{\partial \tau} 1_n(\partial_{\alpha} ln > 0)\\
+	&= \frac{1}{2} \left(\sum_{i=1}^n (y_i-\mu_i)^2- \mu_i \right)^T \frac{1}{\sum_{i=1}^n \mu_i^2} \left(\sum_{i=1}^n (y_i-\mu_i)^2- \mu_i \right) \\
+	&= \frac{1}{2} \left(\sum_{i=1}^n (y_i-\mu_i)^2- \mu_i \right)^2 \frac{1}{\sum_{i=1}^n \mu_i^2}1_n(\partial_{\alpha} ln > 0)
+\end{align*}
+
+
+\end{document}

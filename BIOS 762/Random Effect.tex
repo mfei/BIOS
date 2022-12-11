@@ -56,7 +56,7 @@
 
 %%% The "real" document content comes below...
 
-\title{Chi-square distribution}
+\title{Random Effect Model}
 \author{Mingwei Fei}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -64,24 +64,61 @@
 \begin{document}
 \maketitle
 
-\section{Normal Distribution}
-Generally, the normal distribution encountered with $\sigma^2$ known, so the sufficient statistics for $\mu$ is $\sum_{i=1}^n y_i$. However, if $\sigma^2$ is unknown, the sufficient statistics for $\mu$ depends on $\sigma^2$, and we need to pay attention to that.
+\section{Bayesian Statistics - Random Effect}
+When we don't consider a fixed effect, then the random variable is a distribution. For a distribution, there is a probability function that we need to multiply. 
 
-The second we need to pay attention is that, the normal distribution has different $\mu_i$ for each patient. And we usually write in the matrix form of the likelihood function. 
-
-The projection operator generally applies to normal distribution, so we will usually write in matrix form for multivariate normal distribution. Because the likelihood function could be considered as MVN, as we are estimating $\beta, \sigma^2$ using all the $y_i$ simultaneously.
+The Bayesian statistics is also a conditional distribution, based on the data (marginal distribution). So either we integral out the random variables, or use the conjugate distribution probability to get the marginal distribution.
 
 
-\section{Chi-square distribution}
-If $Z_1, ..., Z_k$ are independent, standard normal random variables, then the sum of their squares,
+\section{Expectation and Variance for marginal distribution}
+
+There are many questions of calculating expectation and covariance of marginal distribution when we only know the conditional distribution. If only ask for calculating expectation and variance, we can do that without getting the marginal distribution
+
+\subsection{Example 1}
+Suppose that conditional on the random variables $b_i, y_i \sim N(b_i + x'\beta, 1), i=1,..n$, where $x_i$ is a $p \times 1$ vector of covariates for the ith subject, and $\beta$ is a $p \times 1$ vector of regression coefficients. Further assume the $b_i$ are i.i.d $N(0, \tau^2)$ random variables, and $\beta, \tau^2$ are unknown. Let $y= (y_1, y_2, .. y_n)'$, derive the marginal distribution of $y, E(y), Cov(y)$. 
+
+
+
+
+
+
+\subsection{Example 2}
+Suppose that $y_i| \mu_i, i=1,..n, j=1,2$, follows the model. $\mu_i$ random variable and independent identical distributed. Let $z_i = exp(\mu_i)$ for all i and define $\gamma$ to be the coefficient of variation of $z_i$, that is
+
 \begin{align*}
-	Q &= Z_i^2 \sim \chi^2(k)\\
-    p(k) &= \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} exp(-\frac{x}{2})
+	y_{ij}|\mu_i & \sim Poisson (\lambda_{ij})\\
+    log (\lambda_{ij}) &= x'_{ij} \beta + \mu_i\\
+    \gamma &= \frac{\sqrt{Var(z_i)}}{E(z_i)}
 \end{align*}
 
-The non-central chi-square distribution: Let $(X_{1},X_{2},\ldots ,X_{i},\ldots ,X_{k})$ be k independent, normally distributed random variables with means $\mu _{i}$ and unit variances. Then the random variable
+Show that, marginally, $Var(y_{ij}) = \mu_{ij} (1+ \gamma^2 \mu_{ij})$ and $Cov(y_{ij}, y_{ik}) = \gamma^2 \mu_{ij}\mu_{ik}$ for $k \neq k$, where $\mu_{ij} = E(y_{ij})$.
+
+We need to recognize that this is the contingency table $I \times 2$, and we use the Poisson distribution for each cell counts.
+
 \begin{align*}
-    Q &= \sum_{i=1}^k X_i^2 \sim \chi^2(k, \lambda), \qquad \lambda = \sum_{i=1}^k \mu_i^2
+    Var(y_{ij}) &= Var[E(y_{ij}|\mu_i)] + E[Var(y_{ij}|\mu_{i})], \qquad E(y_{ij}|\mu_i) = \lambda_{ij}, Var(y_{ij}|\mu_i) = \lambda_{ij}\\
+    &= Var(\lambda_{ij}) +E(\lambda_{ij}), \qquad \lambda_{ij} = exp(x^T_{ij} \beta + \mu_i) = exp(\mu_i) exp(x^T_{ij} \beta)\\
+    &= Var( exp(\mu_i) exp(x^T_{ij} \beta)) + E( exp(\mu_i) exp(x^T_{ij} \beta)) \\
+   E( exp(\mu_i) exp(x^T_{ij} \beta)) &= exp(x^T_{ij} \beta) E(exp(\mu_i))\\
+   Var( exp(\mu_i) exp(x^T_{ij} \beta)) &= exp(2 x^T_{ij}\beta) Var(exp(\mu_i))\\
+\end{align*}
+While
+\begin{align*}
+	E(y_{ij}) &= E[E(y_i|\mu_i)] = \mu_{ij} = exp(x^T_{ij} \beta) E(exp(\mu_i))\\
+	Var(y_{ij}) &= \mu_{ij} + exp(2 x^T_{ij}\beta) \frac{Var(exp(\mu_i))}{E(exp(\mu_i))^2} E(exp(\mu_i))^2\\
+	&= \mu_{ij} + \mu_{ij}^2 \gamma^2 = \mu_{ij} (1+ \mu_{ij}\gamma^2)
+\end{align*}
+
+The covariance $Cov(y_{ij}, y_{ik})$
+\begin{align*}
+	Cov(y_{ij}, y_{ik}) &= E[y_{ij} y_{ik}] - E[y_{ij}] E[y_{ik}]\\
+	&= E[E[(y_{ij}|\mu_i) (y_{ik}|\mu_k)]] - \mu_{ij} \mu_{ik} \\
+	& =E[\lambda_{ij} \lambda_{ik}] - \mu_{ij} \mu_{ik} \\
+	&= E[exp(x_{ij}^T \beta + x_{ik}^T \beta + 2\mu_i) ] - \mu_{ij} \mu_{ik} \\
+	&= exp(x_{ij}^T \beta + x_{ik}^T \beta) E(exp(2 \mu_i)) - \mu_{ij} \mu_{ik}\\
+	&= exp(x_{ij}^T \beta + x_{ik}^T \beta) (Var(exp(\mu_i)) + E(exp(\mu_i))^2 ) - \mu_{ij} \mu_{ik}\\
+	&= exp(x_{ij}^T \beta + x_{ik}^T \beta) (E(exp(\mu_i))^2 \gamma^2) + \mu_{ij}\mu_{ik} - \mu_{ij} \mu_{ik}\\
+	&= \mu_{ij}\mu_{ik} \gamma^2
 \end{align*}
 
 The sample mean of n i.i.d. chi-squared variables of degree k is distributed according to a gamma distribution with shape $\alpha$  and scale $\theta$  parameters:
