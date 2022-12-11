@@ -75,14 +75,12 @@
 	
 	Assume the overall event and censored rate is $20\%$, then the sample size is $48/0.2 = 240$. If overall event rate (including censoring) is $18\%$, then the sample size is $48/0.18 = 266$.
 	
-	\subsection{Hazard ratio assumption = 2.1}
-	The assumption is that control group event rate $10\%$ and treatment group event rate $20\%$ at 6 months. 
-	Assume survival function is an exponential distribution:
+	\subsection{Non-inferiority margin Hazard ratio $\Delta_0$ = 2.1}
+	The assumption is that control group (C) event rate $10\%$ and treatment group (T) event rate $20\%$ at 6 months. Assume survival function is an exponential distribution:
 	\begin{align*}
 	S_t(t) &= exp(-\lambda_1 t), \qquad t= 0.5, S_t = 0.8 , -\lambda_1 = ln(0.8)/0.5\\
 	S_c(t) &=  exp(-\lambda_2 t), \qquad t= 0.5, S_c = 0.9, -\lambda_2 = ln(0.9)/0.5  \\
-	HR = \frac{\lambda_1}{\lambda_2}\\
-	&= \frac{ln(0.8)}{ln(0.9)} = 2.117
+	\Delta_0 &= \frac{\lambda_1}{\lambda_2}= \frac{ln(0.8)}{ln(0.9)} = 2.117
 	\end{align*}	
 
 	\subsection{Hazard ratio actual = 0.55}
