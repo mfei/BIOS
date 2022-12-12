@@ -79,156 +79,97 @@ If $Z_1, ..., Z_k$ are independent, standard normal random variables, then the s
     p(k) &= \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} exp(-\frac{x}{2})
 \end{align*}
 
+
+\section{Non-Central Chi-square distribution}
+
 The non-central chi-square distribution: Let $(X_{1},X_{2},\ldots ,X_{i},\ldots ,X_{k})$ be k independent, normally distributed random variables with means $\mu _{i}$ and unit variances. Then the random variable
 \begin{align*}
     Q &= \sum_{i=1}^k X_i^2 \sim \chi^2(k, \lambda), \qquad \lambda = \sum_{i=1}^k \mu_i^2
 \end{align*}
+where the degrees of freedom is $k$.
+
 
 The sample mean of n i.i.d. chi-squared variables of degree k is distributed according to a gamma distribution with shape $\alpha$  and scale $\theta$  parameters:
 \begin{align*}
 	\bar{X} &= \frac{1}{n} \sum_{i=1}^n X_i \sim Gamma(\alpha = nk/2, \theta = 2/n)
 \end{align*}
 
-\section{Conditional distribution}
-Suppose that $y_i \sim N(\mu_i, \sigma^2)$, and independent for $i=1,..n$, where $\mu_i$ and $\sigma^2$ are unknown.
 
-	
-\subsection{$\sigma^2$ as nuisance parameter}
- Suppose that $\mu_i = x_i^T \beta$, where $x_i$ is a $p \times 1$ vector of covariates for the ith subject, $i=1,..n$. Suppose $\beta$ is the vector parameter of interest and $\sigma^2$ is nuisance parameter. Derive the conditional likelihood of $\beta$ and a closed form estimate of the conditional MLE of $\beta$, and compare the result to the MLE of $\beta$ of full likelihood.
-	
-	
-\begin{align*}
-	p{(Y, \mu_i, \sigma^2)} &= \left( \frac{1}{\sqrt{2\pi}} \right)^n \left( \frac{1}{\sigma}\right)^n exp\{ \frac{(Y-\mu)^T (Y-\mu)}{2 \sigma^2} \}
-\end{align*}	
-	
-We would like to construct the conditional distribution based on $\sigma^2$, so the key is to get $\sigma^2$ distribution.
+\subsection{Lemma}	
 
-Method 1: We know the chi-square distribution and the variance. First, we can use $M= X(X^T X)^{-1}X^T$ to get the $\beta$.
-\begin{align*}
-	X\beta &= M Y \\
-	\hat{\beta} &= (X^T X)^{-1}X^TY
-\end{align*}	
-Consider $\sigma^2$ as nuisance parameter, and the sufficient statistics for $\sigma^2$ is 
-$S_n = Y^T(I-M)Y$. Let  
-\begin{align*}
-	S_n &= \sigma^2 z, \quad z = \frac{Y^T(I-M)Y}{\sigma^2} \\
-	Z &= \frac{Y^T (I-M)Y}{\sigma^2 I}  \sim \chi^2_{n-p}
-\end{align*}
-So we have distribution for $\sigma^2$
+Let $Q_i \sim \chi^2 _{k_i}(\lambda_i)$ for $i=1,…,n$, be independent. Then, $Q = \sum_{i=1}^n Q_i$ is a noncentral $\chi^2_k(\lambda)$, where $k = \sum_{i=1}^n k_i$ and $\lambda =\sum_{i=1}^n \lambda_i$.
 
-\begin{align*}
-	p(z) &= \frac{1}{2^{k/2} \Gamma{k/2}} z^{k/2-1} exp(-\frac{z}{2})  \\
-	S_n &= \sigma^2 z, \qquad \diffp{z}{{S_n}} = \sigma^{-2} \\
-	p(S_n) &= \sigma^{-2} \frac{1}{2^{k/2} \Gamma{(k/2)} } \left(\frac{S_n}{\sigma^2}\right) ^{k/2-1} exp(-\frac{S_n}{2 \sigma^2 })
-\end{align*}
-The conditional log-likelihood of $\beta$ 	
-\begin{align*}
-	l_c &= log p(y) - log p(S_n) = - n log \sqrt{2\pi} -n log \sigma I - \frac{(Y- X \beta)^T (Y- X\beta)}{2 \sigma^2} \\
-	& - log \sigma I + ((n-p)/2-1) log \frac{S_n}{\sigma^2} - log 2^{(n-p)/2} \Gamma{((n-p)/2)} -  \frac{S_n}{2 \sigma^2 }
-\end{align*}
-Pay attention that $S_n$ does not depend on $\beta$, so the conditional distribution are S-independent of $\sigma^2$.
+$\textbf{Proof:}$
 
-Taking first derivative, 
-\begin{align*}
-	\diffp{l_c}{\beta} &=- X^T(Y- X\beta) - (Y- X\beta)^T X = 0\\
-	\hat{\beta} &= (X^TX)^{-1}X^T Y
-\end{align*}
-Thus the MLE of conditional distribution of $\beta$ is equal to the MLE of $\beta$ of the full likelihood.
+The distribution transformation use moment generating function.
 
-\subsubsection{Conditional likelihood}
-Method 2: Use the sufficient statistics for $\sigma^2$, which is $ (Y-\mu)^T (Y-\mu) = \sum_{i=1}^n (y_i- \mu_i)^2 $. Fix $\beta$ at $\beta_0$, and let $\mu_0 = X \beta_0$, then we have the non-central $\chi^2$ distribution with $r = n-p$ degrees of freedom  
-
+\subsubsection{Moment Generating Function}
+We can get MGF from $E[x^2 t]$
 \begin{align*}
-	log p(S(\mu_0)) &= \frac{1}{2\sigma^2} S_n(\mu_0) - \frac{\delta}{2\sigma^2} + (0.5n -1) log S_n(\mu_0) \\
-	& +	log \sum_{r=0}^{\infty} \frac{\delta}{2 \sigma^2}^r \frac{r^r}{r!} B(0.5(n-1), r + 0.5)
+	M_i(t) &= E[x^2 t] = \frac{1}{\sqrt{2\pi}} \int exp(x^2 t) exp \left( - \frac{(x-\mu)^2}{2} \right) dx\\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) x^2 + \mu x -\frac{\mu^2}{2} \right) dx \\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{1}{2}(1-2t) \{ x^2 - \frac{2 \mu x}{(1-2t)} + \frac{\mu^2}{(1-2t)^2} \} + \frac{\mu^2}{2(1-2t)} -\frac{\mu^2}{2}  \right) dx \\
+	&= \frac{1}{\sqrt{(1-2t)}} \int \frac{(1-2t)}{\sqrt{2\pi}} exp\left( -\frac{(x-\frac{\mu}{1-2t})^2}{2 (1-2t)^{-1}} \right) dx \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right]\\
+	&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad \lambda = \mu^2\\
+	&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\lambda t}{1-2t} \right)
 \end{align*}
 
-The method is the same as above, we also need to get the distribution of $S_n$, just here we assume a fixed $beta_0$ instead of the LSE of $\beta$.
-
-
-Then we also have log-likelihood, the formula is the same no matter what the distribution of $S_n$.
-
+Then the MGF for $Q_i \sim \chi^2 _{k_i}(\lambda_i)$
 \begin{align*}
-	l_c &= log p(y) - log p(S(\mu_0)) = 
+	M(t) &= E[ \sum_{i=1}^k x_i^2 t] = \prod_{i=1}^k M_i(t) \\
+	&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \sum_{i=1}^k \lambda_i t }{1-2t} \right)\\
+	&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \lambda t }{1-2t} \right)\\
+	&= (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right), \qquad \text{i.i.d}
 \end{align*}
 
-\subsubsection{Conditional score function}
-The conditional score statistic for $\beta$ is 
-\begin{align*}
-	U_{\beta}(\beta, \sigma^2| \beta_0) &= D^T \diffp{l_c(\mu, \sigma^2| \mu_0)}{\mu} \Bigg|_{\beta_0= \beta} = \frac{1}{\sigma^2} (Y-X\beta)\\
-	D & = X\\
-	U_{\beta}(\beta, \sigma^2 | \beta_0) &= X^T (Y- X\beta) = 0\\
-	\hat{\beta}_c &= (X^T X)^{-1} X^T Y
-\end{align*}
-
-\subsection{$\beta$ as nuisance parameter}
- Suppose $\beta$ is nuisance parameter, and $\sigma^2$ is the parameter of interest. Derive the conditional distribution and calculate conditional MLE.
-
-I used to think all $\mu_i$ are equal, so I have $\sum_{i=1}^n y_i \sim N(n\mu, \sigma^2/n)$. This is wrong as it treated as all the $y_i$ comes from one distribution $N(\mu, \sigma^2)$ which is not correct.
-
-Here I have to replace $\mu = x^T \beta$ as the derivative is about $\sigma$, not $\beta$.  $S_n = \sum_{i=1}^n y_i x_i = X^T Y$ is the sufficient statistics for $X \beta$, then 
-\begin{align*}
-	E(S_n) &= X^T X \beta, \qquad Var(S_n) = \sigma^2 X^T X\\
-	S_n & \sim N(X^T X \beta, \sigma^2 X^T X) \\
-	p(S_n) &= \frac{1}{\sqrt{2\pi}} \frac{n}{\sigma} exp\{\frac{-(S_n - X^T X \beta)^T (S_n - X^T X \beta)}{2 \sigma^2} \} \\
-	l_c &= log p(y) - log p(S(\sigma_0^2))\\
-	& =-\frac{n}{2} log(\sigma^2) - \frac{(Y-X \beta)^T(Y- X \beta)}{2 \sigma^2}\\
-	& + \frac{p}{2} log(\sigma^2) + \frac{(X^T Y - X^T X \beta)^T (X^T X)^{-1}(X^T Y - X^T X \beta)}{2 \sigma^2}
-\end{align*}
-When write in matrix form, it would be easier to find the normal distribution of $X^TY$.
-
-
-Then take the first derivative of $\sigma^2$
-\begin{align*}
-	\diffp{l_c}{{\sigma^2}} &= -\frac{n}{2 \sigma^2} + \frac{1}{2 (\sigma^2)^2} (Y-X \beta)^T(Y- X \beta)\\
-	& + \frac{p}{2 \sigma^2} - \frac{1}{2 (\sigma^2)^2} (X^T Y - X^T X \beta)^T (X^T X)^{-1}(X^T Y - X^T X \beta) = 0
-\end{align*}
-We could get the MLE of $\beta$ from $p(S_n)$
-\begin{align*}
-	\diffp{{l_{S_n})}}{{\beta}} &=  \frac{1}{2 (\sigma^2)} 2 (X^T Y - X^T X \beta) = 0\\
-	\hat{\beta} &= (X^T X)^{-1} X^ Y
-\end{align*}
-Then 
-\begin{align*}
-	\diffp{l_c}{{\sigma^2}} &= -\frac{n-p}{2 \sigma^2} + \frac{1}{2 (\sigma^2)^2} (Y-X \beta)^T(Y- X \beta) - \frac{1}{2 (\sigma^2)^2} (X^T Y - X^T X \beta)^T (X^T X)^{-1}(X^T Y - X^T X \beta) = 0\\
-	\sigma_c^2 &= \frac{(Y- X \beta)^T (Y- X \beta)}{n-p} = \frac{Y^T(I-M)Y}{n-p}
-\end{align*}
-The MLE of $\sigma^2$ from the full data likelihood is 
-\begin{align*}
-	\hat{\sigma}^2 &= \frac{Y^T(I-M)Y}{n} \leq \hat{\sigma}_c^2
-\end{align*}
-
-
-\subsubsection{$\mu_i = exp(X^T\beta)$}
-When the link function changes, how do we find the distribution of sufficient statistics of $\beta$?
+The general case of a linear combination of independent $\chi^2_{k_i}(\lambda_i)$
 
 \begin{align*}
-	p{(Y, \mu_i, \sigma^2)} &= \left( \frac{1}{\sqrt{2\pi}} \right)^n \left( \frac{1}{\sigma^2}\right)^{n/2} exp\{ \frac{(Y- exp(X^T \beta))^T (Y- exp(X^T \beta))}{2 \sigma^2} \}\\
-	&= \left( \frac{1}{\sqrt{2\pi}} \right)^n \left( \frac{1}{\sigma^2}\right)^{n/2} exp\{ \frac{(Y^T Y - 2 exp(X^T \beta)^T Y - exp(X^T \beta)^T exp(X^T \beta)}{2 \sigma^2} \}
+	Q &= \sum_{i=1}^k a_i Q_i
 \end{align*}
-So the sufficient statistics for $\beta$ is $\frac{Y}{\sigma^2}$, we need to assume a fixed $\sigma_0^2$
+We also can prove using MGF.
+
+\subsubsection{Linear Combination of Chi-Square Distribution}
+The linear combination of chi-square distribution $Y_j$. Let us denote by $X \sim \Gamma(r, \lambda)$ the fact that the r.v. X has a Gamma distribution with shape parameter r and rate parameter $\lambda$ 
+
 \begin{align*}
-	E[Y] &= \frac{exp(X^T \beta)}{\sigma_0^2}, \qquad Var[Y] = \frac{\sigma^2}{(\sigma_0^2)^2} \\
-	S_n(\sigma_0^2) & \sim N(\frac{exp(X^T \beta)}{\sigma_0^2}, \frac{\sigma^2}{(\sigma_0^2)^2} )
+	f_{X}(x) &= \frac{\lambda^x}{\Gamma (r)} exp(- \lambda x) x^{r-1}, \qquad (r, \lambda >0, x >0)
 \end{align*}
-The conditional distribution
+
+Then we have, for $j=1,..p$,
+
 \begin{align*}
-	log p(S_n) &=-log {\sqrt{2\pi}} - log{\sqrt{\frac{\sigma^2}{(\sigma_0^2)^2}}} exp\{\frac{-(S_n - \frac{exp(X^T \beta)}{\sigma_0^2})^T (S_n - \frac{exp(X^T \beta)}{\sigma_0^2})}{2 \frac{\sigma^2}{(\sigma_0^2)^2}} \} \\
-	l_c &= log p(y) - log p(S(\sigma_0^2))\\
-	&= -\frac{n}{2} log(\sigma^2) - \frac{(Y- exp(X \beta))^T(Y- exp(X \beta))}{2 \sigma^2} \\
-	& + \frac{1}{2} log{\frac{\sigma^2}{(\sigma_0^2)^2}} + \{\frac{(S_n - \frac{exp(X^T \beta)}{\sigma_0^2})^T (S_n - \frac{exp(X^T \beta)}{\sigma_0^2})}{2 \frac{\sigma^2}{(\sigma_0^2)^2}} \} 
+	Y_j & \sim  \Gamma(\frac{k_j}{2}, \frac{1}{2}) \rightarrow Z_j = w_j Y_j \sim \Gamma(\frac{k_j}{2}, \frac{1}{2w_j})
 \end{align*}
 
-\subsubsection{Score function}
-The score function and Newton-Raphson algorithm to get the estimate of $\sigma^2$, however we first need to replace the $\beta$ with the MLE from $p(S_n(\sigma^2))$, then use the Newton-Raphson. 
+The MGF for linear combinations $Z_j = w_j Y_j$
+\begin{align*}
+	M(t) &= E[exp(Y_j t)] = (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right)\\
+	M_{Z_j} (t) & = E[exp(w_j Y_j t)] = E[exp( Y_j (w_jt))] \\
+	&= (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
 
-\subsubsection{Hypothesis testing}
+\begin{align*}
+	M_Y(t) &= E[exp(Y t)] = E[exp(t [w_1 Y_1 + w_2 Y_2 + w_3 Y_3 +.. w_n Y_n])]\\
+	&= E[exp(w_1 t Y_1)]E[exp(w_2 t Y_2)]... E[exp(w_n t Y_n)]\\
+	&= M_{X_1}(w_1 t) M_{X_2}(w_2 t) M_{X_3}(w_3 t).. M_{X_n}(w_n t)\\
+	&= \prod_{i=1}^n M_{X_i}(w_i t)
+\end{align*}
 
+The third equation comes from the properties of exponents, as wells as from the expectation of the product of functions of independent random variables. 
 
-\section{Practice}
-  
+I need to pay attention that, only under independent and identical situation, we can write
+ \begin{align*}
+ 	M_Y(t) &= M_{X}(t)^n
+ \end{align*}
 
+Other than that, we can not further simplify that. So back to the non-central chi-square distribution, we have the MGF of Y
+\begin{align*}
+	M_Y(t) &= \prod_{i=1}^n M_{X_i}(w_i t)\\
+	&=\prod_{i=1}^n  (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
 
+Then we can see that the shape parameter is $\frac{1}{2 w_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $w_j$ need to be the same. 
 
 
 \subsection{b}Consider the following

@@ -69,8 +69,8 @@
 	
 	If hazard ratio set at 2.1, then 
 	\begin{align*}
-	\left( \frac{1}{d_1} + \frac{1}{d_2} )\right)^{-1} &= \left[ \frac{(1.96 + 0.842)^2}{(ln 2.1)^2} \right] = 14.26\\
-	\frac{1}{d_1} + \frac{1}{d_2} &= \frac{1}{11.7} = 0.07, \qquad	d_1 = d_2 = 28.5
+	\left( \frac{1}{d_1} + \frac{1}{d_2} \right)^{-1} &= \left[ \frac{(1.96 + 0.842)^2}{(ln 2.1)^2} \right] = 14.26\\
+	\frac{1}{d_1} + \frac{1}{d_2} &= \frac{1}{14.26} = 0.07, \qquad	d_1 = d_2 = 28.5
 	\end{align*}
 	
 	The one-sided significance level 0.25, power is 0.8. Note that $Z_{\alpha/2}$ is the z score for the probability $1-\alpha/2$, and $z_{\beta}$ is the z score for the probability $1-\beta$. Assume the overall event and censored rate is $20\%$, then the sample size is $57/0.2 = 285$. The total number in the paper is 276.
@@ -133,4 +133,111 @@ So we have
 	ln(\hat{\Delta}) &= Z_{1-\alpha/2} \sigma, \qquad	ln(\hat{\Delta}) = Z_{\beta} {\sigma} + \delta ,\qquad	Z_{1-\alpha/2} \sigma = Z_{\beta} {\sigma} + \delta \\
 	\sigma &= \frac{\delta}{Z_{1-\alpha/2} - Z_{\beta}}, \qquad 	\frac{1}{d_1} + \frac{1}{d_2} = \frac{\delta^2}{(Z_{1-\alpha/2} + Z_{1-\beta})^2}
 \end{align*}
+
+\section{Hazard Rate Asymptotic Distribution}
+
+\subsection{Likelihood Function}
+If $T_i$ and $C_i$ are independent, which means non-informative censoring. We look at the cumulative conditional probability at time T:
+
+\begin{align*}
+	p(T \leq s + \epsilon | T \geq s) & \approx p(T < s+ \epsilon | T \geq s, C \geq s)
+\end{align*}
+
+Note that the above probability is not the hazard rate, it is the cumulative hazard rate. The hazard rate is as below
+
+\begin{align*}
+	 h(t) & = \frac{p(t)}{S(t)} = p( s \leq T \leq s + \epsilon | T \geq s)
+\end{align*}
+
+The key of success is to construct likelihood function. We use conditional probability in the situation when there are hidden variables that we can't or don't need to estimate. When there are censoring time, we don't know exactly what those censoring times are.
+
+So in the presence of censoring, we only observe $(T_i, \delta_i), i=1,..n$. Let us suppose that $T_i$ is the survival time, which may not be observed and we observe instead $U_i = min(T_i, C_i)$, where $C_i$ is the potential censoring time. 
+
+\begin{align*}
+	\delta_i & =
+	\begin{cases}
+		1 \quad T_i \leq C_i, \qquad \text{Uncensored}\\
+		0 \quad  T_i > C_i, \qquad \text{Censored}
+	\end{cases}
+\end{align*}
+
+\subsubsection{Likelihood under Censoring}
+The likelihood under censoring can be constructed using both the density and distribution
+functions or the hazard and cumulative hazard functions. Both are equivalent. The loglikelihood will be a mixture of probabilities and densities, depending on whether the
+observation was censored or not. 
+
+Let us suppose that $T_i$ has distribution $f(x, \theta_0)$, where f is known but $\theta_0$ is unknown. The likelihood construction must be with respect to the bivariate, random variable $(U_i, \delta_i)$.
+
+We observe $(U_i, \delta_i)$ where $U_i = min(T_i, C_i)$ and $\delta_i$ is the
+indicator variable. In this section we treat $C_i$ as if they were deterministic, we consider
+the case that they are random later.
+
+We first observe that if $\delta_i = 1$, then the log-likelihood of the individual observation $U_i$ is $log f(U_i, \theta)$, since
+
+\begin{align*}
+	P(U_i= x| \delta_i=1) & = P(T_i= x| T_i \leq c_i) = \frac{f(x; \theta)}{ 1- S(x, \theta)} dx\\
+	& = \frac{h(x) S(x,\theta)}{1- S(x, \theta)} dx
+\end{align*}
+where $S(x, \theta)$ is the survival function $1- F(T_i \leq x)$.
+
+On the other hand, if $\delta_i = 0$, the log likelihood of the individual observation $U_i = c_i|\delta_i = 0$ is simply one, since if $\delta_i = 0$, then $U_i = c_i$ (it is given). Of course it is clear that $p(\delta_i= 1) = 1 - S(c_i, \theta)$ and $P(\delta_i = 0) = S(c_i; \theta)$. Thus altogether the joint density of ${U_i, \delta_i}$ is
+
+\begin{align*}
+	ln(U_i, \delta_i) & = \left(\frac{f(x; \theta)}{1- S(c_i, \theta)} (1- S(c_i, \theta)) \right)^{\delta_i} \left(1 \times S(c_i, \theta) \right)^{1-\delta_i} \\
+		&=f(x, \theta)^{\delta_i} [S(c_i, \theta)]^{1-\delta_i}\\
+		&= h(u_i)^{\delta_i} S(u_i)\\
+	ln(\theta) &= \prod_{i=1}^n h(u_i)^{\delta_i} S(u_i)
+\end{align*}
+
+	
+Therefore by using
+
+\begin{align*}
+	f(U_i, \theta) & = h(U_i, \theta) S(U_i, \theta) \\
+	H(U_i, \theta) &= -log S(U_i, \theta)
+\end{align*}
+
+The joint log-likelihood of ${(U_i, \delta_i)}_{i=1}^n$ is
+
+\begin{align*}
+	ln(\theta) & = \sum_{i=1}^n \left(\delta_i log f(\theta) + (1-\delta_i) log (1- F(\theta)) \right) \\
+	&= \sum_{i=1}^n \delta_i \left[log h(T_i, \theta) - H(T_i, \theta) \right] - \sum_{i=1}^n  (1-\delta_i) H(c_i, \theta)  \\
+	&= \sum_{i=1}^n \delta_i log h(U_i, \theta) - \sum_{i=1}^n  (1-\delta_i) H(U_i,  \theta)
+\end{align*}
+
+We can get the MLE of $\theta$ by score function, Fisher Information to get the variance. 
+
+\subsection{Exponential Distribution}
+Suppose that $T_1, T_2, ... T_n$ are i.i.d $Exp(\lambda)$ and subject to noninformative right censoring. The exponential distribution
+
+\begin{align*}
+	f(x, \lambda) & = \lambda exp(-\lambda x)
+\end{align*}
+
+The survival function
+\begin{align*}
+	S(x, \lambda) & = 1- F(x, \lambda) =1- \int_{0}^x \lambda exp(-\lambda x) dx = exp(-\lambda x)
+\end{align*}
+
+The likelihood function
+
+\begin{align*}
+	ln(\lambda) & = \prod_{i=1}^n \lambda^{\delta_i} exp(-\lambda u_i) = \lambda^r exp(-\lambda W)
+\end{align*}
+where $r = \sum_{i=1}^n \delta_i$ are the number of failures; $W=\sum_{i=1}^n u_i$ is total followup time.
+
+The Score function and observed information
+\begin{align*}
+	\diffp{ln(\lambda)}{\lambda} & = \frac{r}{\lambda} -W\\
+	-\diffp{ln(\lambda)}{{\lambda}{\lambda}} &= \frac{r}{\lambda^2}
+\end{align*}
+$\hat\lambda$ approximately follows $N(\lambda, \lambda^2/r)$ for large n.
+
+By delta method,
+
+\begin{align*}
+	log(\hat\lambda) \sim N(log(\lambda), r^{-1})
+\end{align*}
+The variance of log hazard ratio $r^{-1}$ is free of the unknown parameter $\lambda$. Similarly, we see that the log of odds ratio is used more common than odds ratio. 
+
 \end{document}
