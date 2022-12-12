@@ -183,10 +183,10 @@ where $S(x, \theta)$ is the survival function $1- F(T_i \leq x)$.
 On the other hand, if $\delta_i = 0$, the log likelihood of the individual observation $U_i = c_i|\delta_i = 0$ is simply one, since if $\delta_i = 0$, then $U_i = c_i$ (it is given). Of course it is clear that $p(\delta_i= 1) = 1 - S(c_i, \theta)$ and $P(\delta_i = 0) = S(c_i; \theta)$. Thus altogether the joint density of ${U_i, \delta_i}$ is
 
 \begin{align*}
-	ln(U_i, \delta_i) & = \left(\frac{f(x; \theta)}{1- S(c_i, \theta)} (1- S(c_i, \theta)) \right)^{\delta_i} \left(1 \times S(c_i, \theta) \right)^{1-\delta_i} \\
+	p(U_i, \delta_i) & = \left(\frac{f(x; \theta)}{1- S(c_i, \theta)} (1- S(c_i, \theta)) \right)^{\delta_i} \left(1 \times S(c_i, \theta) \right)^{1-\delta_i} \\
 		&=f(x, \theta)^{\delta_i} [S(c_i, \theta)]^{1-\delta_i}\\
 		&= h(u_i)^{\delta_i} S(u_i)\\
-	ln(\theta) &= \prod_{i=1}^n h(u_i)^{\delta_i} S(u_i)
+	p(\theta) &= \prod_{i=1}^n h(u_i)^{\delta_i} S(u_i)
 \end{align*}
 
 	
