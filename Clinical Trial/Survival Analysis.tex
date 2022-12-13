@@ -267,7 +267,7 @@ From a survival analysis point of view, we want to obtain both unadjusted and ad
 We will derive the adjusted survival curve using the hazard function definition. Hazard function describes the `intensity of death' at the time t given that the individual has already survived past time t. There is another quantity that is also common in survival analysis, the cumulative hazard function, which is
 
 \begin{align*}
-	h(t) &= h_0(t) exp(x^T \beta), \qquad H(t) &= \int_{0}^t h(s) ds
+	h(t) &= h_0(t) exp(x^T \beta), \qquad H(t) = \int_{0}^t h(s) ds
 \end{align*}
 
 You can interpret $H(t)$ as the cumulative amount of hazard up to time t. The cumulative hazard function and survival function linked as follows:
