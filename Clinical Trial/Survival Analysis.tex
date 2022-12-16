@@ -134,6 +134,17 @@ So we have
 	\sigma &= \frac{\delta}{Z_{1-\alpha/2} - Z_{\beta}}, \qquad 	\frac{1}{d_1} + \frac{1}{d_2} = \frac{\delta^2}{(Z_{1-\alpha/2} + Z_{1-\beta})^2}
 \end{align*}
 
+\subsection{Total Sample Size}
+
+\begin{align*}
+	0.4 &= 1- exp(-\lambda \times 5), \qquad \lambda_c = -log(0.6)/5 = 0.1022\\
+	\lambda_e &= 0.7 \times 0.1022 = 0.0715, \qquad (1- exp(-0.0715 \times 5)) \times 100 = 30\%\\
+	n &= 330 \times \frac{2}{0.4 + 0.3} = 942.9(\approx 944)
+\end{align*}
+The total sample size is 944, 472 patients per group.
+
+However, the above calculation assumes that all patients were followed for 5 years and censored at the end of follow-up. 
+
 \section{Hazard Rate Asymptotic Distribution}
 
 \subsection{Likelihood Function}
@@ -332,6 +343,7 @@ Time invariant co-variates X: The effect of the regression variables X (a.k.a. c
 Time invariant regression coefficients $\beta$: The regression coefficients $\beta$ do not vary with time. In other words, $\beta(t_i) = \beta$ for all $t_i$. One can see that assumptions (2) and (3) are closely related. For example, the effect of gene expression increasing with time can be expressed as the coefficient of the gene regression variable increasing with time.
 
 Schoenfeld Residuals are used to validate the above assumptions made by the Cox model.
+
 
 
 \end{document}
