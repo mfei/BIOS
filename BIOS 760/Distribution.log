@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  17 DEC 2022 21:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  25 DEC 2022 10:55
 entering extended mode
 **./Distribution.tex
 (Distribution.tex
@@ -462,58 +462,13 @@ Overfull \hbox (150.80144pt too wide) in paragraph at lines 223--224
 [][] 
  []
 
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 229.
-
-[4 <./Figure/dist1.PNG>] [5 <./Figure/dist2.PNG>] [6] [7]
-Overfull \hbox (8.12813pt too wide) detected at line 333
+[4 <./Figure/dist1.PNG>] [5 <./Figure/dist2.PNG>] [6]
+Overfull \hbox (7.31088pt too wide) detected at line 295
 []
  []
 
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 3
-45.
-
-Missing character: There is no · in font cmr10!
-Missing character: There is no · in font cmr10!
-Missing character: There is no · in font cmr10!
-
-Overfull \hbox (7.09494pt too wide) detected at line 348
-[]
- []
-
-
-Overfull \hbox (102.57626pt too wide) detected at line 355
-[]
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 355--357
-
- []
-
-
-Overfull \hbox (23.81415pt too wide) detected at line 361
+[7] [8]
+Overfull \hbox (15.93915pt too wide) detected at line 385
 []
  []
 
@@ -521,42 +476,102 @@ Overfull \hbox (23.81415pt too wide) detected at line 361
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 401.
+(amsmath)                 on input line 411.
 
+[10] [11] [12] [13] [14] [15] [16] [17]
+Overfull \hbox (30.64833pt too wide) in paragraph at lines 779--780
+[]\OT1/cmr/m/n/10.95 Continuing the elim-i-na-tion pro-cess be-yond this point 
+(i.e., per-form-ing a block Gauss{Jordan
+ []
 
-Overfull \hbox (11.18599pt too wide) detected at line 401
+[18] [19]
+Overfull \hbox (8.12813pt too wide) detected at line 941
 []
  []
 
-[10] [11] (Distribution.aux) ) 
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 9
+53.
+
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+
+Overfull \hbox (7.09494pt too wide) detected at line 956
+[]
+ []
+
+
+Overfull \hbox (102.57626pt too wide) detected at line 963
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 963--965
+
+ []
+
+
+Overfull \hbox (23.81415pt too wide) detected at line 969
+[]
+ []
+
+[20] [21]
+Overfull \hbox (11.18599pt too wide) detected at line 1009
+[]
+ []
+
+[22] (Distribution.aux) ) 
 Here is how much of TeX's memory you used:
  5719 strings out of 479300
- 92690 string characters out of 2856026
- 416940 words of memory out of 3000000
+ 92687 string characters out of 2856026
+ 418940 words of memory out of 3000000
  23105 multiletter control sequences out of 15000+200000
  412262 words of font info for 57 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,18n,79p,397b,333s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/mfei/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mfei/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mfei/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/mfei/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/m
-fei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
-Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.p
-fb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmr17.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmr6.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmr8.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmss10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/mfei/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mfei/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/mfei/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Distribution.pdf (11 pages, 356593 bytes).
+ 72i,18n,79p,397b,343s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/enc
+/dvips/cm-super/cm-super-ts1.enc}<C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mfei/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mfei/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/mfei/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/User
+s/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+2.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr17.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr6.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmr8.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmss10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/mfei/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mfei/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/mfei/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/mfei/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on Distribution.pdf (22 pages, 406811 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 142 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

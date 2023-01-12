@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  12 DEC 2022 10:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  17 DEC 2022 17:35
 entering extended mode
-**./Chi-square.tex
-(Chi-square.tex
+**"./Quals 2015.tex"
+(Quals 2015.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18> xparse <2020-03-03>
 (C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -323,23 +323,23 @@ ex.def
 File: l3backend-pdftex.def 2021-02-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count285
 \l__pdf_internal_box=\box52
-) (Chi-square.aux)
-\openout1 = `Chi-square.aux'.
+) (Quals 2015.aux)
+\openout1 = `"Quals 2015.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -437,100 +437,49 @@ Package caption Info: End \AtBeginDocument code.
 
 {C:/Users/mfei/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 100.
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 93.
 
-[2] [3]
-Overfull \hbox (8.12813pt too wide) detected at line 204
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--124
+
+ []
+
+[2]
+Overfull \hbox (47.03122pt too wide) detected at line 152
 []
  []
 
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-
-LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
-16.
-
-Missing character: There is no · in font cmr10!
-Missing character: There is no · in font cmr10!
-Missing character: There is no · in font cmr10!
-[4]
-Overfull \hbox (7.09494pt too wide) detected at line 219
-[]
- []
-
-
-Overfull \hbox (102.57626pt too wide) detected at line 226
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 226--228
-
- []
-
-
-Overfull \hbox (23.81415pt too wide) detected at line 232
-[]
- []
-
-[5]
-
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 272.
-
-
-Overfull \hbox (11.18599pt too wide) detected at line 272
-[]
- []
-
-[6] [7] (Chi-square.aux) ) 
+[3] [4] [5] [6] [7] [8] [9] [10] (Quals 2015.aux) ) 
 Here is how much of TeX's memory you used:
- 5699 strings out of 479300
- 92331 string characters out of 2856026
- 414947 words of memory out of 3000000
- 23089 multiletter control sequences out of 15000+200000
- 412262 words of font info for 57 fonts, out of 3000000 for 9000
+ 5702 strings out of 479300
+ 92366 string characters out of 2856026
+ 409943 words of memory out of 3000000
+ 23090 multiletter control sequences out of 15000+200000
+ 412968 words of font info for 59 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,11n,79p,395b,333s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mfei/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mfei/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/mfei/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/mfei/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/User
-s/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
-7.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr6.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmr8.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmss10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmss12.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/mfei/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/mfei/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Chi-square.pdf (7 pages, 190146 bytes).
+ 72i,11n,79p,614b,207s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/mfei/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/mf
+ei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
+Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.
+pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmmi6.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi8.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/mfei/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/mfei/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/mfei/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/mfei/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/mf
+ei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/
+Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.p
+fb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmti10.pfb>
+Output written on "Quals 2015.pdf" (10 pages, 215875 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 99 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

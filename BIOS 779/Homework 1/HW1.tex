@@ -56,7 +56,7 @@
 
 %%% The "real" document content comes below...
 
-\title{Distribution}
+\title{BIOS 779 HW1}
 \author{Mingwei Fei}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -64,67 +64,64 @@
 \begin{document}
 \maketitle
 
-\section{Distribution Transformation}
-Let $X \sim Gamma(\alpha, 1)$ and $Y \sim Gamma(\beta, 1)$ where the paramaterization is such that $\alpha$ is the shape parameter. Then 
+\section{Problem 1- Carlin and Louis}
+Diagnostic test, represent $P(D=d|T=t)$ in terms of test sensitivity, $P(T=1|D=1)$. Specificity, $P(T= 0|D= 0)$. and disease prevalence, $P(D=1)$, and relate to Bayes' theorem.
+ 
 \begin{align*}
-	\frac{X}{X+Y} \sim Beta(\alpha, \beta)
+	P(D=d|T=t) &= \frac{P(D=d, T=t)}{P(T=t)} \\
+	&= \frac{P(D=d, T=t)}{\sum_{D=d} P(T=t, D=d) P(D=d)} \\
+	&= \frac{P(T=t|D=d) P(D=t)}{P(T=t, D=0)P(D=0) + P(T=t, D=1)P(D=1)}\\
+	&= \frac{P(T=t|D=d) P(D=d)}{P(T=t|D=0)P(D=0)^2 + P(T=t|D=1)P(D=1)^2} \\
 \end{align*}
+
+So we have
+
+\begin{align*}
+P(D= 1|T= 1) &= \frac{P(T= 1|D= 1) P(D=1)}{P(T=1|D=0)(1- P(D=1))^2 + P(T=1|D=1)P(D=1)^2} \\
+&=  \frac{P(T= 1|D= 1) P(D=1)}{(1- P(T=0|D=0))(1- P(D=1))^2 + P(T=1|D=1)P(D=1)^2} \\
+P(D= 0|T= 1) &= \frac{P(T= 1|D= 0) (1-P(D=1))}{P(T=1|D=0)(1- P(D=1))^2 + P(T=1|D=1)P(D=1)^2} \\
+&=  \frac{(1- P(T=0|D=0)) (1-P(D=1))}{(1- P(T=0|D=0))(1- P(D=1))^2 + P(T=1|D=1)P(D=1)^2} \\
+P(D= 0|T= 0) &= \frac{P(T= 0|D= 0) (1-P(D=1))}{P(T=0|D=0)(1- P(D=1))^2 + P(T=0|D=1)P(D=1)^2} \\
+&=  \frac{P(T=0|D=0) (1-P(D=1))}{ P(T=0|D=0)(1- P(D=1))^2 + (1- P(T=1|D=1)) P(D=1)^2} \\
+P(D= 1|T= 0) &= \frac{P(T= 0|D= 1) P(D=1)}{P(T=0|D=0)(1- P(D=1))^2 + P(T=0|D=1)P(D=1)^2} \\
+&=  \frac{ (1- P(T=1|D=1)) P(D=1)}{ P(T=0|D=0)(1- P(D=1))^2 + (1- P(T=1|D=1)) P(D=1)^2} \\
+\end{align*}
+
+\section{Problem 2}
+Suppose $X_1, .., X_n$ is a random sample from X, where X has density 
+
+\begin{align*}
+	p(x|r, \theta) &= \begin{cases} 
+		{r+x-1 \choose x} \theta^{r} (1-\theta)^{x} & x=0,1,2...\\
+	     0 & \text{otherwise}
+	\end{cases}
+\end{align*}
+
+where $0< \theta < 1, r$ is known, and $\theta$ is unknown.
 
 \begin{itemize}
-	\item [(i)] How do we create the transformed variables $U= \frac{X}{X+Y} $, V, such that it is easy to get the distribution of U and V, and easy to integrate out V to get the margin distribution of U? This requires familiarity of Beta and Gamma distribution.
+	\item [(a)] Derive Jeffreys's prior for $\theta$.
 	
-	One proposal is $V= Y$, and the other is $V= X+Y$. Compare between the two and see which one is better.
+	The Jeffreys's prior is non-informative prior distribution for a parameter space. 
 	
-	\textbf{Note:} The way to choose new parameter is easier to get the original parameter by simple arithmetic calculation or just itself.
-	If we are using the first set of new parameter, it would get the distribution very complicated, the Beta distribution has the form of $U, 1-U$, need to keep in mind of the achieving the product of two distribution form. 
-	
-	
-	
-	\item[(ii)] We could see that $V=X+Y$ is better as U and V are independent from each other.
 \begin{align*}
-	f(X) &= \frac{1}{\Gamma{(\alpha)}} x^{\alpha-1} e^{-x}\\
-	f(Y) &= \frac{1}{\Gamma{(\beta)}} y^{\beta-1} e^{-y}
+	p(\theta) & \propto \sqrt{det I(\theta)}
 \end{align*}	
-Let
+	which is the determination of the Fisher information matrix. As r is known, so the only unknown parameter is $\theta$.
+	
+	The Fisher Information of $\theta$ is 
 \begin{align*}
-	U &= \frac{X}{X+Y}, \qquad V = X + Y
+	ln p(x|\theta, r) &= ln {r+x-1 \choose x} + r ln \theta + x ln (1-\theta) \\
+	ln(\theta) &= n r ln \theta + ln (1-\theta) \sum x \\
+	\diffp{ln(\theta)}{\theta} &= n r \frac{1}{\theta} - \sum x \frac{1}{1-\theta} \\
+	I(\theta) &= - E[\diffp{ln(\theta)^2}{\theta \theta}] = -n r \frac{1}{\theta^2} + \sum x \frac{1}{(1-\theta)^2} 
 \end{align*}	
-Then
-\begin{align*}
-	X &= UV, \qquad Y = V - UV
-\end{align*}
-	 	
-The Jacobian transformation matrix
-\begin{align*}
-	J &= \begin{pmatrix}
-		\diffp{X}{U} & \diffp{X}{V} \\
-		\diffp{Y}{U} & \diffp{Y}{V} 
-	\end{pmatrix} =  \begin{pmatrix}
-	V & U \\
-	-V & 1-U
-\end{pmatrix}\\
-|J| &= V
-\end{align*}
-X and Y are independent, so the joint distribution of (X, Y) 
-\begin{align*}
-	f(X, Y) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} x^{\alpha -1} e^{-x} y^{\beta -1} e^{-y}\\
-	f(U, V) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} U^{\alpha -1} (1-U)^{\beta -1} V^{\alpha + \beta -1} e^{-V}
-\end{align*}
-
-We don't always need to integrate out the other parameter, if we can write the distribution in the form that we can recognize, then will directly get the distribution. 
-
-$V \sim Gamma (\alpha + \beta, 1)$ and $U \sim Beta(\alpha, \beta)$.
-
+	
+	
+	\item[(b)] Suppose the prior for $\theta$ is $\theta \sim beta(\alpha_0, \lambda_0)$, where $\alpha_0, \lambda_0$ are specified hyperparameters. Derive $E(X)$ and $Var(X)$.
+	
+	
 \end{itemize}
-
-
-
-\subsection{Gamma distribution and Beta distribution}
-If $Y_1, ..., Y_{n+1}$ are i.i.d $Exp(\theta)$, then 
-\begin{align*}
-	Z_i &= \frac{Y_1 + ...+ Y_i}{Y_1+ .. + Y_{n+1}} \sim Beta(i, n-i+1) 
-\end{align*}
-Particularly, $(Z_1, ... Z_n)$ has the same distribution as the order statistics $(\xi_{n:1}, .. \xi_{n:n})$ of n Uniform(0,1) random variables.
 
 \subsubsection{Prove Beta distribution}
 The $Z_{n+1} = 1$, so we don't need to calculate this distribution. 
@@ -215,14 +212,6 @@ We obtain the joint distribution of $(Z_1, ... Z_n)$
 \end{align*}
 which is the joint density of order statistics of n uniform (0,1) random variables.
 
-\begin{figure}
-	\includegraphics[width=15cm]{Figure/dist1.PNG}  
-	\caption{Alt method}
-\end{figure}
-\begin{figure}
-	\includegraphics[width=20cm]{Figure/dist2.PNG}  
-	\caption{Alt method 2}
-\end{figure}
 
 
 

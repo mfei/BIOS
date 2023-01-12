@@ -56,7 +56,7 @@
 
 %%% The "real" document content comes below...
 
-\title{Distribution}
+\title{BIOS 767 HW1}
 \author{Mingwei Fei}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -64,67 +64,77 @@
 \begin{document}
 \maketitle
 
-\section{Distribution Transformation}
-Let $X \sim Gamma(\alpha, 1)$ and $Y \sim Gamma(\beta, 1)$ where the paramaterization is such that $\alpha$ is the shape parameter. Then 
+\section{Problem 1 - Computing moments}
+Consider the following model for subject i in group h at time j:
+ 
 \begin{align*}
-	\frac{X}{X+Y} \sim Beta(\alpha, \beta)
+	Y_{hij} &= \mu + \alpha_h + \beta_j + \gamma_{hj} + b_{hi} + \epsilon_{hij}
 \end{align*}
+
+where $b_{hi} \sim N(0, \sigma^2_b)$ and $\epsilon_{hij} \sim N(0, \sigma^2_e)$, for $h=1,..H, i=1,..n_h,$ and $j=1,.. J$. Assume that random variables that do not share a common value of h or i are independent. 
 
 \begin{itemize}
-	\item [(i)] How do we create the transformed variables $U= \frac{X}{X+Y} $, V, such that it is easy to get the distribution of U and V, and easy to integrate out V to get the margin distribution of U? This requires familiarity of Beta and Gamma distribution.
+\item[(a)] Compute $E[Y_{hij}]$.
 	
-	One proposal is $V= Y$, and the other is $V= X+Y$. Compare between the two and see which one is better.
-	
-	\textbf{Note:} The way to choose new parameter is easier to get the original parameter by simple arithmetic calculation or just itself.
-	If we are using the first set of new parameter, it would get the distribution very complicated, the Beta distribution has the form of $U, 1-U$, need to keep in mind of the achieving the product of two distribution form. 
-	
-	
-	
-	\item[(ii)] We could see that $V=X+Y$ is better as U and V are independent from each other.
+	\begin{align*}
+		Y_{hij} &= \mu + \alpha_h + \beta_j + \gamma_{hj} + b_{hi} + \epsilon_{hij} \\
+		E[Y_{hij}] &= \mu + \alpha_h + \beta_j + \gamma_{hj} + E[b_{hi}] + E[\epsilon_{hij}] \\
+		 E[b_{hi}] &= 0, \qquad E[\epsilon_{hij}] = 0, \qquad \text{as} \quad b_{hi} \sim N(0, \sigma^2_b), \epsilon_{hij} \sim N(0, \sigma^2_e) \\
+		E[Y_{hij}] &= \mu + \alpha_h + \beta_j + \gamma_{hj} 
+	\end{align*}
+
+\item[(b)] Don't assume $b_{hi}$ and $\epsilon_{hij}$ are independent. Derive an expression for $Var[Y_{hij}]$ that it as simplified as possible.
+
+If $b_{hi}$ and $\epsilon_{hij}$ are not independent,
 \begin{align*}
-	f(X) &= \frac{1}{\Gamma{(\alpha)}} x^{\alpha-1} e^{-x}\\
-	f(Y) &= \frac{1}{\Gamma{(\beta)}} y^{\beta-1} e^{-y}
-\end{align*}	
-Let
-\begin{align*}
-	U &= \frac{X}{X+Y}, \qquad V = X + Y
-\end{align*}	
-Then
-\begin{align*}
-	X &= UV, \qquad Y = V - UV
-\end{align*}
-	 	
-The Jacobian transformation matrix
-\begin{align*}
-	J &= \begin{pmatrix}
-		\diffp{X}{U} & \diffp{X}{V} \\
-		\diffp{Y}{U} & \diffp{Y}{V} 
-	\end{pmatrix} =  \begin{pmatrix}
-	V & U \\
-	-V & 1-U
-\end{pmatrix}\\
-|J| &= V
-\end{align*}
-X and Y are independent, so the joint distribution of (X, Y) 
-\begin{align*}
-	f(X, Y) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} x^{\alpha -1} e^{-x} y^{\beta -1} e^{-y}\\
-	f(U, V) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} U^{\alpha -1} (1-U)^{\beta -1} V^{\alpha + \beta -1} e^{-V}
+	Var[b_{hi} + \epsilon_{hij}] &= Var[b_{hi}] + Var[\epsilon_{hij}] +2 Cov[b_{hi}, \epsilon_{hij}] \\
+	Y_{hij} &= \mu + \alpha_h + \beta_j + \gamma_{hj} + b_{hi} + \epsilon_{hij} \\
+	Var[Y_{hij}] &= Var[b_{hi} + \epsilon_{hij}] \\
+	Var[b_{hi}] &= \sigma^2_b, \qquad Var[\epsilon_{hij}] = \sigma^2_e, \qquad \text{as} \quad b_{hi} \sim N(0, \sigma^2_b), \epsilon_{hij} \sim N(0, \sigma^2_e) \\
+	Var[Y_{hij}] &= \sigma^2_b + \sigma^2_e + 2 Cov[b_{hi}, \epsilon_{hij}]
 \end{align*}
 
-We don't always need to integrate out the other parameter, if we can write the distribution in the form that we can recognize, then will directly get the distribution. 
+\item[(c)] assume $b_{hi}$ and $\epsilon_{hij}$ are independent. Derive an expression for $Var[Y_{hij}]$. 
 
-$V \sim Gamma (\alpha + \beta, 1)$ and $U \sim Beta(\alpha, \beta)$.
+If $b_{hi}$ and $\epsilon_{hij}$ are independent,
+\begin{align*}
+	Cov[b_{hi}, \epsilon_{hij}] &= 0\\
+	Var[Y_{hij}] &= \sigma^2_b + \sigma^2_e
+\end{align*}
 
 \end{itemize}
 
+\section{Problem 2 - Correlation in Data}
+Consider the general linear regression model:
 
-
-\subsection{Gamma distribution and Beta distribution}
-If $Y_1, ..., Y_{n+1}$ are i.i.d $Exp(\theta)$, then 
 \begin{align*}
-	Z_i &= \frac{Y_1 + ...+ Y_i}{Y_1+ .. + Y_{n+1}} \sim Beta(i, n-i+1) 
+	Y_{n \times 1} &= X_{n \times p} \beta + \epsilon_{n \times 1}
 \end{align*}
-Particularly, $(Z_1, ... Z_n)$ has the same distribution as the order statistics $(\xi_{n:1}, .. \xi_{n:n})$ of n Uniform(0,1) random variables.
+
+where $\epsilon$ is normal, and $\theta$ is unknown.
+
+\begin{itemize}
+	\item [(a)] Derive Jeffreys's prior for $\theta$.
+	
+	The Jeffreys's prior is non-informative prior distribution for a parameter space. 
+	
+\begin{align*}
+	p(\theta) & \propto \sqrt{det I(\theta)}
+\end{align*}	
+	which is the determination of the Fisher information matrix. As r is known, so the only unknown parameter is $\theta$.
+	
+	The Fisher Information of $\theta$ is 
+\begin{align*}
+	ln p(x|\theta, r) &= ln {r+x-1 \choose x} + r ln \theta + x ln (1-\theta) \\
+	ln(\theta) &= n r ln \theta + ln (1-\theta) \sum x \\
+	I(\theta) &= \diffp{ln(\theta)^2}{\theta \theta}
+\end{align*}	
+	
+	
+	\item[(b)] Suppose the prior for $\theta$ is $\theta \sim beta(\alpha_0, \lambda_0)$, where $\alpha_0, \lambda_0$ are specified hyperparameters. Derive $E(X)$ and $Var(X)$.
+	
+	
+\end{itemize}
 
 \subsubsection{Prove Beta distribution}
 The $Z_{n+1} = 1$, so we don't need to calculate this distribution. 
@@ -215,14 +225,6 @@ We obtain the joint distribution of $(Z_1, ... Z_n)$
 \end{align*}
 which is the joint density of order statistics of n uniform (0,1) random variables.
 
-\begin{figure}
-	\includegraphics[width=15cm]{Figure/dist1.PNG}  
-	\caption{Alt method}
-\end{figure}
-\begin{figure}
-	\includegraphics[width=20cm]{Figure/dist2.PNG}  
-	\caption{Alt method 2}
-\end{figure}
 
 
 

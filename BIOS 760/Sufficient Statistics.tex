@@ -56,15 +56,129 @@
 
 %%% The "real" document content comes below...
 
-\title{Distribution}
+\title{Sufficient Statistics}
 \author{Mingwei Fei}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
 \maketitle
+We learn sufficient statistics from a specific example, then extend to generalized case. So the first sufficient statistics that easily to look at is the sufficient statistics for mean. For every distribution which we can write in exponential family, the sufficient statistics for mean is the statistics with the parameter. 
 
-\section{Distribution Transformation}
+Similarly, we can extend this finding to other statistics(ie. variance) by factorization.
+
+The denotation of a distribution, $f(x | \theta)$ write in this form as the sample data X is known, while the $\theta$ is unknown. So the distribution is only available when the $\theta$ is known. 
+
+\section{Factorization Theorem}
+
+Let  $f(x | \theta)$ denote the joint pdf or pmf of a sample X. A statistic $T(X)$ is a sufficient statistic for $\theta$ if and only if there exist functions  
+
+\begin{align*}
+	f(x | \theta) &=g(T(x)| \theta) h(x)
+\end{align*}
+
+such that, for all sample points X and all parameter points  $\theta$,
+
+\subsection{Relate the theorem}
+To understand this theorem, we can see that in the exponential family distribution
+
+\begin{align*}
+	f(x | \theta) &= \phi exp( \theta - b(\theta) - c(y))
+\end{align*}
+
+So we can write the distribution in factorization form, one part involves $\theta$ and the other part does not.
+
+\subsection{Proof}
+The proof needs to use the definition of the sufficient statistics that the distribution based on sufficient statistics does not depend on $\theta$. So we will construct a conditional distribution, which the nominator is the joint distribution of the sample X, and denominator is the distribution of the sufficient statistics.
+
+When we prove the theorem using the specific distribution (ie. normal distribution), we can easily write out the joint distribution and distribution of $T(x)$. But now we are using the general form of distribution.
+
+So the proof needs to find the distribution of $T(x)$. We need to see if there is any relationship between $g(T(x)| \theta)$ and $P_{\theta}(T(x) = t)$. Need to pay attention that, the distribution of $T(X)$ is actually the sum of the distributions with any $y = T(X)$. We use the concept in the nuisance parameter, which need to find the distribution of statistics.
+
+
+First, suppose $T(x)$ is sufficient statistics. 
+
+As it is the general case, so we just choose 
+$g(t| \theta) = P_{\theta}(T(x) = t)$.
+
+Then $h(x) = P(X=x | T(X))$, Because $T(X)$ is sufficient, the conditional probability defining  
+$h(x)$ dose not depend on $\theta$. Thus, the choice of $h(x)$ and $g(t|\theta)$ is legitimate.
+
+For this choice,
+
+\begin{align*}
+	f(x | \theta) &= P_{\theta}(X = x) \\
+	&=  P_{\theta}(X = x, T(X)= T(x)) \\
+	&= P_{\theta}(X = x | T(X)= T(x)) P_{\theta}(T(X) = T(x)) \\
+	&= g(T(x)| \theta) h(x)
+\end{align*}
+
+Now assume factorization exists. Let $q(t|\theta)$ be the pmf of $T(X)$. To show that $T(X)$ is sufficient we exam the ratio $f(x|\theta) / q(T(X)|\theta)$. Define $A_{T(x)} = y: T(y) = T(x)$. Then
+
+\begin{align*}
+	\frac{f(x | \theta)}{q(T(X)|\theta)} &= \frac{g(T(x)| \theta) h(x)}{q(T(X)|\theta)} \\
+	&=  \frac{g(T(x)| \theta) h(x)}{\sum_{A_{T(x)} } g(T(y)| \theta) h(y)} \\
+	&=  \frac{g(T(x)| \theta) h(x)}{g(T(x)| \theta) \sum_{A_{T(x)} }  h(y)} \\
+	&= \frac{h(x)}{\sum_{A_{T(x)} }  h(y)}
+\end{align*}
+
+Since the ratio does not depend on $\theta$, by Theorem, $T(X)$ is a sufficient statistic for  
+$\theta$. We factor the joint pdf into two parts, one part not depending on $\theta$, which is  
+$h(x)$ function. The other part depends on $\theta$, depends on the sample x only through some function $T(x)$ and this function is a sufficient statistic for $\theta$.
+
+\subsection{Example}
+\subsubsection{Uniform Sufficient Statistic}
+Let $X_1, X_2,..., X_n$ be i.i.d. observations from the discrete uniform distribution on $1,..\theta$. The pmf of $X_i$ is 
+
+\begin{align*}
+	f(x|\theta) &= \begin{cases}
+		\frac{1}{\theta} & x=1,2, .. \theta \\
+		0 & \text{otherwise}
+	\end{cases}
+\end{align*}
+
+Thus the joint pmf of $X_1, ...X_n$ is 
+
+\begin{align*}
+	f(x|\theta) &= \begin{cases}
+		\frac{1}{\theta^n} & x_i \in \{1,2, .., \theta\} \theta \\
+		0 & \text{otherwise}
+	\end{cases}
+\end{align*}
+
+Let $N= \{1,2.. \}$ be the set of positive integers and let $N_{\theta} = \{1,2,.. \theta\}$. Then the joint pmf of $X_1, ... X_n$ is
+
+\begin{align*}
+	f(x|\theta) &= \prod_{i=1}^n \theta^{-1} I_{N_{\theta}} (x_i) = \theta^{-n} \prod_{i=1}^n I_{N_{\theta}} (x_i) 
+\end{align*}
+
+Defining $T(x) = max_i x_i$ then
+
+\begin{align*}
+	\prod_{i=1}^n I_{N_{\theta}} (x_i) = (\prod_{i=1}^n I_{N} (x_i)) I_{N_{\theta}} (T(x))
+\end{align*}
+
+The equation here is similar as the $I_{x_1 < x_2 <.. x_{max}} (x_m < \theta)$.
+
+Thus, we have the factorization
+\begin{align*}
+	f(x|\theta) &= \theta^{-n} \prod_{i=1}^n I_{N_{\theta}} (T(x))  (\prod_{i=1}^n I_{N} (x_i))
+\end{align*}
+
+The uniform distribution statistics is difficult to understand, it is not explicit using the identity function. 
+
+\subsubsection{Normal Sufficient Statisitc for Both Parameters}
+Assume $X_1,..X_n$ are i.i.d. $N(\mu, \simga^2)$ with both parameters unknown. When using Theorem 5.1, any part of the joint pdf that depends on either  
+μ
+or  
+σ
+2
+must be include in the g function. Define  
+
+. Then
+
+
+\section{Minimum Sufficient Statistics}
 Let $X \sim Gamma(\alpha, 1)$ and $Y \sim Gamma(\beta, 1)$ where the paramaterization is such that $\alpha$ is the shape parameter. Then 
 \begin{align*}
 	\frac{X}{X+Y} \sim Beta(\alpha, \beta)
