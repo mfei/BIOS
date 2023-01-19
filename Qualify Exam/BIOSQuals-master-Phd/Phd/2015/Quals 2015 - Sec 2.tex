@@ -1,0 +1,796 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\title{Qualify Exam 2015}
+\author{Mingwei Fei}
+
+\begin{document}
+	
+	\maketitle
+	
+\section{Problem 1- MVN and Chi-square}
+	Suppose that $Y \sim N(\mu, \Sigma)$ where $\Sigma$ is symmetric and full rank,  Let A be a symmetric matrix.
+	
+\subsection{a. Quadratic Form $Y^T A Y$ and Chi-square distribution}
+	Show that the quadratic form $Y^T A Y$ can be represented as
+
+	\begin{align*}
+		Y^T A Y &= \sum_{i=1}^k \lambda_i W_i
+	\end{align*}	
+
+	where the $W_i$’s are independently distributed as noncentral chi-squared variables	with $d_i$ degrees of freedom and noncentrality parameter $\delta_i$, that is, $W_i \sim \chi^2_	{d_i}(\delta_i), i =1, 2, ..., k$. Indicate what $\lambda_i, d_i, \delta_i$ are equal to.
+	
+\subsubsection{Question}
+
+	\begin{itemize}
+	\item [(i)] $\textit{Quadratic form of normal random variable with a specific variance:}$ 
+	
+Assume Y is a normal random variable with mean 0 and a specific variance is 
+
+\begin{align*}
+	\Sigma &= [\Sigma^{1/2}]^T [\Sigma^{1/2}], \qquad \text{Cholesky decomposition} \\
+	Y &= [\Sigma^{1/2}] Z, \qquad Z \sim N(0, 1) \\
+	Y_i^T Y_i &= \Big([\Sigma^{1/2}] Z \Big)^T [\Sigma^{1/2}] Z= Z^T \Sigma Z = \sigma^2 \chi^2
+\end{align*}	
+
+\item [(ii)]  non-centrality chi-square distribution
+
+And if assume Y the mean is not 0, $Y \sim N(\mu, 1)$, then we have
+\begin{align*}
+	Y_i^T Y_i &= \sigma^2 \chi^2 (\delta) \\
+	\delta &= \mu_i^2
+\end{align*}	
+
+The mean ($mu$) of the chi-square distribution is its degrees of freedom, k. Because the chi-square distribution is right-skewed, the mean is greater than the median and mode. The variance of the chi-square distribution is 2k. 
+
+Suppose $Y_{n \times n}$, and $\Sigma$ is full rank. so $\Sigma$ is $n \times n$ dimension matrix, 
+
+
+		
+			We can transform $Y_i$ into $N(\mu, 1)$ distribution, so that the quadratic form will be a non-central chi-square distribution. 
+		
+		If $Z_1, ..., Z_k$ are independent, standard normal random variables, then the sum of their squares is chi-square distribution,
+		\begin{align*}
+			Q &= Z_i^2 \sim \chi^2(k)\\
+			p(k) &= \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} exp(-\frac{x}{2})
+		\end{align*}
+	
+	 $\textit{Non-central Chi-square:}$ 
+		
+	Here the k is unknown, we need to show that the sum of non-central chi-square distribution is also a non-central chi-square distribution with distribution transformation. The distribution transformation generally use Moment Generating Function.		
+		
+		$\textbf{Lemma:}$	
+		
+		Let $Q_i \sim \chi^2 _{k_i}(\lambda_i)$ for $i=1,…,n$, be independent. Then, $Q = \sum_{i=1}^n Q_i$ is a noncentral $\chi^2_k(\lambda)$, where $k = \sum_{i=1}^n k_i$ and $\lambda =\sum_{i=1}^n \lambda_i$.
+		
+		Chi-square distribution and non-central chi-square distribution are totally different. I need to understand the components $\delta_i$ and $d_i$ in the non-central chi-square distribution.
+		
+		
+		The non-central chi-square distribution: Let $(X_{1},X_{2},\ldots ,X_{i},\ldots ,X_{k})$ be k independent, normally distributed random variables with means $\mu _{i}$ and unit variances. Then the random variable
+		\begin{align*}
+			Q &= \sum_{i=1}^k X_i^2 \sim \chi^2(k, \lambda), \qquad \lambda = \sum_{i=1}^k \mu_i^2
+		\end{align*}
+	
+	\item [(iii)] Theorem using spectral decomposition
+	
+	For any $k \times k$ symmetric matrix A the quadratic form defined by A can be written using its spectral decomposition as
+	
+\begin{align*}
+	Q(x) &= x' A x = \sum_{i=1}^k \lambda_i \Vert q_i^T x\Vert^2
+\end{align*}	
+	where the eigendecomposition of A is $Q'\Lambda Q$ with $\Lambda$ diagonal with diagnoal elements $\lambda_i, i=1,..k, Q$ is the orthogonal matrix with the eigenvectors, $q_i, i=1,..k$ as its columns. 
+	
+	The proof: For any $x \in R^k$ let $y= Q^T x = Q^{-1} x$ Then
+\begin{align*}
+	Q(x) &= tr(x' A x )= tr(x' Q' \Lambda Q x) = tr( \Lambda  Qx (Qx)^T)\\
+	&= tr(\Lambda y' y) = \sum_{i=1}^k y_i^2
+	&= \sum_{i=1}^k \lambda_i \Vert q_i^T x\Vert^2
+\end{align*}		
+	
+	This proof uses a common trick of expressing the scalar $Q(x)$ as the trace of a $1 \times 1$ matrix so we can reverse the order of matrix multiplications.
+	
+	So in the general case of linear combination of non-central chi-square. We will need to take care of the $\Sigma$, assume $Z \sim N(\mu, I)$
+	
+\begin{align*}
+	Z &= \Sigma^{-1/2} Y \\
+	Q(Y) &= Y^T A Y = (\Sigma^{1/2} Z)^T A (\Sigma^{1/2} Z) = Z^T (\Sigma^{1/2})' A (\Sigma^{1/2}) Z \\
+	&=  \sum_{i=1}^k \lambda_i \Vert q_i^T Z\Vert^2\\
+	W_i &= \Vert q_i^T Z\Vert^2 \\
+	& \sim \chi^2(d_i, \delta_i)
+\end{align*}	
+
+$\Sigma^{1/2}$ is symmetric as well, so $\Sigma^{1/2} A \Sigma^{1/2} $ is also symmetric. Symmetric matrix could be spectral decomposed.
+
+
+
+
+
+I need to understand the product of orthogonal matrix and other matrix, orthogonal matrix is idempotent, which the eigenvalues are either 0 or 1.
+
+
+
+\item[(iv)] The quadratic form question often occurs in the multivariate normal distribution.
+
+Quadratic form theorem 1:
+If $y \sim N(\mu_y, \Sigma_y)$, then 
+\begin{align*}
+	z &= A Y = N( \mu_z = A \mu_y, \Sigma_z = A \Sigma_y A')\\
+\end{align*}	
+where A is a matrix of constants.
+
+Proof:
+\begin{align*}
+	E[z] &= E[A Y ]= AE[Y] = A \mu_y\\
+	Var[z] &= E[(z-E[z]) (z-E[z])'] = E[(AY - A \mu_y) (AY - A \mu_y)'] \\
+	&= E[A(Y -  \mu_y) (Y -  \mu_y)' A'] = A E[(Y -  \mu_y) (Y -  \mu_y)' ]A' \\
+	&= A \Sigma_y A' 
+\end{align*}	
+
+Quadratic form theorem 2: quadratic form of n standard normal is chi-square with n degrees of freedom.
+Here we need to pay attention to the n degrees of freedom of chi-square distribution.
+
+
+Quadratic form theorem 3: 
+If $y \sim N(0, \sigma^2 I)$ and $M$ is a symmetric idempotent matrix of rank m then
+\begin{align*}
+	\frac{y' M y}{\sigma^2} &= \chi^2(tr M) 
+\end{align*}	
+
+Proof: Since M is symmetric it can be diagonalized with an orthognal matrix Q. 
+\begin{align*}
+	Q'M Q &= \Lambda = \begin{pmatrix}
+		\lambda_1 & 0... & 0 \\
+		0 & \lambda_2.. & 0\\
+		0&.. &\lambda_n
+	\end{pmatrix}
+\end{align*}	
+
+Furthermore, since M is idempotent all these roots are either zero or 1. Thus we can choose Q so that $\Lambda$ look like
+\begin{align*}
+	Q' M Q &= \Lambda = \begin{pmatrix}
+		I & 0 \\
+		0 & 0
+	\end{pmatrix}
+\end{align*}	
+The dimension of the identity matrix will be equal to the rank of M, since the number of non-zero roots is the rank of the matrix. Since the sum of the roots is equal to the trace, the dimension is also equal to the trace of M. Now let $v= Q'y$, compute the moments of 
+
+\begin{align*}
+	v &= Q'y \\
+	E[v] &= Q' E[y] = 0 \\
+	Var[v] &= Q' Var[y] Q = Q' \sigma^2 I Q = \sigma^2 Q'Q = \sigma^2 I, \qquad \text{Q is orthogonal} \\
+	v & \sim N(0, \sigma^2 I)
+\end{align*}	
+
+Now consider the distribution of $y'M y$ using the transformation v. Since $Q$ is orthogonal, its inverse is equal to its transpose. This means that $y= (Q')^{-1} v = Qv$. Now write the quadratic form as follows
+
+\begin{align*}
+	\frac{y' M y}{\sigma^2} &= \frac{v' Q' M Q v}{\sigma^2} \\
+	&= \frac{1}{\sigma^2} v' \begin{pmatrix}
+		I & 0 \\
+		0 & 0
+	\end{pmatrix} v \\
+&= \frac{1}{\sigma^2} \sum_{i=1}^{tr M} v_i^2 \\
+&= \sum_{i=1}^{tr M} \frac{v_i}{\sigma^2} ^2
+\end{align*}	
+
+This is the sum of squares of (tr M) standard normal variables and so is a $\chi^2$ variable with trM degrees of freedom. 
+
+
+	\end{itemize}
+
+
+\subsubsection{Proof}	
+
+
+	\begin{align*}
+		Y^T A Y &= \sum_{i=1}^k \lambda_i W_i     
+	\end{align*} 
+	where $W_i$ are independently distributed as noncentral chi-squared variables with $d_i$ degrees of freedom and noncentrality parameter $\delta_i$, that is, $W_i \sim \chi^2_{ d_i}(\delta_i), i =
+	1, 2, ..., k$. Indicate what $\lambda_i, d_i, \delta_i$ are equal to.\\
+	\begin{align*}
+		\Sigma &= \Sigma^{1/2} {\Sigma^{1/2}}^T, \qquad \text{by semi-definite matrix}\\
+		\Sigma^{1/2}  &= (\Sigma^{1/2} )^T \\
+		Y^T A Y &= Y^T \Sigma^{-1/2} \Sigma^{1/2} A \Sigma^{1/2}  \Sigma^{-1/2} Y \\
+		Z &= \Sigma^{-1/2} Y \sim N( \Sigma^{-1/2} \mu, \Sigma^{-1/2} \Sigma \Sigma^{-1/2} ) = N( \Sigma^{-1/2} \mu, I ) \\
+		\Sigma^{1/2} A \Sigma^{1/2} &= P \Lambda P', \qquad \text{semi-definition matrix, symmetric, spectral decomposition}
+	\end{align*} 
+
+By now, we have constructed quadratic form into $Z^T B Z$, which we can recognize that we will use the spectral decomposition
+	\begin{align*}
+	Z &= \Sigma^{-1/2} Y \\
+	B &= \Sigma^{1/2} A \Sigma^{1/2} = P \Lambda P', \qquad \text{P is orthogonal matrix}\\
+	Z^T B Z &= tr(Z^T B Z) = tr(Z^T P \Lambda P' Z) = tr(\Lambda [P'Z][P'Z]^T )
+\end{align*} 
+	We can see that $\Lambda$ is the matrix of eigenvalues of $B= \Sigma^{1/2} A \Sigma^{1/2} = A\Sigma$ which we can prove later. 
+	
+	The trace of $[P'Z][P'Z]^T $ is actually $W_i = \Vert P_i'Z \Vert$, and we can see that it is a non-centrality chi-square distribution with noncentrality parameter $\delta_i$. The degrees of freedom of chi-square distribution is the number of sum of chi-squares. We can see that, in multivariate normal distribution setting, there is only one variable $Z$, so the degrees of freedom for $W_i$ is 1. 
+
+\begin{align*}
+	P_i' Z &= N( P_i^T \Sigma^{-1/2} \mu, P_i^T I P_i) = N( P_i^T \Sigma^{-1/2} \mu, I ), \qquad  P_i \text{ is orthognal vector}\\
+	\Vert P_i' Z \Vert^2  & \sim \chi^2 (1, \delta_i), \quad  \delta_i = \frac{[P_i^T \Sigma^{-1/2} \mu]^2}{2} 
+\end{align*} 
+
+Need to be familiar with non-centrality chi-square, the non-central parameter is half of the mean square.
+
+To prove eigenvalues of $\lambda_1, \lambda_2, ... \lambda_n$ of $\Sigma^{1/2} A \Sigma^{1/2}$ are also eigenvalues of $A\Sigma$.
+
+\begin{align*}
+	& \Big |  \Sigma^{1/2} A \Sigma^{1/2} - \lambda I \Big | = 0\\
+	& \rightarrow \Big | \Sigma^{-1/2} \Sigma^{1/2} A \Sigma^{1/2} \Sigma^{1/2} - \Sigma^{-1/2} \lambda I \Sigma^{1/2} \Big | =0 \\
+	& \rightarrow \Big |  A \Sigma - \lambda I \Big | = 0
+\end{align*} 
+ 	
+	
+	\subsection{b. MGF of $Y^TAY$}
+	Use part (a) to derive the moment generating function of $Y^TAY$ . Let
+	m(t) denote the moment generating function. Show that m(t) exits in a small neighborhood
+	of t = 0, say, $|t| < t_0$ for some positive constant $t_0$. Find the maximal value
+	of $ t_0$	i.i.d chi-square distribution sum MGF.
+	
+\subsubsection{Preparation}	
+In part (a), we already derive that $Y'AY = \sum \lambda_i W_i$, while $W_i$ is a one degree of freedom of chi-square distribution with non-centrality parameter. So the MGF could be directly used for the sum of chi-square distribution. 
+
+I may need to remember the standard form of MGF of chi-square, or I need to derive that from scratch.
+
+first, get the MGF for non-centrality chi-square, then use the transformation to put $\lambda_i$.
+
+Another thing needs to pay attention is that, Y is multivariate normal, not univariate normal. The MGF derivation is different from univariate normal variable. 
+
+The MGF for univariate normal:
+	\begin{align*}
+	M(t) &= \prod_{i=1}^k M_i(t) \\
+	p(x_i) &= \frac{1}{\sqrt{2\pi}} exp(-\frac{(X-\mu_i)^2}{2})\\
+	M_i(t)	&= E[exp(x_i^2 t)]= \frac{1}{\sqrt{2\pi}} \int exp[- \frac{(1-2t)x^2 - 2\mu x + \mu_i^2}{2}] dx\\
+	&= \frac{1}{\sqrt{2\pi}} \int  exp[- \frac{x^2 - 2\mu_i/(1-2t) x + \mu_i^2/(1-2t)^2 - \mu_i^2/(1-2t)^2 + \mu_i^2/(1-2t)}{2 ((1-2t)^{-1})}] dx\\
+	&= exp[\frac{\mu_i^2/(1-2t)^2 - \mu_i^2/(1-2t)}{2 ((1-2t)^{-1})}] (1-2t)^{-1/2} \int \frac{1}{\sqrt{2\pi (1-2t)^{-1}}} exp[- \frac{[x- \mu_i/(1-2t)]^2}{2 ((1-2t)^{-1})}] dx\\
+	&= (1-2t)^{-1/2} exp[\frac{\mu_i^2 t}{(1-2t)}]\\
+	M(t) &= \prod_{i=1}^k (1-2t)^{-1/2} \frac{\mu_i^2 t}{(1-2t)} = (1-2t)^{-k/2} exp[\frac{\sum_i^k \mu_i^2 t}{(1-2t)}] \\
+\end{align*}  
+In which, $(1-2t) > 0, \qquad t< 1/2$. We can see that the product of non-centrality chi-square distributions is also a non-central chi-square distribution.
+
+
+ \begin{align*}
+ 	M_Z(t)	&= E[ exp(t^T Z) ]=  e^{\frac{1}{2} t^T t} \\
+ \end{align*}  
+
+while for the transformation 
+\begin{align*}
+	P_i' Z &=  N( P_i^T \Sigma^{-1/2} \mu, I )\\
+	\Vert P_i' Z \Vert^2  & \sim \chi^2 (1, \delta_i), \quad  \delta_i = \frac{[P_i^T \Sigma^{-1/2} \mu]^2}{2} 
+\end{align*} 
+
+Then the MGF
+ \begin{align*}
+ 	X_i &= Z + P_i^T \Sigma^{-1/2} \mu \\
+	M_{X_i}(t)	&= E[ exp(t^T X_i) ]= exp(t^T [P_i^T \Sigma^{-1/2} \mu]) e^{\frac{1}{2} t^T t} \\
+\end{align*}  
+
+
+
+\subsubsection{Proof}	
+
+	However, in part (a), we broke down the vector into sum of each univariate chi-square distribution. In that sense, it is still a univariate chi-square MGF question.
+	
+	Another method is to let $Z \sim N(0,1)$, then $(Z+\mu)^2$ has a noncentral chi-square distribution with one degree of freedom, the MGF of $(Z+\mu)^2$
+	\begin{align*}
+		E[exp(t (Z+\mu)^2)] &=\frac{1}{\sqrt{2\pi}} \int exp(t (Z+\mu)^2)  exp(-\frac{Z^2}{2})\\
+		&= \frac{1}{\sqrt{2\pi}} \int exp[- \frac{(1-2t)Z^2 - 2\mu Z + \mu_i^2}{2}] dZ\\
+		&= (1-2t)^{-1/2} exp[\frac{\mu^2 t}{(1-2t)}] \\
+		M_{W_i}(t) &= (1-2t)^{-1/2} exp[\frac{2 \delta_i t}{(1-2t)}], \qquad \delta_i = \frac{1}{2} \mu_i^2
+	\end{align*} 
+
+	We also note that, chi-square with 1 degree of freedom is a gamma distribution $\chi^2(1,0) = Gamma(1/2, 2)$.
+	
+	As $Y^TAY = \sum_{i=1}^n \lambda_i W_i$, then 
+\begin{align*}
+	M(t) &= E\Big[exp \Big( [\sum_{i=1}^n \lambda_i W_i ] t\Big) \Big] = \prod_{i=1}^k M_i(t) \\
+	&= \prod_i^k (1-2 \lambda_i t)^{-1/2} exp[\frac{2 \delta_i \lambda_i t}{(1-2 \lambda_i t)}] 
+\end{align*}  	
+	
+	As we see that $1-2 \lambda_i t > 0$, then we have $t < \frac{1}{2 \lambda_i}$.
+	
+	
+	By definition, a non-central chi-square random variable $\chi^2_{n,\lambda}$ with $n$ df and parameters $\lambda = \sum_i^n \mu_i^2$ is the sum of n $\textbf{independent} $ normal variables $X_i = Z_i + \mu_i, i=1,2,..n$. 
+	\begin{align*}
+		\chi^2_{n,\lambda} &= \sum_i^n X_i^2 = \sum_i^n (Z_i + \mu_i)^2 \\
+		M(t) &= \prod_{i=1}^k M_i(t) =\prod_i^k (1-2t)^{-1/2} exp[\frac{\mu^2 t}{(1-2t)}] \\
+		&= (1-2t)^{-k/2} exp[\frac{\sum_i^n \mu_i^2 t}{(1-2t)}] =(1-2t)^{-n/2} exp[\frac{\lambda t}{(1-2t)}]
+	\end{align*}  
+	
+
+\subsection{c. Trace and Rank}
+
+ Use part (a) to show that $tr[(A\Sigma)^2] = tr(A \Sigma) = r$, where r is the rank of
+A, then $Y^TAY$ has a chi-squared distribution. Determine its degrees of freedom and noncentrality parameter.
+
+\subsubsection{Preparation}
+From part (a), we see that $Y^TAY$ is sum of chi-square distributions. In order to show it is a chi-square, then the $\lambda_i = 1, 0$. Well,  $tr[(A\Sigma)^2] = tr(A \Sigma) = r$ is similar to the idempotent matrix definition, and $\lambda_i $ is actually the eigenvalue of $A\Sigma$. 
+
+But how can we show the idempotency of $A\Sigma$? Rank is the sum of eigenvalues, the link is how to go from the rank to show that the eigenvalues are exactly 0 or 1. 
+
+Because $\Sigma$ is full rank, so $R(A\Sigma) = R(A)$ as the column space won't change when it is the right product of a full rank matrix. So the number of non-zero eigenvalues is r.
+\begin{align*}
+	\sum_{i=1}^k \lambda_i & = \sum_{i=1}^k I(\lambda_i \neq 0) \\
+	I(\lambda_i \neq 0) & = \begin{cases*}
+	1, \quad \lambda_i \neq 0\\
+	0, \quad \lambda_i =0
+\end{cases*}
+\end{align*}
+So we can see that $\lambda_i = I(\lambda_i \neq 0) = 1$ when $\lambda_i \neq 0$.
+
+Use the spectral decomposition of $A\Sigma = P \Lambda P'$. 
+\begin{align*}
+	A\Sigma & = P \Lambda P'\\
+	(A\Sigma)^2 &= P \Lambda^2 P^T\\
+	tr((A\Sigma)^2) &= tr(A\Sigma) \\
+	& \rightarrow tr(P \Lambda P') = tr(P \Lambda^2 P^T)\\
+	& \rightarrow tr(\Lambda^2) = tr(\Lambda), \\
+	& \rightarrow \sum_{i=1}^k \lambda_i^2 = \sum_{i=1}^k \lambda_i \\
+	& \rightarrow \sum_{i=1}^k \lambda_i (\lambda_i -1) = 0 \\
+	& \rightarrow \lambda_i = 0, 1
+\end{align*}
+
+
+
+\subsubsection{Proof}
+From part (a) that 
+\begin{align*}
+	tr(A\Sigma) &= tr( \Sigma^{1/2} A \Sigma^{1/2} ) \\
+	tr \Big( [\Sigma^{1/2} A \Sigma^{1/2}]^2 \Big) &= tr \Big( [\Sigma^{1/2} A \Sigma^{1/2}] [\Sigma^{1/2} A \Sigma^{1/2}] \Big) \\
+	&= tr \Big( [\Sigma^{1/2} A \Sigma A \Sigma^{1/2}] \Big) \\
+	&= tr \Big( [ A \Sigma A \Sigma^{1/2} \Sigma^{1/2}] \Big) \\
+	&= tr \Big( [ A \Sigma A \Sigma] \Big) \\
+	&= tr \Big( [ (A \Sigma)^2 ] \Big) 
+\end{align*}
+
+
+If $\lambda_i = 0, 1$, then $Y^T A Y$ is the sum of $r$ chi-square $\chi^2(1, \delta_i)$, which is also a chi-square distribution.
+
+\begin{align*}
+	Y^T A Y &= \sum_{i=1}^r W_i \sim \chi^2 (r, \delta), \qquad \delta = 2 \sum_{i=1}^r \mu_i^2
+\end{align*}
+
+
+
+\subsection{d. Distribution}
+Show that $Y^T A Y$ has a noncentral chi-squared distribution if and only if $A \Sigma$ is idempotent.
+
+\subsubsection{Preparation}
+This problem needs to prove "if and only if", that From part(c), we have shown that if $\lambda_i = 0,1$ which is idempotent will lead to $Y^T A Y$ as a noncentral chi-squared distribution. 
+
+While if $Y^T A Y$ is a noncentral chi-squared distribution, then $\lambda_i = 0, 1$ then it is a idempotent. 
+
+Idempotent is $A^2 = A, A^T = A$. So if $A \Sigma = (A \Sigma)^2$, $A \Sigma$ is idempotent. 
+
+we have the MGF of linear combination of non-central chi-square distribution Y
+\begin{align*}
+	M(t) &= \prod_{i=1}^n M_{W_i}(\lambda_i t)\\
+	&=\prod_{i=1}^n  (1-2 \lambda_j t)^{-1/2} exp \left( \frac{ 2 \delta_i \lambda_i t }{1-2 \lambda_i t} \right)
+\end{align*}
+
+Then we can see that the shape parameter is $\frac{1}{2 \lambda_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $\lambda_i$ need to be the same, 1. Otherwise it won't be a chi-square. 
+
+\subsubsection{Proof}
+
+\begin{align*}
+	M_Y(t) &= \prod_{i=1}^n  (1-2 \lambda_i t)^{-1/2} exp \left( \frac{ 2 \delta_i \lambda_i t }{1-2 \lambda_i t} \right) \\
+	&= (1-2 t)^{-n/2} exp \left( \frac{ \sum_{i=1}^n 2 \delta_i t }{1-2  t} \right) 
+\end{align*}
+
+And for chi-square distribution, the shape parameter has to be $1/2$, so the $w_i = 1$. So we prove that if Y is a non-central chi-square distribution, A has to have the eigenvalues either 1 or 0. 
+
+When the eigenvalues are only 0, 1, then $A\Sigma$ is a projection matrix, then it is idempotent.
+
+
+\section{Problem 2 - Linear Model}
+Consider the linear model $Y = X \beta + \epsilon$, where $\epsilon \sim N_n(0, \sigma^2 I)$, X is $n \times p$ of rank p, $\beta$ is $p \times 1$, and $(\beta, \sigma^2)$ are unknown. Define $H = X(X^TX)^{-1}X^T$ and let $h_{ii}$ denote the ith diagonal element of H. Further let $\hat{\sigma}^2$ denote the usual unbiased estimator of $\sigma^2$ for the linear regression model and let $\hat{\epsilon}_i$ denote the ordinary residual. Let 
+\begin{align*}
+	A_i & = \frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})} \\
+	B_i & = \frac{(n-p)\hat{\sigma}^2 }{\sigma^2} - \frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}
+\end{align*}
+
+\subsection{a. Show that $B \sim \chi^2_{n-p-1}$}
+
+\subsubsection{Preparation}
+In order to prove $B \sim \chi^2_{n-p-1}$, we need to show that it is a sum of n-p-1 normal distribution square (by definition of chi-square distribution). 
+
+We can write $\sigma^2, \hat{\sigma}^2$ the quadratic form in the sum of squares of normal distribution. But the fraction between two quadratic forms is what distribution? 
+
+Note that the division is not F-distribution, as it didn't divided by degrees of freedom. 
+
+$\hat{\sigma}^2$ is the usual unbiased estimator of $\sigma^2$, we need to know that if unbiased, then the degrees of freedom is n-p.
+
+Another thing need to pay attention that,  $\sigma^2$ is not a distribution, it is fixed and it is the variance of $Y_i$ just unknown. 
+
+Variance of $Y_i$ is also the variance of $\epsilon$, but we need to know the difference and how to use them.
+
+\begin{align*}
+	\frac{(n-p)\hat{\sigma}^2 }{\sigma^2} &= \frac{Y^T (I-H) Y}{\sigma^2} = \frac{[(I-H)Y]^T [(I-H)Y]}{\sigma^2} \\
+	&= \sum_{i=1}^n  \frac{(y_i-\hat{y}_i)^2}{Var(y_i)}
+\end{align*}
+So  is n-p sum of normal distribution square. Then try to link the second term
+
+\begin{align*}
+	\frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}&= \frac{\hat{\epsilon}_i^2}{V(e_i)} 
+\end{align*}
+
+This question requires understanding the matrix H, or the relationship between o.p.o matrix and scalar form. And the characteristic of H matrix itself $H^2 = H, H^T = H$. 
+
+If we write that in scalar form, 
+
+\begin{align*}
+	(h_{i1} , h_{i2} ... h_{in}) \begin{pmatrix*} 
+		h_{i1} \\
+		h_{i2}\\
+		..\\
+		h_{in}
+		\end{pmatrix*}
+		  &= h_{i1}^2 + h_{i2}^2 + .. + h_{in}^2 = h_{ii}
+\end{align*} 
+
+Variance, Covariance of $e$
+
+\begin{align*}
+	V(e) &= E[(e - E(e_i)) (e - E(e_i))^T] = (I-H) E(\epsilon \epsilon^T) (I-H)^T \\
+	&= (I-H) I \sigma^2 (I-H)^T \\
+	&= (I-H)  (I-H)^T  I \sigma^2 = (I-H) \sigma^2
+\end{align*} 
+
+Need to know that $V(e_i)$ is given by the ith diagonal element $1 - h_{ii}$  and $Cov(e_i ,e_j )$ is given by the (i, j)th  element of $ -h_{ij}$ of the matrix $(I-H) \sigma^2$.
+
+We also need to know that both $Y_i$ and $\epsilon_i$ follows the same distribution
+
+\begin{align*}
+	e - E(e) &= (I-H) Y = (Y- X\beta) = (I-H) \epsilon \\
+	E(\epsilon \epsilon^T) &= V(\epsilon) = I\sigma^2 , \qquad E(\epsilon) = 0
+\end{align*} 
+
+We also have correlation
+\begin{align*}
+   \rho_{ij} &= \frac{Cov(e_i, e_j)}{\sqrt{V(e_i)V(e_j)}} = -\frac{h_{ij}}{(1-h_{ii}) (1-h_{jj})} \\
+   SS(b) &= SS(parameter) = b^T X^T Y = \hat{Y}^T Y = Y^T H^T Y =  Y^T H Y =  Y^T H^2 Y = \hat{Y}^T \hat{Y}
+\end{align*} 
+
+The average $V(\hat{Y}_i)$ to all data points is
+\begin{align*}
+	\sum_{i=1}^n \frac{V(\hat{Y}_i)}{n} &= \frac{trace(H \sigma^2)}{n} = \frac{p \sigma^2}{n} \\
+	\hat{Y}_i &= h_{ii}Y_i + \sum_{j \neq i} h_{ij} Y_j
+\end{align*} 
+
+Studentized residual
+
+\begin{align*}
+	 V(e_i) & = (1- h_{ii}) \sigma^2 
+\end{align*} 
+where $\sigma^2$ is estimated by $s^2$
+\begin{align*}
+ s^2 & = \frac{e^T e}{n-p} = \frac{\sum_{i=1}^n e_i^2}{n-p}
+\end{align*} 
+
+Sum of Squares attributable to $e_i$
+
+\begin{align*}
+	e & = (I-H)Y\\
+	e_i &= -h_{i1} Y_1 - h_{i2} Y_2 - ... + (1- h_{ii}) Y_i -.. -h_{in} Y_n = c^T Y\\
+	Var(e_i) &= c^T Var(Y) c = \sigma^2 c^T c \\
+	c^T &= ( -h_{i1}, - h_{i2}, ..  (1- h_{ii}), .. -h_{in}), \qquad (I-H) I-H = I-H\\
+	c^T c &= \sum_{j=1}^n h_{ij}^2 + (1- 2h_{ii}) = (1-h_{ii})\\
+	Var(e_i) &=  \sigma^2 (1-h_{ii}) \\
+	SS(e_i) &= {e_i^2} = \Big((I-H)y\Big)^T (I-H)y = y^T (I-H) y
+\end{align*} 
+
+Need to learn to write in matrix form. 
+
+
+
+\subsubsection{Proof}
+Write $B_i$ in matrix form
+\begin{align*}
+	\frac{(n-p)\hat{\sigma}^2 }{\sigma^2} &= \frac{Y^T (I-H) Y}{\sigma^2} = \frac{[(I-H)Y]^T [(I-H)Y]}{\sigma^2} \\
+	\frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}&= \frac{[e_i^T (I-H)Y]^T [ e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2}
+\end{align*}
+where $e_i = (0,..0, 1, 0, 0..0)$ 
+Then 
+\begin{align*}
+	\frac{[e_i^T (I-H)Y]^T [ e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} & = \frac{[ Y^T (I-H) e_i e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} 
+\end{align*}
+
+Then
+\begin{align*}
+	B_i &= \frac{[Y^T (I-H)Y]}{\sigma^2} -   \frac{[ Y^T (I-H) e_i e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} \\
+	&= \frac{Y}{\sigma}^T \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big] \frac{Y}{\sigma}
+\end{align*}
+$\frac{Y}{\sigma} \sim N_n(0, I)$. 
+
+To show that $C = \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big]  $ is a projection matrix, we need to show $C^2 = C, C^T= C$.
+
+Here $(I-H)(I-H) = I-H, e_i^T (I-H) e_i = 1- h_{ii}$ 
+
+Therefore, $B_i \sim \chi^2(r)$, where $r = rank \Big[C \Big]$. For projection matrix, the rank is also the trace.
+
+\begin{align*}
+	rank \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big] &= tr \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big]  \\
+	&= n-p - \frac{1}{1-h_{ii}} tr[(I-H) e_i e_i^T (I-H)] \\
+	&= n-p -  \frac{1}{1-h_{ii}} tr[e_i^T (I-H) (I-H) e_i ] \\
+	&= n-p -  \frac{1}{1-h_{ii}} tr[e_i^T (I-H)  e_i ] \\
+	&= n-p -  \frac{1-h_{ii}}{1-h_{ii}} \\
+	&= n-p-1
+\end{align*}
+
+So $B_i \sim \chi^2(n-p-1)$.
+
+\subsection{b. Show $A_i$ and $B_i$ are independent}
+
+\subsubsection{Preparation}
+Note that $A_i$ and $B_i$ are quadratic forms, which we need to show that their projection matrix product is 0, which will need to use linear algebra.
+
+Another method is that, there are chi-square distribution, which we just need to show that the two statistics are ancillary.
+
+Traditional method is to derive the distributions, and if we could write the distribution of $A_i + B_i$ as the product of distribution of $A_i$ and $B_i$, then we can prove the independence. 
+
+One more question, are we able to use the moment generating function to do this? It is always easier to prove in MGF.
+
+First, we need to write the MGF of $A_i$, $B_i$
+\begin{align*}
+	M_{A_i} & =E[exp[A_i t]] = \int exp[A_i t] \frac{1}{\sqrt{2 \pi \sigma^2}} exp(-\frac{x^2}{2 \sigma^2}) dx\\
+	M_{B_i} & =E[exp[B_i t]] = \int exp[B_i t] \frac{1}{\sqrt{2 \pi \sigma^2}} exp(-\frac{x^2}{2 \sigma^2}) dx
+\end{align*} 
+
+Then we can use MGF properties to prove
+\begin{align*}
+	W_i & = A_i + B_i\\
+	M_{W_i} &= E[exp(W_i t)] = E[exp[(A_i + B_i) t]] \\
+	&= E[exp[A_i t] exp[B_i t]], \qquad \text{all based on normal distribution} \\
+	&= E[exp[A_i t]] E[exp[B_i t]] = M_{A_i} M_{B_i}
+\end{align*} 
+
+Also we need to notice that, this is a quadratic form chi-square distribution.
+
+\begin{itemize}
+\item[(a)] Quadratic form theorem 1: 
+
+Let the $n \times 1$ vector $y \sim N(0, I)$, let $A$ be an $n \times n$ idempotent matrix of rank m, let B be an $n \times n$ idempotent matrix of rank s, and suppose $BA = 0$. Then $y'Ay$ and $y'By$ are independently distributed $\chi^2$ variables.
+
+\textbf{Why need to be idempotent matrix?} 
+It is because for idempotent matrix $A^2 = A$, then the quadratic form could be written as $ y'Ay = (Ay)^T(Ay)$, then further we can use the product of two vectors = 0 to show independence. 
+
+The proof is try write the two quadratic from in partition, so that show that they dependent on different vectors, further they are independent. Need to compare with the proof in 762 slides.
+
+\item[(b)] Quadratic form theorem 2 (Craig's Theorem):
+If $y \sim N(\mu, \Omega)$ where $\Omega$ is positive definite, then $q_1 = y'Ay$ and $q_2= y'By$ are independently distributed if $A\Omega B = 0$
+
+This is just a generalization of above theorem. Since $\Omega$ is a covariance matrix of full rank it is positive definite and can be factored as $\Omega = T T'$.
+Therefore the condition $A\Omega B =0$ can be written $ATT'B = 0$. 
+
+\begin{align*}
+	T'ATT'BT& = 0\\
+	C &= T'AT, \quad K = T'BT \\
+	CK &= (T'AT)(T'BT) = T' \Omega B T = T'0T = 0
+\end{align*} 
+
+In the 762 slides, it used the covariance matrix = 0 to prove independence in MVN.
+
+\begin{align*}
+	Y'AY& = Y' RR' Y = (R'Y)'(R'Y)\\
+	Y'BY& = Y' SS' Y = (S'Y)'(S'Y)
+\end{align*} 
+
+Thus $Y'AY$ and $Y'BY$ are independent if $R'Y$ and $S'Y$ are independent. $R'Y$ and $S'Y$ are independent if and only if 
+
+\begin{align*}
+	Cov(R'Y, S'Y)& =  0\\
+	& = R' \Sigma S = 0 \\
+	&= R'WW'S = 0 \\
+	&= C(Q'S) \perp C(Q'R)
+\end{align*} 
+
+\end{itemize}
+
+
+\subsubsection{Proof}
+
+\begin{align*}
+	A_i & = \frac{ [Y^T (I-H) e_i e_i^T (I-H) Y]/(1-h_{ii})}{\sigma^2} \\
+	B_i &=  \frac{ [Y^T \Big[(I-H) - (I-H) \frac{e_i e_i^T }{(1-h_{ii})} (I-H) \Big]Y]}{\sigma^2} 
+\end{align*} 
+
+We would like to show the product of two projection matrix are 0, by using the above theorem
+
+\begin{align*}
+	M_{A_i} M_{B_i} & = (I-H)  \frac{e_i e_i^T }{1-h_{ii}} (I-H)  \Big[(I-H) - (I-H) \frac{e_i e_i^T }{(1-h_{ii})} (I-H) \Big] \\
+	&= 0 \\
+	e_i^T (I-H) e_i &= 1-h_{ii}
+\end{align*} 
+
+
+\subsection{c. Derive exact distribution}
+Let
+\begin{align*}
+	r_i & = \frac{\hat{\epsilon}_i}{\hat{\sigma} \sqrt{1- h_{ii}}}
+\end{align*} 
+Using part(a) and (b), derive the exact distribution of $r_i^2/ (n-p)$.
+
+\subsubsection{Preparation}
+
+This problem needs observation of the $r_i$ and connection between $A_i$ and $B_i$. Also use the results from part (a) and (b) that, $A_i$ and $B_i$ are independent chi-square.
+\begin{align*}
+	\frac{r_i^2 }{(n-p)} & = \frac{A_i}{A_i + B_i} 
+\end{align*} 
+
+The transformation of distribution, first we can use the distribution theory that the sum of independent chi-square distribution is also a chi-square. 
+The first method we need to try is to use MGF, then try to use the distribution transformation.
+
+if we use distribution transformation, then we need to use two independent distributions
+\begin{align*}
+	w & = \frac{A_i}{A_i + B_i} \\
+	B_i &= \frac{1-w}{w} A_i
+\end{align*} 
+replace $B_i$ by w, then integrate out of $A_i$, then we will get the distribution of $w$.
+
+the chi-square distribution $X \sim \chi^2(k)$ is a special case of the gamma distribution, in that $X \sim \Gamma(\frac{k}{2}, \frac{1}{2})$ using the rate parameterization of the gamma distribution.
+
+
+\subsubsection{Proof}
+We need to know the relationship between Gamma distribution and Beta distribution.
+As $A_i \perp B_i$
+\begin{align*}
+	\frac{A_i}{A_i + B_i} & \sim Beta (\frac{1}{2} , \frac{n-p-1}{2}) 
+\end{align*} 
+
+Show the distribution transformation. Assume that $X \sim Gamma(\alpha, 1), Y \sim Gamma(\beta, 1)$, and X and Y are independent. then find the distribution of $\frac{X}{X+Y}$.
+\begin{align*}
+	f_{X,Y}(x, y) & =  \frac{1}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha-1} y^{\beta -1} e^{-(x+y)}
+\end{align*} 
+
+let $w= \frac{x}{x+y}, u= x$, then we have
+\begin{align*}
+	x & =  y, \qquad y= \frac{(1-w)u}{w} \\
+	J &= \Bigg | \begin{pmatrix} 
+	\diffp{x}{u} & \diffp{x}{w} \\
+	\diffp{y}{u} & \diffp{y}{w} 
+	\end{pmatrix}
+	\Bigg | \\
+	&=  \Bigg | \begin{pmatrix} 
+		1 & 0\\
+		\frac{(1-w)}{w} & -\frac{u}{w^2} 
+	\end{pmatrix}
+	\Bigg |  = \frac{u}{w^2}
+\end{align*} 
+
+Then integrate out u
+\begin{align*}
+	f(w) & = \int_{0}^{\infty} f(w,u) du \\
+	& =  \int_{0}^{\infty}  \frac{1}{\Gamma(\alpha) \Gamma(\beta)} u^{\alpha-1} (\frac{(1-w)u}{w})^{\beta -1} e^{-\frac{u}{w}} \frac{u}{w^2} du \\
+	& \sim Beta(\alpha, \beta)
+\end{align*} 
+
+
+
+\subsection{d. Outlier Model 1}
+Suppose we suspect that the ith case is an outlier and we consider the mean shift outlier model
+$Y= X \beta + d_i \phi + \epsilon$, where $\epsilon \sim N_n(0, \sigma^2 I)$, $\phi$ is an unknown scalar, and $d_i$ is an $n \times 1$ vector with a 1 in the ith position and zeros elsewhere.
+Derive the maximum likelihood estimate of $\phi$.
+
+\subsubsection{Preparation}
+We can construct the model by introducing the unknown parameter $\phi$, then use the MLE to estimate.
+
+The way to get MLE is to construct likelihood function first, Y is a normal distribution, and only ith case is an outlier, while all other cases are not. Solve the problem similar as the random model.
+
+As the Y are independent variables, $Y_1, ... Y_{i-1}, Y_{i+1}, ..Y_{n} \sim N(X_k \beta, \sigma^2)$, while 
+$Y_{i} \sim N(X_i \beta + \phi, \sigma^2)$.
+
+If using scalar form, the $\beta , \phi$ are correlated with each other, which we won't be able to solve. 
+\begin{align*}
+	f_k(\beta, \phi) &= \frac{1}{\sqrt{2\pi} \sigma} exp(-\frac{(y_k - x_k \beta)^2}{2 \sigma^2}) \\
+	f_i(\beta, \phi) &= \frac{1}{\sqrt{2\pi} \sigma} exp(-\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2}) \\
+	log f_k(\beta, \phi)  &= -\frac{(y_k - x_k \beta)^2}{2 \sigma^2} \\
+	log f_i(\beta, \phi)  &= -\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2} \\
+	ln (\beta, \phi) &= \sum_{k=1, k \neq i} ^{n} -\frac{(y_k - x_k \beta)^2}{2 \sigma^2} -\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2} 
+\end{align*}
+The MLE of $\phi$
+
+\begin{align*}
+	\diffp{ln}{\phi}  &=\frac{(y_i - x_i \beta - \phi)}{\sigma^2} = 0\\
+	\phi &= y_i - x_i \hat{\beta}\\
+\end{align*}
+where $\hat{\beta}$ is the MLE of $\beta$. 
+
+So we need to use the linear algebra form in solve this kind of question. Need to notice that the linear regression estimate in matrix form all use the linear algebra. 
+
+\subsubsection{Proof}
+The maximum likelihood function in linear algebra form
+
+\begin{align*}
+	L (\beta, \phi) & \propto exp \Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	l (\beta, \phi) & \propto \Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	&= -\frac{1}{2\sigma^2} \Big[(Y-X\beta)^T (Y-X\beta) -2 (Y-X\beta)^T d_i \phi + d_i^T d_i \phi^2 \Big]
+\end{align*}
+
+The MLE 
+\begin{align*}
+	\diffp{l}{\phi} & =\Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	&\rightarrow -2(Y-X\beta)^T d_i + d_i^T d_i (2 \phi) = 0 \\
+	\phi &= (Y-X\beta)^T d_i
+\end{align*}
+
+MLE of $\beta$ 
+\begin{align*}
+	X\beta & = HY \\
+	\hat{\beta} &= (X^TX)^{-1} X^T Y
+\end{align*}
+There is no need to get the estimate of $\beta$, we only need to estimate  $(Y-X\beta)^T$. 
+So $\hat{\phi} = (I-H)Y^T d_i$
+
+\subsection{d. Outlier Model 2}
+Suppose we wish to test $H_0 : \phi = 0$. Derive the test statistic for this hypothesis and derive its exact distribution under $H_0$.
+
+\subsubsection{Preparation}
+
+The hypothesis test always comes with the estimate. There are several hypothesis test method we can do, wald test, score test and likelihood ratio test. The score test is generally the way as it is easy to get the estimate, score function and fisher information under $H_0$.
+
+\subsubsection{Proof}
+
+
+\subsection{Cook's Distance}
+ Let $I = \{ 1,.. m\}$ be the subset of the first m cases in the dataset. Let $D_I$ denote the Cook's distance based on simultaneously deleting m cases from the dataset, which is given by
+\begin{align*}
+	D_I & = \frac{(\hat{\beta} - \hat{\beta}_I)^T (X^T X) (\hat{\beta} - \hat{\beta}_I)}{p \hat{\sigma}^2}
+\end{align*} 
+where $\hat{\beta}^I$ denotes the least squares estimate of $\beta$ with the cases deleted from set I and $\hat{\beta}$ denotes the estimate of $\beta$ based on the full data. Show that $D_I$ can be written as 
+\begin{align*}
+	D_I & = \frac{1}{p} \sum_{i=1}^m h_i^2 \left( \frac{\lambda_i}{1- \lambda_i} \right)
+\end{align*} 	
+where the $\lambda_i, i=1,..m$, are the eigenvalues of the matrix $P_I = X_I (X^T X)^{-1} X_I^T$ based on a spectral decomposition of $P_I$.
+ 
+ 
+\end{document}

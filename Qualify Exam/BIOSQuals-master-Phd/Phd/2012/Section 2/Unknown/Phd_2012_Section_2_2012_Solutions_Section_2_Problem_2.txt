@@ -1,0 +1,10 @@
+
+The proof for (a) can be found in Shao section 3.3.3 pages 190-191.  This is a
+famous result from Rao which characterizes the conditions under which LSE is
+still the BLUE when the assumptions of the linear model are violated.
+
+The proof for (b) can be found in Shao section 4.3 in Theorem 4.15 and example
+4.27, pages 269-272.  The problem is an application of the James-Stein estimator
+to the linear model.
+
+There is currently no source or solution for (c).
