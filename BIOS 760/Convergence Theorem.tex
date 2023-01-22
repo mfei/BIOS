@@ -70,17 +70,18 @@
 \section{Monotone Convergence}
 
 \section{Convergence Mode}
-The two common convergence mode is converges almost everywhere (a.e) and converges in measure (probability if the measurable function is probability), converges in $L_r$
+It is very important to understand the definition and the notation for each definition.
 
 \begin{itemize}
-
 	\item [(i)] Converge almost everywhere
 	
 	A sequence $X_n$ converges almost everywhere (a.e) to X, denoted $X_n \xrightarrow {a.e.} X $, if $X_n(w) \rightarrow X(w)$ for all $w \in \Omega - N$ where $\mu(N) = 0$. If $\mu$ is a probability, we write a.e. as a.s. (almost surely). 
 \begin{align*}
-	lim_{n \rightarrow \infty} X_n &= X 
+	\underset{n \rightarrow \infty}{lim} X_n &= X \\
+	P(\underset{m \geq n}{sup} \Big | X_m - X \Big | > \epsilon) & \rightarrow 0
 \end{align*}
 	
+Remarks: Pay attention to the notation, it says that among all the observations that after $X_n$, the biggest difference is less than a certain value. When the $\underset{m \geq n}{sup}$ come up, it has listed almost all the observations, which is the same as almost sure. 
 	
 	\item[(ii)] Converges in probability
 A sequence $X_n$ converges in measure to a measurable function X, denoted $X_n \xrightarrow {\mu} X$, if $\mu(|X_n - X| \geq \epsilon) \rightarrow 0$ for all $\epsilon > 0$. If $\mu$ is a probability measure, we say $X_n$ converges in probability to X.
@@ -168,49 +169,39 @@ Thus, $P(| X_n -X | \leq \epsilon) \rightarrow e^{-\epsilon} > 0$ for any $\epsi
 
 \end{itemize}
 
-\item[(a)] Polya's theorem
-If $F_n \xrightarrow {w} F$ and F is continuous on $R^{k}$, then
- \begin{align*}
-	lim_{n \rightarrow \infty}  sup_{X \in R^k} |F_n(x) - F(x)| = 0.
-\end{align*}
-
-This proposition implies the following useful result:
-If $c_n \in R^{k}$ with $C_n \rightarrow C$, then
- \begin{align*}
-   F_n(C_n) \rightarrow F(C)
-\end{align*}
-
 \end{itemize}
+
 
 \subsection{Relationship between covergence modes}
 
 \begin{itemize}
 \item[(i)] If $X_n \xrightarrow {a.s.} X$, then $X_n \xrightarrow {p} X$. 
 
+Proof: 
+ \begin{align*}
+   P(\Big | X_i - X \Big | > \epsilon) \leq P(\underset{m \geq n}{sup} \Big | X_m - X \Big | > \epsilon) \rightarrow 0
+ \end{align*}
+ 
+ 
 \item[(ii)] If $X_n \xrightarrow {L_r} X$ for an $r>0$, then $X_n \xrightarrow {p} X$. 
+Consider the definition of moment convergence and probability convergence, the link that connect Expectation and Probability with inequality is Markov Inequality.
+
+For any positive and increasing function $g(\dot)$ and random variable Y, 
+
+ \begin{align*}
+   P(\Big | Y \Big | > \epsilon) \leq E \Big[ \frac{g(|Y|)}{g(\epsilon)} \Big]
+ \end{align*}
+
+In particulary, we choose $Y= \Big | X_n -X \Big |$ and $g(y) = |y|^{r}$. It gives that
+
+ \begin{align*}
+   P(\Big | X_n - X \Big | > \epsilon) \leq E \Big[ \frac{\Big | X_n - X\Big |^r}{\epsilon^r} \Big] \rightarrow 0
+ \end{align*}
+ 
 
 \item[(iii)] If $X_n \xrightarrow {p} X$, then $X_n \xrightarrow {d} X$. 
 
-\item[(iv)] Skorohod's theorem: a conditional converse of (i)-(iii). If $X_n \xrightarrow {d} X$, then there are random vectors $Y_n, Y_n \xrightarrow {a.s.} Y$.
-
-\item[(v)] If, for every $\epsilon > 0, \sum_{n=1}^{\infty} P(\Vert X_n -X \Vert \geq \epsilon) < \infty$, then $X_n \xrightarrow {a.s.} X$. 
-
-\item[(vi)] If $X_n \xrightarrow {p} X$, then there is a subsequence $\{ X_{n_j} , j= 1,2..\}$ such that $X_{n_j} \xrightarrow {a.s.} X$ as $j \rightarrow \infty$.
-
-\item[(vii)]  If $X_n \xrightarrow {d} X$, and $P(X = c)= 1$, where $c \in R^k$ is a constant vector, then $X_n \xrightarrow {p} c$.
-
-\item[(viii)] Moment convergence: Suppose that $X_n \xrightarrow {d} X$, then for any $r > 0$, 
- \begin{align*}
-   lim_{n \rightarrow \infty} E \Vert X_n \Vert_r^r &= E \Vert X \Vert_r^r < \infty
- \end{align*}
-iff $\{ \Vert X_n \Vert_r^r \}$ is uniformly integrable (UI) in the sense that 
- \begin{align*}
-   lim_{t \rightarrow \infty} sup E (\Vert X_n \Vert_r^r  I_{\Vert X_n \Vert_r > t})&= 0
- \end{align*}
-In particular, $X_n \xrightarrow {L_r} X$ if and only if $\{ \Vert X_n - X\Vert_r^r \}$ is UI
-\end{itemize}
-
-Prove (iii) need to use the definition of convergence in probability, and construct the cumulative probability $F_X(x)$.
+Prove: need to use the definition of convergence in probability, and construct the cumulative probability $F_X(x)$.
 
 The purpose is to induce $F_{X_n}(x)$, so that we can compare $F_{X_n}(x)$ and $F(x)$. So the $F(x)$ will be rewritten as $F_{X_n}(x)$ and a probability involves $X_n - X$.
 
@@ -245,6 +236,80 @@ Since $\epsilon$ is arbitrary and $F_X$ is continuous at x,
    F_X(x ) & = lim_{n \rightarrow \infty} F_{X_n}(x) \\
  \end{align*}
 
+\item[(iv)] Skorohod's theorem: a conditional converse of (i)-(iii). If $X_n \xrightarrow {d} X$, then there are random vectors $Y_n, Y_n \xrightarrow {a.s.} Y$.
+
+\item[(v)] If, for every $\epsilon > 0, \sum_{n=1}^{\infty} P(\Vert X_n -X \Vert \geq \epsilon) < \infty$, then $X_n \xrightarrow {a.s.} X$. 
+
+\item[(vi)] If $X_n \xrightarrow {p} X$, then there is a subsequence $\{ X_{n_j} , j= 1,2..\}$ such that $X_{n_j} \xrightarrow {a.s.} X$ as $j \rightarrow \infty$.
+
+We need to show that such a sequence exists, and prove by the almost surely definition. Such a sequence generally use the $2^{-k}$. 
+Because $2^{-k}$ is almost surely convergence, so any sequence that is smaller than this sequence, will definitely be almost surely convergence as well.
+
+For any $\epsilon > 0, P(\Big | X_n -X \Big | > \epsilon) \rightarrow 0$, we choose $\epsilon = 2^{-m}$ then there exists a $X_{n_m}$ such that
+
+ \begin{align*}
+   P(\Big | X_{n_m}- X \Big | > 2^{-m}) < 2^{-m}
+ \end{align*}
+ 
+ Particularly, we can choose $n_m$ to be increasing. For the sequence $\{ X_{n_m} \}$, we note that for any $\epsilon > 0$, when $n_m$ is large,
+ 
+ \begin{align*}
+   P(\underset{k \geq m}{sup} \Big | X_{n_k}- X \Big | > \epsilon) \leq \underset{k \geq m}{\sum} P(\Big | X_{n_k}- X \Big | > 2^{-k}) \leq \underset{k \geq m}{\sum} 2^{-k} \rightarrow 0
+ \end{align*}
+ 
+ Thus, $X_{n_m} \xrightarrow {a.s.} X$.
+ 
+ Remarks: Need to pay attention to the SUP and sum of probability, it is similar to the max of the sequence. So we need to think about the all sequence observations probability.
+ 
+\item[(vii)]  If $X_n \xrightarrow {d} X$, and $P(X \equiv c) \equiv 1$, where $c \in R^k$ is a constant vector, then $X_n \xrightarrow {p} c$.
+Let $X \equiv c$. 
+
+Prove by Polya's theorem:
+
+ \begin{align*}
+ P(\Big | X-n -c \Big | > \epsilon) \leq 1- F_n(c + \epsilon) + F_n(c - \epsilon) \rightarrow 1 - F_X(c+\epsilon) + F_X(c - \epsilon) = 0
+ \end{align*}
+
+Remarks:  Polya's theorem is very useful when dealing with the $F_n$ change to $F$. 
+
+\item[(viii)] Moment convergence: Suppose that $X_n \xrightarrow {d} X$, then for any $r > 0$, 
+ \begin{align*}
+   \underset{n \rightarrow \infty}{lim} E \Vert X_n \Vert_r^r &= E \Vert X \Vert_r^r < \infty
+ \end{align*}
+iff $\{ \Vert X_n \Vert_r^r \}$ is uniformly integrable (UI) in the sense that 
+ \begin{align*}
+   \underset{t \rightarrow \infty}{lim} sup E (\Vert X_n \Vert_r^r  I_{\Vert X_n \Vert_r > t})&= 0
+ \end{align*}
+In particular, $X_n \xrightarrow {L_r} X$ if and only if $\{ \Vert X_n - X\Vert_r^r \}$ is UI
+
+\item[(viii)] If $X_n \xrightarrow {p} X$ and $|X_n|^r$ is uniformly integrable, then $X_n \xrightarrow {r} X$. 
+
+\end{itemize}
+
+\section{Polya's theorem}
+
+If $F_n \xrightarrow {w} F$ and F is continuous on $R^{k}$, then
+ \begin{align*}
+	\underset{n \rightarrow \infty}{lim}  sup_{X \in R^k} |F_n(x) - F(x)| = 0.
+\end{align*}
+
+This proposition implies the following useful result:
+If $c_n \in R^{k}$ with $C_n \rightarrow C$, then
+ \begin{align*}
+   F_n(C_n) \rightarrow F(C)
+\end{align*}
+
+\section{Fatou's lemma}
+
+Given a measure space $(\Omega, \mathbf{F}, \mu)$, and a set $X \in F$, let $\{f_n \}$ be a sequence of $(F, B_{R \geq 0})$ - measurable non-negative functions:
+$f_n: X \rightarrow [0, + \infty]$. Define the function $f: X \rightarrow [0, + \infty]$ by setting $f(x) = \underset{n \rightarrow \infty}{lim inf} f_n(x)$, for every $x \in X$.
+Then $f$ is $(F, B_{R \geq 0})$ - measurable, and also 
+ \begin{align*}
+   \int_X f d\mu & \leq \underset{n \rightarrow \infty}{lim inf} \int_X f_n d\mu, 
+\end{align*}
+where the integral may be infinite.
+
+Remarks: this lemma is used a lot in expectation of sequence.
 \section{Big O and small o}
 In calculus, two sequences of real numbers, $\{ a_n\}$ and $\{b_n\}$, satisfy 
 1. $a_n = O(b_n)$ iff $|a_n| \leq c|b_n|$ for all n and a constant c.
