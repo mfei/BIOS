@@ -1,732 +1,103 @@
-\documentclass{article}
+\documentclass[a4paper,11pt]{book}
+\usepackage{import}
 \usepackage{amsmath}
 \usepackage{mathtools}
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage[thinc]{esdiff}
-\title{BIOS762 - Notes}
-\author{Mingwei Fei}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+%\usepackage{example}
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{makeidx}
+\makeindex
 
 \begin{document}
 
-\maketitle
+\frontmatter
+\import{./}{title.tex}
+\clearpage
+%\thispagestyle{empty}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Matrix}
+\import{sections/}{section1-1.tex}
+\import{sections/}{section1-2.tex}
+\import{sections/}{section1-3.tex}
+%\import{sections/}{section1-4.tex}
+\import{sections/}{section1-5.tex}
+
+\chapter{Generalized Linear Model}
+
+\include{sections/section-3}
+\include{sections/Linear model exercise}
+
+\chapter{Exponential Family}
+\input{sections/section2-1.tex}
+\input{sections/section2-2.tex}
 
 
- \exercise[Quasi-likelihood, Z-estimate, GEE]
- \textbf{Taylor series and sandwich theorem}
- \begin{itemize}
-     \item [(a)] Quasi-likelihood: We don't know the distribution of $y_i$, only know the $E(y_i), Var(y_i)$, so we can get the quasi function of $S_n(\mu_i, \sigma^2)$, and then we need to know the link between $\mu_i$ and $\beta$. Furthermore, we will use the sandwich estimate.\\
-     It usually is used in overdispersion, also two level hierarchical model and random effect models could be used in overdispersion as well.\\
-     Quasi-likelihood provides an important method for making statistical inference without making parametric assumption. Suppose independence, so we have covariance matrix only with diagonal element. We only know mean, but variance is unknown $\sigma^2 = \phi^{-1}$. $Cov(Y) =  \sigma^2 diag\{v_i(\mu)\}$, in which $v_i(\mu)$ is known, but $\sigma^2$ unknown.\\
-     When estimating $\beta$ using the quasi score function, we don't need to estimate $\sigma^2$ as it dropped out of the equation. But we can estimate through the variance of Y. 
-Quasi-likelihood can be applied to independent and dependent observations.\\
-     
-     \item[(b)]  Z-estimate: give the estimating equation of $\beta$ instead, here we introduce the random effect. $H(\beta)$ We don't know any information about Var(Y).\\
- To solve $\beta$, we always need score function, so we will need to know the score function from either way. Z-estimator is more generalized than quasi-likelihood estimator. \\
- \begin{align}
-    D_{\mu}(\theta)^T (Y-\mu) &= \sum_{i=1}^n \frac{\partial \mu_i(x_i, \beta)}{\partial \beta} (y_i-\mu_i)\\
-    \mu_i &= x_i^T \beta
-\end{align}
- \item[(c)] Generalized Estimating Equations: the quasi-likelihood and Z-estimators and GEE could all be considered as they assume the score functions. But GEE could be specialized to handle longitudinal data. GEE is semi-parametric, as it does not need to estimate all the parameters, which is widely used. \\
- \end{itemize}
+\chapter{Likelihood Functions}
 
- 
-
- \exercise[Godambe efficiency]
-The quasi-likelihood estimator is Godambe efficient for$\beta$.\\
-First, need to understand how the sandwich equation come from. The central limit theorem says that, the sample mean converge to normal distribution with true mean and variance of the true mean. 
-\begin{align*}
-   n^{1/2} h_n(\beta^{\ast}) & \xrightarrow{w} N (0, V(\beta^{\ast})), \qquad h_n(\beta^{\ast}) = \frac{1}{n} g(X, \beta^{\ast}), \\
-   V(\beta^{\ast}) &=   Var_{\beta^{\ast}}\{ g(x_i, \beta^{\ast})\}
-\end{align*} 
-The above equation says that the mean of equation function $h_n(\beta^{\ast})$ with true $\beta$ converge to normal distribution with mean 0 and variance of the equation function.\\
-Then $Var(g(X, \beta^{\ast}))$ could be calculated from the Taylor expansion.
-\begin{align*}
- 0 &= g(X, \hat{\beta}_n) = g(X,\beta^{\ast}) + \frac{\partial g(X, \beta^{\ast})}{\partial \beta} (\beta - \beta^{\ast}), \qquad g(X, \beta) = 0 \text{ for any }\beta\\
- \hat{\beta}_n &=  \beta^{\ast} - \frac{\partial g(\beta^{\ast})}{\partial \beta}^{-1} g(\beta^{\ast})
-\end{align*}
- by LLN,
- \begin{align*}
- h_n(\beta^{\ast}) &= E_{\beta^{\ast}} [\partial g(X, \beta^{\ast})]\\
- \hat{\beta}_n &=  \beta^{\ast} - \frac{\partial g(\beta^{\ast})}{\partial \beta}^{-1} g(\beta^{\ast})
-\end{align*}
- Then $V(\beta^{\ast})$ could be written by delta method,
- \begin{align*}
- V(\beta^{\ast}) &= \diffp*{g(X, \beta^{\ast})}{\beta}{}^{-1} Var(\beta^{\ast}) \diffp*{g(X, \beta^{\ast})}{\beta}{}^{-1}
-\end{align*}
-We need to pay attention that, $UV^{-1}U^T$ in the above variance function could not be simplified to $U$ as $U \neq V$ .
-$U=V$ only exists in MLE as the score function of $\hat{\beta} = 0$ . In the theory of maximum likelihood we have V = U by the second Bartlett identity. Here U need not even be a symmetric matrix and even if it is, there is nothing to make V = U hold and, in general,$U \neq V$.\\
-
-But for $\diffp*{g(X, \hat{\beta)}}{\beta}{}$, we can use the sandwich equation.
-We do assume that U and V have the same dimensions, so U is square
-and hn is a vector-to-vector function between vector spaces of the same di-
-mension, and there are the same number of estimating equations as param-
-eters in (2). This does not assure that solutions of the estimating equations
-exist, nor does it assure that solutions are unique if they exist, but unique-
-ness is impossible without as many estimating equations as parameters. We
-also assume that U and V are both nonsingular.\\
-
-By Sluktsy theorem, 
-\begin{align*}
-   n^{1/2} (\hat{\beta}_n - \beta^{\ast}) ) \xrightarrow{w} (\frac{1}{n})^{-1} \diffp*{ g(X, \beta^{\ast})}{\beta}{}^{-1} n^{-1/2}g(\beta^{\ast})
-\end{align*} 
-The Slutsky's theorem says that, the product and sum of variables converge to the product and sum of the converged value distribution. If only talk about converge to value, then it is law of large number (weak or strong).\\
-Here we are using the normal distribution of $n^{-1/2} g(\beta) = \sqrt{n} h_n(\beta)$ and Slutsky, the variance could be written as $U^{-1}VU^{-1}^T$. \\
-The matrix $U^{-1}VU^{-1}^T$ is called \textit{Godambe information} ma trix because its specialization to the theory of maximum likelihood is U or V (because U = V in maximum likelihood), which is the Fisher information
-matrix, and Godambe initiated the theory of unbiased estimating equations. \\
-
-We need add assumptions that 
-\begin{align*}
-  U_n \xrightarrow{w} U, \qquad V_n \xrightarrow{w} V
-\end{align*} 
-Then by Slutsky's theorem, 
-\begin{align*}
-  [U_n^{-1} V_n U_n^{-1}^T] [n^{1/2} (\hat{\theta}_n - \theta^{\ast})] \xrightarrow{w} Normal (0,I)
-\end{align*} 
-which we write sloppily as
-\begin{align*}
-  \hat{\theta}_n \approx Normal (\theta^{\ast}, U_n^{-1} V_n U_n^{-1}^T)
-\end{align*} 
-Another name for the estimator $U_n^{-1} V_n U_n^{-1}^T$  of the asymptotic variance is sandwich estimator (think of Un as slices of bread and Vn as ham).\\
-
-We assume an estimating equation for $\beta$
-\begin{align*}
- S_n(\boldsymbol{y}, \beta) &= \mathbf{H}^T(\boldsymbol{y}-\mu(\beta))= \sum_{i=1}^n \boldsymbol{h}_i(y_i - \mu_i(\beta))
-\end{align*} 
-Then by Taylor expansion at true $\beta_{\ast}$
-\begin{align*}
- 0&= S_n(\boldsymbol{y}, \Tilde{\beta})  = S_n(\boldsymbol{y},\beta_{\ast}) + \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} (\Tilde{\beta} - \beta_{\ast})[1+ o_p(n)]\\
-  \Tilde{\beta} -\beta_{\ast}&=  - \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta}^{-1} S_n(\boldsymbol{y},\beta_{\ast}) [1+ o_p(n)]
-\end{align*} 
-By WLLN,
-\begin{align*}
-\frac{1}{n} \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} & =  \frac{1}{n} E_{\theta_{\ast}}[\diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta}]
-\end{align*} 
-By Slutsky's theorem,
-\begin{align*}
- \sqrt{n} (\Tilde{\beta} -\beta_{\ast}) &=  - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} \right)^{-1} \frac{1}{\sqrt{n}} S_n(\boldsymbol{y},\beta_{\ast}) \\
- Cov( \sqrt{n} \Tilde{\beta}) & = - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y}, \beta_{\ast})}{\beta} \right)^{-1}\frac{1}{n} Cov(S_n(\boldsymbol{y}, \beta_{\ast})) - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y}, \beta_{\ast})}{\beta}\right)^{-1}^T
-\end{align*} 
-We have
-\begin{align*}
-\diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} & = \diffp{\sum_{i=1}^n \boldsymbol{h}_i(y_i - \mu_i(\beta))}{\beta} = \sum_{i=1}^n \partial \boldsymbol{h}_i (y_i - \mu_i(\beta)) - \sum_{i=1}^n \boldsymbol{h}_i \diffp{\mu_i}{\beta} = -  \mathbf{H} \mathbf{D}\\
-Cov(S_n(\boldsymbol{y}, \beta_{\ast})) &= E\left[ S_n(\boldsymbol{y}, \beta_{\ast})^{\otimes 2} \right] = \frac{1}{n} \left[ \sigma^2 \sum_{i=1}^n \boldsymbol{h}_i V_i ^T\boldsymbol{h}_i  \right] = \sigma^2 \mathbf{H}\mathbf{V}  \mathbf{H}^T\\
- Cov( \Tilde{\beta}) & = \frac{1}{n} \left(\frac{1}{n} \mathbf{H} \mathbf{D}  \right)^{-1}\frac{1}{n} \mathbf{H}^T \mathbf{V} \mathbf{H} \frac{1}{n} \left(\frac{1}{n} \mathbf{H} \mathbf{D}  \right)^{-1}^T \\
- &= \sigma^2 (\mathbf{H}^T\mathbf{D})^{-1} \mathbf{H}^T \mathbf{V} \mathbf{H}  (\mathbf{D}^T \mathbf{H})^{-1}
-\end{align*} 
-Compare the quasi-likelihood estimator $ Cov( \Tilde{\beta}) \quad vs. \quad Cov( \hat{\beta})$
-\begin{align*}
- Cov( \hat{\beta})^{-1} - Cov( \Tilde{\beta})^{-1} &= \sigma^{-2} \left(\mathbf{D}^T \mathbf{V} \mathbf{D} - (\mathbf{D}^T \mathbf{H})  (\mathbf{H}^T \mathbf{V} \mathbf{H}) ^{-1} (\mathbf{H}^T\mathbf{D}) \right)\\
- &=\sigma^{-2} \mathbf{D}^T \left( \mathbf{V} - \mathbf{H} (\mathbf{H}^T \mathbf{V} \mathbf{H}) ^{-1} \mathbf{H}^T \right)   \mathbf{D}
-\end{align*} 
-$ Cov( \hat{\beta})^{-1} - Cov( \Tilde{\beta})^{-1} >= 0$ is a non-negative matrix, so $ Cov( \hat{\beta}) - Cov( \Tilde{\beta})$ is a non-positive matrix. We have $Var(\hat{\beta}) < var(\Tilde{\beta})$, so it is Godambe efficient.
-\exercise[exponential family canonical link]
- Consider the general exponential family distribution
-\begin{align}
-    \mathcal{L}n (\theta, \phi) &= \sum_{i=1}^n \phi  \left[ y_{i}\theta_i - b(\theta) - c(y_i)\right] - 0.5 \sum_{i=1}^n s(\phi,y_i)\\
-    \theta_i &= x_i^T \beta
-\end{align}
- where   
-\begin{align*}
-    \mu_i&= \partial_{\theta}b(\theta) = E(y_i)\\
-    v_i &= \phi^{-1} \partial_{\theta} b^2(\theta) = Var(y_i)
-\end{align*}
-So we have
-\begin{align*}
-    \dot{\mathcal{L}}n (\beta) &= \phi \sum_{i=1}^n  e_{i} \dot{\theta_i}, \qquad e_i= y_i-\mu_i\\
-    \ddot{\mathcal{L}}n (\beta) &= -\phi \sum_{i=1}^n  v_{i} \dot{\theta_i}^{\otimes 2} + \phi \sum_{i=1}^n  e_{i} \ddot{\theta_i}
-\end{align*}
-
-In the exponential family distribution, the parameter of interest (natural or canonical parameter) is $\theta_i, \phi$  is a scale parameter (known or seen as a nuisance) and others are known functions. The n-dimensional vectors of fixed input values for the p explanatory variables are denoted by $x_1,…,x_p$. We assume that the input vectors influence (3.1) only via a linear function, the linear predictor,
-\begin{align}
-    \eta_i &= \beta_0 + \beta_1x_{i1} + ... + \beta_px_{ip}
-\end{align}
-upon which $\theta_i$ depends. As it can be shown that $\mu, \theta$ dependency is established by connecting the linear predictor $\eta$ and $\theta$ \textbf{ via the mean}. More specifically, the mean $\mu$ is seen as an invertible and smooth function of the linear predictor, i.e.
-\begin{align}
-    \eta_i &= g(\mu), \qquad \mu= g^{-1}(\mu)
-\end{align}
-
-The function g(⋅) is called the link function. If the function connects$\mu ,\eta$ and $\theta$ such that $\eta = \theta$, then this link is called canonical.\\
-
-\begin{itemize}
-    \item [(a)] Use logistic distribution as example
-\begin{align*}
-    \mathcal{L}n (\beta) &= \mathcal{L}n p(\beta_2, \beta_3,... \beta_p) \\
-    &= \sum_{i=1}^N \left[ \sum_{j=2}^I  y_{ij} x_i^T \theta_j - n_i log \left( 1+ \sum_{j=2}^N exp(x_i^T \beta_j) \right) \right] \\
-    \partial_{\beta_j} \mathit{l}n (\beta) &=  \sum_{i=1}^N (y_{ij} - n_{i} \pi_{ij}) x_i \\
-    &=  \sum_{i=1}^N \frac{y_{ij} - E[y_{ij}]}{Var(y_{ij})} \partial_{\beta_j} \mu_{ij}\\
-    \partial^2_{\beta_j} \mathit{l}n (\beta) &=  \sum_{i=1}^N n_{i} \pi_{ij} (1- \pi_{ij}) x_i^{\otimes 2} \\
-    \partial^2_{\beta_j, \beta_k} \mathit{l}n (\beta) &=  \sum_{i=1}^N n_{i}  \pi_{ij} \pi_{ik} x_i^{\otimes 2}, \qquad k \neq j
-\end{align*}
-Note that
-\begin{align*}
-    \pi_{ij} &= \frac{exp(x_i^T\beta_j)}{1+ \sum_{j=2}^N exp(x_i^T \beta_j)} \\
-    E[y_{ij}] &= n_i \pi_{ij}\\
-    Var(y_{ij})&= \phi^{-1} \partial_{\beta} \ddot{b(\theta)}= \partial^2_{\beta_j} \left[ n_i log \left( 1+ \sum_{j=2}^N exp(x_i^T \beta_j) \right) \right ] ^2\\
-    &=\frac{exp(x_i^T\beta_j)n_i}{\left[ 1+ \sum_{j=2}^N exp(x_i^T \beta_j)\right ]^2} = n_i \pi_{ij} (1-\pi_{ij})\\
-    \mu_i &= \partial_{\theta} = \dot{b(\theta)} = \partial_{\theta_j} \left[ n_i log \left( 1+ \sum_{j=2}^N exp(\theta_j) \right) \right ] =  \frac{n_i exp(x_i^T\beta_j)}{1+ \sum_{j=2}^N exp(x_i^T \beta_j)}
-\end{align*}
-    \item[(b)] 
-      
-\end{itemize}
+\input{sections/section4-1.tex}
+\input{sections/section4-2.tex}
+\input{sections/section4-3.tex}
+\input{sections/section4-4.tex}
+\input{sections/section4-5.tex}
 
 
-\exercise[Score test]
-Consider testing linear hypothesis
-\begin{align*}
-    H_0 &: R \xi = b_0
-\end{align*}
-Let $R=(I_r, 0), R \xi = \xi{(1)}$ and $\xi^T = (\xi{(1)}^T, \xi(2)^T)^T$, in which $\xi(1), \xi(2)$ are, respectively, $r \times 1$ and $(q-r) \times 1$ subvectors of $\xi$. Under $H_0$, the constrained ML estimate of $\xi$ is denoted by $\Tilde{\xi} = (b_0^T, \Tilde{\xi})(2)^T)^T$. We define $\hat{\xi}(2)(\xi(1))$ as a function of $\xi(1)$, which maximizes $ln(\xi(1), \xi(2))$ for each $\xi(1)$. Thus $\Tilde{\xi}(2) = \hat{\xi}(2)(b_0)$\\
-Thus, the hypothesis test could be written as
-\begin{align*}
-    H_0 &: \xi(1) = b_0 \qquad  H_1 : \xi(1) \neq b_0
-\end{align*}
-\begin{itemize}
-    \item [(a)] Z-estimate Score test
-    Let 
-\begin{align*}
-    h(\xi, U) &= \left( h_1(\xi, U)^T,  h_2(\xi, U)^T\right)^T
-\end{align*}
-Under $H_0$, $\Tilde{\xi} = (b_0, \Tilde{\xi_2}^T)^T$, solve $S_{n,2}(\hat{\xi(2)}) = 0$
-\begin{align*}
-    S_n(\hat{\xi}) &= \sum_{0}^n h\left( \hat{\xi}, U\right) = 0
-\end{align*}
-Write in matrix
-\begin{align*}
-    \dot{S_n}(\xi) &= \partial_{\xi} S_n(\xi) =  \begin{pmatrix}
-    S_{n,11}  & S_{n,12} \\
-    S_{n,21} &  S_{n,22}  \\
-    \end{pmatrix}
-\end{align*}
-And
-\begin{align*}
- \dot{S_n}(\xi)^{-1} &= \begin{pmatrix}
-           S_{n}^{11}  & S_{n}^{12} \\
-            S_{n}^{21} &  S_{n}^{22}  \\
-         \end{pmatrix}
-\end{align*}
-The Score test statistics
-\begin{align*}
- SC_n &= S_{n}(\Tilde{\xi})^T Var(S_n(\Tilde{\xi}))^{-1} S_{n}(\Tilde{\xi})= S_{n}(\Tilde{\xi})^T I_n(\Tilde{\xi})^{-1} S_{n}(\Tilde{\xi}), \qquad \text{if generalized linear model}\\
- SC_n &= S_{n,1}(\Tilde{\xi})^T \Sigma^{11}(\Tilde{\xi}) S_{n,1}(\Tilde{\xi}) , 
-\end{align*}
-As the $\hat{\xi}(2)$ are the MLE of ${\xi}(2)$ given ${\xi}(1) = b_0$, $S(\hat{\xi}(2)) = 0$. Only the $S(\hat{\xi}(1)) \neq 0$.
-\begin{align*}
-\Sigma^{11}(\Tilde{\xi}) &= \{(I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22}) (\sum_{i=1}^n [h(\Tilde{\xi}) - \bar{h}(\Tilde{\xi})]^{\otimes 2}) (I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22})^T\}^{-1}
-\end{align*}
-$(\sum_{i=1}^n [h(\Tilde{\xi}) - \bar{h}(\Tilde{\xi})]^{\otimes 2})$ is actually $I_n(\xi), Var([h(\xi,U)])$. While the $E[h(\xi,U)] = 0$ in the above cases, but not here. So we need to get the sample mean of $\bar{h}(\Tilde{\xi}) = (1/n) \sum_{i=1}^n [h(\Tilde{\xi})]$. \\
-Using CLT, we have 
-\begin{align*}
-\sqrt{n}^{-1} S_n(\xi(\ast))  & \rightarrow N(0, Var[h(\Tilde{\xi}, U)])_{\ast} 
-\end{align*} 
-Need to pay attention that, use $I_n(\xi)$ the observed fisher information.\\
-Show how the $(I_r, -\Tilde{S}_{n,12}\Tilde{S}^{-1}_{n,22})$ come in play, using Taylor series
-\begin{align*}
-\Tilde{\xi}(2) - \xi(2)_{\ast} &= - S_{n,22}^{-1}(S_{\ast}) S_{n,2}(\xi_{\ast}) + O_p(n^{-1})\\
- S_{n,1}(\Tilde{\xi}) &= S_{n,1}(\xi_{\ast}) + S_{n,12}(\xi_{\ast}) (\Tilde{\xi}(2) -\xi(2)_{\ast}) + O_p(n) 
-\end{align*} 
-The above equations include $(\Tilde{\xi}(2) -\xi(2)_{.})$. We could 
-\begin{align*}
- S_{n,1}(\Tilde{\xi}) &= [I_r, - S_{n,12} S_{n,22}^{-1}] S_{n}(\xi_{\ast}) + O_p(1)
-\end{align*} 
-\item[(b)] Rao's Score test in GLM
-For a fixed $\xi(1)$, we define 
-\begin{align*}
- (\xi(1), \Tilde{\xi}(2)(\xi(1))) &= argmax_{\xi{(2)}} ln(\xi{(1)}, \xi(2))
-\end{align*} 
-The quantity $ln(\xi{(1)},  \Tilde{\xi}(2)(\xi(1)))$ is called the profile likelihood. \\
-According to the partition $(\xi{(1)}^T, \xi(2)^T)$ of $\xi^T$, we define
-\begin{align*}
- \partial_{\xi}ln(\xi)^T &= (\dot{L}_1^T, \dot{L}_2^T),\\
- \ddot{L}(\xi) &= \partial_{\xi}^2 ln = \begin{pmatrix}
-            L_{11} & L_{12}\\
-           L_{21} & L_{22}\\
-         \end{pmatrix} , \qquad \ddot{L}(\xi)^{-1} = (\partial_{\xi}^2 ln)^{-1} =\begin{pmatrix}
-            L^{11} & L^{12}\\
-           L^{21} & L^{22}\\
-         \end{pmatrix} 
-\end{align*} 
-Then Score test statistics
-\begin{align*}
- SC_n &= \partial_{\xi}ln(\xi)^T Var \left(\partial_{\xi}ln(\xi) \right)^{-1} \partial_{\xi}ln(\xi)\\
- &= (\dot{L}_1^T, \dot{L}_2^T) E \left[ \ddot{L}(\xi)\right]^{-1}  \begin{pmatrix}
-            \dot{L}_1\\
-           \dot{L}_2\\
-         \end{pmatrix} 
-\end{align*} 
-We need to calculate $\partial_{\xi}ln(\Tilde{\xi})$ and $\partial_{\xi}^2 ln(\Tilde{\xi}))$ (or $E[\partial_{\xi}ln(\Tilde{\xi})^{\otimes 2}]$). It can be shown that 
-\begin{align*}
-\partial_{\xi}ln(\Tilde{\xi}) &= (\dot{L}_1(\Tilde{\xi})^T, 0^T)^T \\
-\end{align*} 
-Thus, using equation we can show that
-\begin{align*}
-SC_n &= - (\dot{L}_1(\Tilde{\xi})^T, 0^T) \begin{pmatrix}
-            L^{11} & L^{12}\\
-           L^{21} & L^{22}\\
-         \end{pmatrix}  \begin{pmatrix}
-            \dot{L}_1(\Tilde{\xi})\\
-           0\\
-         \end{pmatrix} \\
-    &= -\dot{L}_1(\Tilde{\xi})^T L^{11}(\Tilde{\xi}) \dot{L}_1(\Tilde{\xi})
-\end{align*} 
+\backmatter
 
-\item[(c)] Connection between the ML estimates of $\xi$ under $H_0$ and the estimates under the unrestricted space.\\
-Using a Taylor's series expansion, we get expansion at $\Tilde{\xi}$
-\begin{align*}
-0  &= \frac{\partial ln \hat{\xi}}{\partial \xi} = \partial_{\xi} ln(\Tilde{\xi}) + \ddot{L}(\Tilde{\xi})[\hat{\xi} - \Tilde{\xi}] [1+ O_p(1/\sqrt{n})]
-\end{align*} 
-Thus, because $\dot{L}_2(\Tilde{\xi}) = 0$, we have
-\begin{align*}
-\begin{pmatrix}
-        \dot{L}_1(\Tilde{\xi})\\
-           0\\
-         \end{pmatrix}   &= - \begin{pmatrix}
-        L_{11} & L_{12}\\
-          L_{21} & L_{22}\\
-         \end{pmatrix} \begin{pmatrix}
-         \hat{\xi} - b_0\\
-         \hat{\xi}(2) - \Tilde{\xi}(2)\\
-         \end{pmatrix}
-\end{align*} 
-Thus
-\begin{align*}
-\hat{\xi} - \Tilde{\xi}  &= - [\ddot{L}(\Tilde{\xi})]^{-1} \dot{L}(\Tilde{\xi}) + O_p(1/n)\\
-& L_{21} (\hat{\xi} - b_0) + L_{22} (\hat{\xi}(2) - \Tilde{\xi}(2)) = 0
-\end{align*} 
-So we can get the connection between $\hat{\xi}_1$ and $b_0$
-\begin{align*}
-\hat{\xi}(1) - b_0  &= - L^{11} \dot{L}_1(\Tilde{\xi}) + O_p(1/n)\\
-\hat{\xi}(2) - \Tilde{\xi}(2)(b_0) & = - L_{22}^{-1}L_{21} (\hat{\xi}(1) - b_0) 
-\end{align*} 
-\end{itemize}
-
-\exercise[MVN]
-
-
-\exercise[Generalized least square projection]
-\begin{align*}
-V^{-1}(I-A)  &= (I-A)' V^{-1} (I-A)\\
-\end{align*} 
-This could be consider similar to the orthogonal projection $A^2 = A$, just we need to add Variance matrix there.
-
-
-\exercise [Making inference of interested parameters]
-\begin{itemize}
-    \item [(a)] Transform distribution\\
-    Let $\psi = \mu_1/\mu_2, \lambda = \mu_2$, transform the distribution above with Jacobian matrix
-\begin{align*}
-\begin{bmatrix}
-            \frac{\partial \mu_1}{\partial \psi} & \frac{\partial \mu_1}{\partial \lambda}\\
-           \frac{\partial \mu_2}{\partial \psi} & \frac{\partial \mu_2}{\partial \lambda}\\
-         \end{bmatrix} &= \begin{bmatrix}
-            \lambda & \psi\\
-            0 & 1\\
-         \end{bmatrix}
-\end{align*}
-The transformed distribution of $\psi, \lambda$
-\begin{align*}
-P(\psi, \lambda) &= |\lambda| \frac{(\psi \lambda)^{y_1} e^{-(\psi \lambda)}}{y_1!} \frac{\lambda^{y_2} e^{-\lambda}}{y_2!} = \frac{\lambda^{y_1+y_2+1} \psi^{y_1} e^{-\lambda(\psi+1)}}{y_1!y_2!}, \qquad \lambda > 0
-\end{align*}
-\item[(b)] reparameterize distribution, create interested parameters, nuisance parameters, link function\\
-
-\end{itemize}
-
-\exercise[Partitioned test, matrix, model]
-
-
-
-
-\exercise
-\textbf{Expectation, Variance Calculation for conditional/joint/marginal distribution}Consider a pair of random variables $(X, Y$ and let $\mu_x = E(X), \sigma_x^2= Var(X), \mu_y = E(Y), \sigma_y^2 = Var(Y), \sigma_{xy} = Cov(X,Y)$.
-\begin{itemize}
-    \item [(a)] Define $(\alpha_0, \beta_0)$ as the minimizers of $E[Y-(\alpha + \beta X)]^2$, where $\alpha$ and $\beta$ are real numbers and the expectation is with respect to the joint distribution of (X,Y). Derive explicit expression for $(\alpha_0, \beta_0)$ .
-    \begin{align*}
-    Cov(X,Y) &= E(XY) - E(X)E(Y), \qquad E(XY) = \sigma_{xy} + \mu_x\mu_y\\
-    Var(Y) &= E(Y^2) - E(Y)^2, \qquad E(Y^2) = \sigma_y^2 + \mu_y^2\\
-    Var(X) &= E(X^2) - E(X)^2, \qquad E(X^2) = \sigma_x^2 + \mu_x^2\\
-     E[Y-(\alpha + \beta X)]^2 &= E[Y^2 + (\alpha + \beta X)^2 -2(\alpha + \beta X)Y ]\\
-     &= E(Y^2) + (\alpha^2 + \beta^2 E(X^2) + 2\alpha\beta E(X)) - 2(\alpha E(Y) + \beta E(XY))\\
-     &= \sigma_y^2+\mu_y^2 + \alpha^2 + \beta^2 (\sigma_x^2 + \mu_x^2) + 2\alpha\beta \mu_x -2\alpha \mu_y -2 \beta (\sigma_{xy}+ \mu_x\mu_y)\\
-     \frac{\partial g(\alpha,\beta)}{\partial \alpha} &= 2\alpha + 2\beta \mu_x - 2\mu_y = 0\\
-     \frac{\partial g(\alpha,\beta)}{\partial \beta} &=2\beta (\sigma_x^2 + \mu_x^2) + 2\alpha \mu_x -2(\sigma_{xy}+\mu_x\mu_y) = 0\\
-     \alpha &= \mu_y - \beta \mu_x\\
-     \beta &= \frac{\sigma_{xy}}{\sigma_x^2}
-    \end{align*}    
-    \item[(b)] Let U be a random variable which is independent of X and Y for which $E(U) = 0$ and $E(U^2) = \sigma_u^2$. Suppose one is to observe, instead of the pair (X,Y), the pair (W, Y), where W= X + U. We may think of X as being observed with some measurement error U. Define $\alpha_0^w$ and $\beta_0^w$ as the minimizers of $E([Y- (\alpha + \beta W)]^2)$, where the expectation is with respect to the joint distribution of (W, Y). Let $\lambda = \sigma_x^2/(\sigma_x^2 + \sigma_u^2)$. Derive expression for $\alpha_0^w$ and $\beta_0^w$ which only involve $\alpha_0, \beta_0, \lambda, \mu_x, \beta_0$.
-    \begin{align*}
-    E(WY) &= E((X+U)Y) = E(XY) + E(UY) = (\sigma_{xy} + \mu_x\mu_y), \qquad \text{independence of U, Y}\\
-    Cov(W,Y) &= E(WY) - E(W)E(Y) = \sigma_{xy} + \mu_x\mu_y - \mu_x\mu_y =\sigma_{xy} \\
-    Var(Y) &= E(Y^2) - E(Y)^2, \qquad E(Y^2) = \sigma_y^2 + \mu_y^2\\
-    Var(W) &= Var(X+U) = = Var(X) + Var(U) = \sigma_x^2 + \sigma_u^2, \qquad E(X^2) = \sigma_x^2 + \mu_x^2\\
-    E(W) &= E(X) = \mu_x\\
-    E(W^2) &= Var(W) + E(W)^2 = \sigma_x^2 + 2\mu_x^2 \\
-     E[Y-(\alpha + \beta W)]^2 &= E[Y^2 + (\alpha + \beta W)^2 -2(\alpha + \beta W)Y ]\\
-     &= E(Y^2) + (\alpha^2 + \beta^2 E(W^2) + 2\alpha\beta E(W)) - 2(\alpha E(Y) + \beta E(WY))\\
-     &= \sigma_y^2+\mu_y^2 + \alpha^2 + \beta^2 (\sigma_x^2 + 2\mu_x^2) + 2\alpha\beta \mu_x -2\alpha \mu_y -2 \beta (\sigma_{xy}+ \mu_x\mu_y)\\
-     \frac{\partial g(\alpha,\beta)}{\partial \alpha} &= 2\alpha + 2\beta \mu_x - 2\mu_y = 0\\
-     \frac{\partial g(\alpha,\beta)}{\partial \beta} &=2\beta (\sigma_x^2 + 2\mu_x^2) + 2\alpha \mu_x -2(\sigma_{xy}+\mu_x\mu_y) = 0\\
-     \alpha &= \mu_y - \beta \mu_x\\
-     \beta^w &= \frac{Cov(W,Y)}{Var(W)} = \frac{\sigma_{xy}}{\sigma_x^2 + \sigma_u^2} = \lambda \beta_0
-    \end{align*} 
-    \item[(c)] Suppose $Y=\alpha_0 + \beta_0 X + \epsilon$, where $E(\epsilon) = 0$ and $Var(\epsilon) = \sigma_\epsilon^2$. Show that we may write $Y=\alpha_0^w + \beta_0^w W + \eta$, where $E(\eta) = 0$ and $Var(\eta) = \sigma_\eta^2$, and find expressions for $\sigma_\eta^2$ only in terms of $\sigma_\epsilon^2, \lambda, \sigma_x^2, \beta$.\\
-    \begin{align*}
-    Y &=\alpha_0 + \beta_0 X + \epsilon\\
-    &= \alpha_0^w + \beta_0^w W + (\alpha_0 - \alpha_w - \beta_0^w W + \beta_0 X + \epsilon)\\
-    \eta &= \alpha_0 - \alpha_w - \beta_0^w W + \beta_0 X + \epsilon\\
-    \alpha_0 &= \mu_y - \beta \mu_x\\
-    \alpha_0^w &= \mu_y - \lambda \beta_0\mu_x, \qquad X= W-U\\
-    \beta_0 &= \frac{\sigma_{xy}}{\sigma_x^2}, \qquad \beta_0^{w} = \lambda \beta_0\\
-    \eta &=  \mu_y - \beta \mu_x -  \mu_y + \lambda \beta_0\mu_x + \beta_0 (W-U) -\lambda \beta_0 W + \epsilon\\
-    &= \beta_0\mu_x(\lambda - 1) + \beta_0W (1-\lambda) -\beta_0 U + \epsilon\\
-    E(\eta) &= \beta_0\mu_x(\lambda - 1)+ \beta_0 (1-\lambda) \mu_x =0\\
-    \sigma_\eta^2 &= Var(\eta) = Var(\beta_0\mu_x(\lambda - 1) + \beta_0 W (1-\lambda) -\beta_0 U + \epsilon)\\
-    &= beta_0^2(1-\lambda)^2Var(W) - \beta_0^2 Var(U) -2 \beta_0^2 (1-\lambda) Cov(W,U) + Var(\epsilon)\\
-    &= \sigma_\epsilon^2 + \beta_0^2(1-\lambda)^2 (\sigma_x^2 + \sigma_u^2) + \beta_0^2\sigma_u^2 - 2\beta_0^2(1-\lambda) Cov(X+U, U)\\
-    Cov(X+U, U) &= Cov(X,U) + Var(U) = \sigma_u^2\\
-    \sigma_\eta^2 = \sigma_\epsilon^2 + \lambda\beta_0^2\sigma_u^2
-    \end{align*}     
-    \item[(d)] Consider a dataset with n independent realizations $(W_1, Y_1), ..., (W_n,Y_n)$ of $(W,Y)$ and another dataset with n independent realizations $(X_1, \Tilde{Y}_1),.. , (X_n, \Tilde{Y}_n)$ of $(X,Y)$, where $W= X+U$. Let $\hat{\alpha}^w, \hat{\beta}^w$ be the minimizers of $\frac{1}{n} \sum_{i=1}^{n} [Y_i - (\alpha+ \beta W_i)]^2$, so is $(\hat{\alpha}, \hat{\beta})$. \\
-    \begin{itemize}
-        \item [(i)] For large n, give an expression for $E(\hat{\beta}^w)$ and comment on whether $\hat{\beta}^w$ is a good estimator of $\beta_0$ in terms of bias and consistency.\\
-        Similar as above, we have 
-     \begin{align*}
-    g(\alpha, \beta) &=\frac{1}{n} \sum_{i=1}^{n} [Y_i - (\alpha+ \beta W_i)]^2\\
-    \hat{\alpha} &= \bar{Y} - \hat{\beta}^w \bar{X}, \qquad \bar{Y} = \frac{1}{n}\sum Y_i,\bar{X} = \frac{1}{n}\sum X_i \\
-    \hat{\beta}^w &= \frac{\sum_{i=1}^n (W_i - \bar{W})(Y_i - \bar{Y})}{\sum_{i=1}^n (W_i-\bar{W})^2}, \qquad \bar{W} = \frac{1}{n} \sum W_i \\
-    \hat{\beta}^w &= \frac{\hat{\sigma_{wy}}}{\hat{\sigma_w^2}} \xrightarrow[n]{ \infty} \frac{\sigma_{wy}}{\sigma_w^2(w)} = \lambda \beta_0\\
-    \end{align*}      
-    $\hat{\beta}^w$ is asymptotically bias for $\beta_0$, also it is not consistent.\\
-    \item[(ii)] Suppose $\hat{\beta}^w$ is used to test the hypothesis: $H_0: \beta_0=0$ vs. $H_1: \beta_0 \neq 0$. Using the results in part (c), and for large n, derive an inequality only in terms of , as to when the t-stat for this hypothesis for the model in part (c) based on measurement error is smaller than the t-stat based on the model without measurement error.\\
-    
-    \item[(iii)] Examine the t-stat in part (ii) as a function of $\sigma_u^2$, and use the results in (ii) to examine the properties of this t- stat in terms of power and sample size as $\sigma_u^2 \rightarrow 0$ and $\sigma_u^2 \rightarrow \infty$ compared to a test stat based on $\hat{\beta}$.
-    \end{itemize}
-    \item[(e)] Suppose $(X,Y)^T \sim N_2(\mu, \Sigma)$, where $\mu= (\mu_x, \mu_y)'$ and $\Sigma = \begin{bmatrix}
-           \sigma_x^2  &  \sigma_{xy}  \\
-            \sigma_{xy} &   \sigma_{y}^2\\
-         \end{bmatrix}$. i) Derive the conditional distribution of $Y|X$ and show that $E(Y|X) = \alpha_0 + \beta_0 X$. \\
-         Construct $Z= Y+ AX$ so that Z is independent of X, $A= -\frac{\sigma_{xy}}{\sigma_x^2}$. Then the conditional distribution $Y|X$ will be only related to $X$.
-    \end{itemize}
-    
-\exercise
-\textbf{linear model} Suppose that Y is a $4 \times 1$ vector with $E(Y ) = \mu, \mu \in C(E)$, where E is the set $E = \{ \mu: \mu' = (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) \} $ where the $\beta_i$ are real numbers, $i = 1, 2, 3$. Further assume that $Cov(Y) = \sigma^2I_{4 \times 4}$, where $\sigma^2$ is unknown.\\
-\begin{itemize}
-    \item [(a)] Derive $\hat\mu$, the ordinary least squares estimate of $\mu$, by carrying out the
-appropriate projection.\\
-E(Y) is in the column space of C(E), we need to find the o.p.o on C(E). Also $Cov(Y) = \sigma^2 I_{4 \times 4}$, we can use ordinary least squares estimator as i.i.d.
-\begin{align*}
-    \mu' &= (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) = X \beta\\
-    \beta &= (\beta_1, \beta_2, \beta_3)^T\\
-    X &= \begin{bmatrix}
-           1  & 1 & -1  \\
-           0 &  1 & 1\\
-           0  & -1 & -1  \\
-           -1 &  -1 & 1\\
-         \end{bmatrix}\\
-    C(X) &= X_1 = \begin{bmatrix}
-           1  & 1   \\
-           0 &  1 \\
-           0  & -1  \\
-           -1 &  -1 \\
-         \end{bmatrix}\\
-    M_{\mu} &= X_1(X_1'X_{1})^{-1} X_{1}^T = \begin{bmatrix}
-           1  & 1   \\
-           0 &  1 \\
-           0  & -1  \\
-           -1 &  -1 \\
-         \end{bmatrix}\begin{bmatrix}
-           1  & -1/2   \\
-           -1/2 &  1/2 \\
-         \end{bmatrix}\begin{bmatrix}
-           1 & 0 & 0 & -1    \\
-           1 & 1 & -1 & -1
-         \end{bmatrix}\\
-       \hat{\mu} &= M_{\mu} Y =  1/2 \begin{bmatrix}
-           1  & 0 & 0 & -1   \\
-           0 &  1 & -1 & 0 \\
-           0  & -1 & 1 & 0 \\
-           -1 &  0 & 0 & 1 \\
-         \end{bmatrix} (y_1, y_2, y_3, y_4)^T = 1/2 (y_1- y_4, y_2-y_3, y_3-y_2, y_4-y_1)^T
-\end{align*}
-\item[(b)] Find the BLUE of $\beta_2 - \beta_3$ or show that it is nonestimable.
-\begin{align*}
-    \lambda &= (0, 1,-1)^T, \qquad \lambda^T \beta = \beta_2 - \beta_3\\
-    \lambda^T &= \rho^T X = (\rho_1, \rho_2, \rho_3, \rho_4)  \begin{bmatrix}
-           1  & 1 & -1  \\
-           0 &  1 & 1\\
-           0  & -1 & -1  \\
-           -1 &  -1 & 1\\
-         \end{bmatrix} = (0, 1,-1)\\
-         \rho_1 &= \rho_4, \qquad \rho_2 - \rho_3 = 1, \qquad \rho_2 - \rho_3 = -1
-\end{align*}
-The contradict of $\rho_2 - \rho_3$ indicate that  $\beta_2 - \beta_3$ is not estimable.
-\item[(c)] Consider testing $H_0: \beta_2 + \beta_3 = 0$  versus $H_1: \beta_2 + \beta_3 \neq 0$ . Let $E_0$ denote the set E assuming that $H_0$ is true. Explicitly give the sets $E_0$ and $E \cap E_0^{\perp}$.\\
-Find the $M_{0}, M_{1}$ are the o.p.o onto C(X) for $H_0, H_1$.$\textbf{Not on C(Y)}$.Then the $C(M_{0}), C(M_{1})$ and the sets $E_0$ and $E \cap E_0^{\perp}$ relationship needs attention.
-\begin{align*}
-    \lambda &= (0, 1, 1)^T, \qquad \lambda^T \beta = \beta_2 + \beta_3\\
-    \lambda^T &= \rho^T X = (\rho_1, \rho_2, \rho_3, \rho_4)  \begin{bmatrix}
-           1  & 1 & -1  \\
-           0 &  1 & 1\\
-           0  & -1 & -1  \\
-           -1 &  -1 & 1\\
-         \end{bmatrix} = (0, 1, 1)\\
-         \rho &= (1, 2, 1, 1)^T
-\end{align*}
-$ \beta_2 + \beta_3$ is estimable with one $\rho = (1, 2, 1, 1)^T$. Then we can have $H_0: \rho^T M Y = 0$ that $\rho^T M \perp C(E_0)$. 
-\begin{align*}
-    M_1 &= ( M\rho) [(M\rho)^T ( M\rho)]^{-1} ( M\rho)^T\\
-    M\rho &=  \rho_N= (0, 1, -1, 0)^T \\
-    M_1 &= \rho_N [(\rho_N)^T (\rho_N)]^{-1} (\rho_N)^T =1/2 \begin{bmatrix}
-           0  & 0 & 0 & 0  \\
-           0 &  1 & -1 & 0\\
-           0  & -1 & 1 & 0 \\
-           0 & 0 & 0 & 0\\
-         \end{bmatrix} \\
-         & = 1/2 (0, 1, -1, 0)^T
-\end{align*}
-And the complement of $M_0 = M- M_1$ 
-\begin{align*}
-    M_0 & = M- M_1 = 1/2 \begin{bmatrix}
-           1  & 0 & 0 & -1  \\
-           0 & 0 & 0 & 0\\
-           0 & 0 & 0 & 0\\
-           -1  & 0 & 0 & 1  \\
-         \end{bmatrix} \\
-         & = 1/2 (1, 0,  0, -1)^T
-\end{align*}
-Also we can just look at C(Y) column space
-\begin{align*}
-    E_0 & = span \{(\beta_1+2\beta_2, 0, 0, -\beta_1-2\beta_2)^T \}= span \{(1, 0,  0, -1)^T \}
-\end{align*}
-\item[(d)] Assuming normality for Y , construct the simplest possible expression for
-the F statistic for the hypothesis $H_0: \mu \in E_0$ versus $H_1: \mu \not\in E_0$, where $E_0$ is
-specified in part (c), and give the distribution of the F statistic under the null and
-alternative hypotheses.\\
-\begin{align*}
-    M\rho &=  \rho_N= (0, 1, -1, 0)^T \in M, \qquad r(\rho_N) = 1\\
-    M_{\rho} &= \rho_N [(\rho_N)^T (\rho_N)]^{-1} (\rho_N)^T=1/2 \begin{bmatrix}
-           0  & 0 & 0 & 0  \\
-           0 &  1 & -1 & 0\\
-           0  & -1 & 1 & 0 \\
-           0 & 0 & 0 & 0\\
-         \end{bmatrix}\\
-    MSE &= \lVert (I-M)Y \rVert = 1/2 (y_1+y_4)^2 + 1/2 (y_2 + y_4)^2 \\
-    F &= \frac{Y^T M_{\rho} Y/r(\rho)}{MSE} = \frac{2(y_2 - y_3)^2}{(y_1+y_4)^2 + (y_2 + y_4)^2} \sim F(1,2, \gamma), \qquad r(M-M_{\rho}) = 1, r(I-M) = 2
-\end{align*} 
-In which, under $H_0, \gamma = 0$, and under $H_1$.
-\begin{align*}
-    \gamma &= \frac{\lVert (M_1) X\beta \rVert}{2 \lVert (I-M)Y \rVert/2}\\
-    &= \frac{(\beta_2 + \beta_3)^2}{\sigma^2}
-\end{align*} 
-\item[(e)] Assuming normality for Y , construct an exact 95$\%$ confidence interval for $\beta_2 + \beta_3$.\\
-From part(d), we have
-\begin{align*}
- \lambda' = (0, 1, 1)\\
- \rho &= (1, 1, 0, 1)^T\\
- \lambda^T \beta &=  \rho M Y = M_1 Y= 1/2 (y_2 - y_3)\\
-  F &= \frac{\lVert \lambda^T \beta \rVert/r(\rho)}{\sigma^2} = \frac{\lambda'\beta [\lambda'[X'X]^{-1} \lambda]^{-1} (\lambda'\beta)^T }{\sigma^2} \sim F(1,2, \gamma)\\
-  [\lambda'[X'X]^{-1} \lambda]^{-1} & = 2\\
- &\{\beta: \frac{\lambda'\beta [\lambda'[X'X]^{-1} \lambda]^{-1} (\lambda'\beta)^T }{\sigma^2} \leq F(0.95, 1,2) \} 
-\end{align*} 
-
-\end{itemize}
-\exercise
-Consider the linear model $Y = X\beta + Z\gamma + \epsilon$, where $E(\epsilon) = 0$ and $Cov(\epsilon) = V$, V is assumed known and positive definite, and $(\beta, \gamma)$ are unknown. Further, let $A =X(X'V^-X)^-X'V^{-1}$, X is $n \times p$, Z is $n \times q$, and both X and Z may be less than full rank. Let C(H) denote the usual label for the column space of an arbitrary matrix H.
-\begin{itemize}
-    \item [(a)] Show that $(I-A)'V^{-1}(I-A) = (I-A)'V^{-1} = V^{-1}(I-A)$. \\
-    Lets review the o.p.o onto C(X), and a projection $A =X(X'V^-X)^-X'V^{-1}$.
-\begin{align*}
- V &= QQ^{T}\\
- P &= Q^{-1}X [(Q^{-1}X)' (Q^{-1}X)]^{-} (Q^{-1}X)^{T} = Q^{-1}X [X' V^{-1}X]^- X^{T} Q^{-1} '
-\end{align*}     
-We need to transform P to A, so by definition, $AX = X$. 
-\begin{align*}
- P Q^{-1}X &= Q^{-1}X \\
- Q^{-1}X [(Q^{-1}X)' (Q^{-1}X)]^{-} (Q^{-1}X)^{T} Q^{-1}X &= Q^{-1}X\\
- Q^{-1}X [X' V^{-1}X]^{-} X^T Q^{-1}'Q^{-1}X &= Q^{-1}X\\
- Q^{-1} A X &= Q^{-1}X\\
-\end{align*}  
-Then we have $AX = X$, then A is a projection onto C(X). \textbf{Need attention that A is not a o.p.o. with respective to $x'y$ (not symmetric) it is only a projection. But is o.p.o to $x' V^{-1}y$ }.\\
-For $\rho'A Y = \rho' MY$, that $M= X(X'X)^{-} X^{T}$, we need to have $C(X) = C(VX), C(X) = C(V^{-1}X)$, then $A =X(X'V^-X)^-X'V^{-1}$.\\
-Show that A, I-A are projections
-\begin{align*}
-A^2 &= A\\
-X(X'V^-X)^-X'V^{-1} X(X'V^-X)^-X'V^{-1} &= X(X'V^-X)^-X'V^{-1}\\
-(I-A)^2 &= I-A \\
-(I-A)(I-A) &= I-A-A + A^2 = I-A
-\end{align*}  
-Then transform the equation
-\begin{align*}
-(I-A)'V^{-1}(I-A)(I-A) &= (I-A)'V^{-1}(I-A), \\
-(I-A)'V^{-1}(I-A) &= (I-A)'V^{-1} 
-\end{align*} 
-To show $(I-A)'V^{-1}(I-A) = V^{-1}(I-A)$
-\begin{align*}
-(I-A)'(I-A)' &= [(I-A)(I-A)]^T = (I-A)^T\\
-(I-A)'(I-A)'V^{-1}(I-A) &= (I-A)'V^{-1}(I-A) \\
-(I-A)'V^{-1}(I-A) &= V^{-1}(I-A) 
-\end{align*} 
-\item[(b)] Show that A is the projection operator onto C(X) along $C(V^{-1} X)^{\perp}$.
-We need to show $AX=X, x \in C(X) $, and $Aw = 0, w \in C(V^{-1} X)^{\perp}, C(V^{-1}X) = C(X)$
-We have shown that $AX=X$ in above (a), then let $w \in C(V^{-1} X)^{\perp}$
-\begin{align*}
-(V^{-1} X)'w &= 0, \qquad X' V^{-1} w = 0\\
-Aw & =w, \qquad  X' V^{-1} A w = 0 \\
-X' V^{-1} A &= 0, \qquad A \perp  C(V^{-1} X)
-\end{align*}
-\item[(c)]Let B denote the projection operator onto C(X,Z) along $C(V^{-1} (X,Z))^{\perp}$.
-Assume that all matrix inverses exist. Show that
-\begin{align*}
-B &= A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1}
-\end{align*}
-To show B is a projection, $B^2 = B$, but if need to show projection onto C(X,Z), then show $BX=X, x \in C(X,Z)$. If need to show projection along, then show$ Bw = 0, w \in C(V^{-1} (X,Z))^{\perp}$. 
-\begin{align*}
-B^2 &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) \\
-&= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) = B\\
-A(I-A) & = 0\\
-\end{align*}
-Show  $B (X, Z) = (BX, BZ) = (X, Z)$.
-\begin{align*}
-BX &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) X\\
-&= AX + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} (I-A)  X =X , \qquad \text{part (a)}\\
-BZ &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) Z\\
-&= AZ + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} (I-A)Z = AZ + (I-A)Z = Z, \quad \text{part (a)}
-\end{align*}
-Next show projection along $C(V^{-1} (X,Z))^{\perp}$. 
-\begin{align*}
-(V^{-1} (X,Z))'w &= 0, \qquad X' V^{-1} w = 0, Z' V^{-1} w = 0\\
-Bw &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) w= 0 \\
-&= Aw + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} w = 0\\
-(X,Z)' V^{-1} B &= 0, \qquad B \perp  C(V^{-1} (X,Z))
-\end{align*}
-\item[(d)] Show that $(\hat{\gamma}, \hat{\beta})$ are generalized BLUE's for the linear model, where $(\hat{\gamma}, \hat{\beta})$ satisfy
-\begin{align*}
-\hat{\gamma} &= [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)' V^{-1} (I-A)Y\\
-X\hat{\beta} &= A(Y-Z \hat{\gamma})
-\end{align*}
-To show projection operator onto C(Z) is $[Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)' V^{-1}$, also it is along $C(V^{-1} Z)^{\perp}$.\\
-By Gauss-Markov theorem, the least square estimates of $\gamma, \beta$ are BLUE's. 
-\begin{align*}
-Y &= X\beta + Z\gamma \\
-AY &= AX\beta + AZ\gamma = X\beta + AZ\gamma \\
-(I-A)Y &= (I-A)Z \gamma\\
-\end{align*}
-We can construct projection operation regarding C(Z).
-\begin{align*}
-Q^{-1}(I-A)Y &= Q^{-1}(I-A)Z \gamma\\
-P_z &= Q^{-1}(I-A)Z [(Q^{-1}(I-A)Z)' (Q^{-1}(I-A)Z)]^{-} (Q^{-1}(I-A)Z)' \\
-P_z Q^{-1}(I-A)Z &= Q^{-1}(I-A)Z \\
-\end{align*}
-\begin{align*}
-[Z'(I-A)'V^{-1}(I-A)Z]^{-}Z'(I-A)'V^{-1} Z&=  Z, \qquad \text{also use part (a)}\\
-C &= [Z'(I-A)'V^{-1}(I-A)Z]^{-}Z'(I-A)'V^{-1}, \qquad CZ = Z
-\end{align*}
-We have C a projection operator onto C(Z), also we can prove orthogonality to $C(V^{-1} Z)^{\perp}$.
-Then we have proved.
-\item[(e)] Suppose that $\epsilon \sim N_n(0, V )$ and V is known. Further, suppose that
- $\gamma, \beta$ are both estimable. From first principles, derive the likelihood ratio test for
-the hypothesis $H_0: \gamma= 0 $, where $\gamma, \beta$ are both unknown, and state the exact
-distribution of the test statistic under the null and alternative hypotheses.\\
-To derive the likelihood ratio test, we link with F-test and construct independent chi-square statistics. The nominator is the square difference between two models, and the denominator is MSE.\\
-\begin{align*}
-Y &= X\beta + Z\gamma + \epsilon, \qquad Y&= W\delta + \epsilon, \\
-W &= (X, Z), \delta = (\beta, \gamma)^T, \qquad V = Q Q^{T}, X_{n \times p}, Z_{n \times q}, 
-\end{align*}
-Assume rank(W) = p+q, \textbf{Pay attention to define matrix rank}
-\begin{align*}
-Q^{-1}Y &= W = Q^{-1}X \beta + Q^{-1}Z \gamma \sim N(0, I) \\
-Q^{-1}Y &= \Tilde{Y}, Q^{-1}Z = \Tilde{Z}, \qquad Q^{-1}X = \Tilde{X}\\
-\Tilde{Y} &= \Tilde{W} \delta + \Tilde{\epsilon},  \qquad \Tilde{\epsilon} \sim N(0,I)
-\end{align*}
-The likelihood ratio test
-\begin{align*}
-LRT &= \frac{Sup_{H_0} L(\delta| W)}{Sup_{H_1}L(\delta| W)} 
-\end{align*}
-The likelihood under $H_0$
-\begin{align*}
-\delta_0 &= (\beta_0, 0)', \qquad W_0 = (\Tilde{X}) \\
-L(\beta_0|W) &=\frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - W_0\delta_0)'(\Tilde{Y} - W_0\delta_0) \right) \\
-&= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - \Tilde{X}\hat{\beta})'(\Tilde{Y} - \Tilde{X}\hat{\beta}) \right)\\
-\Tilde{X}\hat{\beta} &= M_0 W_0, \qquad \hat{\beta} \text{ satisfy}\\
-M_0 &= \Tilde{X}[(\Tilde{X})'(\Tilde{X})]^{-1}\Tilde{X}' 
-\end{align*}
-Thus the numerator is 
-\begin{align*}
-L(\beta_0|W) &= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y}' (I- M_0) \Tilde{Y} \right)
-\end{align*}
-The likelihood under $H_1$
-\begin{align*}
-L(\delta|W) &=\frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - W\delta)'(\Tilde{Y} - W\delta) \right)\\
-\Tilde{W} \hat{\delta} &= M \Tilde{W} \qquad \hat{\delta} \text{ satisfy}\\
-M &= \Tilde{W}[(\Tilde{W})'(\Tilde{W})]^{-1}\Tilde{W}' 
-\end{align*}
-Thus the denominator is 
-\begin{align*}
-L(\delta|W) &= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y}' (I- M) \Tilde{Y} \right)
-\end{align*}
-The LRT test 
-\begin{align*}
--2 \Lambda &= \frac{\left(\Tilde{Y}' (I- M_0) \Tilde{Y} \right)}{\left(\Tilde{Y}' (I- M) \Tilde{Y} \right)} = \left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right)
-\end{align*}
-Thus we reject the $H_0$, if $\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) > c$.
-$M-M_0$ is an orthogonal projection as $(M-M_0)(M-M_0) = (M-M_0)$ and $M-M_0$ is symmetric. So $r(M-M_0) = q$ when X and Z are full rank.\\
-\begin{align*}
-\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) &\sim (H_0) \chi^2(q)\\
-\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) &\sim (H_1) \chi^2(q, \theta)\\
-\theta &= \frac{\lVert (M-M_0) \Tilde{W} \delta \rVert}{2}
-\end{align*}
-Thus we reject $H_0$ at level $\alpha$ if $\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) > \chi^2_{\alpha}(q)$
-\item[(f)] Suppose that $\epsilon \sim N_n(0, \sigma^2 R )$, where R is known and positive definite, and
-$\beta, \gamma, \sigma^2$ are all unknown. Further, assume that $\beta, \gamma$ are both estimable. Derive an exact joint 95$\%$ confidence region for $\beta, \gamma, \sigma^2$.\\
-To write the distribution of $\beta, \gamma, \sigma^2$, such as F distribution or Chi-square (if $\sigma^2$ is known) distribution $M_{\beta}/ \sigma^2, M_{\gamma}/ \sigma^2$.
-\begin{align*}
-Y &= X\beta + Z\gamma + \epsilon, \qquad Y = W\delta + \epsilon, \\
-W &= (X, Z), \delta = (\beta, \gamma)^T, \qquad R = Q Q^{T}, X_{n \times p}, Z_{n \times q}, 
-\end{align*}
-Assume rank(W) = p+q, \textbf{Pay attention to define matrix rank}
-\begin{align*}
-Q^{-1}Y &= W = Q^{-1}X \beta + Q^{-1}Z \gamma \sim N(0, \sigma^2 I)\\
-Q^{-1}Y &= \Tilde{Y}, Q^{-1}Z = \Tilde{Z}, \qquad Q^{-1}X = \Tilde{X}\\
-\Tilde{Y} &= \Tilde{W} \delta + \Tilde{\epsilon},  \qquad \Tilde{\epsilon} \sim N(0,\sigma^2 I)
-\end{align*}
-We have the F test for $\beta$  
-\begin{align*}
-\lambda' &= (1,0,0), \qquad \rho'\Tilde{W} = \lambda', \\
-F_{\beta} &= \frac{(\Tilde{Y}- \Tilde{W} b)'M_{MP} (\Tilde{Y}- \Tilde{W} b)/r(M_{MP})}{\sigma^2}\\
- &= \frac{(\Tilde{Y}- \Tilde{W} b)' (M\rho) [\rho' M \rho]^{-} (M\rho)' (\Tilde{Y}- \Tilde{W} b)/r(M_{MP})}{\sigma^2} \\
- &= \frac{( \rho'M \Tilde{Y}- \rho'M \Tilde{W} b)'  [\rho' M \rho]^{-} ( \rho'M \Tilde{Y}-  \rho'M \Tilde{W} b/r(M_{MP})}{\sigma^2} \\
-&=  \frac{(\lambda' \hat{\delta} - \lambda' \delta)'  [\rho' M \rho]^{-} (\lambda' \hat{\delta} - \lambda' \delta)/r(M_{MP})}{\sigma^2} \\
-&=  \frac{(\hat{\beta} - \beta)'  [\rho' M \rho]^{-} (\hat{\beta} - \beta)/r(M_{MP})}{\sigma^2}, \qquad r(M_{MP}) = p
-\end{align*}
-We have the chi-square distribution for $\sigma^2$ 
-\begin{align*}
-\frac{Y'(I-M) Y}{\sigma^2} & \chi^2(n-p-q) \\
-\end{align*}
-The degrees of freedom is $n-p-q$ since both $(\beta, \gamma)$ are estimable. \\
-Furthermore, we have the chi-square distribution for $\delta$, because $M \perp (I-M)$
-\begin{align*}
-\frac{ \lVert M Y - \Tilde{W} \delta \rVert}{\sigma^2} & \sim \chi^2(p+q) \\
-P\{ \chi^2_{a/2}{(p+q)} &\leq \frac{\lVert MY - \Tilde{W} \delta  \rVert}{\sigma^2} \leq \chi^2_{1-a/2}{(p+q)}, \quad
-\chi^2_{b/2}{(n-p-q)} \leq \frac{\lVert (I-M) Y \rVert}{\sigma^2} \leq \chi^2_{1-b/2}{(n-p-q)} \}\\
-&= 1- \alpha
-\end{align*}
-Such that $(1-a)(1-b) = 1-\alpha$. \\
-The region is given
-\begin{align*}
-\{(\delta, \sigma^2): \chi^2_{a/2}{(p+q)} &\leq \frac{\lVert MY -\Tilde{W} \delta \rVert}{\sigma^2} \leq \chi^2_{1-a/2}{(p+q)}, \quad
-\chi^2_{b/2}{(n-p-q)} \leq \frac{\lVert (I-M) Y \rVert}{\sigma^2} \leq \chi^2_{1-b/2}{(n-p-q)} \}\\
-&= 1- \alpha
-\end{align*}
-\end{itemize}
-
-
-
-\setcounter{exercise}{7}
-\exercise*
-\dots{} or skip a few, using the \verb|\setcounter{exercise}{x}| command.
-
-For more information, refer to \url{https://github.com/gijs-pennings/latex-homework}.
-
-
-
-
+\import{./}{bibliography.tex}
 
 
 \end{document}

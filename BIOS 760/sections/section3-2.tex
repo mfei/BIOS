@@ -1,0 +1,43 @@
+\section{Sample Variance Distribution}
+
+Suppose that $X_1,..X_n$ are i.i.d. with $E(X_i) = \mu, Var(X_i) = \sigma^2$, and $Var\Big[ (X_i- \mu)^2 \Big] = \tau < \infty$. Define $S_n^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X}_n)^2$. Find the asymptotic distribution of $S_n^2 $.
+
+We have several methods to get the asymptotic distribution:
+
+1. Direct method: Get the mean and variance, then use CLT;
+
+2. Delta method: when there is a function of the known distribution, ie. We know $X$ distribution, then we would like to know $f(X)$ distribution. The key is to get the mean and variance of the new function, which we times the derivative
+
+In this problem, we could use the given information to use CLT method:
+
+WRONG METHOD:
+\begin{align*}
+S_n^2 &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X}_n)^2 = \frac{1}{n} \sum_{i=1}^n (X_i - E(X_i) + E(X_i) - \bar{X}_n)^2, \qquad \text{construct the variance component} \\
+&= \frac{1}{n}\sum_{i=1}^n  \Big(X_i - E(X_i) \Big)^2 + \frac{1}{n}\sum_{i=1}^n \Big(E(X_i) - \bar{X}_n \Big)^2 \\
+&= \sigma^2 +  \frac{1}{n}\sum_{i=1}^n \Big(E(X_i) - \bar{X}_n \Big)^2  \qquad \text{THIS IS WRONG}
+\end{align*}
+
+CAN'T SAY $\frac{1}{n}\sum_{i=1}^n  \Big(X_i - E(X_i) \Big)^2 =  \sigma^2 $, as this is not expectation, it is sample mean/variance. 
+
+
+CORRECT METHOD:
+
+We need to use the information $Var\Big[ (X_i- \mu)^2 \Big] = \tau < \infty$, to construct a CLT with variance component of $(X_i- \mu)$. 
+To simplify, let $Y_i= X_i - \mu, \bar{Y}_n= \bar{X}_n - \mu$,
+
+\begin{align*}
+S_n^2 &=  \frac{1}{n} \sum_{i=1}^n Y_i^2 - \bar{Y}_n^2 \\
+Var \Big( Y_i^2 \Big) &= \tau^2, \qquad E \Big( Y_i^2 \Big) = E \Big( (X_i - \mu)^2 \Big) = \sigma^2 \\
+\bar{Y}_n^2 & \xrightarrow{d} 0
+\end{align*}
+
+It is very tricky to notice this, we only see the mean has asymptotic distribution based on CLT, while other series does not have asymptotic distribution. $\bar{Y}_n^2$ is only a number.
+By slutsky theorem,
+
+\begin{align*}
+\sqrt{n} \Big(S_n^2 - \sigma^2 \Big) &= \sqrt{n} \Big(\frac{1}{n} \sum_{i=1}^n Y_i^2 - \sigma^2 \Big) + \sqrt{n} \bar{Y}_n^2 \\
+\sqrt{n} \Big(S_n^2 - \sigma^2 \Big) & \xrightarrow{d} N(0, \tau^2)
+\end{align*}
+
+
+

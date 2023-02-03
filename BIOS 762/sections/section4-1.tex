@@ -1,0 +1,140 @@
+\section{Hypergeometric Distribution}
+\begin{itemize}
+\item[(i)] How to get the likelihood function of drawing objects without replacement?
+
+\end{itemize}
+
+\begin{definition}
+	Hypergeometric is drawing objects without replacement, while binomial is drawing objects with replacement. So the binomial distribution has the probability p for each drawn, while the hypergeometric probability mass function:
+	
+	\begin{align*}
+		p_X(k) &= p(X=k) = \frac{{K \choose k} {N-K \choose n-k}}{ {N \choose n}}
+	\end{align*}
+	
+\end{definition}
+	
+	Here we already know how many K objects totally, and we would like to draw k out of K. The difference of replacement vs. no replacement is the probability. With replacement, we could get $p= \frac{K}{N}$ for each time, while without replacement, we get the probability by using the designed drawn divided by all possible drawns. That's how we derive the concepts of nuisance parameters as well.
+	
+	Hypergeometric distribution is derived from binomial, $a \choose b$ is a binomial coefficients, which means two outcomes, yes or no. 
+
+	Hypergeometric distribution focuses on the range of k, and the sum of all probabilities of p(k) is 1, so we need to know all possible values for k. $ 0 \leq k \leq min(n, K)$.
+	
+
+\subsection{Non-central Hypergeometric distribution}	
+Suppose that $I=2$ and $J=2$, and both the rows margins and column margins are fixed. Derive the joint distribution of $\Big( n_{11} | n_{1+}, n_{+1}, n \Big)$, where $n_{1+} = n_{11} + n_{12}, n_{+1} = n_{11}+ n_{21}$.
+
+\begin{align*}
+	p(n_{11} | n_{1+}, n_{+1}, n) &= \frac{p(n_{11}, n_{1+}, n_{+1} ,n)}{p(n_{1+}, n_{+1}, n)}\\
+		p(n_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \frac{exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!} \\
+		&= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{12}}}{n_{12}!} \frac{exp(-\mu_{21})\mu_{21}^{n_{21}}}{n_{21}!} \frac{exp(-\mu_{22})\mu_{22}^{n_{22}}}{n_{22}!}\\
+		n_{12} &= n_{1+} - n_{11}, \qquad n_{21} = n_{+1} - n_{11}, \\ n_{22} &= n - n_{12} - n_{21} - n_{11} = n- n_{1+} - n_{+1} + n_{11}\\
+		p(n_{11}, n_{1+}, n_{+1} n) &= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}	
+The Jacobian transformation matrix 
+\begin{align*}
+	J &=  \begin{pmatrix}
+	\diffp{{n_{11}}}{{n_{11}}} & \diffp{{n_{11}}}{{n_{1+}}} & \diffp{{n_{11}}}{{n_{+1}}} & \diffp{{n_{11}}}{{n}}\\
+	\diffp{{n_{12}}}{{n_{11}}} & \diffp{{n_{12}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{21}}}{{n_{11}}} & \diffp{{n_{21}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{22}}}{{n_{11}}} & \diffp{{n_{22}}}{{n_{1+}}} & \diffp{{n_{22}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}} \\
+\end{pmatrix}= \begin{pmatrix}
+1 & 0 & 0 & 0\\
+-1 & 1 & 0 & 0\\
+-1 & 0 & 1 & 0\\
+1 & -1 & -1 & 1\\
+\end{pmatrix}\\
+\lVert J \rVert &= 1
+\end{align*}
+Then we can get the $p(n_{1+}, n_{+1}, n)$ by summing over $n_{11}$. We have $n_{11} <= n_{1+}, n_{11} <= n_{+1}$, and $n_{11} >= -n + n_{1+} + n_{+1}$. 		
+\begin{align*}
+	p(n_{11}, n_{1+}, n_{+1} n) &= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}\\
+	&= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}\\
+	p(n_{1+}, n_{+1} n) &= \sum_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}
+So we can have 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
+	 &= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!} \\
+	 & \Bigg{/} \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{x} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {x! (n_{1+} - x)! (n_{+1} - x)! (n- n_{1+} - n_{+1} + x)!}
+\end{align*}	
+Which we can rewrite 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= {n_{1+} \choose n_{11}} {n - n_{1+} \choose n_{+1}-n_{11}} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}} \right)^{n_{11}}\\
+	& \Bigg{/}  \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1+} \choose x} {n - n_{1+} \choose n_{+1}-x} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}}\right) ^x
+\end{align*}
+
+	Dervie the hypergeometric distribution:
+	
+	For a fixed sample size n, the joint distribution of the cell counts in the $2 \times 2$ table is given by
+\begin{align*}
+	p &=  \frac{n!}{n_{11}! n_{12}! n_{21}! n_{22}!} \pi_{11}^{n_{11}} \pi_{12}^{n_{12}} \pi_{21}^{n_{21}} \pi_{22}^{n_{22}}\\
+	\psi &= \frac{\pi_{11} \pi_{22}}{\pi_{12}!\pi_{21}!} 
+\end{align*}	
+Let $\psi$ be the parameter of interest, and $\pi_{21}, \pi_{12}$ are the nuisance parameters. By looking at the sufficient statistics of $\pi_{12}, \pi_{21}$, which is $n_{12} = n_{1+} - n_{11} , n_{21} = n_{+1} - n_{11}$. We have a distribution of $n_{11}$ which is the parameter of interest. 
+
+There are two ways to get the distribution of conditional probability, one is directly use the conditional probability definition, while the other is to use the conditional log-likelihood formula. Which way should we go will depend on the situation. 
+
+If it is easier to get the log-likelihood, then go with the log-likelihood function. But for hypergeometric distribution, it is easier to just use definition as the binomial coefficient is not easy to deal with in log form.
+
+Method 2: Use multinomial distribution definition. When we fixed $n_{1+}, n_{+1}$ which is equal to fix $n_{12}, n_{21}$
+\begin{align*}
+	p(n_{11}, n_{1.}, n_{.1}| n) &= \frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \psi^{n_{11}} \pi_{12}^{n_{1+}} \pi_{21}^{n_{+1}} \pi_{22}^{n-n_{1+}-n_{+1}}
+	 \\
+   p(n_{11}| n_{1.}, n_{.1}, n)	&=   \frac{p(n_{11}, n_{1.}, n_{.1}| n)}{p( n_{1.}, n_{.1}| n)}\\
+   &= \frac{n! n_{1.}! (n-n_{1.})!}{n_{1.}! (n-n_{1.})! n_{11}!n_{12}!n_{21}!n_{22}!} \\
+	&= {n \choose n_{1.}} {n_{1.} \choose n_{11}} {n-n_{1.} \choose n_{.1}-n_{11}} 
+\end{align*}
+The marginal distribution of $p( n_{1.}, n_{.1}| n)$
+\begin{align*}
+	p( n_{1.}, n_{.1}| n) &= \sum_{N_{11} \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \psi^{n_{11}} \pi_{12}^{n_{1+}} \pi_{21}^{n_{+1}} \pi_{22}^{n-n_{1+}-n_{+1}}
+	\\
+\end{align*}
+We don't change $n_{11}$ in this formula in order to construct the hypergeometric coefficients in the conditional probability. Most of the terms could be canceled and left $n_{11}$ 
+
+\begin{align*}
+	p(n_{11}| n_{1.}, n_{.1}, n)	&=   \frac{p(n_{11}, n_{1.}, n_{.1}| n)}{p( n_{1.}, n_{.1}| n)}\\
+	&= \frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \psi^{n_{11}} \pi_{12}^{n_{1+}} \pi_{21}^{n_{+1}} \pi_{22}^{n-n_{1+}-n_{+1}}
+	\\
+	& \Bigg{/} \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{n!}{n_{11}!n_{12}!n_{21}!n_{22}!} \psi^{x} \pi_{12}^{n_{1+}} \pi_{21}^{n_{+1}} \pi_{22}^{n-n_{1+}-n_{+1}}\\
+	&= {n_{1.} \choose n_{11}} {n-n_{1.} \choose n_{.1}-n_{11}} \psi^{n_{11}} \Bigg{/} P_0(\psi) \\
+	P_0(\psi) &= \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1.} \choose x} {n-n_{1.} \choose n_{.1}-x} \psi^{x}
+\end{align*}
+
+
+The $n_{1+}, n_{+1}$ could be considered as the K from above PDF, that we already know the total row and column, and see what the probability is in each draw. 
+
+
+\subsection{HG distribution exponential family}
+Although the hypergeometric distribution looks ugly, the characteristics are the same as other distribution. Here need to be aware that, the $\psi$ is the random variable, while $n_{11}$ is y.
+
+
+\begin{align*}
+	P(n_{11}| n_{1+}, n_{+1}, n, \psi) &= exp\{ n_{11} log \psi - log P_0(\psi) + const \} \\
+	\theta &= log \psi, \qquad \phi = 1, \qquad b(\theta) = log P_0(\psi) = log P_0(exp(\theta))
+\end{align*}
+
+\subsubsection{M(t), K(t)}
+\begin{align*}
+	M(t) &= E[exp(ty)] = \int_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} exp(ty)exp\{ y log \psi - log P_0(\psi) + c \} dy\\
+	&= \int_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} exp\{ y (\theta + t) - log P_0(exp(\theta)) + c \} dy\\
+	&=\int_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}}\\
+	& exp\{ y (\theta + t) - log P_0(exp(\theta + t)) + log P_0(exp(\theta + t)) - log P_0(exp(\theta))+ c \} dy \\
+	M(t) &=exp\{\phi b(\theta + t/\phi) - b(\theta)\}= exp(b(\theta + t) - b(\theta))\\
+	&= P_0(exp(\theta + t))/ P_0(exp(\theta))\\
+	M(t) &= P_0(exp(t)exp(\theta)) /P_0(exp(\theta)) =  P_0(exp(t)\psi) /P_0(\psi)
+\end{align*}
+The cumulant moment generating function
+\begin{align*}
+	K(t) &= log M(t) = log P_0(exp(t)\psi) - log P_0(\psi)
+\end{align*}
+
+\subsubsection{$\mu, \sigma^2$}
+
+\begin{align*}
+	\mu &= \partial_t K(t) = \frac{P_0(exp(t)\psi)'}{P_0(exp(t)\psi)} \Bigg{|}_{t=0} = \frac{P_1(\psi)}{P_0(\psi)}\\
+	\sigma^2 &= \diffp{{\partial_t K(t)}}{t} \Bigg{|}_{t=0}
+	 = \frac{P_2(\psi)}{P_0(\psi)} - \mu_i^2 \\
+	P_{j}(\psi) &= \int_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1+} \choose x}{n-n_{1+} \choose n_{+1}-x} \psi^x x^j
+\end{align*}
+
+

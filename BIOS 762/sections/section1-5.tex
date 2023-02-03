@@ -1,0 +1,19 @@
+
+ \section{Sampling distribution in linear model}
+ 
+ Consider the usual linear model $Y = X\beta + \epsilon, \epsilon \sim N(0, \sigma^2 I), rank(X) = r$. 
+ Using the property of MVN, $Y \sim N_n (X \beta, \sigma^2 I) $, the joint density $Y = (Y_1, .., Y_n)'$
+ 
+$\Lambda' \beta$ is an estimable vector of linear function of $\beta$, where $\Lambda$ is a $p \times s$ matrix. 
+ \begin{align*}
+\Lambda' &= P' X \\
+P' X \beta &= P' MY \\
+P' MP &= P' X (X'X)^{-1}X' P = \Lambda' (X'X)^{-1} \Lambda
+\end{align*}
+
+Pay attention that $P'MP$ is the covariance matrix of $Cov(P'MY) = (P'M) Cov(Y) (P'M)' = P'M \sigma^2 I MP = \sigma^2 P'MP$
+
+ \begin{align*}
+P' MY & \sim N_s (\Lambda' \beta, \sigma^2 \Lambda' (X'X)^{-1} \Lambda)
+\end{align*}
+

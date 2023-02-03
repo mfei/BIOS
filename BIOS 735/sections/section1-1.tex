@@ -1,0 +1,44 @@
+\section{EM Algorithm}
+
+\subsection{Jessen's Inequality}
+In a convex function, we have $E[f(x)] \geq f[E(X)]$. Associate this with the graph, the average of two points is high above the point in the middle.
+
+This could be related to the likelihood function, as the optimal point is between two points, that we can approximate the likelihood of the optimal point by average the likelihood of the two points.
+
+But log-likelihood function is concave, while not convex. 
+
+\subsection{Application in EM Example}
+
+Consider an experiment with coin A that has a probability $\theta_A$ of heads, and a coin B that has a probability $\theta_B$ of tails. We draw m samples as follows - for each sample, pick one of the coins at random, flip it n times, and record the number of heads and tails (that sum to n). If we recorded which coin we used for each sample, we have complete information and can estimate $\theta_A$ and $\theta_B$ in closed form. To be very explicit, suppose we drew 5 samples with the number of heads and tails represented as a vector x, and the sequence of coins chosen was A,A,B,A,B. 
+
+\begin{itemize}
+
+\item[(i)] Complete Information with Maximum Likelihood 
+Then the complete log likelihood is
+
+\begin{align*}
+	log p(X, \theta) &= log p(x_1, \theta_A) + log p(x_2, \theta_A) + log p(x_3, \theta_B) + log p(x_4, \theta_A) + log p(x_5, \theta_B)  \\
+\end{align*}
+
+We will use $z_i$ to indicate the label of the ith coin, that is - whether we used coin A or B to gnerate the ith sample.
+
+\item[(ii)] Incomplete information
+However, if we did not record the coin we used, we have missing data and the problem of estimating $\theta_B$ is harder to solve. One way to approach the problem is to ask - can we assign weights $w_i$ to each sample according to how likely it is to be generated from coin A or coin B?
+
+Remark: 
+It is a common practice dealing with missing discrete variables, which use the posterior probability based on the data. That is how the Jessen's inequality come in the play. The missing information is an expectation in the log-likelihood function, so the expectation of the log-likelihood function is smaller than the log-likelihood function of the expected missing information.
+
+
+With knowledge of $w_i$, we can maximize the likelihod to find $\theta$ . Similarly, given $w_i$, we can calculate what $\theta$ should be. So the basic idea behind Expectation Maximization (EM) is simply to start with a guess for $\theta$, then calculate z, then update $\theta$ using this new value for z, and repeat till convergence. The derivation below shows why the EM algorithm using this “alternating” updates actually works.
+
+A verbal outline of the derivtion - first consider the log likelihood function as a curve (surface) where the base is $\theta$. Find another function Q
+ of $\theta$ that is a lower bound of the log-likelihood but touches the log likelihodd function at some $\theta$ (E-step). Next find the value of $\theta$ that maximizes this function (M-step). Now find yet antoher function of $\theta$ that is a lower bound of the log-likelihood but touches the log likelihodd function at this new $\theta$. Now repeat until convergence - at this point, the maxima of the lower bound and likelihood functions are the same and we have found the maximum log likelihood. See illustratioin below.
+
+
+\item[(iii)] E- Step
+
+In the E-step, we identify a function which is a lower bound for the log-likelikelihood
+
+How do we choose the distribution $Q_i$? We want the Q function to touch the log-likelihood, and know that Jensen’s inequality is an equality only if the function is constant. So $Q_i$
+ is just the posterior distribution of $z_i$, and this completes the E-step.
+

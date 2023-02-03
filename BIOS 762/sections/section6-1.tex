@@ -1,0 +1,185 @@
+
+ \section{Quasi-likelihood}
+ 
+ \textbf{Taylor series and sandwich theorem}
+ 
+ \begin{itemize}
+     \item [(a)] Quasi-likelihood: We don't know the distribution of $y_i$, only know the $E(y_i), Var(y_i)$, so we can get the quasi function of $S_n(\mu_i, \sigma^2)$, and then we need to know the link between $\mu_i$ and $\beta$. Furthermore, we will use the sandwich estimate.\\
+     It usually is used in overdispersion, also two level hierarchical model and random effect models could be used in overdispersion as well.\\
+     Quasi-likelihood provides an important method for making statistical inference without making parametric assumption. Suppose independence, so we have covariance matrix only with diagonal element. We only know mean, but variance is unknown $\sigma^2 = \phi^{-1}$. $Cov(Y) =  \sigma^2 diag\{v_i(\mu)\}$, in which $v_i(\mu)$ is known, but $\sigma^2$ unknown.\\
+     When estimating $\beta$ using the quasi score function, we don't need to estimate $\sigma^2$ as it dropped out of the equation. But we can estimate through the variance of Y. 
+Quasi-likelihood can be applied to independent and dependent observations.\\
+     
+     \item[(b)]  Z-estimate: give the estimating equation of $\beta$ instead, here we introduce the random effect. $H(\beta)$ We don't know any information about Var(Y).\\
+ To solve $\beta$, we always need score function, so we will need to know the score function from either way. Z-estimator is more generalized than quasi-likelihood estimator. \\
+ \begin{align*}
+    D_{\mu}(\theta)^T (Y-\mu) &= \sum_{i=1}^n \frac{\partial \mu_i(x_i, \beta)}{\partial \beta} (y_i-\mu_i)\\
+    \mu_i &= x_i^T \beta
+\end{align*}
+ \item[(c)] Generalized Estimating Equations: the quasi-likelihood and Z-estimators and GEE could all be considered as they assume the score functions. But GEE could be specialized to handle longitudinal data. GEE is semi-parametric, as it does not need to estimate all the parameters, which is widely used. \\
+ \end{itemize}
+
+  The quasi log-likelihood function
+\begin{align*}
+	I_q(\mu) &= \sum_{i=1}^n lq(\mu_i)\\
+	l_q(\mu_i) &=\int_{y_i}^{\mu_i} \frac{y_i- t}{\sigma^2 V_i (t)} dt\\
+	Var(y_i) &= \mu_i^2,  \qquad \sigma^2 = 1, V_i(\mu_i) = \mu_i^2\\
+	V_i (t) &= \mu_i^2, \qquad  \frac{y_i- t}{\sigma^2 V_i (t)} = \frac{y_i - t}{t^2}
+\end{align*} 
+By integrating of t
+\begin{align*}
+	lq(\mu_i) &= \int_{y_i}^{\mu_i} \frac{y_i - t}{t^2} dt\\
+	&= -\frac{y_i}{\mu_i} + 1 -log \frac{\mu_i}{y_i} = 1- \frac{y_i}{\mu_i} + log \frac{y_i}{\mu_i}
+\end{align*} 
+Then the quasi log-likelihood
+\begin{align*}
+	I_q(\mu) &= \sum_{i=1}^n 1- \frac{y_i}{\mu_i} + log \frac{y_i}{\mu_i}\\
+	I_q(\beta) &= \sum_{i=1}^n 1- \frac{y_i}{exp(x_i^T\beta)} + log \frac{y_i}{exp(x_i^T\beta)} \\
+	&=  \sum_{i=1}^n 1- \frac{y_i}{exp(x_i^T\beta)} + log y_i - {(x_i^T\beta)} 
+\end{align*} 
+
+The quasi score function
+\begin{align*}
+	Q(\beta) &= \sum_{i=1}^n \diffp{\mu_i}{{\beta_j}} \frac{y_i - exp(x_i^T \beta)}{exp(2 x_i^T \beta)} \\
+	\diffp{\mu_i}{{\beta}} &= exp( x_i^T \beta) x_{ij} \\
+	V(\beta) &= diag \{ exp(2 x_i^T \beta) \} \\
+	Q(\beta) &=  \sum_{i=1}^n  \frac{y_i - exp(x_i^T \beta)}{exp( x_i^T \beta)} x_{i} = D^T V(\beta)^{-1} (Y- \mu) 
+\end{align*} 
+
+The $D_i$ could be considered as the product of the diagonal matrix of $diag\{exp( x_i^T \beta) \}$ and $x_i$
+\begin{align*}
+	\mu_i &= exp(X_i^T \beta) = exp(x_{i1} \beta_1 + x_{i2} \beta_2 + .. + x_{ip} \beta_p)\\
+	\diffp{\mu_i}{{\beta_j}} &= exp( x_i^T \beta) x_{ij} \\
+	D_i(\beta) &= \diffp{\mu_i}{{\beta}} = \begin{pmatrix}
+		\diffp{\mu_i}{{\beta_1}}  \\
+		\diffp{\mu_i}{{\beta_2}} \\
+		..  \\
+		\diffp{\mu_i}{{\beta_p}} 
+	\end{pmatrix} \\
+ &= exp(x_i^T \beta) \begin{pmatrix}
+x_{i1}  \\
+x_{i2}\\
+..  \\
+x_{ip}\\
+\end{pmatrix} = \begin{pmatrix}
+exp(x_i^T \beta) x_{i1}  \\
+exp(x_i^T \beta) x_{i2}\\
+..  \\
+exp(x_i^T \beta) x_{ip}\\
+\end{pmatrix}\\
+D(\beta) &= \begin{pmatrix}
+	exp(x_1^T \beta) & 0  & 0...& \\
+	0 & exp(x_2^T \beta) & 0 ..& \\
+	.&..&..&  \\
+	..& ..&  exp(x_n^T \beta)
+\end{pmatrix} \begin{pmatrix}
+	x_{1}^T  \\
+	x_{2}^T \\
+	..  \\
+	x_{n}^T\\
+\end{pmatrix}\\
+ &= \begin{pmatrix}
+exp(x_1^T \beta) & 0  & 0...& \\
+0 & exp(x_2^T \beta) & 0 ..& \\
+.&..&..&  \\
+..& ..&  exp(x_n^T \beta)
+\end{pmatrix} \begin{pmatrix}
+x_{11} & x_{12} ... & x_{1p}  \\
+x_{21} & x_{22} ... & x_{2p}  \\
+.. &.. & ..&  \\
+x_{n1} & x_{n2} ... & x_{np} \\
+\end{pmatrix} 
+\end{align*} 
+Then the formula
+\begin{align*}
+	 D^T V(\beta)^{-1} e &=  \begin{pmatrix}
+	 	x_{11} & x_{21} ... & x_{n1}  \\
+	 	x_{12} & x_{22} ... & x_{n2}  \\
+	 	.. &.. & ..&  \\
+	 	x_{1p} & x_{2p} ... & x_{np} \\
+	 \end{pmatrix} \begin{pmatrix}
+	 exp(x_1^T \beta) & 0  & 0...& \\
+	 0 & exp(x_2^T \beta) & 0 ..& \\
+	 .&..&..&  \\
+	 ..& ..&  exp(x_n^T \beta)
+ \end{pmatrix}\\
+& \begin{pmatrix}
+ exp(2 x_1^T \beta)^{-1} & 0  & 0...& \\
+ 0 & exp(2 x_2^T \beta)^{-1} & 0 ..& \\
+ .&..&..&  \\
+ ..& ..&  exp(2 x_n^T \beta)^{-1}
+\end{pmatrix} \begin{pmatrix}
+y_{1} - \mu_1  \\
+y_{2}- \mu_1 \\
+..  \\
+y_{n}- \mu_1\\
+\end{pmatrix}\\
+&= \begin{pmatrix}
+	x_{11} & x_{21} ... & x_{n1}  \\
+	x_{12} & x_{22} ... & x_{n2}  \\
+	.. &.. & ..&  \\
+	x_{1p} & x_{2p} ... & x_{np} \\
+\end{pmatrix} \begin{pmatrix}
+	exp(-x_1^T \beta) & 0  & 0...& \\
+	0 & exp(-x_2^T \beta) & 0 ..& \\
+	.&..&..&  \\
+	..& ..&  exp(-x_n^T \beta)
+\end{pmatrix}\begin{pmatrix}
+y_{1} - \mu_1  \\
+y_{2}- \mu_1 \\
+..  \\
+y_{n}- \mu_1\\
+\end{pmatrix}\\
+U(\beta_j) &= \sum_{i=1}^n x_{ij} exp(-x_i^T \beta) (y_i - exp(x_i^T \beta))\\
+U(\beta) &= \sum_{i=1}^n x_{i} exp(-x_i^T \beta) (y_i - exp(x_i^T \beta)) = \sum_{i=1}^n \frac{x_i y_i}{exp(x_i^T \beta)} - x_i
+\end{align*}
+
+\subsection{Asymptotic Distribution of $\beta$}
+The sandwich theorem could be used to derive the covariance of $\beta$. By Taylor expansion, we have 
+\begin{align*}
+	\hat{\beta} - \beta_{\ast} &= - \left( \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \diffp{ln(\beta_{\ast}}{\beta} (1+O(n)) \\
+	\sqrt{n} (\hat{\beta} - \beta_{\ast}) &= - \left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \frac{1}{\sqrt{n}} \diffp{ln(\beta_{\ast}}{\beta} 
+\end{align*}
+$\beta_{\ast}$ is the solution to the score function
+\begin{align*}
+	E[\diffp{ln(\beta_{\ast})}{\beta}] &= 0
+\end{align*}
+While $\hat{\beta}$ is the solution to the score function
+\begin{align*}
+	\diffp{ln(\hat{\beta})}{\beta} &= 0
+\end{align*}
+By WLLN,
+\begin{align*}
+ \left( \diffp{ln({\beta}_{\ast})}{\beta \beta} \right) & =   E[ \diffp{ln({\beta_{\ast}})}{\beta \beta}] = D^T V(\beta)^{-1} D
+\end{align*}
+So we have the covariance of $\beta$
+\begin{align*}
+	Cov \left(\sqrt{n} (\hat{\beta})\right) &= \left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1} \frac{1}{n} Cov(\diffp{ln(\hat{\beta})}{\beta})  [\left(\frac{1}{n} \diffp{ln(\beta_{\ast})}{\beta \beta} \right)^{-1}]^T\\
+	Cov(\diffp{ln(\hat{\beta})}{\beta})	&= D^T V(\beta)^{-1} V(\beta) V(\beta)^{-1} D\\
+	&= D^T V(\beta)^{-1} D
+\end{align*}
+By Sandwich theorem,
+\begin{align*}
+	Cov \left(\sqrt{n} (\hat{\beta})\right) &= \left(\frac{1}{n} D^T V(\beta)^{-1} D \right)^{-1} \left(\frac{1}{n} D^T V(\beta)^{-1}  D\right) \left(\frac{1}{n} D^T V(\beta)^{-1} D  \right)^{-1}\\
+	&= \{D^T V(\beta)^{-1} D\}^{-1}
+\end{align*}
+
+By the above formula, 
+\begin{align*}
+	Cov (\hat{\beta}) &= \{D^T V(\beta)^{-1} D\}^{-1} = (X^T X)^{-1}
+\end{align*}
+
+Thus the asymptotic distribution
+\begin{align*}
+	\sqrt{n} (\hat{\beta} - \beta_{\ast}) &=N(0, n(X^T X)^{-1}) 
+\end{align*}
+
+\subsubsection{Godambe Efficiency}
+
+
+Suppose that $X_i, Y_i$ are independent random variables with an exponential distribution, with $E(X_i)= 1/(\psi \lambda_i)$ and $E(Y_i) = 1/\lambda_i$, for $i=1,2,..n$. The parameters of interest is $\psi$, the $\lambda_i$ is being unknown nuisance parameters.
+
+\begin{itemize}
+	\item [(a)] Write log-likelihood function $ln(\psi, \lambda_1, \lambda_2, ..\lambda_n)$ based on $(X_i, Y_i), i=1,..n$. Derive the score function (only depends on $\psi$) that the maximum likelihood estimator for $\psi$ based on $ln$, and denote the score equation by $S_n(\psi) = 0$.
+	
+\end{itemize}

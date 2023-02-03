@@ -1,0 +1,49 @@
+\section{Order Statistics}
+
+The joint distribution of minimum and maximum:
+
+Let's go for the joint cdf of the minimum and maximum 
+
+\begin{align*}
+	F_{X_{1}, X_{n}} (x, y) &= P(X_{(1)} \leq x, X_{(n)} \leq y)  
+\end{align*}
+
+Why do we start from cdf? It is much easier to get cdf than pdf, as the pdf need to take derivative, while cdf only needs to get the integral.
+
+And if the observations are independent, the pdf and cdf also follows the same rule. 
+
+We will need to write this in terms of the individual $X_i$ as the minimum and maximum are statistics of the individuals. Consider instead the relationship
+
+\begin{align*}
+	P{(X_{n}) \leq y} &= P(X_{(1)} \leq x, X_{(n)} \leq y) + P(X_{(1)} > x, X_{(n)} \leq y)
+\end{align*}
+
+This is the integral of x, which is a common in getting the marginal distribution from joint distribution.
+
+We know how to write out the term on the left-hand side. The first term on the right-hand side is what we want to compute. As for the final term, $P(X_{(1)} > x, X_{(n)} \leq y)$,
+
+note that this is 0 if $x > y$. So, we consider $x < y$
+
+\begin{align*}
+	P(X_{(1)} > x, X_{(n)} \leq y) &= P(x < X_{1} \leq y, x < X_{2} \leq y, .., x < X_{n} \leq y) \\
+	&= [P(x < X_{1} \leq y)]^n, \qquad \text{i.i.d} \\
+	&= [F(y)- F(x)]^n
+\end{align*}
+
+So, we have 
+
+\begin{align*}
+	F_{(X_{(1)}, X_{(n)})} (x,y) &= P(X_{(1)} \leq x, X_{(n)} \leq y) \\
+	&= P(X_{n} \leq y) - P(X_{1} > x, X_{n} \leq y) \\
+	&= [F(y)]^n - [F(y)- F(x)]^n
+\end{align*}
+
+Now the joint pdf is 
+
+\begin{align*}
+	f_{(X_{(1)}, X_{(n)})} (x,y) &= \frac{d}{dx} \frac{d}{dy} \{ [F(y)]^n - [F(y)- F(x)]^n\}\\
+	&= \frac{d}{dx} n F(y)^{n-1} f(y) - n(F(y)- F(x))^{n-1} f(y) \\
+	&= n (n-1) (F(y)- F(x))^{n-2} f(x) f(y)
+\end{align*}
+
+This hold for $x < y$ and for x and y both in the support of the original distribution.

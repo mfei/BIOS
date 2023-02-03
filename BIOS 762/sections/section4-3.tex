@@ -1,0 +1,176 @@
+\section{Contingency Table}
+
+We can use either multinomial distribution, poisson distribution to model the contingency table.
+
+Consider a $I \times J$ contingency table of cell counts, where each cell count is denoted by $n_{ij}, i=1,..I, j=1,..J$, and thus $n_{ij}$ denotes the cell count of ith row and jth column, and $n_{ij} \sim Poisson (\mu_{ij})$ and independent. Further, let $n= \sum_{j=1}^J \sum_{i=1}^I n_{ij}$ denote the grand total.
+
+\begin{itemize}
+
+	\item [(a)] Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$ conditional on grand total n.
+	
+	$n_{ij} \sim Poisson(\mu_{ij})$, $n_{ij}$ are independent, $i=1,..I, j=1,..J$.
+	
+	By poisson distribution of each cell counts, $n= \sum_{i=1}^I \sum_{j=1}^J n_{ij} \sim Poisson(\sum_{i=1}^I \sum_{j=1}^J \mu_{ij})$
+	\begin{align*}
+		n &= \sum_{i=1}^I \sum_{j=1}^J n_{ij} \sim \frac{\exp(-\mu) \mu^n }{n!}, \qquad \mu= \sum_{i=1}^I \sum_{j=1}^J \mu_{ij}
+	\end{align*}	
+	
+	Then the likelihood function
+	\begin{align*}
+	p(n_{11},..n_{ij}| n) &= \frac{P(n_{11}, …, n_{IJ}, \sum_{i=1}^I \sum_{j=1}^J n_{ij} = n)}{P(\sum_{i=1}^I \sum_{j=1}^J n_{ij} = n)} \\
+		&= \frac{\prod_{i=1}^I \prod_{j=1}^J \frac{\exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!}}{\frac{exp(-\mu) \mu^n }{n!}} \\
+		&= {n \choose n_{11} n_{12} ... n_{ij}} \frac{\prod_{i=1}^I \prod_{j=1}^J {\mu_{ij}}^{n_{ij}}}{\mu^n } \\
+	&= {n \choose n_{11} n_{12} ... n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\mu } \right)^{n_{ij}}, \qquad \pi_{ij} = \frac{\mu_{ij}}{\sum_{i=1}^I \sum_{j=1}^J \mu_{ij}}
+	\end{align*}
+		
+The joint distribution is Multinomial ($n, \pi_{11}, \pi_{12},.. \pi_{IJ}$), where 
+
+	\item [(b)] Suppose all of the rows margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+	
+	$n_{i .} = \sum_{j=1}^I n_{ij} \sim Poisson(\sum_{j=1}^J \mu_{ij}), i= 1,..I$. The conditional distribution will be built based on fixed row margins (the denominator will be the supposed known). 
+	
+\begin{align*}
+	n_{i+} &= \sum_{j=1}^J n_{ij}\\
+	n_{i+} & \sim Poisson (\sum_{j=1}^J \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{i+}) &= \frac{P(n_{11}) P(n_{12}).. P(n_{IJ})}{P(n_{1.}) P(n_{2.})… P(n_{I.})} \\
+	&= \prod_{i=1}^I \prod_{j=1}^J \frac{\exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{i=1}^I \frac{\exp(-\mu_i) \mu_i^{n_{i+}}}{n_{i+}!}\\
+	&= \prod_{i=1}^I {n_{i+} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{j=1}^J \mu_{ij}} \right)^{n_{ij}}
+\end{align*}
+
+	\item [(c)] Suppose all of the columns margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+\begin{align*}
+	n_{+j} &= \sum_{i=1}^I n_{ij}\\
+	n_{+j} & \sim Poisson (\sum_{i=1}^I \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{+j}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{j=1}^J \frac{exp(-\mu_i) \mu_i^{n_{+j}}}{n_{+j}!}\\
+	&= \prod_{j=1}^J {n_{+j} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{i=1}^I \mu_{ij}} \right)^{n_{ij}}
+\end{align*}
+
+
+Consider a $I \times J$ contingency table of cell counts, where each cell count is denoted by $n_{ij}, i=1,..I, j=1,..J$, and thus $n_{ij}$ denotes the cell count of ith row and jth column, and $n_{ij} \sim Poisson (\mu_{ij})$ and independent. Further, let $n= \sum_{j=1}^J \sum_{i=1}^I n_{ij}$ denote the grand total.
+
+\item[(d)] Conditional distribution of $n_{11}$
+
+	Need to see that the variable transformation in this case. One skill I need to develop is to construct the probability distribution or likelihood function for each scenario.
+	
+	Suppose that $I=2$ and $J=2$, and both the rows margins and column margins are fixed. Derive the joint distribution of $(n_{11}|n_{1+}, n_{+1} n)$, where $n_{1+} = n_{11} + n_{12}, n_{+1} = n_{11}+ n_{21}$.
+	
+\begin{align*}
+	p(n_{11} | n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
+		p(n_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \frac{\exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!} \\
+		&= \frac{\exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{\exp(-\mu_{12})\mu_{12}^{n_{12}}}{n_{12}!} \frac{\exp(-\mu_{21})\mu_{21}^{n_{21}}}{n_{21}!} \frac{\exp(-\mu_{22})\mu_{22}^{n_{22}}}{n_{22}!}\\
+		n_{12} &= n_{1+} - n_{11}, \qquad n_{21} = n_{+1} - n_{11}, \\ n_{22} &= n - n_{12} - n_{21} - n_{11} = n- n_{1+} - n_{+1} + n_{11}\\
+		p(n_{11}, n_{1+}, n_{+1} n) &= \frac{\exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{\exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{\exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{\exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}	
+The Jacobian transformation matrix 
+\begin{align*}
+	J &=  \begin{pmatrix}
+	\diffp{{n_{11}}}{{n_{11}}} & \diffp{{n_{11}}}{{n_{1+}}} & \diffp{{n_{11}}}{{n_{+1}}} & \diffp{{n_{11}}}{{n}}\\
+	\diffp{{n_{12}}}{{n_{11}}} & \diffp{{n_{12}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{21}}}{{n_{11}}} & \diffp{{n_{21}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{22}}}{{n_{11}}} & \diffp{{n_{22}}}{{n_{1+}}} & \diffp{{n_{22}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}} \\
+\end{pmatrix}= \begin{pmatrix}
+1 & 0 & 0 & 0\\
+-1 & 1 & 0 & 0\\
+-1 & 0 & 1 & 0\\
+1 & -1 & -1 & 1\\
+\end{pmatrix}\\
+\lVert J \rVert &= 1
+\end{align*}
+Then we can get the $p(n_{1+}, n_{+1}, n)$ by summing over $n_{11}$. We have $n_{11} <= n_{1+}, n_{11} <= n_{+1}$, and $n_{11} >= -n + n_{1+} + n_{+1}$. 		
+\begin{align*}
+	p(n_{11}, n_{1+}, n_{+1} n) &= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}\\
+	&= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}\\
+	p(n_{1+}, n_{+1} n) &= \sum_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}
+So we can have 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
+	 &= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!} \\
+	 & \Bigg{/} \sum_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}	
+Which we can rewrite 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= {n_{1+} \choose n_{11}} {n - n_{1+} \choose n_{+1}-n_{11}} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}} \right)^{n_{11}}\\
+	& \Bigg{/}  \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1+} \choose x} {n - n_{1+} \choose n_{+1}-x} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}}\right) ^x
+\end{align*}
+
+Thus $n_{11} | n_{1,}, n_{.1}, n$ is a non-central hypergeometric distribution.
+
+\item[(e)] Let $\pi_{ij}$ denote the cell probability for the ith row and jth column of the table and assume that n is fixed. Consider testing the hypothesis $H_0: \pi_{ij} = \pi_{i.} \pi_{.j}, i=1,..,I, j= 1,..,J$. Derive the MLE's 
+of $\pi_{ij}$ under $H_0$.
+
+We need to derive the likelihood function of cell probability. Under the $H_0$, get the MLE of $\pi_{ij} = \pi_{i.} \pi_{.j}$. We could use the likelihood function to get the $\pi_{i.}, \pi_{.j}$ MLE estimates, then by the invariance of MLE, $\hat{p_{ij}} = \hat{\pi_{i.}} \hat{\pi_{.j}}$.
+
+From part (a) we have the likelihood function of $\pi_{ij}$
+
+\begin{align*}
+	p(n_{11},..n_{ij}| n) &	= {n \choose n_{11} n_{12} ... n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \pi_{ij} \right)^{n_{ij}} \\
+	\sum_{i=i}^I \sum_{j=1}^J \pi_{ij} &= 1\\
+\end{align*}
+
+Let $\pi_{ij}$ denote the cell probability and assume n is fixed. Consider testing $H_0: \pi_{ij} = \pi_{i+} \pi_{+j}, i=1,..I, j=1,..J$. Derive the MLE of $\pi_{ij}$ under $H_0$.
+
+The $H_0$ could be written as 
+\begin{align*}
+	H_0 &: \pi_{ij} = \pi_{i+} \pi_{+j}
+\end{align*}
+
+The multinomial distribution of $\pi_{ij}$
+\begin{align*}
+	p(\pi_{ij}) &= {n \choose n_{11} n_{12} n_{21} n_{22}} \pi_{ij}^{n_{ij}} , \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} = 1
+\end{align*}
+The log-likelihood function
+\begin{align*}
+	log p(\pi_{ij}) &= \log {n \choose n_{11} ,.., n_{IJ}} +  n_{ij} log \pi_{ij} , \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} = 1
+\end{align*}
+Under $H_0$, the log-likelihood
+\begin{align*}
+	log p(\pi_{ij}) &= \log {n \choose n_{11} ,.., n_{IJ}}  +  n_{ij} log \pi_{i+} \pi_{+j} , \sum_{i=1}^I \pi_{i+} = 1, \sum_{j=1}^J \pi_{+j} = 1 
+\end{align*}
+By Lagrangian multiplier theorem,
+\begin{align*}
+	ln(\pi_{ij}) &=n \log {n \choose n_{11} ,.., n_{IJ}}  +\sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} + \lambda ( \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} - 1),\\
+	&= n \log {n \choose n_{11} ,.., n_{IJ}}  +\sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} + \sum_{j=1}^J \sum_{i=1}^I n_{ij} log \pi_{+j} - \lambda ( \sum_{i=1}^I \pi_{i+} - 1)
+\end{align*}
+Take first derivative of log-likelihood
+\begin{align*}
+	\diffp{ln}{{\pi_{i+}}} &= \frac{\sum_{j=1}^J n_{ij}}{\pi_{i+}} + \lambda = 0 \\
+	\hat{\pi}_{i+} &= \frac{\sum_{j=1}^J n_{ij}}{\lambda}\\
+	\sum_{i=1}^I \pi_{i+} &= 1, \qquad \lambda = \sum_{j=1}^J \sum_{i=1}^I n_{ij}\\
+	\hat{\pi}_{i+} &= \frac{n_{i+}}{n}
+\end{align*}
+Similarly, we have $\hat{\pi}_{+j} = \frac{n_{+j}}{n}$, the MLE of $\pi_{ij}$ under $H_0$ is 
+\begin{align*}
+	\hat{\pi}_{ij} &= \hat{\pi}_{i+} \hat{\pi}_{+j} = \frac{n_{i+} n_{+j}}{n^2}
+\end{align*}
+
+Using Lagrange multiplier $\lambda$, the log-likelihood of $\pi_{1.},.., \pi_{I.}$ is
+
+\begin{align*}
+	l(\pi_{1.},..\pi_{I.}| n) &= \sum_{i=1}^I \sum_{j=1}^J {n_{ij}} \log \left( \pi_{i.} \pi_{.j} \right) + \lambda \Big( 1- \sum_{i=1}^I \pi_{i.} \Big)\\
+	\dot{l} (\pi_{i.}) &= \frac{\sum_{j=1}^J n_{ij}}{\pi_{i.}} - \lambda \underset{set}{=} 0\\
+	\hat{\pi_{i.}} &= \frac{\sum_{j=1}^J n_{ij}}{\lambda}, \qquad \lambda = \sum_{i=1}^I \sum_{j=1}^J {n_{ij}} = n \\
+	\hat{\pi}_{i.} &= \frac{n_{i+}}{n} 
+\end{align*}
+
+
+\item[(f)] Derive the likelihood ratio test for the hypothesis in part (e) and derive its asymptotic distribution under $H_0$.
+
+From part (e), we have the parameter estimates under $H_0$. While under alternative hypothesis, we have $\mu_{ij} = n_{ij}$. 
+\begin{align*}
+	LRT_n &= 2(LR(\pi_{H_1}) - LR(\pi_{H_0})) =2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{ij} - \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{\pi_{ij}}{\pi_{i+} \pi_{+j} }   \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{n_{ij} n}{n_{i+} n_{+j} }   \right) \sim \chi^2_{(I-1)(J-1)} 
+\end{align*}
+Note that the full model has $(IJ-1)$ parameters, and the null hypothesis has $(I-1)+ (J-1)$ parameters.
+\begin{align*}
+	df &= I \times J-1 - (I-1) - (J-1)\\
+	&= (I-1)(J-1)
+\end{align*}
+
+The degrees of freedom refers to the number of random variables that used to estimate. When the mean of row or column are calculated, the mean will be used to center the data, then the free (random) data would be less 1. Here both the row and column will be less 1 when under $H_0$.
+
+\end{itemize}
+
+
+

@@ -1,0 +1,42 @@
+\section{Conditional MLE}
+The conditional maximum likelihood estiamte (CMLE) of $\psi$ is not calculated directly from the conditional distribution of $\psi$. While we get it from $p(n_{11}| n_{1+}, n_{+1}, n, \psi)$.
+
+We should be able to get the MLE from the log-likelihood conditional.
+
+$\hat{\psi}_c$ is the solution to 
+\begin{align*}
+	n_{11} &= P_1(\hat{\psi}_c)/P_0(\hat{\psi}_c) = \mu\\
+	log P(n_{11}| n_{1+}, n_{+1}, n, \psi) &=  n_{11} log \psi - log P_0(\psi) + c\\
+	\diffp{log P}{\psi} &= \frac{n_{11}}{\psi} -\frac{P_0(\psi)'}{P_0(\psi)} = 0\\
+	n_{11} &= P_1(\hat{\psi}_c)/P_0(\hat{\psi}_c)
+\end{align*}
+The variance of $\hat{\psi}_c$ can be approximated by the inverse of the Fisher information matrix $I_n(\hat{\psi}_c)$, which is given
+\begin{align*}
+	I_n(\hat{\psi}_c) &= E\{[ \partial_{\psi} log P(n_{11}| n_{1+}, n_{+1}, n, \hat{\psi}_c)]^2 \} = \frac{Var(n_{11}| n_{1+}, n_{+1}, n, \hat{\psi}_c)}{\hat{\psi}_c^2}
+\end{align*}
+
+
+\item[(g)] Suppose that $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance. Derive the conditional likelihood of $(\pi_{11}, \pi_{12})$ and the conditional MLE's of  $(\pi_{11}, \pi_{12})$.
+If not specified, we treat as general contingency table that total n is fixed. If only $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance, then we will set the rest of the parameters as one parameter, and get its distribution, which is to find the sufficient statistics for rest of the parameters.
+Write the Multinomial distribution in exponential family distribution.\\
+We can find marginal distribution by summing over along all possible values of $(n_{11}, n_{12})$. Note that $n_{11} \leq \min{n_{1+} - n_{12}, n_{+1}}$ for a given value of $n_{12}$. Similarly, $n_{12} \leq \min{n_{1+}- n_{11}, n_{+1}}$ for a given value of $n_{11}$. \\
+Additionally,
+\begin{align*}
+	n & \geq n_{1+} + n_{+1} + n_{+2} - n_{11} - n_{12} \\
+	n_{11} + n_{12} & \geq \max{ 0, n_{+1} + n_{1+} + n_{+2}}
+\end{align*}
+Let
+\begin{align*}
+	S(n_{11}, n_{12}) &= \{(n_{11}, n_{12}): n_{11} + n_{12} \geq \max{ 0, n_{+1} + n_{1+} + n_{+2}},\\
+	&  n_{11} \leq \min{(n_{1+} - n_{12}, n_{+1})}, n_{12} \leq \min{(n_{1+}- n_{11}, n_{+1})}   \} 
+\end{align*}
+
+The conditional distribution
+\begin{align*}
+	p(n_{11}, n_{12}|n_{13}, ...n_{IJ}, n) &= \frac{p(n_{ij}}{p(S_n)}\\
+	&= \frac{\frac{1}{n_{11}! n_{12}! } \pi_{11}^{n_{11}} \pi_{12}^{n_{12}}}{\sum_{(x, y \in S_n)} \frac{1}{x! y!} \pi_{11}^x \pi_{12}^y}
+\end{align*}
+And $\hat{\pi}_{11}, \hat{\pi}_{12}$ are the CMLE that maximize $p(n_{11}, n_{12}|n_{13}, ...n_{IJ}, n)$.
+
+\end{itemize}
+

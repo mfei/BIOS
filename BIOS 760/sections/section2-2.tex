@@ -1,0 +1,89 @@
+\section{The Bernoulli Distribution}
+
+The standard exponential distribution family 
+
+\begin{align*}
+p(y| \theta) &= \phi \Big[ \exp \Big( y \theta - b(\theta) \Big) - c(y) \Big] - \frac{1}{2} s(y, \phi)
+\end{align*}
+
+For Bernoulli distribution,
+\begin{align*}
+p(x| \pi) &= \pi^{x} (1- \pi)^{1-x} \\
+&= \exp \{ \log \Big( \frac{\pi}{1- \pi} \Big) x + \log (1 - \pi) \}
+\end{align*}
+
+We see that Bernoulli distribution is an exponential family distribution with 
+
+\begin{align*}
+\theta &= \log \Big( \frac{\pi}{1- \pi} \Big) \\
+b(\theta)&=- \log (1 - \pi) =  \log \Big( 1 + \exp(\theta) \Big) x \\
+\phi & = 1
+\end{align*}
+
+\subsection{Mean and Variance}
+
+For a univariate random variable $Y$, in this case, all the $Y_i$ have the same $\pi$
+\begin{align*}
+\diffp{b(\theta)}{\theta} &= \frac{\exp(\theta)}{1 + \exp(\theta) } = \frac{1}{1 + \exp(-\theta)} = \mu = E(Y) \\
+\diffp{b(\theta)}{\theta \theta}  &= \frac{\exp(\theta)}{\Big[ 1 + \exp(\theta) \Big]^2} = \mu(1-\mu) =Var(Y)
+\end{align*}
+
+In regression model, $logit (\pi) = X \beta$, which $\beta$ is a vector, then we will use the chain rule. And each individual $y_i$ has its own equation that $\pi_i$ is different.
+
+\begin{align*}
+\theta & = X \beta, \qquad \theta_i = x_i^{T} \beta \\
+\partial_{\beta}{b(\theta_i)} &= \partial_{\theta_i}{b(\theta_i)} \partial_{\beta}{{\theta_i}} \\
+&= \frac{\exp(\theta_i)}{1 + \exp(\theta_i) }  x_i= \frac{1}{1 + \exp(-\theta)} x_i= \mu_i x_i\\
+\partial^2_{\beta}{{b(\theta_i)}} &= \frac{\exp(\theta_i)}{\Big[ 1 + \exp(\theta_i) \Big]^2} x_i^{\otimes 2}= \mu_i(1-\mu_i) x_i^{\otimes 2}
+\end{align*}
+
+And we will need to connect this with the Fisher Information or Newton-Raphson algorithm
+
+\begin{align*}
+\theta_i & = k \Big(x_i^{T} \beta \Big) = x_i^{T} \beta \\
+\xi &= (\beta, \phi)\\
+ln(\xi) &= \sum_{i=1}^n \phi \Big[ y_i k \Big(x_i^{T} \beta \Big) - b \Big( k \Big(x_i^{T} \beta \Big)  \Big) - c(y_i) \Big] - \frac{1}{2} s(y_i, \phi) \\
+\dot{ln}(\beta) &= \diffp{ln(\beta) }{\beta} = \phi \sum_{i=1}^n \Big[ y_i - \dot{b} \Big( k \Big(x_i^{T} \beta \Big)  \Big)  \Big] \dot{k} \Big(x_i^{T} \beta \Big) x_i \\
+&= \sum_{i=1}^n \Big[ y_i - \mu_i \Big] x_i \\
+\ddot{ln}(\beta) &= \diffp{ln(\beta) }{\beta \beta} = -\phi \sum_{i=1}^n \ddot{b} \Big( k(x_i^T \beta) \Big) \dot{k}(x_i^T \beta)^2 x_i x_i^T + \phi \sum_{i=1}^n \Big[y_i - \dot{b}(k(x_i^T \beta)) \Big] \ddot{k}(x_i^T \beta) x_i x_i^T \\
+&= -\sum_{i=1}^n \ddot{b} \Big(\theta_i \Big) x_i x_i^T = -\sum_{i=1}^n V(\theta_i) x_i x_i^T, \qquad \partial^2_{\beta}{{b(\theta_i)}} = V(\theta_i)
+\end{align*}
+
+let 
+\begin{align*}
+V(\theta) & = diag \{ V(\theta_i) \} , \qquad e_i = y_i - \mu_i\\
+\sum_{i=1}^n V(\theta_i) x_i x_i^T &= X V(\theta) V^T\\
+\mu_i &= \dot{b}(\theta_i), \qquad v_i = \ddot{b}(\theta_i)\\
+\dot{\theta}_i &= \partial_{\beta} \theta_i = \dot{k}(x_i^T \beta) x_i, \qquad \ddot{\theta}_i = \partial^2_{\beta} \theta_i = \ddot{k}(x_i^T \beta) x_i x_i^T \\
+\dot{b}(\theta_i) &= \partial_{\theta} b(\theta) \Big |_{\theta = \theta_i}, \dot{k}(\eta) = \partial_{\eta} k(\eta), \ddot{k}(\eta) = \partial^2_{\eta}(\eta)
+\end{align*}
+
+So
+\begin{align*}
+E \Big[ - \ddot{l}n(\beta) \Big] & = \phi \sum_{i=1}^n v_i \dot{\theta}_i^{\otimes 2}
+\end{align*}
+
+Another set is to use $E(y_i), Var(y_i)$ which is also used commonly as that are the information we generally get. It is used a lot in GEE. 
+\begin{align*}
+\partial_{\mu} \theta &= \partial_{\theta} \mu ^{-1}, \qquad \partial_{\mu} \mu = \partial_{\theta} \mu \partial_{\mu} \theta = 1\\
+\partial_{\theta} \mu &= \partial_{\theta} b(\theta) = \ddot{b}(\theta) \\
+\partial_{\mu} \theta &= \Big( \partial_{\theta} \mu \Big)^{-1} =  \ddot{b}(\theta)^{-1} \\
+\end{align*}
+
+Then we have the connection between the two system
+\begin{align*}
+\partial_{\beta} \theta &= \partial_{\beta} \mu_i \partial_{\mu_i} \theta_i = \partial_{\beta} \mu_i \Big[ \ddot{b}(\theta_i) \Big]^{-1} \\
+\partial_{\beta}^2 \theta_i &= \Big( \partial^2_{\mu_i} \theta_i \Big) \Big( \partial_{\beta} \mu_i \Big)^{\otimes 2} + \partial_{\mu_i} \theta_i \Big( \partial_{\beta}^2 \mu_i \Big) \\
+&= - \dddot{b}(\theta_i) \ddot{b}(\theta_i)^{-3} \Big( \partial_{\beta} \mu_i \Big)^{\otimes 2} + \Big[ \ddot{b}(\theta_i) \Big]^{-1} \Big( \partial^2_{\beta} \mu_i \Big)
+\end{align*}
+
+The generalized estimation model
+\begin{align*}
+V(\beta) &= \text{diag} \Big( v_1(\beta), …, v_n(\beta) \Big) \\
+e(\beta) &= (y_1 - \mu_1(\beta), …, y_n- \mu_n(\beta))^{'} \\
+D_{\theta} (\beta)^{'} &= \Big( \partial_{\beta} \beta_1(\beta),…,  \partial_{\beta} \beta_n(\beta)\Big)_{p \times n} \\
+D (\beta)^{T} &= \Big( \partial_{\beta} \mu_1(\beta),…,  \partial_{\beta} \mu_n(\beta) \Big)_{p \times n} \\
+\dot{l}_n(\beta) &= \phi D_{\theta}(\beta)^{T} e(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} e(\beta) \\
+E \Big[ -\ddot{l}_n(\beta) \Big] &= \phi D_{\theta}(\beta)^{'} V D_{\theta}(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} D(\beta) 
+\end{align*}
+

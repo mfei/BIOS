@@ -1,0 +1,45 @@
+\section{The Standard Exponential Distribution}
+
+The standard exponential distribution family 
+
+\begin{align*}
+p(y| \theta) &= \phi \Big[ \exp \Big( y \theta - b(\theta) \Big) - c(y) \Big] - \frac{1}{2} s(y, \phi)
+\end{align*}
+
+We will explore the fun characteristics of the exponential family
+
+\begin{itemize}
+\item[(i)] Mean and Variance by derivatives
+
+\begin{align*}
+log  \int p(y| \theta) &=log  \int \phi \Big[ \exp \Big( y \theta - b(\theta) \Big) - c(y) \Big] - \frac{1}{2} s(y, \phi) dv = 0 \\
+ log \int \exp \{( y \theta ) \} h(y) v(dy) &= b(\theta) \\
+ \partial_{\theta} log \int \exp \{( y \theta ) \} h(y) v(dy) &= \partial_{\theta}  b(\theta) \\
+\end{align*}
+
+To proceed we need to move the gradient past the integral sign. In general derivatives can not be moved past integral signs (both are certain kinds of limits, and sequences of limits can differ depending on the order in which the limits are taken). However it turns out that the move is justified in this case by an appeal to the dominated convergence theorem. 
+
+\begin{align*}
+\partial_{\theta}  b(\theta) &= \partial_{\theta}  log \int \exp \{( y \theta ) \} h(y) v(dy)\\
+ &=  \frac{\int y \exp \{( y \theta ) \} h(y) v(dy) }{\int \exp \{( y \theta ) \} h(y) v(dy)} \\
+ &= \int y \exp \{ y \theta - b(\theta) \} h(x) v(dy) \\
+ &= E[y] 
+\end{align*}
+
+Also we can see that the first derivative of $b(\theta)$ is equal to the mean of the sufficient statistics. Similar for the variance.
+
+Another proof is to use the Bartlett's identities
+
+Suppose that differentiation and integration are exchangeable and all the necessary expectations are finite. We have the following results:
+
+\begin{align*}
+E\_{\xi} \Big( \partial_j l_n \Big) &= 0,\\
+E_{\xi} \Big( \partial^2_{j,k} l_n \Big) + E_{\xi} \Big( \partial_j l_n \partial_k l_n \Big) = 0 \\
+\end{align*}
+
+By the above two equations, we can get the expectation and variance. 
+
+
+\end{itemize}
+
+

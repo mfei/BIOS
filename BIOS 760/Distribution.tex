@@ -64,6 +64,43 @@
 \begin{document}
 \maketitle
 
+\section{Distribution}
+
+\subsection{T distribution}
+Standard t-distribution
+\begin{align*}
+	f_X(x) &= c \Big( 1 + \frac{x^2}{n} \Big)^{-\frac{n+1}{2}} \\
+	c &= \frac{1}{\sqrt{n}} \frac{1}{B(\frac{n}{2}, \frac{1}{2})}
+\end{align*}
+
+
+
+Remarks: 
+
+\begin{itemize}
+\item[(i)] When the mean and variance are unknown, we assume the prior distribution for mean conditional on variance is normal, and only on the variance component, and variance prior is a gamma. Then the posterior distribution of mean is a t-distribution.
+
+\item[(ii)] the t-distribution could be obtained by bayesian method. 
+
+A t distribution can be obtained as a scale mixture of a normal. That is, if $x | \tau \sim N_p(m, \tau^{-1} \Sigma)$ and $\tau \sim gamma (\frac{\delta_0}{2}, \frac{\gamma_0}{2})$.
+then 
+\begin{align*}
+	p(x) &= \int_0^{\infty} p(x | \tau) \pi(\tau) d \tau
+\end{align*}
+is the $S_p(\delta_0, m, \frac{\gamma_0}{\delta_0} \Sigma)$
+
+\begin{align*}
+	x & \sim S_p \Big(\delta_0, m, \frac{\gamma_0}{\delta_0} \Sigma \Big)
+\end{align*}
+
+\end{itemize}
+
+
+
+
+
+
+
 \section{Distribution Transformation}
 Let $X \sim Gamma(\alpha, 1)$ and $Y \sim Gamma(\beta, 1)$ where the paramaterization is such that $\alpha$ is the shape parameter. Then 
 \begin{align*}
@@ -119,47 +156,7 @@ $V \sim Gamma (\alpha + \beta, 1)$ and $U \sim Beta(\alpha, \beta)$.
 
 
 
-\subsection{Gamma distribution and Beta distribution}
-If $Y_1, ..., Y_{n+1}$ are i.i.d $Exp(\theta)$, then 
-\begin{align*}
-	Z_i &= \frac{Y_1 + ...+ Y_i}{Y_1+ .. + Y_{n+1}} \sim Beta(i, n-i+1) 
-\end{align*}
-Particularly, $(Z_1, ... Z_n)$ has the same distribution as the order statistics $(\xi_{n:1}, .. \xi_{n:n})$ of n Uniform(0,1) random variables.
 
-\subsubsection{Prove Beta distribution}
-The $Z_{n+1} = 1$, so we don't need to calculate this distribution. 
-We can use the method in above problem to get the distribution of $Z_i$, and we need to get the joint distribution of $(Z_1, ... Z_n)$.
-
-Let 
-\begin{align*}
-	U &=Y_1 + ...+ Y_i, \qquad V= Y_{i+1}+ .. + Y_{n+1} 
-\end{align*}
-Then $U \sim Gamma(i, \theta), V \sim Gamma(n+1-i, \theta)$, Let
-\begin{align*}
- 	Z_i &= U/(U+V), \qquad W = U+V 
-\end{align*}
-
-Consider the transformation $(U,V)^T \rightarrow (Z_i, W)^T$, note that the transform is one-to-one with the Jacobian
-\begin{align*}
-	\Bigg |\diffp{(U,V)}{{(Z_i, W)}} \Bigg | &= |W|
-\end{align*}
- 
-For joint distribution of  $(U,V)^T$, 
-\begin{align*}
-	\frac{1}{\Gamma{(i)}} \theta exp(-\theta u) (\theta u)^{i-1} I(u > 0) \times \frac{1}{\Gamma{(n+1-i)}} \theta exp(-\theta v) (\theta v)^{n-i} I(v > 0)
-\end{align*}
-We obtain the joint density of $(Z_i, W)$ as 
-\begin{align*}
-&	\frac{1}{\Gamma{(i)}} \theta exp(-\theta z_i w) (\theta z_i w)^{i-1} \\
-	& \times \frac{1}{\Gamma{(n+1-i)}} \theta exp(-\theta (1-z_i) w) (\theta (1-z_i) w)^{n-i} w \times I(0< z_i< 1) I(w > 0)
-\end{align*}
-
-Thus, the marginal density of $Z_i = X/(X+Y)$ is equal to
-\begin{align*}
- & (1-z_i)^{n-i} z_i^{i-1} I(0< z_i <1)	\frac{\Gamma(n+1)}{\Gamma(i) \Gamma(n+1-i)} \int_{w} \theta exp(-\theta w) (\theta w)^n I(w>0) 	dw \\
- &= \frac{\Gamma(n+1)}{\Gamma(i) \Gamma(n+1-i)} (1-z_i)^{n-i} z_i^{i-1} I(0< z_i <1)
-\end{align*}
-That is $Z_i \sim Beta(i, n+1-i)$
 
 \subsubsection{Prove Uniform distribution}
 
@@ -277,120 +274,6 @@ Now the joint pdf is
 
 This hold for $x < y$ and for x and y both in the support of the original distribution.
 
-\section{Moment Generating Function}
-
-\subsection{Chi-square MGF}
-We can get MGF for chi-square from $E[x^2 t]$ and $E[(\mu + Z)^2 t]$, where $Z \sim N(0,1)$.
-Let's prove it in two methods:
-\begin{itemize}
-	\item [(i)] Method 1:
-	
-	\begin{align*}
-		M_i(t) &= E[x^2 t] = \frac{1}{\sqrt{2\pi}} \int exp(x^2 t) exp \left( - \frac{(x-\mu)^2}{2} \right) dx\\
-		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) x^2 + \mu x -\frac{\mu^2}{2} \right) dx \\
-		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{1}{2}(1-2t) \{ x^2 - \frac{2 \mu x}{(1-2t)} + \frac{\mu^2}{(1-2t)^2} \} + \frac{\mu^2}{2(1-2t)} -\frac{\mu^2}{2}  \right) dx \\
-		&= \frac{1}{\sqrt{(1-2t)}} \int \frac{(1-2t)}{\sqrt{2\pi}} exp\left( -\frac{(x-\frac{\mu}{1-2t})^2}{2 (1-2t)^{-1}} \right) dx \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right]\\
-		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad \lambda = \mu^2\\
-		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\lambda t}{1-2t} \right)
-	\end{align*}
-	
-	Then the MGF for $Q_i \sim \chi^2 _{k_i}(\lambda_i)$
-	\begin{align*}
-		M(t) &= E[ \sum_{i=1}^k x_i^2 t] = \prod_{i=1}^k M_i(t) \\
-		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \sum_{i=1}^k \lambda_i t }{1-2t} \right)\\
-		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \lambda t }{1-2t} \right)\\
-		&= (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right), \qquad \text{i.i.d}
-	\end{align*}
-	
-	\item[(ii)] Method 2:
-	
-	\begin{align*}
-	M(t) &= E[(\mu + Z)^2 t] = \frac{1}{\sqrt{2\pi}} \int exp \left((\mu + Z)^2 t \right) exp \left( - \frac{Z^2}{2} \right) dz\\
-	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) z^2 + 2\mu t z + \mu^2 t \right) dz \\
-	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{(1-2t)}{2} \{ z^2 - \frac{4 \mu t z}{(1-2t)} + \frac{2 \mu^2 t^2}{(1-2t)^2} \} + \frac{2 \mu^2 t^2}{(1-2t)} + \mu^2 t   \right) dz \\
-	&= \frac{1}{\sqrt{(1-2t)}} \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right] \int \frac{1}{\sqrt{2\pi/(1-2t)}} exp\left( -\frac{(z-\frac{2 \mu t}{1-2t})^2}{2 (1-2t)^{-1}} \right) dz \\
-	&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad t<1/2
-\end{align*}
-
-
-\end{itemize}
-
-The general case of a linear combination of independent $\chi^2_{k_i}(\lambda_i)$
-
-\begin{align*}
-	Q &= \sum_{i=1}^k a_i Q_i
-\end{align*}
-We also can prove using MGF.
-
-\subsection{Linear Combination of Chi-Square Distribution}
-The linear combination of chi-square distribution $Y_j$. Let us denote by $X \sim \Gamma(r, \lambda)$ the fact that the r.v. X has a Gamma distribution with shape parameter r and rate parameter $\lambda$ 
-
-\begin{align*}
-	f_{X}(x) &= \frac{\lambda^x}{\Gamma (r)} exp(- \lambda x) x^{r-1}, \qquad (r, \lambda >0, x >0)
-\end{align*}
-
-Then we have, for $j=1,..p$,
-
-\begin{align*}
-	Y_j & \sim  \Gamma(\frac{k_j}{2}, \frac{1}{2}) \rightarrow Z_j = w_j Y_j \sim \Gamma(\frac{k_j}{2}, \frac{1}{2w_j})
-\end{align*}
-
-The MGF for linear combinations $Z_j = w_j Y_j$
-\begin{align*}
-	M(t) &= E[exp(Y_j t)] = (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right)\\
-	M_{Z_j} (t) & = E[exp(w_j Y_j t)] = E[exp( Y_j (w_jt))] \\
-	&= (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
-\end{align*}
-
-\begin{align*}
-	M_Y(t) &= E[exp(Y t)] = E[exp(t [w_1 Y_1 + w_2 Y_2 + w_3 Y_3 +.. w_n Y_n])]\\
-	&= E[exp(w_1 t Y_1)]E[exp(w_2 t Y_2)]... E[exp(w_n t Y_n)]\\
-	&= M_{X_1}(w_1 t) M_{X_2}(w_2 t) M_{X_3}(w_3 t).. M_{X_n}(w_n t)\\
-	&= \prod_{i=1}^n M_{X_i}(w_i t)
-\end{align*}
-
-The third equation comes from the properties of exponents, as wells as from the expectation of the product of functions of independent random variables. 
-
-I need to pay attention that, only under independent and identical situation, we can write
- \begin{align*}
- 	M_Y(t) &= M_{X}(t)^n
- \end{align*}
-
-Other than that, we can not further simplify that. So back to the non-central chi-square distribution, we have the MGF of Y
-\begin{align*}
-	M_Y(t) &= \prod_{i=1}^n M_{X_i}(w_i t)\\
-	&=\prod_{i=1}^n  (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
-\end{align*}
-
-Then we can see that the shape parameter is $\frac{1}{2 w_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $w_j$ need to be the same. 
-
-
-\subsection{Exponential Distribution Family}
-
-KGF could be used to directly get the expectation and variance, more common than MGF. To get KGF, we will need to write distribution in exponential distribution.
-
-Suppose the exponential distribution family is 
-
-\begin{align*}
-	f(Y, \theta) &= exp\left( \phi (y \theta - b(\theta) -c(y)) - 0.5s(y, \phi) \right)
-\end{align*}
-
-The MGF of exponential family
-
-\begin{align*}
-	M_Y(t) &= E[ exp(yt)] = \int exp(yt) exp\left( \phi (y \theta - b(\theta) -c(y)) - 0.5s(y, \phi) \right) \\
-	&= \int  exp \left( \phi (y (\theta + t/\phi) - b(\theta) -c(y)) - 0.5s(y, \phi) \right) dy\\
-	&= exp(\phi [b(\theta + t/\phi) - b(\theta)]) \int  exp\left( \phi (y (\theta + t/\phi) - b(\theta + t/\phi) -c(y)) - 0.5s(y, \phi) \right) dy\\
-	&= exp(\phi [b(\theta + t/\phi) - b(\theta)]) 
-\end{align*}
-
-The KGF is $\phi [b(\theta + t/\phi) - b(\theta)]$, then we can get the expectation and variance
-\begin{align*}
-	E(y) &= \diffp{K(t)}{t} \Bigg |_{t=0} = \dot{b}(\theta)\\
-	Var(y) &= \diffp{K(t)}{t t} \Bigg |_{t=0} = \phi^{-1} \ddot{b}(\theta)
-\end{align*}
-
-The MGF/KGF has shown that we can use the derivative function to get expectation or variance other than using the integral. The efficiency of computation also could be shown in the getting the covariance matrix using Fisher Information.
 
 
 \section{Fisher Information}
@@ -446,21 +329,7 @@ Also we have the slutsky's theorem, delta method for the asymptotic distribution
 
 So this is the exact distribution using the transformation (just the transform is by orthogonal matrix). The MGF or characteristic distribution is always the method when doing transformation.
 
-\subsection{MGF}
 
-\begin{align*}
-	M(t) &= exp(\mu t + \sigma^2 t^2/2), \qquad \text{MGF for } N(\mu, \sigma^2)\\
-	M_{\sqrt{w_i}X_i}(t) &= E[exp(\sqrt{w_i} t X_i)] = exp(\mu \sqrt{w_i} t + \sigma^2 [\sqrt{w_i} t]^2/2), \qquad \mu=0 \\
-	&= exp(\sigma^2 w_i t^2/2)
-\end{align*}
-Then the linear combination $y_n$
-\begin{align*}
-	M_{Y_n}(t) &= E[exp \left( (\sqrt{w_1} X_1 + \sqrt{w_2} X_2 + .. + \sqrt{w_n} X_n) t \right)] \\
-	&= E[exp(\sqrt{w_1} X_1 t)] E[exp(\sqrt{w_2} X_2 t)] E[exp(\sqrt{w_3} X_3 t)].. E[exp(\sqrt{w_n} X_n t)] \\
-	&= exp(\sigma^2 w_1 t^2/2) exp(\sigma^2 w_2 t^2/2) exp(\sigma^2 w_3 t^2/2).. exp(\sigma^2 w_n t^2/2) \\
-	&= exp(\sigma^2 [w_1+ w_2 + .. w_n] t^2/2) = exp(\sigma^2 t^2/2)
-\end{align*}
-So $Y_n \sim N(0, \sigma^2)$. 
 
 \subsection{Orthogonal Matrix}
 
@@ -516,215 +385,7 @@ If there are quadratic forms, we can consider the orthogonal matrix that transfo
 
 
 
-\section{Bivariate Normal Distribution / Partition Matrix}
-The Bivariate Normal Distribution is always connected with partitioned covariance matrix. Assume vector (X, Y) is Gaussian. 
 
-\textbf{Definition}: Two random variables X and Y are said to be bivariate normal, or jointly normal, if $aX+bY$ has a normal distribution for all $a,b \in R$.
-
-If $X \sim N( \mu_X, \sigma^2_X)$ and $Y \sim N( \mu_Y, \sigma^2_Y)$ are jointly normal, then $ X + Y  \sim N( \mu_X + \mu_Y, \sigma^2_X + \sigma^2_Y + 2 \rho(X,Y) \sigma_X \sigma_Y) $. 
-
-We consider $X + Y$ is a also normal distribution, then the covariance 
-
-\begin{align*}
-	Cov(X+Y) &= Cov(X) + Cov(Y) + 2Cov(XY) = \sigma^2_X + \sigma^2_Y + 2 \rho(X,Y) \sigma_X \sigma_Y
-\end{align*}
-
-How to provide a simple way to generate jointly normal random variables? The basic idea is that we can start from several independent random variables and by considering their linear combinations, we can obtain bivariate normal random variables. 
-
-Let $Z_1$ and $Z_2$ be two independent N(0,1) random variables. Define
-
-\begin{align*}
-	X &= Z_1, \qquad Y= \rho Z_1 + \sqrt{1-\rho^2} Z_2
-\end{align*}
-
-where $\rho$ is a real number in (-1, 1). Show that X and Y are bivariate normal.
-
-First, note that since $Z_1$ and $Z_2$ are normal and independent, they are jointly normal, with the joint PDF
-
-\begin{align*}
-	f_{Z_1, Z_2} (z_1, z_2) &= f_{Z_1}(z_1) f_{Z_2}(z_2) \\
-	&= \frac{1}{2 \pi} exp \left(-\frac{1}{2} [z_1^2 + z_2^2] \right)
-\end{align*}
-
-We need to show $aX+bY$ is normal for all $a,b \in R$. We have
-
-\begin{align*}
-	aX + bY &= a Z_1 + b(\rho Z_1 + \sqrt{1- \rho^2} Z_2) \\
-	&= (a + b\rho) Z_1 + b \sqrt{1- \rho^2} Z_2
-\end{align*}
-
-which is a linear combination of $Z_1$ and $Z_2$, and thus it is normal.
-
-
-We can use the method of transformation to find the joint PDF of X and Y. The inverse transformation is given by
-
-\begin{align*}
-	Z_1 &= X = h_1(X, Y) \\
-	Z_2 &= -\frac{\rho}{\sqrt{1-\rho^2}} X + \frac{1}{\sqrt{1-\rho^2}} Y = h_2(X, Y)
-\end{align*}
-
-We have
-
-\begin{align*}
-	f_{XY}(z_1, z_2) &= f_{Z_1, Z_2} (h_1(X, Y), h_2(X, Y)) |J|\\
-	&= f_{Z_1, Z_2} (x, -\frac{\rho}{\sqrt{1-\rho^2}} x + \frac{1}{\sqrt{1-\rho^2}} y) |J|
-\end{align*}
-
-where 
-
-\begin{align*}
-	J &= det \begin{bmatrix}
-		\diffp{h_1}{x} & \diffp{h_1}{y} \\
-		\diffp{h_2}{x} & \diffp{h_2}{y}
-	\end{bmatrix} = det \begin{bmatrix}
-	1 & 0 \\
-	-\frac{\rho}{\sqrt{1-\rho^2}} & \frac{1}{\sqrt{1-\rho^2}}
-\end{bmatrix} = \frac{1}{\sqrt{1-\rho^2}}
-\end{align*}
-
-Thus, we conclude that,
-
-\begin{align*}
-	f_{XY}(z_1, z_2) &= \frac{1}{2 \pi \sqrt{1-\rho^2}} exp \left( -\frac{1}{2 (1- \rho^2)} [x^2 -2 \rho xy + y^2] \right)
-\end{align*}
-
-
-To find the $\rho$
-
-\begin{align*}
-	Var(X) &= Var(Z_1) =1 \\
-	Var(Y) &= \rho^2 Var(Z_1) + (1- \rho^2) Var(Z_2) = 1 \\
-	\rho(X,Y) &= Cov(X, Y) = Cov(Z_1, \rho Z_1 + \sqrt{1-\rho^2} Z_2) \\
-	&= \rho Cov(Z_1, Z_2) + \sqrt{1-\rho^2} Cov(Z_1, Z_2) \\
-	&= \rho
-\end{align*}
-
-Now, if you want two jointly normal random variables X and Y such that $X \sim N(\mu_X, \sigma^2_X), Y \sim N(\mu_Y, \sigma^2_Y)$, and $\rho(X,Y)= \rho$, you can start with two independent N(0,1) random variables, $Z_1$ and $Z_2$, and define
-
-\begin{align*}
-	X &= \sigma_X Z_1 + \mu_X \\
-	Y &= \sigma_Y \left(\rho Z_1 + \sqrt{1-\rho^2} Z_2 \right)  + \mu_Y
-\end{align*}
-
-construction using Z1 and Z2 can be used to solve problems regarding bivariate normal distributions. Third, this method gives us a way to generate samples from the bivariate normal distribution using a computer program. 
-
-\subsection{Conditional Distribution}
-
-Suppose X and Y are jointly normal random variables with parameters $\mu_X, \sigma^2_X, \mu_Y, \sigma^2_Y$, and $ \rho $. Then, given $X=x, Y$ is normally distributed with
-
-\begin{align*}
-	E[Y|X=x] &= \mu_Y + \rho \sigma_Y \frac{x-\mu_X}{\sigma_X} \\
-	Var(Y|X=x) &= (1- \rho^2) \sigma^2_Y
-\end{align*}
-
-One way to solve this problem is by using the joint PDF formula. In particular, since $X \sim N(\mu_X, \sigma^2_X), Y \sim N(\mu_Y, \sigma^2_Y)$, we can use
-
-\begin{align*}
-	f_{Y|X=x} (y|x) &= \frac{f_{XY} (x, y)}{f_X(x)}
-\end{align*}
-or we use
-
-\begin{align*}
-	X &= \sigma_X Z_1 + \mu_X \\
-	Y &= \sigma_Y \left(\rho Z_1 + \sqrt{1-\rho^2} Z_2 \right)  + \mu_Y
-\end{align*}
-
-Thus, given $X=x$, 
-\begin{align*}
-	Z_1 &= \frac{x - \mu_X}{\sigma_X} \\
-	Y &= \sigma_Y \rho \frac{x- \mu_X}{\sigma_X} + \sigma_Y \sqrt{1- \rho^2} Z_2 + \mu_Y 
-\end{align*}
-
-Since $Z_1$ and $Z_2$ are independent, knowing $Z_1$ does not provide any information on $Z_2$. We have shown that given $X=x, Y$ is a linear function of $Z_2$, thus it is normal. In particular
-
-\begin{align*}
-	E[Y|X=x] &= \sigma_Y \rho \frac{x- \mu_X}{\sigma_X} + \sigma_Y \sqrt{1- \rho^2} E[Z_2] + \mu_Y  \\
-	 &= \mu_Y + \rho \sigma_Y \frac{x-\mu_X}{\sigma_X} \\
-	Var[Y|X=x] &= \sigma_Y^2 (1- \rho^2) Var(Z_2) = (1- \rho^2) \sigma_Y^2
-\end{align*}
-
-\subsubsection{Marginal and conditional distributions of a multivariate normal vector}
-
-A $K \times 1$ random vector X is multivariate normal if its joint probability density function is 
-\begin{align*}
-	f_X(x) &= (2\pi)^{-K/2} |det(V)|^{-1/2} exp(-\frac{1}{2} (x-\mu)^T V^{-1}(x-\mu)) 
-\end{align*}
-
-where $\mu$ is a $K \times 1$ mean vector, $V$ is a $K \times K$ covariance matrix.
-
-Partition of the vector:
-
- We partition X into two sub-vectors $X_a$ and $X_b$ such that
-\begin{align*}
-	X &= \begin{pmatrix}
-		X_a \\
-		X_b
-	\end{pmatrix}
-\end{align*}
-The sub-vectors $X_a$ and $X_b$ have dimensions $K_a \times 1$ and $K_b \times 1$ respectively. Moreover, $K_a + K_b = K$.
-
-Partition of the parameters
-
-We partition the mean vector and covariance matrix as follows:
-
-\begin{align*}
-	\mu &= \begin{pmatrix}
-		\mu_a \\
-		\mu_b
-	\end{pmatrix}
-\end{align*}
-and 
-
-\begin{align*}
-	V &= \begin{pmatrix}
-		V_a & V_{ab}^T \\
-		V_{ab} & V_b
-	\end{pmatrix}
-\end{align*}
-
-Normality of the sub-vectors
-
-The marginal distributions of the two sub-vectors are also multivariate normal.
-
-\subsubsection{Proof}
-The random vector $X_a$ can be written as a linear transformation of X:
-
-\begin{align*}
-	X_a &= A X
-\end{align*}
-Where $A$ is a $K_a \times K$ matrix whose entries are either zero or one. Thus, $X_a $ has a multivariate normal distribution because it is a linear transformation of the multivariate normal random vector X and multivariate normality is preserved by linear transformations. Same as $X_b = B X$ where $B$ is a $K_b \times K$ matrix whose entries are either zero or one. 
-
-
-
-Independence of the sub-vectors
-
-$X_a$ and $X_b$ are independent if and only if $V_{ab} = 0$.
-
-$X_a$ and $X_b$ are independent if and only if their joint moment generating function is equal to the product of their individual moment generating functions. Since $X_a$ is multivariate normal, its joint moment generating function is 
-
-\begin{align*}
-	M_{X_a}(t_a) &= exp(t^T_a \mu_a + \frac{1}{2} t_a^T V_a t_a) \\
-	M_{X_b}(t_b) &= exp(t^T_b \mu_b + \frac{1}{2} t_b^T V_b t_b) 
-\end{align*}
-
-The joint moment generating function of $X_a$ and $X_b$, which is just the joint moment generating function of X, is
-
-\begin{align*}
-	M_{X_a, X_b}(t_a, t_b) &= M_{X}(t) \\
-	&= exp(t^T \mu + \frac{1}{2} t^T V t) \\
-	&= exp \left( [t_a^T t_b^T] \begin{bmatrix}
-		\mu_a \\
-		\mu_b
-	\end{bmatrix} + \frac{}{} [t_a^T t_b^T] \begin{bmatrix}
-	V_a & V_{ab}^T \\
-	V_{ab} & V_b
-\end{bmatrix} [t_a t_b] \right) \\
-&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b + \frac{1}{2} t_b^T V_{ab} t_a + \frac{1}{2} t_a^T V_{ab}^T t_b \right) \\
-&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b +  t_b^T V_{ab} t_a  \right) \\
-&= exp \left( t_a^T \mu_a + \frac{1}{2} t_a^T V_a t_a \right) exp \left( t_b^T \mu_b + \frac{1}{2} t_b^T V_b t_b \right) exp( t_b^T V_{ab} t_a)
-\end{align*}
-
-from which it is obvious that $M_{X_a, X_b}(t_a, t_b) = M_{X_a}(t_a) M_{X_b}(t_b)$ if and only if $V_{ab} = 0$.
 
 \subsection{Schur Complement}
 In order to derive the conditional distributions, we are going to reply on Schur complements. 

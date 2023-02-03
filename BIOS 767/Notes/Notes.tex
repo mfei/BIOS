@@ -1,0 +1,91 @@
+\section{Missing data Mechanism}
+ Model the distribution of missing
+\begin{align*}
+	R |Y_{obs, miss} &= 
+\end{align*}
+
+\subsection{Missing completely at random (MCAR)}
+
+If the probability of being missing is the same for $\textbf{all cases}$, then the data are said to be missing completely at random (MCAR). This effectively implies that causes of the missing data are unrelated to the data. We may consequently ignore many of the complexities that arise because data are missing, apart from the obvious loss of information. An example of MCAR is a weighing scale that ran out of batteries. Some of the data will be missing simply because of bad luck. Another example is when we take $ \textbf{a random sample of a population}$, where each member has the same chance of being included in the sample. The (unobserved) data of members in the population that were not included in the sample are MCAR. While convenient, MCAR is often unrealistic for the data at hand.
+
+Example: When we say data are missing completely at random, we mean that the missingness is nothing to do with the person being studied. For example, a questionnaire might be lost in the post, or a blood sample might be damaged in the lab. In CADET, sex might be MCAR. Of course, this is not truly random, but means that whether something is missing is not related to the subject of the missing data.
+
+Remarks:
+We lost the whole data without any means to predict. The missing is completely without any pattern to predict.
+
+\subsection{Missing at random}
+
+\begin{align*}
+	p(R | Y ) &= p(R | Y_{obs})
+\end{align*}
+
+If the probability of being missing is the same only $\textbf{within groups}$ defined by the observed data, then the data are missing at random (MAR). MAR is a much broader class than MCAR. For example, when placed on a soft surface, a weighing scale may produce more missing values than when placed on a hard surface. Such data are thus not MCAR. If, however, we know surface type and if we can assume MCAR within the type of surface, then the data are MAR. Another example of MAR is when we take a sample from a population, where the probability to be included depends on some known property. MAR is more general and more realistic than MCAR. Modern missing data methods generally start from the MAR assumption.
+
+Example, when we say data are missing at random, we mean that the missingness is to do with the person but can be predicted from other information about the person. It is not specifically related to the missing information. 
+
+the observed data could be used to predict the data that was missing. Because the missing is random, so we can use other people's information to predict. The missingness is not related to the outcome.
+
+\subsection{Not missing at random - NMAR}
+
+If neither MCAR nor MAR holds, then we speak of missing not at random (MNAR). In the literature one can also find the term NMAR (not missing at random) for the same concept. MNAR means that the probability of being missing varies for reasons that are unknown to us. For example, the weighing scale mechanism may wear out over time, producing more missing data as time progresses, but we may fail to note this. If the heavier objects are measured later in time, then we obtain a distribution of the measurements that will be distorted. MNAR includes the possibility that the scale produces more missing values for the heavier objects (as above), a situation that might be difficult to recognize and handle. An example of MNAR in public opinion research occurs if those with weaker opinions respond less often. MNAR is the most complex case. Strategies to handle MNAR are to find more data about the causes for the missingness, or to perform what-if analyses to see how sensitive the results are under various scenarios.
+
+
+\section{Math Model}
+\begin{align*}
+	
+\end{align*}
+
+\subsection{EM Algorithm}
+
+When the missing information $\psi$ and $\theta$ are not separable, that we can not factorize the likelihood which only involves the $\theta$ out, we can use EM algorithm in this situation.
+
+The idea is that, we iterate the parameters of $\theta, \psi$, which fixed one parameter and maximize the other and get an estimate. 
+
+The goal is to maximize the $L(\theta | Y_{obs})$, which integrate out the missingness. 
+
+The ignorable missingness when MAR and the log-likelihood could be factored into two parts and the observed data likelihood does not depend on missing variables.
+
+
+\section{Repeated measures ANOVA}
+
+ANOVA has limit- couldn't handle longitudinal data properly, but it is still useful.
+\begin{itemize}
+\item[(i)] limitation 1: correlation is at the individual level, it does not change over time. - this is a strong assumption of the positive correlation that may not hold. 
+correlation is constant regardless of the time.
+
+\item[(ii)] limitation 2: time is treated as a categorical variable, we don't estimate trajectory.
+
+\item[(iii)] model: 
+\begin{align*}
+Y_{ij} &= X_{ij}^{'} \beta + b_i + \epsilon_{ij}
+
+\end{align*}
+It is a population average + individual effect (random effect)
+
+\item[(iv)] We can use repeated ANOVA to answer questions:
+1. Is there an interaction between the factor variables (ie. gender and time); 
+We introduce the interaction term and subtract that out from the error terms, and test if this is significant.
+
+2. is there an effect due to gender?
+
+\item[(v)] The distinct between repeated measures ANOVA and ANOVA is that, the addition of the random effect
+
+
+\item[(vi)] what if we assume $E[b_{hi}] = \mu_b$, the parameter $\mu_b$ and interaction term are not identifiable. 
+
+To be identifiable, the sum needs to be 0.
+
+\item[(vii)] Correlation matrix:
+different group, different subject, different time ,covariance = 0, all independent.
+
+Only observations of the same individual at different time, we will observe the correlation, $\rho = \sigma_b^2/(\sigma_b^2 + \sigma^2)$.
+
+ANOVA assume compound symmetry. 
+
+\end{itemize}
+
+\section{Repeated ANOVA}
+
+1. type I and type III sum of squares, when would be the same?
+2. type I is adding terms to the model, while type III is to remove the term from saturated model. 
+

@@ -1,0 +1,175 @@
+
+\section{Problem 1- Derive fundamental properties of the multivariate normal distribution}
+
+Consider the $n \times 1$ random vector Y satisfying $Y \sim MVN (\mu, \Sigma)$, $\Sigma$ is positive definite matrix.
+
+\begin{itemize}
+	\item [(a)] Let $Z = aY + c$, where $a$ is an $r \times n$ matrix of constants having rank $r (r \leq n)$ and $c$ is a $r \times 1$ vector of constants. Show using the definition of moment generating function that
+	$Z \sim Normal (a \mu + c, a \Sigma a')$.  
+	
+As $Y \sim MVN(\mu, \Sigma)$, $\Sigma$ is positive definite matrix. 
+
+Then we can decompose $\Sigma = B B^T$ for some nonsingular matrix B since $\Sigma$ is positive definite. 
+
+ \begin{align*}
+    X &= B^{-1} (Y- \mu), \qquad Y = \mu + B X 
+\end{align*}
+
+So we have $X_1, … X_n$ are independent standard normal, $X = (X_1,.. X_n)^T \sim MVN(0, I_n)$. 
+
+ \begin{align*}
+    M_Y(t) &=  E\Big[ e^{t^T Y}\Big ]=  E\Big[ e^{t^T (\mu + B X)}\Big ] = e^{t^T \mu} E \Big[ e^{l^T X} \Big], \qquad l^T = t^T B \\
+    &= e^{t^T \mu} E \Big[ e^{\sum_{i=1}^n l_i Y_i} \Big], \qquad l= (l_1,.. l_n)\\
+    &= e^{t^T \mu} \prod_{i=1}^n E \Big[ e^{ l_i Y_i} \Big] \\
+    &= e^{t^T \mu} \prod_{i=1}^n e^{l_i^2/2}\\
+    &= \exp \Big( \mu^T t + \frac{1}{2} l^T l \Big) \\
+    &= \exp \Big( \mu^T t + \frac{1}{2} t^T \Sigma t \Big)
+\end{align*}
+
+While $Z = aY + c$, then we have the MGF for Z
+
+ \begin{align*}
+    M_Z(t) &=  E\Big[ e^{t^T Z}\Big ]=  E\Big[ e^{t^T (aY + c)}\Big ] = e^{t^T c} E \Big[ e^{t^T aY} \Big] \\
+    &= e^{t^T c} E \Big[ e^{ (t^T a)Y} \Big] \\
+    &= e^{t^T c} \exp \Big( \mu^T (a' t)^T + \frac{1}{2} (a' t)^T \Sigma (a' t) \Big) \\
+    &= \exp \Big( t^T (a \mu + c) + \frac{1}{2} t^T a \Sigma a' t \Big) 
+\end{align*}	
+
+So $E(Z) = (a \mu + c), Var(Z) = a \Sigma a'$, and $Z \sim Normal (a \mu + c, a \Sigma a')$.
+
+\item[(ii)] Show that $Y_1|Y_2$ is multivariate normal with mean and covariance given by
+
+
+\end{itemize}
+
+\section{Problem 2 - Develop a theoretical understanding of REML estimation}
+
+$Y_i \sim MVN(X_i \beta, \Sigma)$
+
+\begin{itemize}
+\item[(a)] Read "Bayesian inference for variance components using only error contrasts" by Harville(1974). 
+
+In the paper, an alternative method for deriving the likelihood function for error contrasts are provided using Bayesian method. I would like to walk through the derivation of the likelihood here in the homework.
+The error contrasts are the product of $n-p$ independent normal distributions, 
+ \begin{align*}
+    M &= X(X'X)^{-1}X', \qquad \Sigma = \Sigma(\theta) \\
+    I - M &= A A', \qquad A'A = I, \qquad \text{Cholesky decomposition} \\
+    A' y & \sim MVN( A' X \hat{\beta}, A' \Sigma A) , \qquad Var(A'y) = A' Var(y) A = A' \Sigma A = \Sigma\\
+    f_w(A' y| \theta, \hat{\beta}) &= ( 2\pi )^{- \frac{n-p}{2}} \Big( |\Sigma | \Big)^{-1/2} \exp \Big( -\frac{n-p}{2} (A'y - A' X \hat{\beta})^T (\Sigma)^{-1} (A'y - A' X \hat{\beta}) \Big)
+\end{align*}
+
+where $f_w(A' y| \theta, \hat{\beta})$ is the likelihood function of $\theta, \hat{\beta}$, and we could use Bayesian method to find the distribution of $\hat{\beta}$ and further integrate out $\hat{\beta}$ to get the distribution of $f_w(A' y| \theta)$ 
+
+Let $\Sigma = Q Q'$, then we have the orthogonal projection matrix onto $C(Q^{-1}X)$
+ \begin{align*}
+P &= Q^{-1}y \Big( (Q^{-1} y)^T (Q^{-1} y) \Big)^{-1} (Q^{-1} y)'  = Q^{-1} y (y^T Q'^{-1} Q^{-1} y)^{-1} (Q^{-1}y)^T \\
+&= \Sigma^{-1} y (y^T \Sigma^{-1} y)^{-1} y^T
+\end{align*}
+
+The estimate of $\hat{\beta}$ could be denoted as 
+
+ \begin{align*}
+G &= \Sigma^{-1} y (y^T \Sigma^{-1} y)^{-1} , \qquad G'Y = \hat{\beta}\\
+ G' y & \sim MVN( \hat{\beta}, G' \Sigma G) , \qquad Var(G'y) = G' Var(y) G = G' \Sigma G = (Y' \Sigma^{-1} Y)^{-1} 
+\end{align*}
+
+We also have the relationship as below, it shows that the $f_w(\beta, \theta)$ are normal distribution, and the quadratic form could be decomposed into $f_w(\theta, \hat{\beta})$ and $f_{\hat{\beta}}(\beta)$. 
+
+ \begin{align*}
+    p(\beta | Y, \Sigma) & \propto \exp \Big( -\frac{1}{2} (Y- X {\beta})' \Sigma^{-1} (Y- X {\beta})  \Big) \\
+    (Y- X \beta)' \Sigma^{-1} (Y- X \beta)  &= (Y- X \hat{\beta})' \Sigma^{-1} (Y- X \hat{\beta}) + (\beta - \hat{\beta})' (X \Sigma^{-1}X) (\beta - \hat{\beta})\\
+    p(\beta | Y, \Sigma) & \propto \exp \Big((Y- X \hat{\beta})' \Sigma^{-1} (Y- X \hat{\beta}) + (\beta - \hat{\beta})' (X \Sigma^{-1}X) (\beta - \hat{\beta}) \Big) \\
+    & \propto \exp \Big( (\beta - \hat{\beta})' (X \Sigma^{-1}X) (\beta - \hat{\beta}) \Big) 
+\end{align*}
+
+Also the paper provided the derivation using distribution of $A'y $, which is $f_w(\theta, \hat{\beta})$ and distribution for $G'y$, which is $f_{\hat{\beta}}(\beta)$. 
+
+ \begin{align*}
+    f_w(A' y| \theta) &= \int f_w(A' y| \theta, \hat{\beta}) f_{\hat{\beta}} (G'y | \theta, \beta) d\beta \\ 
+    &= \Big(det(Y'Y) \Big)^{1/2} \int f_y(y| \theta, \beta) d\beta \\
+    &= (2\pi)^{-\frac{1}{2} (n-p)}  \Big(det(Y'Y) \Big)^{1/2}  \Big(det(\Sigma) \Big)^{-1/2}  \Big(det(Y' \Sigma Y) \Big)^{-1/2} \\
+    & \exp \Big(-\frac{1}{2} (y- X \hat{\beta})^T \Sigma^{-1} (y- X \hat{\beta}) \Big)
+\end{align*}
+
+Overall, this paper provided a Bayesian method to get the marginal distribution of $\Sigma(\theta)$, so that we can use the maximum likelihood method to estimate.
+
+\item[(b)] Read the paper "A Conditional Derivation of Residual Maximum Likelihood" by Verbyla (1990).
+
+This paper reviewed the Bayesian method in deriving likelihood function in Harville's paper and provided an alternative method in doing transformation without $\Sigma$. The approach is to construct the conditional distribution in matrix form. The estimate of $\hat{\beta}$ is based on the conditional distribution $Y_1|Y_2$ which based on the orthogonal projection matrix onto $C(Q^{-1}X)$.
+ \begin{align*}
+    \hat{\beta} &= (X' \Sigma^{-1} X)^{-1} X' \Sigma^{-1} Y
+\end{align*}
+
+And the REML log-likelihood for $\sigma^2$ and $\gamma$ is the marginal log-likelihood based on $Y_2$. The approach used the standard decomposition of the joint distribution of $L' Y$ into conditional and marginal distributions. The idea of residual maximum likelihood as a marginal likelihood is actually the idea of the use of a conditional likelihood.
+
+\item[(c)] Derive the REML log-likelihood for $\Sigma$ 
+$Y \sim X \beta + \epsilon$, where $\epsilon \sim N(0, \sigma^2 \Omega(\gamma))$
+Let $L_1(n \times p)$ and $L_2(n \times (n-p))$ satisfying $L'_1 X = I_p$ and $L'_2 X = 0$. Also
+ \begin{align*}
+    L' Y&= [L'_1, L'_2]^T Y = [Y_1, Y_2]^T
+\end{align*}
+
+Thus, 
+ \begin{align*}
+    Y &= [Y_1, Y_2]^T \sim N \{ \mu, \Sigma \} \\
+    \mu &= \begin{pmatrix}
+     \beta \\
+     0
+    \end{pmatrix}, \qquad \Sigma = \sigma^2 \begin{pmatrix}
+     L'_1 \Omega L_1 &  L'_1 \Omega L_2 \\
+     L'_2 \Omega L_1 & L'_2 \Omega L_2
+    \end{pmatrix},
+\end{align*}
+
+From the paper, $Y_2 \sim N(0, \sigma^2 L'_2 \Omega L_2) $, and the REML log-likelihood for $\sigma^2$ and $\gamma$ is the marginal log-likelihood based on $Y_2$ and is 
+
+ \begin{align*}
+    Log L(\sigma^2, \gamma, Y_2) &= -\frac{1}{2} \Big( (n-p) log \sigma^2 - log \det (L'_2 \Omega L_2) - \frac{Y'_2 (L'_2 \Omega L_2)^{-1} Y_2}{\sigma^2} \Big) \\
+        &=  -\frac{1}{2} \Big( (n-p) log \sigma^2 - log \det ( \Omega ) - log \det (X' \Omega^{-1} X) - \frac{Y' P Y}{\sigma^2} \Big) \\
+    P &= L_2 (L'_2 \Omega L_2)^{-1} L'_2 = \Omega^{-1} - \Omega^{-1} X (X' \Omega X)^{-1} X' \Omega^{-1} 
+\end{align*}
+where we kept only the terms associated with $\sigma^2$ and $\gamma$. We will use the following property in deriving the MLE
+
+ \begin{align*}
+    tr[x'Ax] &= tr[xx'A],\\
+    \partial_{A} log |A| &= A^{-1}, \\
+    \partial_{A} tr(BA) &= B, \text{if A is symmetric} \\
+    Log L(\sigma^2, \gamma, Y_2) &=  -\frac{1}{2} \Big( (n-p) log \sigma^2 + \text{log} | \Omega^{-1}|- \text{log} | \text{tr}(XX' \Omega^{-1})| \\
+        & - \frac{Y' \Big[\Omega^{-1} - \Omega^{-1} X (X' \Omega X)^{-1} X' \Omega^{-1}  \Big] Y}{\sigma^2} \Big) \\
+    \partial_{\Omega^{-1}} Log f&= - \frac{1}{2} \Omega + \frac{1}{2} \Omega + \frac{1}{2 \sigma^2} YY' - \frac{1}{2 \sigma^2} YY' \Omega^{-1}X(X' \Omega X)^{-1} =0\\
+    \partial_{\sigma^2} Log f&= -\frac{(n-p)}{2 \sigma^2}  - \frac{Y' P Y}{2 \sigma^4} =0
+\end{align*}
+
+We can solve $\sigma^2$ and $\gamma$ by above equations.
+
+\begin{itemize}
+\item[(i)] Verify Verbyla's representation is equivalent to equation (3) from Harville's paper. 
+By looking at the equation(3) from Harville's paper
+ \begin{align*}
+    f_w(A' y| \theta) &= (2\pi)^{-\frac{(n-p)}{2} }  \Big(det(X'X) \Big)^{1/2}  \Big(\det(\Sigma) \Big)^{-1/2}  \Big(\det(Y' \Sigma Y) \Big)^{-1/2} \\
+    & \exp \Big(-\frac{1}{2} (y- X \hat{\beta})^T \Sigma^{-1} (y- X \hat{\beta}) \Big)
+\end{align*}
+
+Let $\Sigma = \sigma^2 \Omega$, then 
+ \begin{align*}
+\det(\Sigma) &= \det(\sigma^2 \Omega) = \( \sigma^2 \)^{n-p} \det(\Omega) , \qquad \Sigma_{n-p \times n-p}\\
+\det(\Sigma)^{-1/2} &= \det(\sigma^2 \Omega)^{-1/2} = \( \sigma^2 \)^{-\frac{n-p}{2}} \det(\Omega) ^{-1/2}
+\end{align*}
+
+So, also need to show that $\exp \Big(-\frac{1}{2} \frac{Y' P Y}{\sigma^2} \Big)$ is the same as $\exp \Big(-\frac{1}{2} (y- X \hat{\beta})^T \Sigma^{-1} (y- X \hat{\beta}) \Big)$
+ \begin{align*}
+\exp \Big(-\frac{1}{2} \frac{Y' P Y}{\sigma^2} \Big) &= \exp \Big(-\frac{1}{2} Y' \Big[ \Sigma^{-1} -  \Sigma^{-1} X (X'  \Sigma X)^{-1} X'  \Sigma^{-1} \Big]Y \Big) \\
+&= \exp \Big(-\frac{1}{2} (y- X \hat{\beta})^T \Sigma^{-1} (y- X \hat{\beta}) \Big) , \qquad (X'  \Sigma X)^{-1} X'  \Sigma^{-1} Y = \hat{\beta} 
+\end{align*}
+
+
+From above equation, we can see that the two equations are the same from the two papers.
+
+\item[(ii)] 
+
+
+
+\end{itemize}
+
+\end{itemize}
+

@@ -1,0 +1,92 @@
+
+
+ \section{Godambe efficiency}
+The quasi-likelihood estimator is Godambe efficient for$\beta$.\\
+First, need to understand how the sandwich equation come from. The central limit theorem says that, the sample mean converge to normal distribution with true mean and variance of the true mean. 
+\begin{align*}
+   n^{1/2} h_n(\beta^{\ast}) & \xrightarrow{w} N (0, V(\beta^{\ast})), \qquad h_n(\beta^{\ast}) = \frac{1}{n} g(X, \beta^{\ast}), \\
+   V(\beta^{\ast}) &=   Var_{\beta^{\ast}}\{ g(x_i, \beta^{\ast})\}
+\end{align*} 
+The above equation says that the mean of equation function $h_n(\beta^{\ast})$ with true $\beta$ converge to normal distribution with mean 0 and variance of the equation function.\\
+Then $Var(g(X, \beta^{\ast}))$ could be calculated from the Taylor expansion.
+\begin{align*}
+ 0 &= g(X, \hat{\beta}_n) = g(X,\beta^{\ast}) + \frac{\partial g(X, \beta^{\ast})}{\partial \beta} (\beta - \beta^{\ast}), \qquad g(X, \beta) = 0 \text{ for any }\beta\\
+ \hat{\beta}_n &=  \beta^{\ast} - \frac{\partial g(\beta^{\ast})}{\partial \beta}^{-1} g(\beta^{\ast})
+\end{align*}
+ by LLN,
+ \begin{align*}
+ h_n(\beta^{\ast}) &= E_{\beta^{\ast}} [\partial g(X, \beta^{\ast})]\\
+ \hat{\beta}_n &=  \beta^{\ast} - \frac{\partial g(\beta^{\ast})}{\partial \beta}^{-1} g(\beta^{\ast})
+\end{align*}
+ Then $V(\beta^{\ast})$ could be written by delta method,
+ \begin{align*}
+ V(\beta^{\ast}) &= \diffp*{g(X, \beta^{\ast})}{\beta}{}^{-1} Var(\beta^{\ast}) \diffp*{g(X, \beta^{\ast})}{\beta}{}^{-1}
+\end{align*}
+We need to pay attention that, $UV^{-1}U^T$ in the above variance function could not be simplified to $U$ as $U \neq V$ .
+$U=V$ only exists in MLE as the score function of $\hat{\beta} = 0$ . In the theory of maximum likelihood we have V = U by the second Bartlett identity. Here U need not even be a symmetric matrix and even if it is, there is nothing to make V = U hold and, in general,$U \neq V$.\\
+
+But for $\diffp*{g(X, \hat{\beta)}}{\beta}{}$, we can use the sandwich equation.
+We do assume that U and V have the same dimensions, so U is square
+and hn is a vector-to-vector function between vector spaces of the same di-
+mension, and there are the same number of estimating equations as param-
+eters in (2). This does not assure that solutions of the estimating equations
+exist, nor does it assure that solutions are unique if they exist, but unique-
+ness is impossible without as many estimating equations as parameters. We
+also assume that U and V are both nonsingular.\\
+
+By Sluktsy theorem, 
+\begin{align*}
+   n^{1/2} (\hat{\beta}_n - \beta^{\ast}) ) \xrightarrow{w} (\frac{1}{n})^{-1} \diffp*{ g(X, \beta^{\ast})}{\beta}{}^{-1} n^{-1/2}g(\beta^{\ast})
+\end{align*} 
+The Slutsky's theorem says that, the product and sum of variables converge to the product and sum of the converged value distribution. If only talk about converge to value, then it is law of large number (weak or strong).\\
+Here we are using the normal distribution of $n^{-1/2} g(\beta) = \sqrt{n} h_n(\beta)$ and Slutsky, the variance could be written as. 
+The matrix is called \textit{Godambe information} ma trix because its specialization to the theory of maximum likelihood is U or V (because U = V in maximum likelihood), which is the Fisher information
+matrix, and Godambe initiated the theory of unbiased estimating equations. \\
+
+We need add assumptions that 
+\begin{align*}
+  U_n \xrightarrow{w} U, \qquad V_n \xrightarrow{w} V
+\end{align*} 
+Then by Slutsky's theorem, 
+
+\begin{align*}
+  [U_n^{-1} V_n U_n^{-1}^T] [n^{1/2} (\hat{\theta}_n - \theta^{\ast})] \xrightarrow{w} Normal (0,I)
+\end{align*} 
+
+which we write sloppily as
+\begin{align*}
+  \hat{\theta}_n \approx Normal (\theta^{\ast}, U_n^{-1} V_n U_n^{-1}^T)
+\end{align*} 
+Another name for the estimator $U_n^{-1} V_n U_n^{-1}^T$  of the asymptotic variance is sandwich estimator (think of Un as slices of bread and Vn as ham).\\
+
+We assume an estimating equation for $\beta$
+\begin{align*}
+ S_n(\boldsymbol{y}, \beta) &= \mathbf{H}^T(\boldsymbol{y}-\mu(\beta))= \sum_{i=1}^n \boldsymbol{h}_i(y_i - \mu_i(\beta))
+\end{align*} 
+Then by Taylor expansion at true $\beta_{\ast}$
+\begin{align*}
+ 0&= S_n(\boldsymbol{y}, \Tilde{\beta})  = S_n(\boldsymbol{y},\beta_{\ast}) + \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} (\Tilde{\beta} - \beta_{\ast})[1+ o_p(n)]\\
+  \Tilde{\beta} -\beta_{\ast}&=  - \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta}^{-1} S_n(\boldsymbol{y},\beta_{\ast}) [1+ o_p(n)]
+\end{align*} 
+By WLLN,
+\begin{align*}
+\frac{1}{n} \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} & =  \frac{1}{n} E_{\theta_{\ast}}[\diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta}]
+\end{align*} 
+By Slutsky's theorem,
+\begin{align*}
+ \sqrt{n} (\Tilde{\beta} -\beta_{\ast}) &=  - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} \right)^{-1} \frac{1}{\sqrt{n}} S_n(\boldsymbol{y},\beta_{\ast}) \\
+ Cov( \sqrt{n} \Tilde{\beta}) & = - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y}, \beta_{\ast})}{\beta} \right)^{-1}\frac{1}{n} Cov(S_n(\boldsymbol{y}, \beta_{\ast})) - \left( \frac{1}{n} \diffp{S_n(\boldsymbol{y}, \beta_{\ast})}{\beta}\right)^{-1}^T
+\end{align*} 
+We have
+\begin{align*}
+\diffp{S_n(\boldsymbol{y},\beta_{\ast})}{\beta} & = \diffp{\sum_{i=1}^n \boldsymbol{h}_i(y_i - \mu_i(\beta))}{\beta} = \sum_{i=1}^n \partial \boldsymbol{h}_i (y_i - \mu_i(\beta)) - \sum_{i=1}^n \boldsymbol{h}_i \diffp{\mu_i}{\beta} = -  \mathbf{H} \mathbf{D}\\
+Cov(S_n(\boldsymbol{y}, \beta_{\ast})) &= E\left[ S_n(\boldsymbol{y}, \beta_{\ast})^{\otimes 2} \right] = \frac{1}{n} \left[ \sigma^2 \sum_{i=1}^n \boldsymbol{h}_i V_i ^T\boldsymbol{h}_i  \right] = \sigma^2 \mathbf{H}\mathbf{V}  \mathbf{H}^T\\
+ Cov( \Tilde{\beta}) & = \frac{1}{n} \left(\frac{1}{n} \mathbf{H} \mathbf{D}  \right)^{-1}\frac{1}{n} \mathbf{H}^T \mathbf{V} \mathbf{H} \frac{1}{n} \left(\frac{1}{n} \mathbf{H} \mathbf{D}  \right)^{-1}^T \\
+ &= \sigma^2 (\mathbf{H}^T\mathbf{D})^{-1} \mathbf{H}^T \mathbf{V} \mathbf{H}  (\mathbf{D}^T \mathbf{H})^{-1}
+\end{align*} 
+Compare the quasi-likelihood estimator $ Cov( \Tilde{\beta}) \quad vs. \quad Cov( \hat{\beta})$
+\begin{align*}
+ Cov( \hat{\beta})^{-1} - Cov( \Tilde{\beta})^{-1} &= \sigma^{-2} \left(\mathbf{D}^T \mathbf{V} \mathbf{D} - (\mathbf{D}^T \mathbf{H})  (\mathbf{H}^T \mathbf{V} \mathbf{H}) ^{-1} (\mathbf{H}^T\mathbf{D}) \right)\\
+ &=\sigma^{-2} \mathbf{D}^T \left( \mathbf{V} - \mathbf{H} (\mathbf{H}^T \mathbf{V} \mathbf{H}) ^{-1} \mathbf{H}^T \right)   \mathbf{D}
+\end{align*} 
+$ Cov( \hat{\beta})^{-1} - Cov( \Tilde{\beta})^{-1} >= 0$ is a non-negative matrix, so $ Cov( \hat{\beta}) - Cov( \Tilde{\beta})$ is a non-positive matrix. We have $Var(\hat{\beta}) < var(\Tilde{\beta})$, so it is Godambe efficient.

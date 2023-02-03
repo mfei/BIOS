@@ -1,0 +1,31 @@
+
+ \section{Orthogonal Projection Matrix}
+ 
+\begin{itemize}
+
+\item[(i)] $\Lambda^{T}  = P^T X$, generally the matrix that is right product will keep the left matrix column space. So $\rho' X, P' X$ is the form.
+
+\item[(ii)] The F statistics is actually a quadratic form, that we need to use $(MP)^T(MP)$, here M is the orthogonal projection matrix of $\Lambda^{'} \beta$. 
+\begin{align*}
+	M_{MP}&= (MP)^{T} [(MP)^T (MP)]^{-1} (MP) \\
+	Y' M_{MP} Y &= Y'  (MP)^{T} [(MP)^T (MP)]^{-1} (MP) Y \\
+	&= Y'P' M [P'MP]^{-1} MPY \\
+	&= (MPY)^{T} [P'MP]^{-1} MPY \\
+	&= (\Lambda^T \beta)^T [P' X (X'X)^{-} X' P]^{-1} (\Lambda^T \beta) \\
+	&= \beta^T \Lambda [\Lambda' (X'X)^{-} \Lambda]^{-1} \Lambda^T \beta
+\end{align*} 
+
+\end{itemize}
+
+
+ \subsection{Spectral Decomposition}
+ 
+ \textbf{Why} do we need to do spectral decomposition? It is mainly used in quadratic form of non-centrality chi-square distribution.
+ 
+ \begin{definition}
+ The spectral decomposition allows the representation of any symmetric matrix in terms of an orthogonal matrix and a diagonal matrix of eigenvalues.
+ \end{definition}
+ 
+\textbf{Example}:
+ 
+ 

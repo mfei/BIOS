@@ -1,0 +1,273 @@
+
+ \section{ANOVA}
+
+\subsection{Expectation of Quadratic Form}
+Theorem: Let $X$ be an $n \times 1$ random vector with mean $\mu$ and covariance $\Sigma$ and let A be a symmetric matrix $n \times n$. Then, the expectation of the quadratic form 
+
+\begin{align*}
+  E[X^T A X] &= \mu^T A \mu + tr(A \Sigma) 
+\end{align*}
+
+Proof (the proof is not easy as I thought, we need to use twice the trace property):
+\begin{align*}
+  E[X^T A X] &= E \Big[ tr(X^T A X) \Big] = E \Big[ tr(A X X^T ) \Big] \\
+  &= tr \Big( A E \Big[ X X^T  \Big] \Big) =  tr \Big[ A \Big( Var(X) + E(X) E(X)^T  \Big) \Big] \\
+  &= tr \Big[ A ( \Sigma+ \mu \mu^T) \Big] \\
+  &= tr(A\Sigma) + tr(\mu^T A \mu) \\
+  &= tr(A\Sigma) + \mu^T A \mu
+\end{align*}
+
+
+\subsection{Two Way Interaction ANOVA}
+
+ Consider the two way ANOVA table with interaction, given by
+   \[ 
+   Y_{ijk}  = \mu + \alpha_i + \eta_j + \gamma_{ij} + \epsilon_{ijk},
+    \] 
+    
+ where $i=1,2,...a, j=1,2.., b$ and $k=1,..N$. Further suppose that the $\epsilon_{ijk}$ are i.i.d and $\epsilon_{ijk} \sim N(0, \sigma^2)$, where $\sigma^2$ is unknown. Let $M_{\alpha}, M_{\eta}$ and $M_{\gamma}$ denote the orthogonal operations for the $\alpha, \eta$ spaces, and interaction space, respectively.  
+ 
+\begin{itemize}
+
+    \item [(a)] Show that $\sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}\gamma_{ij}$ is estimable, and find the UMVUE and the variance of the UMVUE, where the $c_{ij}$'s are real numbers that satisfy $\sum_{i=1}^{a} c_{ij}= \sum_{j=1}^{b} c_{ij}= 0$.\\
+    Let 
+\begin{align*}
+   \beta &= (\mu, \alpha_1, \alpha_2,.. \alpha_a, \eta_1, \eta_2,.. \eta_b, \gamma_{11}, \gamma_{12},... \gamma_{ab}),\\
+   X &= (J_a \otimes J_b \otimes J_N, I_a \otimes J_b \otimes J_N, J_a \otimes I_b \otimes J_N, I_a \otimes I_b\otimes J_N),
+\end{align*}
+
+    The two way ANOVA model could be written as 
+    \[ 
+   Y = X\beta + \epsilon, \epsilon \sim N(0, \sigma^2)
+    \]   
+    The contrast 
+\begin{align*}
+    \lambda^T \beta = \sum_{i=1}^a \sum_{j=1}^b c_{ij}\gamma_{ij},\\
+    \lambda^T = (0, ... 0_{a+b+1}, c_{11}, ...c_{ab}),
+\end{align*}
+
+    We need to find $\rho$ such that $\lambda^T = \rho^T X$ to show estimability.
+    Let 
+\begin{align*}
+    \rho^T = \frac{1}{N} (c_{11}J_N^T,c_{12}J_N^T, ... c_{ab}J_N^T),\\
+    \rho^T X = \frac{1}{N} (c_{11},c_{12}, ... c_{ab})\otimes J_N^T) (J_a \otimes J_b \otimes J_N, I_a \otimes J_b \otimes J_N, J_a \otimes I_b \otimes J_N, I_a \otimes I_b\otimes J_N),
+\end{align*}
+
+Furthermore,
+    \begin{align*}
+    \rho^T X &= \frac{1}{N} \Bigg \{ \Big [(c_{11}, ... c_{ab})(J_a \otimes J_b) \Big ]\otimes J_N^TJ_N, 
+    \Big [(c_{11}, ... c_{ab})(I_a \otimes J_b) \Big ]\otimes J_N^TJ_N,  \Big [(c_{11}, ... c_{ab})(J_a \otimes I_b) \Big ]\otimes J_N^TJ_N,  \Big [(c_{11}, ... c_{ab})(I_a \otimes I_b) \Big ]\otimes J_N^TJ_N \Bigg \}
+    \end{align*}
+    
+Since $\sum_{i=1}^{a} c_{ij} = \sum_{i=1}^{b} c_{ij} = 0$ Then\\
+    \begin{align*}
+    [(c_{11}, ... c_{ab})(J_a \otimes J_b)] &= 0, [(c_{11}, ... c_{ab})(I_a \otimes I_b)] = 0, (c_{11}, ... c_{ab})(I_a \otimes J_b) = 0\\
+    [(c_{11}, ... c_{ab})(I_a \otimes I_b)] &= (c_{11}, c_{12},... c_{ab})\\
+    \rho^T X &= [0, 0_a, 0_b, (c_{11}, ... c_{ab})] = \lambda^T
+ \end{align*}
+    Thus, $\lambda^T \beta = \sum_{i=1}^{a} \sum_{j=1}^{b} c_{ij}\gamma_{ij}$ is estimable.\\
+    
+    The UMVUE of $\lambda^T \beta$ is $\rho^T MY$, where $M= I_a \otimes I_b \otimes P_N$, where $P_N = \frac{1}{N} J_{N}^{N} $,  
+    Therefore, we have
+ \begin{align*}
+    \rho^T MY &= \frac{1}{N} [(c_{11}, ... c_{ab})]\otimes J_N^T] [(I_{ab} \otimes P_N)] Y\\
+    & = \sum_{i=1}^{a} \sum_{j=1}^{b} c_{ij}\bar{Y}_{ij.}
+ \end{align*}
+    The variance of UMVUE is
+ \begin{align*}
+    Var(\rho^T MY) &= Var(\sum_{i=1}^{a} \sum_{j=1}^{b} c_{ij}\bar{Y}_{ij.}) \\
+    &=\sum_{i=1}^{a} \sum_{j=1}^{b} c_{ij}^2Var(\bar{Y}_{ij.}) = \sum_{i=1}^{a} \sum_{j=1}^{b} c_{ij}^2 \frac{\sigma^2}{N}
+ \end{align*}
+    
+    \item[(b)] Using Kronecker product and notation, derive the orthogonal projection operator for the interaction space, denoted by $M_{\gamma}$.
+    
+    Let $s$ be an arbitrary index. Define $J_s$ as the $s \times 1$ vector of ones, $P_s = \frac{1}{N} J_s J_s^{'}$ and $Q_s = I_s -P_s$, where $I_s$ is the $s \times s$ identity matrix. Thus $P_s$ is the orthogonal projection operator onto $C(J_s)$ and $Q_s$ is the orthogonal projection operator onto $C(J_s)^{\perp}$. 
+      
+    Computing $M_\gamma$. The interaction space is given by $C(Q_a \otimes Q_b \otimes P_N)$. This yields
+    
+ \begin{align*}
+    M_\gamma = Q_a \otimes Q_b \otimes P_N
+ \end{align*}
+ 
+    Compute $M_\mu$
+    
+ \begin{align*}
+    M_\mu &= (J_a \otimes J_b \otimes J_N) [(J_a \otimes J_b \otimes J_N)^{T}(J_a \otimes J_b \otimes J_N)]^{-1} (J_a \otimes J_b \otimes J_N)^{T}\\
+     &= (J_a \otimes J_b \otimes J_N) [(J_a ^{'}\otimes J_b^{'} \otimes J_N^{'})(J_a \otimes J_b \otimes J_N)]^{-1} (J_a^{'} \otimes J_b^{'} \otimes J_N^{'})\\
+     &= (J_a \otimes J_b \otimes J_N) [(J_a ^{'}J_a\otimes J_b^{'}J_b \otimes J_N^{'}J_N)]^{-1}(J_a^{'} \otimes J_b^{'} \otimes J_N^{'})\\
+     &= (J_a \otimes J_b \otimes J_N) (abN)^{-1} (J_a^{'} \otimes J_b^{'} \otimes J_N^{'})\\
+     &= \frac{1}{a}J_aJ_a^{'} \otimes \frac{1}{b}J_bJ_b^{'} \otimes \frac{1}{N}J_NJ_N^{'} \\
+     &= P_a \otimes P_b \otimes P_N
+ \end{align*}
+    
+    Compute $M_\gamma$, the $\gamma$ space is $(Q_a \otimes Q_b \otimes J_N)$, thus
+ \begin{align*}
+    M_\gamma &= (Q_a \otimes Q_b \otimes J_N) [(Q_a \otimes Q_b \otimes J_N)^{T}(Q_a \otimes Q_b \otimes J_N)]^{-1} (Q_a \otimes Q_b \otimes J_N)^{T}\\
+     &= (Q_a \otimes Q_b \otimes J_N) [(Q_a ^{'}Q_a\otimes Q_b^{'}Q_b \otimes J_N^{'}J_N)]^{-1}(Q_a^{'} \otimes Q_b^{'} \otimes J_N^{'})\\
+     &= (Q_a \otimes Q_b \otimes J_N) [(Q_a^{-}\otimes Q_b^{-1} \otimes N^{-1}](Q_a^{'} \otimes Q_b^{'} \otimes J_N^{'})\\
+     &= (Q_a \otimes Q_b \otimes P_N) 
+ \end{align*}
+    Now $M = M_{\mu} + M_{\alpha} + M_{\eta} + M_{\gamma}$, we have
+ \begin{align*}
+     M &=(P_a \otimes P_b \otimes P_N) + (Q_a \otimes P_b \otimes P_N) + (P_a \otimes Q_b \otimes P_N)  + (Q_a \otimes Q_b \otimes P_N) \\
+     M &=(P_a + Q_a) \otimes P_b \otimes P_N + (P_a + Q_a) \otimes Q_b \otimes P_N  = I_a \otimes I_b \otimes P_N
+ \end{align*}
+    The error space is $I-M$
+ \begin{align*}
+     I-M = I_a \otimes I_b \otimes I_N - I_a \otimes I_b \otimes P_N = I_a \otimes I_b \otimes Q_N
+ \end{align*}
+    \item[(c)] Derive the simply possible scalar expression for $E[Y'(M_\alpha + M_\eta)Y]$.\\
+ \begin{align*}
+     E[Y'(M_\alpha + M_\eta)Y] = tr((M_\alpha + M_\eta)\Sigma) + \mu'(M_\alpha + M_\eta)\mu
+ \end{align*}
+    where
+    \[ 
+     \mu = E[Y] = \mu \otimes J_a \otimes J_b \otimes J_N + \alpha \otimes J_b \otimes J_N + J_a \otimes \eta \otimes J_N + \gamma \otimes J_N
+    \] 
+    $\alpha = (\alpha_1, \alpha_2,... \alpha_a)^T, \eta = (\eta_1, \eta_2,... \eta_b)^T, \gamma= (\gamma_{11},.. \gamma_{ab})^T$. And $\Sigma = \sigma^2 I_{ab}$.\\
+    Therefore, 
+    \[ 
+     E[Y'(M_\alpha + M_\eta)Y] = tr((M_\alpha + M_\eta)\Sigma) + \mu'(M_\alpha + M_\eta)\mu 
+    \]
+    \[ 
+     = tr(M_\alpha \Sigma) + tr(M_\eta\Sigma) + \mu'M_\alpha \mu + \mu' M_\eta \mu 
+    \]    
+ \begin{align*}
+     \mu'M_\alpha \mu &= (\mu J_a \otimes J_b \otimes J_N + \alpha \otimes J_b \otimes J_N + J_a \otimes \eta \otimes J_N + \gamma \otimes J_N)^T (Q_a \otimes P_b \otimes P_N)\\
+     &(\mu J_a \otimes J_b \otimes J_N + \alpha \otimes J_b \otimes J_N + J_a \otimes \eta \otimes J_N + \gamma \otimes J_N)  
+\end{align*}
+    because $Q_a J_a = 0$
+ \begin{align*}
+     \mu'M_\alpha \mu &= (\alpha \otimes J_b \otimes J_N + \gamma \otimes J_N)^T (Q_a \otimes P_b \otimes P_N)     (\alpha \otimes J_b \otimes J_N + \gamma \otimes J_N)  \\ 
+     &= (\alpha \otimes J_b \otimes J_N)^T (Q_a \otimes P_b \otimes P_N) (\alpha \otimes J_b \otimes J_N) + 2(\gamma \otimes J_N)^T (Q_a \otimes P_b \otimes P_N) (\alpha \otimes J_b \otimes J_N) \\ +  (\gamma \otimes J_N)^T(Q_a \otimes P_b \otimes P_N)(\gamma \otimes J_N)\\
+     &= (\alpha^T Q_a \alpha) \otimes (J_b^T P_b J_b) \otimes (J_N^T P_N J_N) + 2(\gamma \otimes J_N)^T (\alpha Q_a) \otimes (P_bJ_b) \otimes (P_NJ_N) + (\gamma^T (Q_a \otimes P_b) \gamma) \otimes (J_N^T P_N J_N)\\
+     &= (\alpha^T Q_a \alpha) \otimes (J_b^T P_b J_b) \otimes (J_N^T P_N J_N) + 2[\gamma^T (\alpha Q_a \otimes P_bJ_b)] \otimes (J_N^T P_NJ_N) + (\gamma^T (Q_a \otimes P_b) \gamma) \otimes (J_N^T P_N J_N) \end{align*}
+
+    break down into each term
+ \begin{align*}
+     \alpha'Q_a\alpha &= \alpha^T [I- \frac{1}{a}J_a^a] \alpha  = [(I-\frac{1}{a}J_a^a)\alpha]^T[(I-\frac{1}{a}J_a^a)\alpha] \\
+     &= [(\alpha -\bar \alpha J_a]^T[(\alpha -\bar \alpha J_a] = \sum_{i=1}^{n} (\alpha_i - \bar \alpha)^2\\
+     J_b^T P_b J_b &= J_b^T \frac{1}{b} J_b^b J_b = b\\
+     J_N^T P_N J_N &= N\\
+     (\alpha^T Q_a \alpha) \otimes (J_b^T P_b J_b) \otimes (J_N^T P_N J_N) &=bN \sum_{i=1}^{n} (\alpha_i - \bar \alpha)^2
+\end{align*}
+    
+    \item[(d)] Derive the F-test for the hypothesis: $H_0: \sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}\gamma_{ij} =4$, and state its distribution under the null and alternative hypothesis.\\
+    The orthogonal operator projection for $M\rho$ is\\
+    \[ 
+    M_{MP} = (M\rho) [(M\rho)^T (M\rho)]^{-} (\rho'M) = (M\rho) [\rho^T M\rho]^{-} (\rho'M)
+    \]
+     The F-test is given by:\\
+    \[ 
+    F = \frac{(\rho'MY - 4)' (\rho'M\rho)^{-} (\rho'MY -4)/ r(M_{MP})}{MSE}
+    \] 
+    Also because $M\rho = \rho$,
+ \begin{align*}
+    \rho'MY &= \rho'Y = \sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}\bar{Y}_{ij.}\\
+    \rho'M\rho &= \rho'\rho =  \sum_{i=1}^{a}\sum_{j=1}^{b} \frac{c_{ij}^2}{N}\\
+    MSE &= \frac{1}{abN - ab} \sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^N (Y_{ijk} - \bar{Y}_{ij.})^2
+\end{align*}
+    Thus,
+    \[ 
+    F =\frac{\frac{N}{\sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}^2} (\sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}\bar{Y}_{ij.} - 4)^2} {\frac{1}{abN - ab} \sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^N (Y_{ijk} - \bar{Y}_{ij.})^2} \sim F[1, ab(N-1), \gamma]
+    \] 
+    Under $H_0, \gamma = 0$, and under $H_1, \gamma = \frac{(\sum_{i=1}^{a}\sum_{j=1}^{b}c_{ij}^2)N}{2\sigma^2 \sum_{i=1}^{a}\sum_{j=1}^{b} c_{ij}^2 }$ 
+    
+    \item[(e)] Using only Kronecker product development and notation, obtain the simplest possible expression for $M_\alpha + M_\eta$.
+    
+Compute $M_\alpha$, the $\alpha$ space is $(Q_a \otimes J_b \otimes J_N)$, thus
+ \begin{align*}
+    M_\alpha &= (Q_a \otimes J_b \otimes J_N) [(Q_a \otimes J_b \otimes J_N)^{T}(Q_a \otimes J_b \otimes J_N)]^{-1} (Q_a \otimes J_b \otimes J_N)^{T}\\
+     &= (Q_a \otimes J_b \otimes J_N) [(Q_a ^{'}Q_a\otimes J_b^{'}J_b \otimes J_N^{'}J_N)]^{-1}(Q_a^{'} \otimes J_b^{'} \otimes J_N^{'})\\ 
+     &= (Q_a \otimes J_b \otimes J_N) [(Q_a^{-}\otimes b^{-1} \otimes N^{-1}](Q_a^{'} \otimes J_b^{'} \otimes J_N^{'})\\
+     & = (Q_a \otimes P_b \otimes P_N) 
+\end{align*}
+    Here $Q_a$ is symmetric, semi-definite.\\
+    Compute $M_\eta$, the $\eta$ space is $(J_a \otimes Q_b \otimes J_N)$, thus
+ \begin{align*}
+    M_\eta &= (J_a \otimes Q_b \otimes J_N) [(J_a \otimes Q_b \otimes J_N)^{T}(J_a \otimes Q_b \otimes J_N)]^{-1} (J_a \otimes Q_b \otimes J_N)^{T}\\
+     &= (J_a \otimes Q_b \otimes J_N) [(J_a ^{'}J_a\otimes Q_b^{'}Q_b \otimes J_N^{'}J_N)]^{-1}(J_a^{'} \otimes Q_b^{'} \otimes J_N^{'})\\
+     & = (J_a \otimes Q_b \otimes J_N) [(a^{-}\otimes Q_b^{-1} \otimes N^{-1}](J_a^{'} \otimes Q_b^{'} \otimes J_N^{'})\\
+     & = (P_a \otimes Q_b \otimes P_N) \\
+     M_\alpha + M_\eta &=(Q_a \otimes P_b \otimes P_N) + (P_a \otimes Q_b \otimes P_N) 
+\end{align*}  
+\end{itemize}
+
+
+\subsection{ANOVA Table}
+
+Breaking a sum of squares into independent components
+
+We consider a two way ANOVA table without interaction. The model is given by
+ \begin{align*}
+    Y_{ijk} &= \mu + \alpha_i + \eta_j + \epsilon_{ijk}, \qquad i=1,..a, j=1,.. b, k=1,..N, n=abN   
+\end{align*}
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ Source & DF & SS & MS \\ 
+  \hline
+ Meam & 1 & $Y' \Big(\frac{J_n^n}{n} \Big) Y$  &$Y' \Big(\frac{J_n^n}{n} \Big) Y$ \\ 
+Treatment $(\alpha)$ & a-1 & $Y' M_{M_{\alpha}} Y$ & $ \frac{Y' M_{M_{\alpha}} Y}{a-1}$ \\ 
+Treatment $(\eta)$ & b-1 & $Y' M_{M_{\eta}} Y$ & $ \frac{Y' M_{M_{\alpha}} Y}{b-1}$ \\ 
+Error $(\epsilon)$ & n-a-b + 1 & $Y' (I-M) Y$ & $ \frac{Y' (I-M) Y}{n-a-b + 1}$ \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+How to understand the degrees of freedom? $M_{\alpha}$ is the orthogonal projection operator onto the column space of $X_{\alpha}$, where $X_{\alpha}$ is the design matrix corresponding to the model
+ \begin{align*}
+    Y_{ijk} &= \mu + \alpha_i +  \epsilon_{ijk},  
+\end{align*}
+
+I need to be aware that, we need to use Gram-Schmidt method to create two orthogonal column space $M_{\mu}$ and $M_{\alpha}$. Well, in the notes, we just took off the first column to get the $M = M_{\mu} + M_{\alpha}$. The two M are different.
+
+And we can break up the $\alpha$ treatment sums of square into $a-1$ separate components, each having 1 degree of freedom. That is, the quadratic form $Y'M_{M_{\alpha}} Y$ must be decomposed into
+ \begin{align*}
+    Y'M_{M_{\alpha}} Y &= \sum_{i=1}^{a-1} Y'M_i Y  
+\end{align*}
+
+where each $M_i$ has rank 1 and $M_iM_j = 0, i \neq j$. Thus, in terms of subspaces, we decompose $C(M_{\alpha})$ into a sum of $a-1$ orthogonal subspaces each of dimension 1. Thus
+ \begin{align*}
+    C(M_{\alpha}) &= C(M_{1}) + C(M_2) +… + C(M_{a-1}) 
+\end{align*}
+
+So $Y'M_TY$ correspond to the sums of squares for a set of orthogonal contrasts. 
+
+
+\subsubsection{Find the OPO}
+
+There are two ways to find $M_{\alpha}$. One is to find the column space, that we use the orthogonal projection operator to get it. The second is used widely in hypothesis testing, we found the $M_{H_0}$ and $M_{H_1}$, then use $M_{\alpha} = M_{H_1} - M_{H_0}$. 
+
+And $C(M_{\mu})$ and $C(M_{\alpha})$ are orthogonal. 
+
+You can see that $C(1, X) = C(X)$, as the column of X add up to $J_n^n$. So the OPO from $C(X)$ is actually M, however $M_{\alpha} = M - M_{\mu}$.
+
+
+\subsection{Repeated ANOVA}
+
+The projection onto each component of X are independent. 
+
+
+
+\subsection{Exercise}
+
+\begin{itemize}
+
+\item[(i)] Consider balanced two way ANOVA model with interaction $y_{ijk} = \mu + \alpha_i + \eta_j + \gamma_{ij} + \epsilon_{ijk}, i=1,..a, j=1…, b, k=1,.N$, with $\epsilon_{ijk} \sim N(0, \sigma^2)$ i.i.d. 
+Find $E \Big[ Y' \Big(\frac{1}{n} J_n^n + M_{\alpha} \Big) Y \Big]$ in terms of $\mu, \alpha_i, \eta_j, \gamma_{ij}$.
+
+1. We will need to break down the quadratic form into simpler components (trace, expectations $\Vert M Y \Vert$ ) for computation efficiency, after that we can calculate using matrix linear algebra.
+2. The link of expectation: $E[Y] = E[\mu + \alpha_i + \eta_j + \gamma_{ij} ] $, here we can write the $E(Y) = M_{\mu} Y = \bar{y}_{..} J_{abN}^1$, or  $E(Y) = M Y = \bar{y}_{i.} J_{bN}^1$. 
+3. The o.p.o would be the key. $M_{\mu} = \frac{1}{n} J_n^n$, and $M_{\alpha} = M - M_{\mu}$, so $M_{\mu}$ and $M_{\alpha}$ are orthogonal. 
+
+
+
+
+
+
+
+\begin{itemize}
+
+ 

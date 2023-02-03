@@ -1,0 +1,37 @@
+
+ \section{MLE in linear model}
+ 
+Consider the usual linear model $Y = X\beta + \epsilon, \epsilon \sim N(0, \sigma^2 I), rank(X) = r$. 
+
+Using the property of MVN, $Y \sim N_n (X \beta, \sigma^2 I) $, the joint density $Y = (Y_1, .., Y_n)'$
+
+\begin{align*}
+P(Y) &= (2\pi \sigma^2)^{-\frac{n}{2}} \exp \Big \{ - \frac{(Y- X\beta)^T(Y- X\beta)}{\sigma^2} \Big \}
+\end{align*}
+
+We note that $| \sigma^2 I |^{-1/2} = \sigma^{-n}$. We could generally write
+
+\begin{align*}
+L(\beta, \sigma^2) & \propto (\sigma^2)^{-\frac{n}{2}} \exp \Big \{ - \frac{(Y- X\beta)^T(Y- X\beta)}{\sigma^2} \Big \}
+\end{align*}
+
+ by dropping the $(2\pi)^{-n/2}$ term, 
+ 
+ \begin{align*}
+l(\beta, \sigma^2) & =-n \log \sigma - \frac{(Y- X\beta)^T(Y- X\beta)}{\sigma^2}
+\end{align*}
+
+Now maximizing $l(\beta, \sigma^2) $ with respect to $\beta$ is equivalent to minimizing $g(\beta) = (Y- X\beta)^T(Y- X\beta)$ with respect to $\beta$. This is just the least squares criterion. 
+Thus the MLE of $\beta$ for the usual linear model, denoted $\hat{\beta}_{ml}$ satisfies
+
+ \begin{align*}
+X \hat{\beta}_{ml} & = M Y
+\end{align*}
+where $M= X(X'X)^{-1}X'$ is the orthogonal projection operator onto C(X). 
+
+To get the estimate of $\sigma^2$, we substitute the MLE of $\hat{\beta}_{ml}$. However here is a catch, it does not consider the loss of degrees of freedom when estimating $\beta$, and treating $\hat{\beta}_{ml}$ is known when estimating $\sigma^2$. The MLE of $\sigma^2$ is not unbiased. 
+
+The MLE of $\sigma^2$ is $\frac{Y' (I-M)Y}{n}$, 
+ \begin{align*}
+E [\hat{\sigma}^2] & = \frac{n-r}{n} \sigma^2
+\end{align*}

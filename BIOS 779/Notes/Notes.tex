@@ -1,0 +1,45 @@
+
+\section{Prior and Posterior Expectation and Variance}
+ 
+\begin{align*}
+	E(\theta) &= E \Big[ E[\theta | Y] \Big]
+\end{align*}
+Prior mean of $\theta$ = Average posterior mean of  $\theta$ over data distribution.
+
+\begin{align*}
+	Var(\theta) &= E \Big[ Var(\theta | Y) \Big] + Var \Big[ E[\theta | Y] \Big]
+\end{align*}
+Posterior variance of $\theta$ is, on average, less than prior variance of $\theta$.
+
+
+\section{Prior Distribution}
+When we do not know the precision, we can use the normal-gamma conjugate prior for $\theta, P$
+
+
+\section{Bayesian in linear regression}
+
+\begin{itemize}
+\item[(i)] If we start with the non-estimable $X'X$ is not full rank, $X'X$ inverse does not exist. But if we have a proper prior, we could still estimate.
+
+\item[(ii)] sensitivity analysis based on different variances, assume the $a_0$ to incorporate the variance, there is no just one the prior
+
+\item[(iii)] Use discount likelihood as the prior specification, the power prior. Need to understand how we go from discount likelihood to discount likelihood times initial prior.
+
+Bayesian Update
+It is a hierarchy, prior today is the posterior of yesterday.
+
+Stage 0: haven't observed historical data. $\pi_0(\beta, \gamma)$ - non-informative
+Stage 1: $D_0 = (n_0, Y_0, X_0), a_0= 1$,  observed historical data, natural bayesian update. Then it is posterior of $\beta$ based on on $D_0$ with $\pi_0(\beta, \gamma)$ as initial prior.
+Stage 2: $D= (n, Y, X), a_0 =1$, posterior of $\beta$ uses the posterior in stage 1 as the prior for $\beta$
+
+Question:
+When $\alpha=0$, the HPD included $H_0$, and as $\alpha$ increase, the HPD does not include $H_0$. Then how do we interpret it?
+
+
+\end{itemize}
+
+\section{AIC BIC L measure}
+1. Y needs to be in the same scale, not only the X is the same.
+2. Variable selection number - $2^p$
+
+

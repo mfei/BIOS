@@ -1,0 +1,10 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}EM Algorithm}{1}{}%
+\contentsline {section}{\numberline {1.1}EM Algorithm}{1}{}%
+\contentsline {subsection}{\numberline {1.1.1}Jessen's Inequality}{1}{}%
+\contentsline {subsection}{\numberline {1.1.2}Application in EM Example}{1}{}%
+\contentsline {chapter}{\numberline {2}MCMC}{3}{}%
+\contentsline {section}{\numberline {2.1}Rejection Sampling}{3}{}%
+\contentsline {subsection}{\numberline {2.1.1}Mathematical Function}{3}{}%
+\contentsline {chapter}{References}{5}{}%
+\contentsline {chapter}{Bibliography}{5}{}%

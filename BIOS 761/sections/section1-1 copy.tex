@@ -1,0 +1,22 @@
+
+ \section{Quasi-likelihood}
+ 
+ \textbf{Taylor series and sandwich theorem}
+ 
+ \begin{itemize}
+     \item [(a)] Quasi-likelihood: We don't know the distribution of $y_i$, only know the $E(y_i), Var(y_i)$, so we can get the quasi function of $S_n(\mu_i, \sigma^2)$, and then we need to know the link between $\mu_i$ and $\beta$. Furthermore, we will use the sandwich estimate.\\
+     It usually is used in overdispersion, also two level hierarchical model and random effect models could be used in overdispersion as well.\\
+     Quasi-likelihood provides an important method for making statistical inference without making parametric assumption. Suppose independence, so we have covariance matrix only with diagonal element. We only know mean, but variance is unknown $\sigma^2 = \phi^{-1}$. $Cov(Y) =  \sigma^2 diag\{v_i(\mu)\}$, in which $v_i(\mu)$ is known, but $\sigma^2$ unknown.\\
+     When estimating $\beta$ using the quasi score function, we don't need to estimate $\sigma^2$ as it dropped out of the equation. But we can estimate through the variance of Y. 
+Quasi-likelihood can be applied to independent and dependent observations.\\
+     
+     \item[(b)]  Z-estimate: give the estimating equation of $\beta$ instead, here we introduce the random effect. $H(\beta)$ We don't know any information about Var(Y).\\
+ To solve $\beta$, we always need score function, so we will need to know the score function from either way. Z-estimator is more generalized than quasi-likelihood estimator. \\
+ \begin{align*}
+    D_{\mu}(\theta)^T (Y-\mu) &= \sum_{i=1}^n \frac{\partial \mu_i(x_i, \beta)}{\partial \beta} (y_i-\mu_i)\\
+    \mu_i &= x_i^T \beta
+\end{align*}
+ \item[(c)] Generalized Estimating Equations: the quasi-likelihood and Z-estimators and GEE could all be considered as they assume the score functions. But GEE could be specialized to handle longitudinal data. GEE is semi-parametric, as it does not need to estimate all the parameters, which is widely used. \\
+ \end{itemize}
+
+ 

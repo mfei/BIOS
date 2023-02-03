@@ -1,0 +1,33 @@
+
+ \section{Exponential Distribution Family}
+
+
+\subsection{Moment Generating Function}
+
+KGF could be used to directly get the expectation and variance, more common than MGF. To get KGF, we will need to write distribution in exponential distribution.
+
+Suppose the exponential distribution family is 
+
+\begin{align*}
+	f(Y, \theta) &= exp\left( \phi (y \theta - b(\theta) -c(y)) - 0.5s(y, \phi) \right)
+\end{align*}
+
+The MGF of exponential family
+
+\begin{align*}
+	M_Y(t) &= E[ exp(yt)] = \int exp(yt) exp\left( \phi (y \theta - b(\theta) -c(y)) - 0.5s(y, \phi) \right) \\
+	&= \int  exp \left( \phi (y (\theta + t/\phi) - b(\theta) -c(y)) - 0.5s(y, \phi) \right) dy\\
+	&= exp(\phi [b(\theta + t/\phi) - b(\theta)]) \int  exp\left( \phi (y (\theta + t/\phi) - b(\theta + t/\phi) -c(y)) - 0.5s(y, \phi) \right) dy\\
+	&= exp(\phi [b(\theta + t/\phi) - b(\theta)]) 
+\end{align*}
+
+The KGF is $\phi [b(\theta + t/\phi) - b(\theta)]$, then we can get the expectation and variance
+\begin{align*}
+	E(y) &= \diffp{K(t)}{t} \Bigg |_{t=0} = \dot{b}(\theta)\\
+	Var(y) &= \diffp{K(t)}{t t} \Bigg |_{t=0} = \phi^{-1} \ddot{b}(\theta)
+\end{align*}
+
+The MGF/KGF has shown that we can use the derivative function to get expectation or variance other than using the integral. The efficiency of computation also could be shown in the getting the covariance matrix using Fisher Information.
+
+
+ 

@@ -1,0 +1,152 @@
+\section{Contingency Table Likelihood function}
+
+We can use either multinomial distribution, poisson distribution to model the contingency table.
+
+Consider a $I \times J$ contingency table of cell counts, where each cell count is denoted by $n_{ij}, i=1,..I, j=1,..J$, and thus $n_{ij}$ denotes the cell count of ith row and jth column, and $n_{ij} \sim Poisson (\mu_{ij})$ and independent. Further, let $n= \sum_{j=1}^J \sum_{i=1}^I n_{ij}$ denote the grand total.
+
+\begin{itemize}
+
+	\item [(a)] Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$ conditional on grand total n.
+	By poisson distribution of each cell counts
+	\begin{align*}
+	n &= \sum_{i=1}^I \sum_{j=1}^J n_{ij} \sim \frac{exp(-\mu) \mu^n }{n!}, \qquad \mu= \sum_{i=1}^I \sum_{j=1}^J \mu_{ij}\\ 
+	p(n_{11},..n_{ij}|n) &= \frac{\prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!}}{\frac{exp(-\mu) \mu^n }{n!}} \\
+	&= {n \choose n_{11} n_{12} ... n_{ij}} \frac{\prod_{i=1}^I \prod_{j=1}^J {\mu_{ij}}^{n_{ij}}}{\mu^n } \\
+	&= {n \choose n_{11} n_{12} ... n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\mu } \right)^{n_{ij}}
+	\end{align*}	
+The joint distribution is Multinomial ($n; \pi_{11}, \pi_{12},.. \pi_{IJ}$), where $\pi_{ij} = \frac{\mu_{ij}}{\sum_{i=1}^I \sum_{j=1}^J \mu_{ij} }$
+	\item [(b)] Suppose all of the rows margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+\begin{align*}
+	n_{i+} &= \sum_{j=1}^J n_{ij}\\
+	n_{i+} & \sim Poisson (\sum_{j=1}^J \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{i+}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{i=1}^I \frac{exp(-\mu_i) \mu_i^{n_{i+}}}{n_{i+}!}\\
+	&= \prod_{i=1}^I {n_{i+} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{j=1}^J \mu_{ij}} \right)^{n_{ij}}
+\end{align*}
+
+	\item [(c)] Suppose all of the columns margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+\begin{align*}
+	n_{+j} &= \sum_{i=1}^I n_{ij}\\
+	n_{+j} & \sim Poisson (\sum_{i=1}^I \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{+j}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{j=1}^J \frac{exp(-\mu_i) \mu_i^{n_{+j}}}{n_{+j}!}\\
+	&= \prod_{j=1}^J {n_{+j} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{i=1}^I \mu_{ij}} \right)^{n_{ij}}
+\end{align*}
+
+\end{itemize}
+
+\subsection{Contingency Table- Relationship between Poisson and Multinomial distribution}
+Consider a $I \times J$ contingency table of cell counts, where each cell count is denoted by $n_{ij}, i=1,..I, j=1,..J$, and thus $n_{ij}$ denotes the cell count of ith row and jth column, and $n_{ij} \sim Poisson (\mu_{ij})$ and independent. Further, let $n= \sum_{j=1}^J \sum_{i=1}^I n_{ij}$ denote the grand total.
+
+\begin{itemize}
+\item[(i)] Conditional distribution based on total
+ Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$ conditional on grand total n.
+	By poisson distribution of each cell counts
+	\begin{align*}
+	n &= \sum_{i=1}^I \sum_{j=1}^J n_{ij} \sim \frac{exp(-\mu) \mu^n }{n!}, \qquad \mu= \sum_{i=1}^I \sum_{j=1}^J \mu_{ij}\\ 
+	p(n_{11},..n_{ij}|n) &= \frac{\prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!}}{\frac{exp(-\mu) \mu^n }{n!}} \\
+	&= {n \choose n_{11} n_{12} ... n_{ij}} \frac{\prod_{i=1}^I \prod_{j=1}^J {\mu_{ij}}^{n_{ij}}}{\mu^n } \\
+	&= {n \choose n_{11} n_{12} ... n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\mu } \right)^{n_{ij}}
+	\end{align*}	
+The joint distribution is Multinomial ($n; \pi_{11}, \pi_{12},.. \pi_{IJ}$), where $\pi_{ij} = \frac{\mu_{ij}}{\sum_{i=1}^I \sum_{j=1}^J \mu_{ij} }$
+
+\item[(ii)] Conditional distribution based on row total
+	 Suppose all of the rows margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+\begin{align*}
+	n_{i+} &= \sum_{j=1}^J n_{ij}\\
+	n_{i+} & \sim Poisson (\sum_{j=1}^J \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{i+}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{i=1}^I \frac{exp(-\mu_i) \mu_i^{n_{i+}}}{n_{i+}!}\\
+	&= \prod_{i=1}^I {n_{i+} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{j=1}^J \mu_{ij}} \right)^{n_{ij}}
+\end{align*}
+
+\item[(iii)] Conditional distribution based on column total
+	
+	Suppose all of the columns margins are assumed fixed. Derive the joint distribution of $(n_{11}, n_{12},... n_{ij})$.
+\begin{align*}
+	n_{+j} &= \sum_{i=1}^I n_{ij}\\
+	n_{+j} & \sim Poisson (\sum_{i=1}^I \mu_{ij})\\
+	p(n_{11},..n_{ij}|n_{+j}) &= \prod_{i=1}^I \prod_{j=1}^J \frac{exp(-\mu_{ij})  {\mu_{ij}}^{n_{ij}}}{n_{ij}!} \Bigg{/} \prod_{j=1}^J \frac{exp(-\mu_i) \mu_i^{n_{+j}}}{n_{+j}!}\\
+	&= \prod_{j=1}^J {n_{+j} \choose n_{ij}} \prod_{i=1}^I \prod_{j=1}^J \left( \frac{\mu_{ij}}{\sum_{i=1}^I \mu_{ij}} \right)^{n_{ij}}
+\end{align*}	
+
+\item[(iv)] Conditional distribution of $n_{11}$
+	
+	Suppose that $I=2$ and $J=2$, and both the rows margins and column margins are fixed. Derive the joint distribution of $(n_{11}|n_{1+}, n_{+1} n)$, where $n_{1+} = n_{11} + n_{12}, n_{+1} = n_{11}+ n_{21}$.
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
+		p(n_{ij}) &= \prod_{i=1}^2 \prod_{j=1}^2 \frac{exp(-\mu_{ij}) \mu_{ij}^{n_{ij}}}{n_{ij}!} \\
+		&= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{12}}}{n_{12}!} \frac{exp(-\mu_{21})\mu_{21}^{n_{21}}}{n_{21}!} \frac{exp(-\mu_{22})\mu_{22}^{n_{22}}}{n_{22}!}\\
+		n_{12} &= n_{1+} - n_{11}, \qquad n_{21} = n_{+1} - n_{11}, \\ n_{22} &= n - n_{12} - n_{21} - n_{11} = n- n_{1+} - n_{+1} + n_{11}\\
+		p(n_{11}, n_{1+}, n_{+1} n) &= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}	
+The Jacobian transformation matrix 
+\begin{align*}
+	J &=  \begin{pmatrix}
+	\diffp{{n_{11}}}{{n_{11}}} & \diffp{{n_{11}}}{{n_{1+}}} & \diffp{{n_{11}}}{{n_{+1}}} & \diffp{{n_{11}}}{{n}}\\
+	\diffp{{n_{12}}}{{n_{11}}} & \diffp{{n_{12}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{21}}}{{n_{11}}} & \diffp{{n_{21}}}{{n_{1+}}} & \diffp{{n_{21}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}}\\
+	\diffp{{n_{22}}}{{n_{11}}} & \diffp{{n_{22}}}{{n_{1+}}} & \diffp{{n_{22}}}{{n_{+1}}} & \diffp{{n_{22}}}{{n}} \\
+\end{pmatrix}= \begin{pmatrix}
+1 & 0 & 0 & 0\\
+-1 & 1 & 0 & 0\\
+-1 & 0 & 1 & 0\\
+1 & -1 & -1 & 1\\
+\end{pmatrix}\\
+\lVert J \rVert &= 1
+\end{align*}
+Then we can get the $p(n_{1+}, n_{+1}, n)$ by summing over $n_{11}$. We have $n_{11} <= n_{1+}, n_{11} <= n_{+1}$, and $n_{11} >= -n + n_{1+} + n_{+1}$. 		
+\begin{align*}
+	p(n_{11}, n_{1+}, n_{+1} n) &= \frac{exp(-\mu_{11})\mu_{11}^{n_{11}} }{n_{11}!} \frac{exp(-\mu_{12})\mu_{12}^{n_{1+} - n_{11}}}{(n_{1+} - n_{11})!} \frac{exp(-\mu_{21})\mu_{21}^{n_{+1} - n_{11}}}{(n_{+1} - n_{11})!} \frac{exp(-\mu_{22})\mu_{22}^{n- n_{1+} - n_{+1} + n_{11}}}{(n- n_{1+} - n_{+1} + n_{11})!}\\
+	&= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}\\
+	p(n_{1+}, n_{+1} n) &= \sum_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}
+So we can have 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= \frac{p(n_{11}, n_{1+}, n_{+1} n)}{p(n_{1+}, n_{+1} n)}\\
+	 &= \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!} \\
+	 & \Bigg{/} \sum_{ \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} \frac{exp(-\sum_{i=1}^2 \sum_{j=1}^2 \mu_{ij}) \left( \frac{\mu_{11} \mu_{22}}{\mu_{12} \mu_{21}}\right) ^{n_{11}} \left(\frac{\mu_{12}}{\mu_{22}} \right)^{n_{1+}} \left(\frac{\mu_{21}}{\mu_{22}} \right)^{n_{+1}} \mu_{22}^{n}} {n_{11}! (n_{1+} - n_{11})! (n_{+1} - n_{11})! (n- n_{1+} - n_{+1} + n_{11})!}
+\end{align*}	
+Which we can rewrite 
+\begin{align*}
+	p(n_{11}|n_{1+}, n_{+1} n) &= {n_{1+} \choose n_{11}} {n - n_{1+} \choose n_{+1}-n_{11}} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}} \right)^{n_{11}}\\
+	& \Bigg{/}  \sum_{x \in \max{(0, -n + n_{1+} + n_{+1})}}^{\min{(n_{1+}, n_{+1})}} {n_{1+} \choose x} {n - n_{1+} \choose n_{+1}-x} \left( \frac{\pi_{11} \pi_{22}}{\pi_{12} \pi_{21}}\right) ^x
+\end{align*}
+
+\end{itemize}
+
+\subsubsection{Cell Probability Model}
+
+Let $\pi_{ij}$ denote the cell probability and assume n is fixed. Consider testing $H_0: \pi_{ij} = \pi_{i+} \pi_{+j}, i=1,..I, j=1,..J$. Derive the MLE of $\pi_{ij}$ under $H_0$.
+
+The $H_0$ could be written as 
+\begin{align*}
+	H_0 &: \pi_{ij} = \pi_{i+} \pi_{+j}
+\end{align*}
+
+The multinomial distribution of $\pi_{ij}$
+\begin{align*}
+	p(\pi_{ij}) &= {n \choose n_{11} n_{12} n_{21} n_{22}} \pi_{ij}^{n_{ij}} , \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} = 1
+\end{align*}
+The log-likelihood function
+\begin{align*}
+	log p(\pi_{ij}) &= log {n \choose n_{11} n_{12} n_{21} n_{22}} +  n_{ij} log \pi_{ij} , \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} = 1
+\end{align*}
+Under $H_0$, the log-likelihood
+\begin{align*}
+	log p(\pi_{ij}) &= log {n \choose n_{11} n_{12} n_{21} n_{22}} +  n_{ij} log \pi_{i+} \pi_{+j} , \sum_{i=1}^I \pi_{i+} = 1, \sum_{j=1}^J \pi_{+j} = 1 
+\end{align*}
+By Lagrangian multiplier theorem,
+\begin{align*}
+	ln(\pi_{ij}) &=n log {n \choose n_{11} n_{12} n_{21} n_{22}} +\sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} + \lambda ( \sum_{i=1}^I \sum_{j=1}^J \pi_{ij} - 1),\\
+	&= n log {n \choose n_{11} n_{12} n_{21} n_{22}} +\sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} + \sum_{j=1}^J \sum_{i=1}^I n_{ij} log \pi_{+j} - \lambda ( \sum_{i=1}^I \pi_{i+} - 1)
+\end{align*}
+Take first derivative of log-likelihood
+\begin{align*}
+	\diffp{ln}{{\pi_{i+}}} &= \frac{\sum_{j=1}^J n_{ij}}{\pi_{i+}} + \lambda = 0 \\
+	\hat{\pi}_{i+} &= \frac{\sum_{j=1}^J n_{ij}}{\lambda}\\
+	\sum_{i=1}^I \pi_{i+} &= 1, \qquad \lambda = \sum_{j=1}^J \sum_{i=1}^I n_{ij}\\
+	\hat{\pi}_{i+} &= \frac{n_{i+}}{n}
+\end{align*}
+Similarly, we have $\hat{\pi}_{+j} = \frac{n_{+j}}{n}$, the MLE of $\pi_{ij}$ under $H_0$ is 
+\begin{align*}
+	\hat{\pi}_{ij} &= \hat{\pi}_{i+} \hat{\pi}_{+j} = \frac{n_{i+} n_{+j}}{n^2}
+\end{align*}
+

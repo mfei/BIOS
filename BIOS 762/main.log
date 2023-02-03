@@ -1,112 +1,115 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2 32-bit) (preloaded format=pdflatex 2021.8.5)  4 DEC 2022 05:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  1 FEB 2023 15:40
 entering extended mode
-**./main.tex
-(main.tex
-LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-02-18> xparse <2020-03-03>
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
-Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/bk11.clo
+File: bk11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count179
-\c@section=\count180
-\c@subsection=\count181
-\c@subsubsection=\count182
-\c@paragraph=\count183
-\c@subparagraph=\count184
-\c@figure=\count185
-\c@table=\count186
+\c@part=\count185
+\c@chapter=\count186
+\c@section=\count187
+\c@subsection=\count188
+\c@subsubsection=\count189
+\c@paragraph=\count190
+\c@subparagraph=\count191
+\c@figure=\count192
+\c@table=\count193
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
-Package: amsmath 2020/09/23 v2.17i AMS math features
+(/usr/local/texlive/2022/texmf-dist/tex/latex/import/import.sty
+Package: import 2020/04/01  v 6.2
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
 \@mathmargin=\skip49
 
 For additional information on amsmath, use the `?' option.
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
-Package: amstext 2000/06/29 v2.01 AMS text
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
 
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks15
+\@emptytoks=\toks16
 \ex@=\dimen139
 ))
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen140
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
 )
-\inf@bad=\count187
+\inf@bad=\count194
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count188
-\leftroot@=\count189
+\uproot@=\count195
+\leftroot@=\count196
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count190
-\DOTSCASE@=\count191
+\classnum@=\count197
+\DOTSCASE@=\count198
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box47
-\strutbox@=\box48
+\Mathstrutbox@=\box50
+\strutbox@=\box51
 \big@size=\dimen141
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count192
-\c@MaxMatrixCols=\count193
+\macc@depth=\count199
+\c@MaxMatrixCols=\count266
 \dotsspace@=\muskip16
-\c@parentequation=\count194
-\dspbrk@lvl=\count195
-\tag@help=\toks16
-\row@=\count196
-\column@=\count197
-\maxfields@=\count198
-\andhelp@=\toks17
+\c@parentequation=\count267
+\dspbrk@lvl=\count268
+\tag@help=\toks17
+\row@=\count269
+\column@=\count270
+\maxfields@=\count271
+\andhelp@=\toks18
 \eqnshift@=\dimen142
 \alignsep@=\dimen143
 \tagshift@=\dimen144
 \tagwidth@=\dimen145
 \totwidth@=\dimen146
 \lineht@=\dimen147
-\@envbody=\toks18
+\@envbody=\toks19
 \multlinegap=\skip50
 \multlinetaggap=\skip51
-\mathdisplay@stack=\toks19
-LaTeX Info: Redefining \[ on input line 2923.
-LaTeX Info: Redefining \] on input line 2924.
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mathtools.sty
-Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
+(/usr/local/texlive/2022/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2022/02/07 v1.28a mathematical typesetting tools
 
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks20
+\KV@toks@=\toks21
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\calc.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count199
-\calc@Bcount=\count266
+\calc@Acount=\count272
+\calc@Bcount=\count273
 \calc@Adimen=\dimen148
 \calc@Bdimen=\dimen149
 \calc@Askip=\skip52
 \calc@Bskip=\skip53
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count267
+\calc@Ccount=\count274
 \calc@Cskip=\skip54
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
-Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
-\g_MT_multlinerow_int=\count268
+\g_MT_multlinerow_int=\count275
 \l_MT_multwidth_dim=\dimen150
 \origjot=\skip55
 \l_MT_shortvdotswithinadjustabove_dim=\dimen151
@@ -115,571 +118,1274 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
 \l_MT_below_intertext_sep=\dimen154
 \l_MT_above_shortintertext_sep=\dimen155
 \l_MT_below_shortintertext_sep=\dimen156
-\xmathstrut@box=\box49
+\xmathstrut@box=\box52
 \xmathstrut@dim=\dimen157
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/esdiff\esdiff.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2021/02/14 v1.3d Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/esdiff/esdiff.sty
 Package: esdiff 
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
-ex.def
-File: l3backend-pdftex.def 2021-02-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count269
-\l__pdf_internal_box=\box50
-) (main.aux)
-\openout1 = `main.aux'.
+(/usr/local/texlive/2022/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2022/02/26 3.73 The Babel package
+\babel@savecnt=\count276
+\U@D=\dimen158
+\l@unhyphenated=\language87
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+(/usr/local/texlive/2022/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count277
 
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
-Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
-
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
-Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
-
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+Package babel Info: Hyphen rules for 'canadian' set to \l@english
+(babel)             (\language0). Reported on input line 102.
+Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
+(babel)             (\language21). Reported on input line 105.
+Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
+(babel)             (\language21). Reported on input line 108.
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks24
+\thm@bodyfont=\toks25
+\thm@headfont=\toks26
+\thm@notefont=\toks27
+\thm@headpunct=\toks28
+\thm@preskip=\skip56
+\thm@postskip=\skip57
+\thm@headsep=\skip58
+\dth@everypar=\toks29
 )
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cf
-g
+\c@definition=\count278
+\c@theorem=\count279
+\c@corollary=\count280
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count281
+\Gm@cntv=\count282
+\c@Gm@tempcnt=\count283
+\Gm@bindingoffset=\dimen159
+\Gm@wd@mp=\dimen160
+\Gm@odd@mp=\dimen161
+\Gm@even@mp=\dimen162
+\Gm@layoutwidth=\dimen163
+\Gm@layoutheight=\dimen164
+\Gm@layouthoffset=\dimen165
+\Gm@layoutvoffset=\dimen166
+\Gm@dimlist=\toks30
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: pdftex.def on input line 107.
 
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen167
+\Gin@req@width=\dimen168
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen169
+\lightrulewidth=\dimen170
+\cmidrulewidth=\dimen171
+\belowrulesep=\dimen172
+\belowbottomsep=\dimen173
+\aboverulesep=\dimen174
+\abovetopsep=\dimen175
+\cmidrulesep=\dimen176
+\cmidrulekern=\dimen177
+\defaultaddspace=\dimen178
+\@cmidla=\count284
+\@cmidlb=\count285
+\@aboverulesep=\dimen179
+\@belowrulesep=\dimen180
+\@thisruleclass=\count286
+\@lastruleclass=\count287
+\@thisrulewidth=\dimen181
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen182
+\ar@mcellbox=\box53
+\extrarowheight=\dimen183
+\NC@list=\toks31
+\extratabsurround=\skip59
+\backup@length=\skip60
+\ar@cellbox=\box54
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/paralist/paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip61
+\plpartopsep=\skip62
+\plitemsep=\skip63
+\plparsep=\skip64
+\pl@lab=\toks32
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks33
+\verbatim@line=\toks34
+\verbatim@in@stream=\read3
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mki
-i
+(/usr/local/texlive/2022/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2022/03/01 v3.6b Customizing captions (AR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
+\caption@tempdima=\dimen184
+\captionmargin=\dimen185
+\caption@leftmargin=\dimen186
+\caption@rightmargin=\dimen187
+\caption@width=\dimen188
+\caption@indent=\dimen189
+\caption@parindent=\dimen190
+\caption@hangindent=\dimen191
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count288
+\c@continuedfloat=\count289
+)
+\c@KVtest=\count290
+\sf@farskip=\skip65
+\sf@captopadj=\dimen192
+\sf@capskip=\skip66
+\sf@nearskip=\skip67
+\c@subfigure=\count291
+\c@subfigure@save=\count292
+\c@lofdepth=\count293
+\c@subtable=\count294
+\c@subtable@save=\count295
+\c@lotdepth=\count296
+\sf@top=\skip68
+\sf@bottom=\skip69
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
+rs
+\f@nch@headwidth=\skip70
+\f@nch@O@elh=\skip71
+\f@nch@O@erh=\skip72
+\f@nch@O@olh=\skip73
+\f@nch@O@orh=\skip74
+\f@nch@O@elf=\skip75
+\f@nch@O@erf=\skip76
+\f@nch@O@olf=\skip77
+\f@nch@O@orf=\skip78
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/sectsty/sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+
+
+LaTeX Warning: Command \underbar  has changed.
+               Check if current package is valid.
+
+
+LaTeX Warning: Command \underline  has changed.
+               Check if current package is valid.
+
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip79
+\cftbeforetoctitleskip=\skip80
+\cftaftertoctitleskip=\skip81
+\cftbeforepartskip=\skip82
+\cftpartnumwidth=\skip83
+\cftpartindent=\skip84
+\cftbeforechapskip=\skip85
+\cftchapindent=\skip86
+\cftchapnumwidth=\skip87
+\cftbeforesecskip=\skip88
+\cftsecindent=\skip89
+\cftsecnumwidth=\skip90
+\cftbeforesubsecskip=\skip91
+\cftsubsecindent=\skip92
+\cftsubsecnumwidth=\skip93
+\cftbeforesubsubsecskip=\skip94
+\cftsubsubsecindent=\skip95
+\cftsubsubsecnumwidth=\skip96
+\cftbeforeparaskip=\skip97
+\cftparaindent=\skip98
+\cftparanumwidth=\skip99
+\cftbeforesubparaskip=\skip100
+\cftsubparaindent=\skip101
+\cftsubparanumwidth=\skip102
+\cftbeforeloftitleskip=\skip103
+\cftafterloftitleskip=\skip104
+\cftbeforefigskip=\skip105
+\cftfigindent=\skip106
+\cftfignumwidth=\skip107
+\cftbeforelottitleskip=\skip108
+\cftafterlottitleskip=\skip109
+\cftbeforetabskip=\skip110
+\cfttabindent=\skip111
+\cfttabnumwidth=\skip112
+\cftbeforesubfigskip=\skip113
+\cftsubfigindent=\skip114
+\cftsubfignumwidth=\skip115
+\cftbeforesubtabskip=\skip116
+\cftsubtabindent=\skip117
+\cftsubtabnumwidth=\skip118
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2021/10/04 v1.0m Standard LaTeX package
+)
+\@indexfile=\write3
+\openout3 = `main.idx'.
+
+
+Writing index file main.idx
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count297
+\l__pdf_internal_box=\box55
+)
+(./main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=-0.56833pt
+* \evensidemargin=35.28255pt
+* \topmargin=-2.73714pt
+* \headheight=12.0pt
+* \headsep=19.8738pt
+* \topskip=11.0pt
+* \footskip=27.46295pt
+* \marginparwidth=106.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count270
-\scratchdimen=\dimen158
-\scratchbox=\box51
-\nofMPsegments=\count271
-\nofMParguments=\count272
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count273
-\MPscratchDim=\dimen159
-\MPnumerator=\count274
-\makeMPintoPDFobject=\count275
-\everyMPtoPDFconversion=\toks22
-)))
-(C:\Users\mfei\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-ba
-se.sty
+\scratchcounter=\count298
+\scratchdimen=\dimen193
+\scratchbox=\box56
+\nofMPsegments=\count299
+\nofMParguments=\count300
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count301
+\MPscratchDim=\dimen194
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
+\everyMPtoPDFconversion=\toks36
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-)
-\Gin@req@height=\dimen160
-\Gin@req@width=\dimen161
-)
-! Undefined control sequence.
-l.13  \exercise
-               [Quasi-likelihood, Z-estimate, GEE]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+(././title.tex [1
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--21
 
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[2
+
+
+] (./main.toc)
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ [3]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[4
+
+]
+Chapter 1.
+(./sections/section1-1.tex) (./sections/section1-2.tex [1
+
+]
+Overfull \hbox (30.832pt too wide) detected at line 19
+[]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 22--24
-
+Overfull \hbox (18.29689pt too wide) in paragraph at lines 21--24
+\OT1/cmr/m/n/10.95 For $\OML/cmm/m/it/10.95 ^^Z[]AY \OT1/cmr/m/n/10.95 = \OML/c
+mm/m/it/10.95 ^^Z[]MY$\OT1/cmr/m/n/10.95 , that $\OML/cmm/m/it/10.95 M \OT1/cmr
+/m/n/10.95 = \OML/cmm/m/it/10.95 X\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X[]X\
+OT1/cmr/m/n/10.95 )[]\OML/cmm/m/it/10.95 X[]$\OT1/cmr/m/n/10.95 , we need to ha
+ve $\OML/cmm/m/it/10.95 C\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\OT1/cmr/m/n/
+10.95 ) = \OML/cmm/m/it/10.95 C\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 VX\OT1/c
+mr/m/n/10.95 )\OML/cmm/m/it/10.95 ; C\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 X\
+OT1/cmr/m/n/10.95 ) =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 28--29
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
- []
-
-[1
-
-{C:/Users/mfei/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-! Undefined control sequence.
-l.33  \exercise
-               [Godambe efficiency]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 54--57
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--66
-
- []
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [2]
-! Double superscript.
-l.72 ...riance could be written as $U^{-1}VU^{-1}^
-                                                  T$. \\
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-l.73 The matrix $U^{-1}VU^{-1}^
-                               T$ is called \textit{Godambe information} ma ...
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 70--75
-
+Overfull \hbox (3.0516pt too wide) in paragraph at lines 53--55
+\OT1/cmr/m/n/10.95 then show $\OML/cmm/m/it/10.95 BX \OT1/cmr/m/n/10.95 = \OML/
+cmm/m/it/10.95 X; x \OMS/cmsy/m/n/10.95 2 \OML/cmm/m/it/10.95 C\OT1/cmr/m/n/10.
+95 (\OML/cmm/m/it/10.95 X; Z\OT1/cmr/m/n/10.95 )$. If need to show pro-jec-tion
+ along, then show$\OML/cmm/m/it/10.95 Bw \OT1/cmr/m/n/10.95 =
  []
 
-! Double superscript.
-<argument>  [U_n^{-1} V_n U_n^{-1}^
-                                   T] [n^{1/2} (\hat {\theta }_n - \theta ^{...
-l.83 \end{align*}
-                 
-I treat `x^1^2' essentially like `x^1{}^2'.
 
-! Double superscript.
-<argument>  [U_n^{-1} V_n U_n^{-1}^
-                                   T] [n^{1/2} (\hat {\theta }_n - \theta ^{...
-l.83 \end{align*}
-                 
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<argument> ...eta ^{\ast }, U_n^{-1} V_n U_n^{-1}^
-                                                  T) 
-l.87 \end{align*}
-                 
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<argument> ...eta ^{\ast }, U_n^{-1} V_n U_n^{-1}^
-                                                  T) 
-l.87 \end{align*}
-                 
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-l.88 ... for the estimator $U_n^{-1} V_n U_n^{-1}^
-                                                  T$  of the asymptotic vari...
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
-
+Overfull \hbox (223.21896pt too wide) detected at line 59
+[]
  []
 
-! Double superscript.
-<argument> ...eta _{\ast })}{\beta }\right )^{-1}^
-                                                  T 
-l.107 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
 
-! Double superscript.
-<argument> ...eta _{\ast })}{\beta }\right )^{-1}^
-                                                  T 
-l.107 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
+Overfull \hbox (125.91936pt too wide) detected at line 66
+[]
+ []
+
+
+Overfull \hbox (1.19507pt too wide) detected at line 73
+[]
+ []
+
+
+Overfull \hbox (0.20444pt too wide) detected at line 91
+[]
+ []
 
 [3]
-! Double superscript.
-<argument> ...athbf {H} \mathbf {D} \right )^{-1}^
-                                                  T \\ &= \sigma ^2 (\mathbf...
-l.114 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<argument> ...athbf {H} \mathbf {D} \right )^{-1}^
-                                                  T \\ &= \sigma ^2 (\mathbf...
-l.114 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-
-Overfull \hbox (23.26321pt too wide) detected at line 114
+Overfull \hbox (92.29335pt too wide) detected at line 95
 []
  []
 
-! Undefined control sequence.
-l.121 \exercise
-               [exponential family canonical link]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--103
+
+ []
 
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 138.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [4]
+Underfull \hbox (badness 10000) in paragraph at lines 142--145
 
-! Package inputenc Error: Unicode character â‹… (U+22C5)
-(inputenc)                not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.147 The function g(â‹…
-                        ) is called the link function. If the function conne...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 147--148
-
- []
-
-
-Overfull \hbox (24.74078pt too wide) detected at line 166
-[]
  []
 
 [5]
-! Undefined control sequence.
-l.172 \exercise
-               [Score test]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (68.8386pt too wide) detected at line 210
+Overfull \hbox (100.95589pt too wide) detected at line 184
 []
  []
 
+
+Overfull \hbox (130.98586pt too wide) detected at line 191
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
 [6]
-Overfull \hbox (15.63986pt too wide) in paragraph at lines 214--217
-$\OT1/cmr/m/n/10 ([][][\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 ([]) \OMS/cmsy/m/n/10 
-  []\OT1/cmr/m/n/10 ([])][])$ is ac-tu-ally $\OML/cmm/m/it/10 I[]\OT1/cmr/m/n/1
-0 (\OML/cmm/m/it/10 \OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; Var\OT1/cmr/m/n/10 ([\
-OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ; U\OT1/cmr/m/n/10 )])$. Wh
-ile the $\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (
-\OML/cmm/m/it/10 ; U\OT1/cmr/m/n/10 )] =
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--232
+
  []
 
 [7]
-! Undefined control sequence.
-l.301 \exercise
-               [MVN]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Underfull \hbox (badness 10000) in paragraph at lines 257--259
 
-! Undefined control sequence.
-l.304 \exercise
-               [Generalized least square projection]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+ []
 
-! Undefined control sequence.
-l.311 \exercise
-                [Making inference of interested parameters]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+
+Overfull \hbox (40.7186pt too wide) detected at line 290
+[]
+ []
+
+
+Overfull \hbox (51.46509pt too wide) detected at line 290
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--299
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
+Underfull \hbox (badness 10000) in paragraph at lines 304--306
 
  []
 
-! Undefined control sequence.
-l.332 \exercise
-               [Partitioned test, matrix, model]
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-! Undefined control sequence.
-l.337 \exercise
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
 
-
-Overfull \hbox (1.37274pt too wide) in paragraph at lines 338--339
-\OT1/cmr/bx/n/10 dis-tri-bu-tion\OT1/cmr/m/n/10 Consider a pair of ran-dom vari
--ables $(\OML/cmm/m/it/10 X; Y$ \OT1/cmr/m/n/10 and let $\OML/cmm/m/it/10 [] \
-OT1/cmr/m/n/10 = \OML/cmm/m/it/10 E\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/
-m/n/10 )\OML/cmm/m/it/10 ; [] \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (50.47061pt too wide) detected at line 352
-[]
- []
+Underfull \hbox (badness 10000) in paragraph at lines 356--358
 
-
-Overfull \hbox (115.0267pt too wide) detected at line 368
-[]
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 369--370
+Underfull \hbox (badness 10000) in paragraph at lines 372--375
 
  []
 
 
-Overfull \hbox (66.72824pt too wide) detected at line 385
+Overfull \hbox (46.19263pt too wide) detected at line 383
 []
  []
 
 
-Overfull \hbox (33.45656pt too wide) in paragraph at lines 386--387
-\OT1/cmr/m/n/10 of $(\OML/cmm/m/it/10 W; Y\OT1/cmr/m/n/10 )$ and an-other datas
-et with n in-de-pen-dent re-al-iza-tions $(\OML/cmm/m/it/10 X[]; []\OT1/cmr/m/n
-/10 )\OML/cmm/m/it/10 ; ::; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; []\OT1/cmr/m
-/n/10 )$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 395--397
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 397--398
-
- []
-
-! Undefined control sequence.
-l.408 \exercise
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 409--410
-
- []
-
-[11]
-Overfull \hbox (111.95619pt too wide) detected at line 447
+Overfull \hbox (27.37506pt too wide) detected at line 383
 []
  []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 498--502
+
+Overfull \hbox (31.42323pt too wide) in paragraph at lines 385--387
+\OT1/cmr/m/n/10.95 The pre-dic-tion could be con-sid-ered as bayesian rule, so 
+the $\OML/cmm/m/it/10.95 ^^[[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 ^^[[]\O
+T1/cmr/m/n/10.95 (1 + \OML/cmm/m/it/10.95 X[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/
+10.95 X[]X\OT1/cmr/m/n/10.95 )[]\OML/cmm/m/it/10.95 X[]\OT1/cmr/m/n/10.95 )$. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 385--387
 
  []
 
 
-Overfull \hbox (103.80699pt too wide) detected at line 512
-[]
+Underfull \hbox (badness 10000) in paragraph at lines 394--396
+
  []
 
+) (./sections/section1-3.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[10]) (./sections/section1-5.tex
+Overfull \hbox (36.06961pt too wide) in paragraph at lines 14--15
+[]\OT1/cmr/m/n/10.95 Pay at-ten-tion that $\OML/cmm/m/it/10.95 P[]MP$ \OT1/cmr/
+m/n/10.95 is the co-vari-ance ma-trix of $\OML/cmm/m/it/10.95 Cov\OT1/cmr/m/n/1
+0.95 (\OML/cmm/m/it/10.95 P[]MY\OT1/cmr/m/n/10.95 ) = (\OML/cmm/m/it/10.95 P[]M
+\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 Cov\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10
+.95 Y\OT1/cmr/m/n/10.95 )(\OML/cmm/m/it/10.95 P[]M\OT1/cmr/m/n/10.95 )[] =
+ []
+
+) [11]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[12
+
+]
+Chapter 2.
 [13]
-! Undefined control sequence.
-l.530 \exercise
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+\openout2 = `sections/section-3.aux'.
 
-
-Overfull \hbox (4.98642pt too wide) in paragraph at lines 533--535
-\OT1/cmr/m/n/10 Lets re-view the o.p.o onto C(X), and a pro-jec-tion $\OML/cmm/
-m/it/10 A \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 X\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
- X[]V[]X\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 X[]V[]$\OT1/cmr/m/n/10 . 
- []
-
-! Double superscript.
-<recently read> ^
-                 
-l.538 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<recently read> ^
-                 
-l.538 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<recently read> ^
-                 
-l.545 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-! Double superscript.
-<recently read> ^
-                 
-l.545 \end{align*}
-                  
-I treat `x^1^2' essentially like `x^1{}^2'.
-
-[14]
-Overfull \hbox (12.17279pt too wide) in paragraph at lines 566--569
-\OT1/cmr/m/n/10 need to show $\OML/cmm/m/it/10 AX \OT1/cmr/m/n/10 = \OML/cmm/m/
-it/10 X; x \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 C\OT1/cmr/m/n/10 (\OML/cmm/m/it/
-10 X\OT1/cmr/m/n/10 )$, and $\OML/cmm/m/it/10 Aw \OT1/cmr/m/n/10 = 0\OML/cmm/m/
-it/10 ; w \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 C\OT1/cmr/m/n/10 (\OML/cmm/m/it/1
-0 V[]X\OT1/cmr/m/n/10 )[]\OML/cmm/m/it/10 ; C\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
-V[]X\OT1/cmr/m/n/10 ) =
+ (./sections/section-3.tex
+Overfull \hbox (31.76031pt too wide) in paragraph at lines 19--24
+\OT1/cmr/m/n/10.95 Note that $\OML/cmm/m/it/10.95 n[] \OMS/cmsy/m/n/10.95 ^^T [
+] []$ \OT1/cmr/m/n/10.95 for a given value of $\OML/cmm/m/it/10.95 n[]$\OT1/cmr
+/m/n/10.95 . Sim-i-larly, $\OML/cmm/m/it/10.95 n[] \OMS/cmsy/m/n/10.95 ^^T [] [
+]$
  []
 
 
-Overfull \hbox (244.93018pt too wide) detected at line 584
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[14
+
+]
+Overfull \hbox (20.02113pt too wide) detected at line 75
 []
  []
 
 
-Overfull \hbox (154.01678pt too wide) detected at line 591
-[]
- []
+Underfull \vbox (badness 2941) has occurred while \output is active []
 
+ [15]
 
-Overfull \hbox (40.71733pt too wide) detected at line 598
-[]
- []
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-[15]
-Overfull \hbox (39.93048pt too wide) detected at line 616
-[]
- []
-
-
-Overfull \hbox (125.15387pt too wide) detected at line 620
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 623--628
-
- []
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 667--670
-
+Overfull \hbox (91.31223pt too wide) detected at line 134
+[]
  []
 
-[17] [18]
-Overfull \hbox (132.49156pt too wide) detected at line 709
+[17]
+Overfull \hbox (17.82379pt too wide) detected at line 150
 []
  []
 
 
-Overfull \hbox (160.06433pt too wide) detected at line 716
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+
+Overfull \hbox (14.87991pt too wide) detected at line 159
 []
  []
 
 
-! LaTeX Error: No counter 'exercise' defined.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.721 \setcounter{exercise}{7}
-                              
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-! Undefined control sequence.
-l.722 \exercise
-               *
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
 
-! Undefined control sequence.
-l.725 For more information, refer to \url
-                                         {https://github.com/gijs-pennings/l...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-Overfull \hbox (22.63968pt too wide) in paragraph at lines 725--726
-[]\OT1/cmr/m/n/10 For more in-for-ma-tion, re-fer to https://github.com/gijs-pe
-nnings/latex-homework. 
  []
 
-[19] (main.aux) ) 
+[19])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[20]
+\openout2 = `"sections/Linear model exercise.aux"'.
+
+ (./sections/Linear model exercise.tex
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 6
+.
+
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+[21
+
+
+
+]
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 4
+2.
+
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+
+Overfull \hbox (70.02672pt too wide) detected at line 57
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[22]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23]
+Overfull \hbox (7.58719pt too wide) detected at line 107
+[]
+ []
+
+
+Overfull \hbox (50.271pt too wide) detected at line 132
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[24]
+Overfull \hbox (61.63495pt too wide) detected at line 157
+[]
+ []
+
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 171.
+
+[25]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[26]
+Overfull \hbox (0.95409pt too wide) detected at line 243
+[]
+ []
+
+[27]
+Overfull \hbox (8.12813pt too wide) detected at line 278
+[]
+ []
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+
+LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 2
+90.
+
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+Missing character: There is no · in font cmr10!
+
+Overfull \hbox (7.09494pt too wide) detected at line 293
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[28]
+Overfull \hbox (102.57626pt too wide) detected at line 300
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--302
+
+ []
+
+
+Overfull \hbox (23.81415pt too wide) detected at line 306
+[]
+ []
+
+[29]
+Overfull \hbox (11.18599pt too wide) detected at line 346
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30]
+Overfull \hbox (14.09642pt too wide) in paragraph at lines 364--366
+\OT1/cmr/m/n/10.95 Suppose that $\OML/cmm/m/it/10.95 y[]\OT1/cmr/m/n/10.95 ; \O
+ML/cmm/m/it/10.95 :::y[]$ \OT1/cmr/m/n/10.95 are in-de-pen-dent Bernoulli ran-d
+om vari-ables, where $\OML/cmm/m/it/10.95 y[] \OMS/cmsy/m/n/10.95 ^^X \OML/cmm/
+m/it/10.95 Bernoulli\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 ^^Y\OT1/cmr/m/n/10.
+95 )$,
+ []
+
+[31]
+Overfull \hbox (16.73651pt too wide) detected at line 390
+[]
+ []
+
+
+Overfull \hbox (45.56763pt too wide) detected at line 407
+[]
+ []
+
+
+Underfull \vbox (badness 1365) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
+
+ []
+
+) [33]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[34
+
+
+
+]
+Chapter 3.
+(./sections/section2-1.tex
+Underfull \vbox (badness 1721) has occurred while \output is active []
+
+ [35])
+(./sections/section2-2.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[36] [37]
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[38]
+Chapter 4.
+(./sections/section4-1.tex
+Overfull \hbox (67.05835pt too wide) detected at line 32
+[]
+ []
+
+
+Underfull \vbox (badness 1412) has occurred while \output is active []
+
+ [39
+
+]
+Overfull \hbox (64.01668pt too wide) detected at line 53
+[]
+ []
+
+
+Overfull \hbox (40.68066pt too wide) detected at line 59
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[40] [41]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[42]) (./sections/section4-2.tex
+Overfull \hbox (2.94167pt too wide) in paragraph at lines 2--3
+\OT1/cmr/m/n/10.95 Get the co-vari-ance ma-trix for cross-sectional, prospec-ti
+ve, ret-ro-spec-tive sam-pling method. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+
+ []
+
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+
+ []
+
+
+Underfull \vbox (badness 5832) has occurred while \output is active []
+
+ [45])
+(./sections/section4-3.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[46]
+Overfull \hbox (34.92583pt too wide) in paragraph at lines 13--14
+[]\OT1/cmr/m/n/10.95 By pois-son dis-tri-bu-tion of each cell counts, $\OML/cmm
+/m/it/10.95 n \OT1/cmr/m/n/10.95 = [][] [][] \OML/cmm/m/it/10.95 n[] \OMS/cmsy/
+m/n/10.95 ^^X \OML/cmm/m/it/10.95 Poisson\OT1/cmr/m/n/10.95 ([][] [][] \OML/cmm
+/m/it/10.95 ^^V[]\OT1/cmr/m/n/10.95 )$ 
+ []
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 24.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 24.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 38.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 38.
+
+[47]
+Overfull \hbox (90.84438pt too wide) detected at line 63
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[48]
+Overfull \hbox (91.39174pt too wide) detected at line 84
+[]
+ []
+
+
+Overfull \hbox (65.81012pt too wide) detected at line 90
+[]
+ []
+
+[49]
+Overfull \hbox (12.88942pt too wide) detected at line 134
+[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[50] [51]) (./sections/section4-4.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--3
+
+ []
+
+
+Underfull \vbox (badness 5359) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[52]
+Overfull \hbox (3.71214pt too wide) detected at line 77
+[]
+ []
+
+[53]
+Overfull \hbox (3.71214pt too wide) detected at line 105
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[54]
+Underfull \hbox (badness 10000) in paragraph at lines 108--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
+
+ []
+
+[55]) (./sections/section4-5.tex
+Overfull \hbox (31.76031pt too wide) in paragraph at lines 3--8
+\OT1/cmr/m/n/10.95 Note that $\OML/cmm/m/it/10.95 n[] \OMS/cmsy/m/n/10.95 ^^T [
+] []$ \OT1/cmr/m/n/10.95 for a given value of $\OML/cmm/m/it/10.95 n[]$\OT1/cmr
+/m/n/10.95 . Sim-i-larly, $\OML/cmm/m/it/10.95 n[] \OMS/cmsy/m/n/10.95 ^^T [] [
+]$
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[56]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [57]
+Overfull \hbox (20.02113pt too wide) detected at line 57
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[58] [59]
+Overfull \hbox (91.31223pt too wide) detected at line 116
+[]
+ []
+
+
+Overfull \hbox (17.82379pt too wide) detected at line 132
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[60]
+Overfull \hbox (14.87991pt too wide) detected at line 141
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [61]
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+
+ []
+
+)
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[62] (././bibliography.tex
+No file main.bbl.
+) [63
+
+
+
+] (./main.aux (./sections/section-3.aux)
+(./sections/Linear model exercise.aux))
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2456 strings out of 479300
- 36638 string characters out of 2856026
- 352432 words of memory out of 3000000
- 19923 multiletter control sequences out of 15000+200000
- 411562 words of font info for 55 fonts, out of 3000000 for 9000
+ 6990 strings out of 478268
+ 120645 string characters out of 5846347
+ 461024 words of memory out of 5000000
+ 25063 multiletter control sequences out of 15000+600000
+ 481188 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,18n,77p,623b,289s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmbx10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmex10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/mfei/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/mfei/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/mfei/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/mfei/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/User
-s/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
-7.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr5.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmr7.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmsy5.pfb><C:/Users/mfei/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/mfei/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/mfei/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (19 pages, 258783 bytes).
+ 69i,21n,79p,457b,363s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pf
+b></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
+ocal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/loca
+l/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
+exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/te
+xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texl
+ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
+/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
+022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
+22/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on main.pdf (67 pages, 419743 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
+ 322 PDF objects out of 1000 (max. 8388607)
+ 210 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

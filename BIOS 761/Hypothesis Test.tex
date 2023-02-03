@@ -1,0 +1,243 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Hypothesis Test}
+\author{Mingwei Fei}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\subsection{MGF}
+
+\begin{align*}
+	M(t) &= exp(\mu t + \sigma^2 t^2/2), \qquad \text{MGF for } N(\mu, \sigma^2)\\
+	M_{\sqrt{w_i}X_i}(t) &= E[exp(\sqrt{w_i} t X_i)] = exp(\mu \sqrt{w_i} t + \sigma^2 [\sqrt{w_i} t]^2/2), \qquad \mu=0 \\
+	&= exp(\sigma^2 w_i t^2/2)
+\end{align*}
+Then the linear combination $y_n$
+\begin{align*}
+	M_{Y_n}(t) &= E[exp \left( (\sqrt{w_1} X_1 + \sqrt{w_2} X_2 + .. + \sqrt{w_n} X_n) t \right)] \\
+	&= E[exp(\sqrt{w_1} X_1 t)] E[exp(\sqrt{w_2} X_2 t)] E[exp(\sqrt{w_3} X_3 t)].. E[exp(\sqrt{w_n} X_n t)] \\
+	&= exp(\sigma^2 w_1 t^2/2) exp(\sigma^2 w_2 t^2/2) exp(\sigma^2 w_3 t^2/2).. exp(\sigma^2 w_n t^2/2) \\
+	&= exp(\sigma^2 [w_1+ w_2 + .. w_n] t^2/2) = exp(\sigma^2 t^2/2)
+\end{align*}
+So $Y_n \sim N(0, \sigma^2)$. 
+
+\subsection{Orthogonal Matrix}
+
+Consider an orthogonal matrix $\Sigma$ such that the first row is $(\sqrt{w_1}, \sqrt{w_2},.. \sqrt{w_n})$. Let
+
+\begin{align*}
+	(Z_1, Z_2,.. Z_n)^T &= \Sigma  (X_1, X_2,.. X_n)^T
+\end{align*}
+We have $Z^T Z = (\Sigma X)^T (\Sigma X) = X^T \Sigma^T \Sigma X = X^T X$. The characteristic function of Z is 
+
+\begin{align*}
+	\phi_Z(t) &= E[exp(i t'Z)] = E[exp(i (\Sigma' t)' X)] = exp(-\sigma^2 t't/2)
+\end{align*}
+
+Need to get familiar with the vector form in MGF/characteristic function
+
+Therefore, we have $Z_1, .. Z_n \sim N(0, \sigma^2)$ 
+
+\begin{align*}
+	Y_n &= \bar{X}_{nw}/\sigma = (\sqrt{w_1} X_1 + \sqrt{w_2} X_2 + .. + \sqrt{w_n} X_n)/\sigma\\
+	&= Z_1/\sigma \sim N(0,1)
+\end{align*}
+
+Also, 
+\begin{align*}
+	(n-1) S_n^2/\sigma^2 &= \sum_{i=1}^n (X_i^2 - \bar{X}_{nw}^2)/\sigma^2 \\
+	&= (X^T X - Z_1^2)/\sigma^2 = (Z_2^2 + ... + Z_n^2)/\sigma^2 \sim \chi^2_{n-1}
+\end{align*}
+
+Since $Y_n$ and $S_n^2$ are functions of $Z_1$ and $(Z_2,.. Z_n)$ respectively, and from the independence of $Z_i, (i=1,..n)$, we have $Y_n$ and $S_n^2$ are independent. It follows that, by the definition of t-distribution, $T_n \sim t_{n-1}/\sigma$. When $w_1=w_2=..=w_n=1/n, Y_n = \sum_{i=1}^n X_i/(\sigma \sqrt{n})$, which is the standardized sample mean. Also,
+
+\begin{align*}
+	S_n^2/\sigma^2 &= \frac{\sum_{i=1}^n X_i^2 - \bar{X}_{nw}^2 }{n-1} \\
+	&= \frac{\sum_{i=1}^n X_i^2 - {\sum_{i=1}^n X_i}^2/n }{n-1}\\
+	&= \frac{\sum_{i=1}^n X_i^2 -  n\bar{X}_i^2 }{n-1}
+\end{align*} 	   
+which is the sample variance.
+
+
+If there are quadratic forms, we can consider the orthogonal matrix that transform to standard normal distribution.
+
+
+
+
+
+\subsection{b}Consider the following
+\begin{itemize}
+	\item[(a)] For an arbitrary model, consider the conditional score statistic
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}
+	\end{align*} 
+	Show that the conditional score statistic for any model can be written as
+	\begin{align*}
+		U_{\psi}(\xi) &= \partial_{\psi} log p(Y|\xi)- E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*} 
+	The conditional score statistic is the derivative of the conditional distribution
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}\\
+		p(\textbf{Y}| \xi) &= p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) p(s_{\lambda}(\psi_0) | \xi), \qquad p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) = \frac{p(\textbf{Y}| \xi)}{p(s_{\lambda}(\psi_0) | \xi)} \\
+		l_c(\xi, \psi_0) &= log p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)= log p(\textbf{Y}| \xi) - log p(s_{\lambda}(\psi_0) | \xi)
+	\end{align*}
+	Then we need to prove 
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi} = \partial_{\psi} log p(\textbf{Y}| \xi) - \partial_{\psi} log p(s_{\lambda}(\psi_0) | \xi)\\
+		\partial_{\psi} log p(s_{\lambda}(\psi_0) | \xi) &= E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*}
+	We can write
+	\begin{align*}
+		log p(\textbf{Y}| \xi) &= log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi) + log p(s_{\lambda}(\psi_0) | \xi)\\
+		E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) + E \left(\partial_{\psi}[log p(s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right)
+	\end{align*}    
+	in which, the integral and expectation can switch, then we have
+	\begin{align*}
+		E \left(\partial_{\psi}[log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) & = \partial_{\psi} E \left([log  p(\textbf{Y}|s_{\lambda}(\psi_0), \xi)|s_{\lambda}]\right) = \partial_{\psi} E \left([log  p(\textbf{Y}| \xi)]\right)= 0
+	\end{align*}      
+	So,
+	\begin{align*}
+		E \left( \partial_{\psi}[log p(\textbf{Y}| \xi)| s_{\lambda}]\right) &= \partial_{\psi}log p(s_{\lambda}(\psi_0),\xi)
+	\end{align*}
+	Then we show
+	\begin{align*}
+		U_{\psi}(\xi) &= \partial_{\psi} log p(Y|\xi)- E[\partial_{\psi} log p(Y|\xi)|s_{\lambda}(\psi_0)]|_{\psi_0=\psi}
+	\end{align*} 
+	\item[(b)] Suppose that $y_1;.. y_n$ are independent and $y_i$ follows a Poisson distribution with mean $exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2})$, where $(x_{i1}; x_{i2})$ are covariates, $\lambda = (\lambda_0; \lambda_1)$ is the
+	nuisance parameter vector and $\psi$  is the parameter of interest. Derive the conditional
+	likelihood of $\psi$   and show that this conditional likelihood is free of $\lambda$.\\
+	The joint distribution of $(y_1, · · · , y_n)$ is given by 
+	\begin{align*}
+		P(Y|\lambda, \psi)&=  exp \left( \sum_{i=1}^n y_i(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)
+	\end{align*}
+	Thus, $S_0 = \sum_{i=1}^n y_i$ is the sufficient and complete statistics for $\lambda_0$, and $S_1 = \sum_{i=1}^n y_i x_{i1}$ is the sufficient and complete statistics for $\lambda_1$.\\
+	The conditional distribution of $\psi$ given $S_0, S_1$ is given by
+	\begin{align*}
+		p(\textbf{Y}, \psi|S=(S_0, S_1)) &= \frac{exp \left( \sum_{i=1}^n y_i(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)}{\sum_{y' \in S} exp \left( \sum_{i=1}^n y'_i(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - log y'_i! \right)}\\
+		&= \frac{exp \left( S_1 \lambda_0 + S_2 \lambda_1 +  S_3 \psi) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1x_{i1} +  \psi x_{i2}) - log y_i! \right)}{\sum_{y' \in S} exp \left( S'_1\lambda_0 + S'_2 \lambda_1 + S'_3 \psi) - \sum_{i=1}^n exp(\lambda_0 + \lambda_1 x_{i1} +  \psi x_{i2}) - log y'_i!\right)} \\
+		&= \frac{exp \left( S_3 \psi  - log y_i!\right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}, \qquad S_3 = \sum_{i=1}^n y_i x_{i2}, S'_3 = \sum_{i=1}^n y'_i x_{i2}
+	\end{align*}
+	which is independent of $\lambda$. \\
+	\item[(c)] Derive the conditional score statistic for part (b) and write out a Newton-Raphson algorithm for obtaining the conditional maximum likelihood estimate of $\psi$  based on $U_{\psi}(\xi)$.\\
+	The log likelihood of the conditional distribution is
+	\begin{align*}
+		l_c(\psi) &= S_3 \psi  - log y_i! -log \left[ \sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right) \right], \qquad S_3 = \sum_{i=1}^n y_i x_{i2}, S'_3 = \sum_{i=1}^n y'_i x_{i2}
+	\end{align*} 
+	The score function and observed fisher information is
+	\begin{align*}
+		U_{\psi}(\xi) &= \frac{\partial l_c(\xi, \psi_0)}{\partial \psi} |_{\psi_0=\psi}\\
+		&= \psi - \frac{\sum_{y' \in S} S'_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}\\
+		\frac{\partial^2 l_c(\xi, \psi_0)}{\partial \psi^2} &= \left[ \frac{\sum_{y' \in S} S'_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}\right]^2 - \frac{\sum_{y' \in S} S'^2_3 exp \left( S'_3 \psi - log y'_i! \right)}{\sum_{y' \in S} exp \left( S'_3 \psi - log y'_i! \right)}
+	\end{align*}
+	The newton-Raphson algorithm
+	\begin{align*}
+		\psi^{k+1} &= \psi^{k} - \left[\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2} \right]^{-1} U_{\psi}(\psi^{k})
+	\end{align*}
+	where $\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2}, U_{\psi}(\psi^{k})$ are from above equations.
+	
+	\item[(d)] Now suppose that we only have two random variables $y_1 \sim Poisson(\mu_1)$ and $y_2 \sim
+	Poisson(\mu_2)$, where $y_1$ and $y_2$ are independent. We are interested in making inferences on the ratio $\psi = \mu_1/\mu_2$. Let $\xi = (\psi , \lambda)$, where $\lambda$ represents the nuisance parameter.
+	\begin{itemize}
+		\item [(i)] Show that the log-likelihood function of $\xi$ can be written as
+		\begin{align*}
+			l(\xi) &= (y_1 + y_2)\lambda + y_1 log (\psi) - exp(\lambda) (1+\psi)
+		\end{align*}
+		where $\lambda$ is a function of $\mu_2$. Explicitly state what $\lambda$ is.\\
+		Write the joint distribution of $y_1, y_2$
+		\begin{align*}
+			P(y_1, y_2) &= \frac{\mu_1^{y_1} e^{-\mu_1}}{y_1!} \frac{\mu_2^{y_2} e^{-\mu_2}}{y_2!} \\
+			log P(y_1, y_2) &= y_1 log \mu_1 - \mu_1 + y_2 \log \mu_2 - \mu_2 - log y_1! - log y_2!\\
+			&= y_1 log \frac{\mu_1}{\mu_2} + y_1 log \mu_2 + y_2 log \mu_2 -\mu_1 - \mu_2 -log y_1! - log y_2!\\
+			&= y_1 log \frac{\mu_1}{\mu_2} + (y_1+y_2) log \mu_2 - \mu_2(\mu_1/\mu_2 + 1) -log y_1! - log y_2!
+		\end{align*}
+		where 
+		\begin{align*}
+			\psi &=log \frac{\mu_1}{\mu_2} \\
+			\lambda &= log \mu_2
+		\end{align*}
+		\item[(ii)] Derive the conditional likelihood of $\psi$  and write out a Newton-Raphson algorithm for obtaining the conditional maximum likelihood estimate of $\psi$ .\\
+		From part (a), we see $y_1 + y_2$ is the sufficient statistics for $\lambda$, while $y_1 + y_2 \sim Poission (\mu_1+\mu_2)$ then we have conditional distribution of $\psi$ condition on $S = y_1 + y_2$.
+		\begin{align*}
+			Y(\psi|S= y_1+y_2,\lambda) &= \frac{exp \left[ y_1 \psi + (y_1+y_2) \lambda - exp(\lambda)(\psi + 1) -log y_1! - log y_2! \right] }{exp \left[ (y_1+y_2) log (\mu_1+\mu_2) - (\mu_1+\mu_2) -log (y_1+y_2)!  \right]}\\
+			&= \frac{exp \left[ y_1 \psi + S \lambda - exp(\lambda)(\psi + 1) -log y_1! - log y_2! \right] }{exp \left[ S (\lambda + log(\psi + 1)) -  exp(\lambda)(\psi + 1) -log S!  \right]}\\
+			&= \frac{exp \left[ y_1 \psi -log y_1! - log y_2! \right] }{exp \left[ (y_1+ S-y_1) log(\psi + 1)) -log S!  \right]}\\
+			&= {S \choose y_1} \left( \frac{\psi}{1+\psi}\right)^{y_1} \left(\frac{1}{1+\psi} \right)^{S-y_1}
+		\end{align*}
+		The conditional distribution is a binomial, $B(S, \psi/(1+\psi))$.\\
+		The score function and observed fisher information 
+		\begin{align*}
+			log Y(\psi|S,\lambda) &= y_1 log \psi -S log(1+\psi) + log {S \choose y_1} \\
+			\partial_{\psi} log Y(\psi|S,\lambda) &= \frac{y_1}{\psi} - \frac{S}{1+\psi} = 0, \qquad \hat{\psi} = y_1/(S-y_1)\\
+			\partial^2_{\psi} log Y(\psi|S,\lambda) &= -\frac{y_1}{\psi^2} + \frac{S}{(1+\psi)^2}
+		\end{align*}
+		The $CMLE = \hat{\psi} = y_1/(S-y_1)$. And the newton-Raphson equation 
+		\begin{align*}
+			\psi^{k+1} &= \psi^{k} - \left[\frac{\partial^2 l_c(\psi^{k})}{\partial \psi^2} \right]^{-1} U_{\psi}(\psi^{k})\\
+			&= \psi^{k} - \left[ -\frac{y_1}{\psi^2} + \frac{S}{(1+\psi)^2}\right]^{-1} \left[\frac{y_1}{\psi} - \frac{S}{1+\psi} \right]|_{\psi = \psi^{k}}\\
+			&=  \psi^{k} + \frac{y_1/\psi^{k} - S/(1+\psi^{k})}{y_1/{\psi^{k}}^2 - S/(1+\psi^{k})^2}
+		\end{align*}
+	\end{itemize}
+\end{itemize}
+
+
+
+\end{document}

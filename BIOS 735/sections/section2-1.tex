@@ -1,0 +1,21 @@
+\section{Rejection Sampling}
+
+The underlying principle is to keep the sampling points based on the probability ratio between the targeted probability and the known probability (known prob is larger than the targeted distribution).
+For example, if the ratio is high, then we have high probability keeping the sampling points. Otherwise, we will reject the sampling points a lot.
+
+The Monte Carlo shows that the distribution will be stationary when there is large enough sampling points. Although the way we select the sampling points based on the previous sampling point, eventually we will get to the stationary distribution.
+
+\subsection{Mathematical Function}
+
+$f(Y)$ is the targeted distribution, and $g(Y)$ is the known larger distribution. $U \sim U(0,1)$, and the value of y each time is generated under the density function $g(.)$ of the proposal distribution Y.
+
+\begin{align*}
+p( U \leq \frac{f(Y)}{M g(Y)}) &= E \Big[ I \Big(U \leq \frac{f(Y)}{Mg(Y)} \Big) \Big] \\
+&= E \Big[ E I \Big(U \leq \frac{f(Y)}{Mg(Y)} \Big) | Y \Big] \\
+&= E \Big[ P  \Big(U \leq \frac{f(Y)}{Mg(Y)}  \Big) | Y \Big] \\
+&= E \Big[ \frac{f(Y)}{Mg(Y)} \Big ] \qquad {P(U \leq u) = u} \\
+&= \underset{y: g(y) >0}{\int} \frac{f(Y)}{M g(Y)} g(y) dy \\
+&= \frac{1}{M} \underset{y: g(y) >0}{\int} f(y) dy \\
+&= \frac{1}{M}
+\end{align*}
+

@@ -1,0 +1,386 @@
+
+\section{Problem 1}
+Suppose that $y_1,… y_n $are independent Bernoulli random variables, with
+ 
+\begin{align*}
+	P(y_i=1| \beta)&= \frac{\exp{(\beta_0 + \beta_1 x_i)}}{1 + \exp (\beta_0 + \beta_1 x_i)}
+\end{align*}
+
+where $\beta = (\beta_0, \beta_1)'$ is a $2 \times 1$ vector of regression coefficients, and the $x_i$'s are fixed covariate values, $i= 1,.. n$.
+
+\begin{itemize}
+	\item [(a)] Derive Jeffreys's prior for $\beta$ and show it is of the form  
+	
+\begin{align*}
+	\pi(\beta) & \propto | X' V(\beta) X |^{1/2}
+\end{align*}	
+	
+Proof: We can see that the canonical link is logit link, $logit(\pi_i) = x_i \beta$. And we can write the log-likelihood function of $l_n(\beta)$ as below
+
+For Bernoulli distribution,
+\begin{align*}
+p(x| \pi) &= \pi^{x} (1- \pi)^{1-x} \\
+&= \exp \{ \log \Big( \frac{\pi}{1- \pi} \Big) x + \log (1 - \pi) \}
+\end{align*}
+
+We see that Bernoulli distribution is an exponential family distribution with 
+
+\begin{align*}
+\theta &= \log \Big( \frac{\pi}{1- \pi} \Big) \\
+b(\theta)&=- \log (1 - \pi) =  \log \Big( 1 + \exp(\theta) \Big)  \\
+\phi & = 1\\
+p( y | \beta) &= \exp \{  (\beta_0 + \beta_1 x) y -\log \Big( 1 + \exp(\beta_0 + \beta_1 x) \Big)  \}\\
+\dot{b(\theta)} &= \frac{\exp(\theta)}{(1 + exp(\theta))}\\
+\ddot{b(\theta)} &= \frac{\exp(\theta)}{(1 + exp(\theta))^2}
+\end{align*}
+
+The generalized estimation for Fisher Information
+\begin{align*}
+V(\beta) &= \text{diag} \Big( v_1(\beta), …, v_n(\beta) \Big) \\
+\mu_i &= \dot{b(\theta)} = \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i))}\\
+v_i &= \ddot{b(\theta)} = \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)}\\
+e(\beta) &= (y_1 - \mu_1(\beta), …, y_n- \mu_n(\beta))^{'} \\
+D_{\theta} (\beta)^{'} &= \Big( \partial_{\beta} \beta_1(\beta),…,  \partial_{\beta} \beta_n(\beta)\Big)_{p \times n} \\
+\partial_{\beta} \beta_i(\beta) &= (1, x_i)^T \\
+D (\beta)^{T} &= \Big( \partial_{\beta} \mu_1(\beta),…,  \partial_{\beta} \mu_n(\beta) \Big)_{p \times n} \\
+\dot{l}_n(\beta) &= \phi D_{\theta}(\beta)^{T} e(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} e(\beta) \\
+E \Big[ -\ddot{l}_n(\beta) \Big] &= \phi D_{\theta}(\beta)^{'} V D_{\theta}(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} D(\beta) 
+\end{align*}
+
+Then Fisher Information of $\beta$
+
+\begin{align*}
+w_i &= (1, x_i)^T \\
+\theta_i & = k \Big(w_i^{T}\beta \Big) = w_i^{T} \beta \\
+\xi &= (\beta, \phi)\\
+ln(\xi) &= \sum_{i=1}^n \phi \Big[ y_i k \Big(w_i^{T}\beta \Big) - b \Big( k \Big(w_i^{T} \beta \Big)  \Big) - c(y_i) \Big] - \frac{1}{2} s(y_i, \phi) \\
+\dot{ln}(\beta) &= \diffp{ln(\beta) }{\beta} = \phi \sum_{i=1}^n \Big[ y_i - \dot{b} \Big( k \Big(w_i^{T} \beta \Big)  \Big)  \Big] \dot{k} \Big(w_i^{T}\beta \Big) x_i \\
+&= \sum_{i=1}^n \Big[ y_i - \mu_i \Big] w_i\\
+\ddot{ln}(\beta) &= \diffp{ln(\beta) }{\beta \beta} = -\phi \sum_{i=1}^n \ddot{b} \Big( k(w_i^{T} \beta) \Big) \dot{k}(w_i^{T}\beta)^2 w_i w_i^{T}  + \phi \sum_{i=1}^n \Big[y_i - \dot{b}(k(w_i^{T} \beta)) \Big] \ddot{k}(w_i^{T}  \beta) w_i  w_i^{T} \\
+E \Big[ -\ddot{l}_n(\beta) \Big] &= -\sum_{i=1}^n \ddot{b} \Big(\theta_i \Big) w_i w_i^{T}= -\sum_{i=1}^n V(\theta_i) w_i w_i^{T}, \qquad \partial^2_{\beta}{{b(\theta_i)}} = V(\theta_i)
+\end{align*}
+
+let $X = \{ w_i^{T}\}_{n \times p}$, 
+\begin{align*}
+V(\theta) & = diag \{ V(\theta_i) \} = diag \{ v_i \} ,\\
+v_i &= \ddot{b(\theta)} = \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)}\\
+I_n &= E \Big[ -\ddot{l}_n(\beta) \Big] =  D_{\theta}(\beta)^{'} V D_{\theta}(\beta) =  X' V(\theta) X \\
+I(\beta) &= \frac{1}{n} X' V(\theta) X
+\end{align*}
+
+Thus, Jeffery's prior is 
+
+\begin{align*}
+	\pi(\theta) & = I(\theta)^{1/2}  \\
+	&= \Big| \frac{1}{n} X' V(\theta) X \Big |^{1/2} \propto   | X' V(\theta) X | ^{1/2}
+\end{align*}	
+
+\item[(ii)] Formally show that Jeffery's prior for $\beta$ for the Bernoulli model is proper. 
+
+The Jeffery's prior for $\beta$
+
+\begin{align*}
+   | X' V(\theta) X | ^{1/2} &= \Biggl | \begin{pmatrix} 
+   \frac{1}{n} \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)} &  0 \\
+   0 &\frac{1}{n} \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)} x_i^2
+   \end{pmatrix} \Biggl | ^{1/2} \\
+   &= \frac{1}{n} \Big[ \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)} \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + exp(\beta_0+ \beta_1 x_i)^2)} x_i^2 \Big]^{1/2}
+\end{align*}
+
+To show that Jeffery's prior is proper, then we need to show the integral of joint distribution is finite by the theorem in paper "On Bayesian Analysis of Generalized Linear Models Using Jeffery's prior",
+
+\begin{align*}
+   L(\beta| X, y) &= \prod_{i=1}^n p(y_i | \beta_i) \\
+   &=  \prod_{i=1}^n \exp \Big(  (\beta_0 + \beta_1 x_i) y_i -\log \Big[ 1 + \exp(\beta_0 + \beta_1 x_i) \Big] \Big) \\
+   p(\beta| X, Y)  & \propto L(\beta| X, y)  | X' V(\theta) X | ^{1/2} \\
+   & \propto  \prod_{i=1}^n \exp \Big(  (\beta_0 + \beta_1 x_i) y_i -\log \Big[ 1 + \exp(\beta_0 + \beta_1 x_i) \Big] \Big)\\
+   & \frac{1}{n} \Big[ \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + \exp(\beta_0+ \beta_1 x_i))^2} \sum_{i=1}^n \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + \exp(\beta_0+ \beta_1 x_i))^2} x_i^2 \Big]^{1/2}
+\end{align*}
+
+The below integral is finite:
+\begin{align*}
+& \int  \sum_{i=1}^ n \exp \Big(  (\beta_0 + \beta_1 x_i) y_i -\log \Big[ 1 + \exp(\beta_0 + \beta_1 x_i) \Big] \Big) \frac{\exp(\beta_0 + \beta_1 x_i)}{(1 + \exp(\beta_0+ \beta_1 x_i))^2} d\beta_0 d\beta_1   \\
+&= \int  \sum_{i=1}^ n  \pi_i^{y} (1- \pi_i)^{1-y_i} \pi_i (1-\pi_i) d\pi_i \\
+& \int  \sum_{i=1}^ n  \pi_i^{1- y_i} (1- \pi_i)^{2-y_i}  d\pi_i < M
+\end{align*}
+
+From the above integral, we can see that it is finite. So the Jeffery's prior is proper. 
+
+\end{itemize}
+
+
+\section{Problem 2}
+
+Suppose $x \sim \text{Pareto} (k, \theta)$, and 
+\begin{align}
+   p(x | \theta) &= \frac{\theta k^{\theta}}{x^{\theta + 1}}, \quad x > k, \theta > 0\\
+   \label{eq:1}
+\end{align}
+
+\begin{itemize}
+\item[(a)] Suppose that k is known and $\theta$ unknown. Derive a class of conjugate priors for $\theta$.
+
+The CDF of Pareto distribution is exponential distribution when k is known and $\theta$ unknown (ie. let $y = log \frac{x}{k}$).
+\begin{align*}
+   F(x) &= 1 - \Big(\frac{x}{k} \Big)^{-\theta} = 1 - \Big( \exp (log \frac{x}{k}) \Big)^{-\theta}, \quad x > k, \theta > 0 \\
+   p(x | \theta) &= \frac{\theta k^{\theta}}{x^{\theta + 1}} \\
+   p(y| \theta) &= \frac{\theta k^{\theta}}{(k e^y)^{\theta + 1}} k e^{y} = \theta \exp(-y \theta)
+\end{align*}
+
+So Pareto distribution is an exponential distribution, so Gamma distribution is the conjugate prior for Exponential distribution.
+
+\begin{align*}
+   p(\theta) & \sim \text{Gamma} (\alpha, \beta) \\
+   p(\theta | Y) & \propto \theta \exp(-y \theta)  \theta^{\alpha - 1} \exp \Big( -\beta \theta \Big) \\
+   & \propto \theta^{\alpha} \exp \Big(- (y+ \beta) \theta \Big) \\
+   & \propto \theta^{\alpha} \exp \Big(- (ln(x) - ln(k) + \beta) \theta \Big) 
+\end{align*}
+
+The posterior distribution is also gamma distribution $\Gamma(\alpha + 1, ln(x) - ln(k) + \beta)$, so the class of conjugate prior are Gamma distribution $\Gamma (\alpha, \beta)$.
+
+\item[(b)] Suppose $x_1,… x_n$ are i.i.d. random variables from the density in $(\ref{eq:1})$, and let z be a future observation with the same sampling density as $(\ref{eq:1})$. Derive the predictive
+distribution of z based on the prior obtained in part (a).
+
+The posterior distribution of $\theta$ based on $x_1,… x_n$, as the gamma distribution is conjugate for Pareto distribution, so the predictive distribution z is also a gamma distribution.
+
+\begin{align*}
+   p(\theta | Y) & \propto  \theta^{\alpha + n} \exp \Big(- (\sum y_i+ \beta) \theta \Big)  \\
+   &= \Gamma (\alpha + n, \sum_{i=1}^n y_i+ \beta)
+\end{align*}
+
+Then the predictive distribution of $z' = ln (\frac{z}{k})$
+
+\begin{align*}
+   p(z' | Y) &= \int p(z' | \theta) p(\theta| Y) d\theta \\
+   & \propto  \int \theta \exp(-z' \theta) \theta^{\alpha + n -1} \exp \Big( - \theta (\sum_{i=1}^n y_i+ \beta)\Big) d\theta\\
+   &= \frac{(\alpha + n) (\sum ln(x_i) -n ln (k) + \beta)^{\alpha + n}}{\Big(ln(z) + \sum ln(x_i) - (n+1) ln (k) + \beta \Big)^{\alpha + n + 1}}, \qquad \sum ln(x_i) -n ln (k) + \beta > 0
+\end{align*}
+
+where $\sum ln(x_i) -n ln (k) + \beta > 0$.
+
+\item[(c)] Derive a 95$\%$ credible interval for $\theta$.
+
+The posterior distribution of $\theta$ is Gamma distribution, and 95$\%$ credible interval with $\alpha = 0.05$
+
+We transform the gamma distribution to chi-square distribution, let $\theta = \frac{w}{2 (\sum y_i + \beta) } , w= 2\theta (\sum y_i + \beta)$, 
+the Jacobian transformation 
+\begin{align*}
+   \Big | \frac{d \theta}{ d w} \Big| &= 2 |(\sum y_i + \beta) | = 2 (\sum y_i + \beta), \qquad \sum y_i + \beta > 0 \\
+   w &= 2\theta (\sum y_i + \beta)= \frac{\Big( \sum y_i + \beta \Big)^{\alpha + n}}{\Gamma(\alpha)} \Big[ \frac{w}{2 (\sum y_i + \beta)} \Big]^{\alpha + n -1} \exp \Big(- \frac{(\sum y_i + \beta) w}{2(\sum y_i + \beta)} \Big)\\
+   &= \frac{1}{2^{\alpha + n} \Gamma(\alpha + n)} w^{\alpha + n -1} e^{-\frac{w}{2}}
+\end{align*}
+
+So we have the 95$\%$ credible interval for w,
+
+\begin{align*}
+    & \chi^2 \Big(\alpha/2, 2(\alpha + n) \Big) \leq w \leq  \chi^2 \Big(1-\alpha/2, 2(\alpha + n) \Big) 
+\end{align*}
+
+Then 95$\%$ credible interval for $\theta$,
+
+\begin{align*}
+  \Bigg \{ \theta &: 2 (\sum y_i + \beta) \chi^2 \Big(\alpha/2, 2(\alpha + n) \Big) \leq \theta \leq  2 (\sum y_i + \beta) \chi^2 \Big(1-\alpha/2, 2(\alpha + n) \Big) \Bigg \}
+\end{align*}
+
+
+\item[(d)] Now suppose that $\theta, k$ are both unknown. Let $\gamma = log(k)$, and suppose that $\gamma \sim N(\mu_0, \sigma^2_0)$ where $(\mu_0, \sigma^2_0)$ are specified hyperparameters. Suppose that the prior is the same as in part (a) and that $(\gamma, \theta)$ are independent a priori.
+
+\begin{itemize}
+\item[(i)] Derive the conditional posterior of $(\gamma| \theta, x)$ in closed form, where $x= (x_1,.. x_n)$.
+
+As the gamma prior of $\theta$ is conjugate priors for exponential distribution, so the posterior distribution of $\theta$ is also a gamma distribution.
+Based on the independent priors of $\theta$ and $\gamma$,
+
+ \begin{align*}
+   p(X| \theta, k) & = \frac{\theta k^{\theta}}{x^{\theta + 1}} \\
+   &= \theta \Big[ \exp \Big(log \frac{k}{x} \Big) \Big]^{\theta} x \\
+   L(X| \theta, k) &= \theta^n \Big[ \exp \sum_{i=1}^n \Big(log \frac{k}{x} \Big) \theta \Big] \exp(\sum log(x_i)) \\
+   p(\gamma, \theta | X) & \propto L(Y| \theta, \gamma) p(\gamma) p(\theta) \\
+   & \propto \theta^{\alpha + n -1} \exp \Big(- (\sum_{i=1}^n log(x_i) - n \gamma + \beta) \theta \Big) (\sigma_0^2)^{-1/2} \exp \Big(-\frac{(\gamma - \mu_0)^2}{2 \sigma^2_0} \Big) \\
+   & \sum_{i=1}^n log(x_i) - n \gamma + \beta > 0
+\end{align*}
+
+Then we can write the posterior distribution $p(\gamma, \theta | X)$ in terms of the conditional distribution $p(\gamma | \theta, x)$ and $p(\theta | X)$
+
+ \begin{align*}
+   p(\gamma, \theta | X) &= p(\gamma | \theta, x) p(\theta | x) \\ 
+  & \propto \theta^{\alpha + n -1} \exp \Big(- (\sum_{i=1}^n log(x_i) + \beta) \theta \Big) \exp \Big(-\frac{(\gamma - \mu_0)^2}{2 \sigma^2_0} - n \gamma \theta \Big) ,\\
+ & log(x_i) > \gamma,  \qquad \sum_{i=1}^n log(x_i) - n \gamma + \beta > 0
+\end{align*}
+
+Also, the normal prior for $\gamma$ is also a conjugate for 
+ \begin{align*}
+   p(\gamma | \theta, x) & \propto \exp \Big(-\frac{(\gamma - \mu_0)^2}{2 \sigma^2_0} - n \gamma \theta \Big) \\
+   & \propto \exp \Big(-\frac{\Big(\gamma - \mu_0 + n \theta \sigma_0^2 \Big)^2}{2 \sigma^2_0}  \Big) 
+ \end{align*}
+
+Because normal prior is conjugate to normal distribution, so the $\gamma  | \theta, x \sim N(\mu_0 +  n\theta \sigma^2_0, \sigma_0^2)$. 
+
+\item[(ii)] Use Part (i) to derive a 95$\%$ HPD interval for $\gamma$.
+
+The 95$\%$ HPD interval for $\gamma$ is 
+ \begin{align*}
+\Bigg \{\gamma &: \mu_0 +  n\theta \sigma^2_0 + z_{\alpha/2} \sigma_0 \leq \gamma \leq  \mu_0 +  n \theta \sigma^2_0 + z_{1-\alpha/2} \sigma_0  \Bigg \},  \quad log(x_i) > \gamma
+\end{align*}
+
+\end{itemize}
+
+\end{itemize}
+
+\section{Problem 3}
+Let $U(a, b)$ denote the uniform distribution on the interval $(a, b)$. Given $\theta$, suppose $X_1,…X_n$ follows $U(\theta,\theta+1)$, and suppose that $\theta \sim U(a_0, b_0)$, $a_0, b_0$ are hyperparameters.
+
+\begin{itemize}
+	\item [(a)] find $95\%$ credible interval for posterior distribution of $\theta$
+	We get from last homework that, the posterior distribution 
+
+\begin{align*}
+	p(\theta|X) &= \frac{\frac{1}{ b_0 - a_0}  I \Big( \max(a_0, X_{(n)}-1) \leq \theta \leq \min(X_{(1)}, b_0) \Big)}{\frac{\min(X_{(1)}, b_0) - \max(a_0, X_{(n)}-1) }{ (b_0 - a_0)}} \\
+	&= \frac{ I \Big( \max(a_0, X_{(n)}-1) \leq \theta \leq min(X_{(1)}, b_0) \Big)}{\min(X_{(1)}, b_0) -max(a_0, X_{(n)}-1)}
+\end{align*}	
+
+	The $95\%$ credible interval of $\theta$ falls between $\theta_U$ and $\theta_L$, 
+\begin{align*}
+	\begin{cases*}
+		p(\theta \geq \theta_{U} |X_1, ..X_n) =  0.025, \qquad \rightarrow \frac{\min(X_{(1)}, b_0)-  \theta_{U} }{\min(X_{(1)}, b_0) - \max(a_0, X_{(n)}-1)} = 0.025 \\
+		p(\theta \leq \theta_{L} |X_1, ..X_n)  = 0.025 \qquad  \rightarrow  \frac{\theta_{L} - \max(a_0, X_{(n)}-1)}{\min(X_{(1)}, b_0) - \max(a_0, X_{(n)}-1)} = 0.025
+	\end{cases*}
+\end{align*}	
+Let $a_1 = \max(a_0, X_{(n)}-1) , b_1 = \min(X_{(1)}, b_0)$	So the posterior $\theta$ $95\%$ credible interval is 
+\begin{align*}
+	\Bigg \{ \theta|X &: a_1 + 0.025 \{b_1 - a_1\} \leq \theta  \leq  b_1- 0.025 \{b_1 - a_1\} \Bigg \}
+\end{align*}	
+	
+\item[(ii)] Let z be a future observation with the same sampling density as the $x_i$'s. Derive the predictive density of z.
+
+\begin{align*}
+   p(z | X) &= \int p(z | \theta) p(\theta| Y) d\theta \\
+   & = \int_{a_1}^{b_1} I( \theta < z < \theta+1)  \frac{1}{b_1 - a_1} d\theta , \qquad  \max(a_1, z-1) <  \theta < \min(b_1, z) \\
+   &= \int_{\max(a_1, z-1) }^{\min(b_1, z)} \frac{1}{b_1 - a_1} d\theta \\
+   &=  \frac{\min(b_1, z) - \max(a_1, z-1)}{b_1 - a_1} 
+\end{align*}
+
+\item[(iii)] Derive a $95\%$ credible interval for z.
+
+	The $95\%$ credible interval of z falls between $z_U$ and $z_L$, 
+\begin{align*}
+	\begin{cases*}
+		p(z \geq z_{U} |X_1, ..X_n) =  0.025, \qquad \rightarrow \frac{\min(b_1, z_U) -  z_{U} }{b_1- a_1} = 0.025 \\
+		p(z \leq z_{L} |X_1, ..X_n)  = 0.025 \qquad  \rightarrow  \frac{z_L- \max(a_1, z_L -1)}{b_1- a_1} = 0.025
+	\end{cases*}
+\end{align*}	
+So the $95\%$ credible interval is 
+\begin{align*}
+	\Bigg \{ z|X &: a_1 + 0.025 \{b_1 - a_1\} \leq \theta  \leq  b_1- 0.025 \{b_1 - a_1\} \Bigg \}
+\end{align*}	
+
+\end{itemize}
+
+\section{Problem 4}
+Consider linear model with error i.i.d. $\epsilon_i \sim N(0, \sigma^2), \tau = 1/\sigma^2$.
+
+\begin{itemize}
+
+\item[(i)] Calculate based on given information 
+
+\begin{itemize}
+\item[(i)] Compute $P(\beta^2 > .25| y)$.
+We have
+\begin{align*}
+y & \sim N(X \beta, \sigma^2 I_{4 \times 4}), \qquad \tau = 1 \\
+\beta & \sim N(\mu_0, \sigma_0^2), \qquad \mu_0 = 0,  \sigma_0^2= 1000
+\end{align*}	
+
+Then the posterior distribution of $\beta$ is also a normal distribution due to conjugate prior
+\begin{align*}
+P(\beta | y) & \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (y- X\beta)^T (y- X\beta)}{2} \Big) (\sigma_0^2)^{-\frac{n}{2}} \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \sigma_0^2} \Big) \\
+& \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (\beta- \hat\beta)^T X'X (\beta- \hat\beta)}{2} \Big) (\sigma_0^2)^{-\frac{n}{2}} \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \sigma_0^2} \Big) \\
+& \propto \exp \Bigg \{ -\frac{\tau}{2} \Big[ (X'X) \beta^2 - 2 \hat{\beta} (X'X) \beta + \hat{\beta}^2 \Big] - \frac{(\beta - \mu_0)^2}{2 \sigma_0^2} \Bigg\} \\
+& \propto  \exp \Bigg \{ -\frac{1}{2} \Big( (X'X)\tau + \frac{1}{\sigma_0^2}  \Big) \beta^2  + \Big( (X'X)\tau \hat{\beta} + \frac{\mu_0}{\sigma_0^2} \Big) \beta \Bigg\} \\
+& \propto \exp \Bigg \{ -\frac{1}{2} \Big( (X'X)\tau + \frac{1}{\sigma_0^2}  \Big) \Bigg( \beta - \frac{\tau X'Y + \frac{\mu_0}{\sigma_0^2}}{\tau (X'X) + \sigma_0^{-2}}\Bigg) \Bigg\}
+\end{align*}	
+where we have the posterior distribution
+
+\begin{align*}
+P(\beta | y) & \sim N \Bigg \{ \frac{\tau X'Y + \frac{\mu_0}{\sigma_0^2}}{\tau (X'X) + \sigma_0^{-2}}, \Big( (X'X)\tau + \frac{1}{\sigma_0^2}  \Big)^{-1}  \Bigg\} \\
+X'Y &= 6.535, \qquad X'X = 25.5,\qquad \tau = 1,\qquad \mu_0 = 0 \\
+P(\beta | y) & \sim N \{ \frac{6.535}{25.5 + 0.001}, \frac{1}{25.5+0.001} \} 
+\end{align*}
+
+Then 
+\begin{align*}
+P(\beta^2 > .25| y) &=  P(\beta > .5| y) + P(\beta < -.5| y) \\
+&= \sim N \{ \frac{6.535}{25.5 + 0.001}, \frac{1}{25.5+0.001} \}  = N \{ 0.256, 0.039 \} \\
+Z_{1} &= \frac{0.5 - 0.256}{\sqrt{0.039}} = 1.24, \qquad P(Z > 1.24) = 0.107\\
+Z_{2} &= \frac{-0.5 - 0.256}{\sqrt{0.039}} = -3.83, \qquad P(Z < -3.83) = 0.00006\\
+P(\beta^2 > .25| y) &= 0.107 + 0.00006 = 0.10706
+\end{align*}
+
+\item[(ii)] Construct a $95\%$ HPD interval .
+\begin{align*}
+\Bigg \{\beta &: Z_{\alpha/2} \sqrt{0.039} + 0.256 \leq \beta \leq  Z_{1-\alpha/2} \sqrt{0.039} + 0.256 \Bigg \} \\
+\Bigg \{\beta &: -1.96 \sqrt{0.039} + 0.256 \leq \beta \leq  1.96 \sqrt{0.039} + 0.256 \Bigg \} = \Bigg \{\beta &: -0.131 \leq \beta \leq  0.643 \Bigg \}
+\end{align*}
+
+\item[(iii)] Let $z = (z_1, z_2, z_3)$ be a $3 \times 1$ vector of future observations. Find the predictive distribution of $z$ at $X_f = (1,2,3)'$.
+
+The predictive distribution is also a normal distribution, 
+
+\begin{align*}
+p(z| X, Y) &= \int p(\beta | Y) p(z| \beta) d\beta \\
+& \propto \int  \exp \Big(-\frac{(\beta - 0.256)^2}{2 \times 0.039} \Big) \exp \Big(- \frac{ (z- X_f \beta)^T (z- X_f \beta)}{2} \Big) d\beta \\
+& \propto \int \exp \Big(-\frac{1}{2} \Big[ \frac{1}{0.039} + x_f^T x_f \Big] \Big( \beta^2 - 2\frac{\frac{0.256}{0.039} + z^T x_f}{\frac{1}{0.039} + x_f^T x_f } \Big ) \Big) d\beta \\
+&\propto \exp \Big(-\frac{z^TZ}{2}  \Big) \exp \Big(\frac{1}{2} \frac{\Big(\frac{0.256}{0.039} + z^T x_f \Big)^2}{\frac{1}{0.039} + x_f^T x_f } \Big) 
+\end{align*}
+
+when $X_f = (1,2,3)'$, the predictive distribution is 
+\begin{align*}
+p(z| X, Y) &=  (2\pi 0.039)^{-\frac{1}{2}} \Big[ \frac{1}{0.039} + 14 \Big]^{\frac{3}{2}} \exp \Big(-\frac{z^TZ}{2} - \frac{0.256^2}{2 \times 0.039} \Big) \exp \Big(\frac{1}{2} \frac{\Big(\frac{0.256}{0.039} + z^T x_f \Big)^2}{\frac{1}{0.039} + 14} \Big) 
+\end{align*}
+
+\end{itemize}
+\item[(b)] Suppose $\tau = 1$, consider the hypothesis 
+\begin{align*}
+H_0 &:  \beta = 0 \\
+H_1 &: \beta = 1
+\end{align*}
+Derive a general expression for the Bayes factor in favor of $H_0$, and then compute the Bayes factor using $x, y$ given above.
+
+The Bayes factor 
+\begin{align*}
+ B &=  \frac{p(x| {H_0})}{p(x| {H_1})} = 
+\end{align*}
+ 
+ The posterior distribution of $\beta$ from above part () is 
+ 
+ Then the $p(y)$ is 
+ 
+ The Bayes factor is
+ 
+ 
+ 
+  \item[(c)] Suppose both $(\tau, \beta)$ are unknown, and suppose we wish to test 
+  \begin{align*}
+ H_0 &:  \beta = 0 \\
+ H_1 &: \beta \neq 0
+\end{align*}
+Under $H_0, \tau \sim gamma(\frac{\delta_0}{2}, \frac{\gamma_0}{2})$. Under $H_1$, the joint prior for $(\beta, \tau)$ is 
+   \begin{align*}
+ \beta | \tau & \sim N(\mu_0, \tau^{-1} \sigma_0^2)\\
+ \tau &\sim gamma(\frac{\delta_0}{2}, \frac{\gamma_0}{2})
+\end{align*}
+Derive a general expression for the Bayes factor in favor of $H_0$, and then compute the Bayes factor using the data given in part (b).
+
+ The posterior distribution of $\beta$ with $\tau$ unknown is
+ 
+ 
+ Under $H_0: \beta = 0$, the $p(y)$ 
+  
+Under $H_1$, the $p(y)$ with integral of $\beta$
+ 
+ The Bayes factor is
+ 
+ 
+
+\end{itemize}
+

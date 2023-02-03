@@ -1,0 +1,194 @@
+
+ \section{Split plot design with CBD} 
+ 
+ Consider the factorial problem: 3 different irrigation levels, 4 different corn varieties, response: biomass, available resources: 6 plots of land. By definition, we can not vary the irrigation level on a too small scale. We are "forced" to use "large" experimental units for the irrigation level factor. Assume that we can use a specific irrigation level on each of the 6 plots.\\
+Randomly assign each irrigation level to 2 of the plots (the so called whole plots or main plots). In every of the plots, randomly assign the 4 different corn varieties to the so called split plots. Two independent randomization are being performed. We call irrigation level the whole-plot factor and corn variety the split-plot factor.\\
+Whole plots are the experimental units for the whole-plot factor(irrigation level), Split plots are the experimental units for the split-plot factor. In the split-plot world, whole plots act as blocks. \\
+We use a mixed model formulation with two different erors\\
+\begin{align*}
+Y_{ijk} &= \mu + \alpha_i + \eta_{k(i)} + \beta_j + (\alpha\beta)_{ij} + \epsilon_{k(ij)}\\
+\eta_{k(i)} &= N(0, \sigma_{\eta}^2) \qquad \text{whole-plot error} \\
+\epsilon_{k(ij)} &= N(0, \sigma^2) \qquad \text{split-plot error} \\
+\alpha_i &= \text{fixed effect of irrigation}\\
+\beta_j &= \text{fixed effect of corn variety}\\
+(\alpha\beta)_{ij} &= \text{fixed interaction between irrigation and corn variety}
+\end{align*} 
+This means the observations in the same whole plot share the same whole-plot error $\eta_{k(i)}$.\\
+
+\textbf{Split plot design with RCBD} In this example, we have assumed that managing levels of irrigation and fertilizer require the same effort. Now suppose varying the level of irrigation is difficult on a small scale and it makes more sense to apply irrigation levels to larger areas of land. \\
+
+In such situations, we can divide each land into two large fields (whole plots) and apply irrigation amounts to each field randomly. And then divide each of these large fields into smaller fields (subplots) and apply fertilizer randomly within the whole plots. \\
+
+In this strategy, each land contains two whole plots and irrigation amount is assigned to each whole plot randomly using RCBD (i.e. lands are treated as blocks and irrigation amount is assigned randomly within each block to the whole plots). Each whole plot contains two subplots and fertilizer type is assigned to each subplot using RCBD (i.e. whole plots are treated as blocks and fertilizer type is assigned randomly within each whole plot to the subplots).\\
+
+When some factors are more difficult to vary than others at the levels of experimental units, it is more efficient to assign more difficult-to-change factors to larger units (whole plots) and then apply the easier-to-change factor to smaller units (subplots). This is known as the split-plot design. \\
+
+It is important to notice that in a split-plot design, randomization is a two-stage process. Levels of one factor (say, factor A) are randomized over the whole plots within each block, and the levels of the other factor (say, factor B) are randomized over the subplots within each whole plot. This restriction in randomization results in two different error terms: one appropriate for comparisons at the whole plot level and one appropriate for comparisons at the subplot level. \\
+
+The appropriate error for whole plot level in split-plot RCBD is whole plot factor $\times$ block interaction. In other words, the analysis at the whole plot level is essential of a one-way ANOVA with blocking (i.e. one observation per block-treatment combination). From the perspective of the whole plot, the subplots are simply subsamples and it is reasonable to average them when testing the whole plot effects (i.e. factor A effects).\\
+The subplot factor (i.e. factor B) is always compared within the whole plot factor. \\
+\begin{tabular}{l r r}
+Source & & DF  \\\hline
+Blocks &  &r-1\\
+Factor 	A & & a -1\\
+ & whole plot effect error  & (r-1)(a-1)\\
+Factor B & & b -1\\
+Factor A $\times$ B &  & (a-1)(b -1)\\
+ & subplot effect error  & a(r-1)(b-1)\\
+Total &   & abr -1\\
+\hline
+\end{tabular}\\
+The statistical model associated with the split-plot design with whole plots arranged as RCBD is 
+\begin{align*}
+Y_{ijk} = \mu + \alpha_i + \gamma_k + (\alpha\gamma)_{ik} + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}
+\end{align*}
+which $\gamma_k$ for $k=1,2...r$ are block effects, $\alpha_i$ for $i=1,2,.. a$ are whole plot effects, and $\beta_j$ for $j=1,2..b$ are subplot effects. \\
+
+\textbf{Question} Consider the split-plot design ANOVA model given by
+\begin{align*}
+Y_{ijk} = \mu + \alpha_i + \beta_j + \gamma_k  + (\epsilon)_{ij}^{(1)}  + (\alpha\gamma)_{ik}+ \epsilon_{ijk}^{(2)}
+\end{align*}
+where $i = 1.. a; j = 1.. b;$ and $k = 1... c$. Here, $\alpha_i$ = ith whole plot treatment effect, $\beta_j$ = jth block effect, $\gamma_k$ = kth subplot treatment effect, and $(\alpha\gamma)_{ik}$ = whole plot treatment and subplot treatment interaction. Further we assume that the $(\epsilon)_{ij}^{(1)}$ are iid $N(0; \sigma_1^2)$ random variables, the $\epsilon_{ijk}^{(2)}$ are iid $N(0, \sigma_2^2)$ random variables, and the $(\epsilon)_{ij}^{(1)}$ are independent of the $\epsilon_{ijk}^{(2)}$ for all i; j; k.\\
+
+\begin{itemize}
+    \item [(a)] Write components in $Y= X\beta + \epsilon$\\
+ \begin{align*}
+Y &= (Y_{111}, Y_{112}, ... Y_{11c}, Y_{121},... Y_{12c}, ..Y_{1bc}, Y_{211}, ... Y_{abc})^T_{abc\times 1}\\
+\text{Let} J_a &= (1,1,...1)^T_{a\times 1}, I_a= diag(1)_{a\times a}\\
+X &= [J_a \otimes J_b \otimes J_c \qquad I_a \otimes J_b \otimes J_c \qquad J_a \otimes I_b \otimes J_c \qquad J_a \otimes J_b \otimes I_c \qquad I_a \otimes I_b \otimes I_c]\\
+\beta &= [\mu \qquad \alpha_1 \qquad ..\alpha_a \qquad \beta_1.. \beta_b \qquad \gamma_1.. \gamma_c \qquad (\alpha \gamma)_{11}... \qquad (\alpha \gamma)_{ac}]^T\\
+\epsilon &= [\epsilon_{11} + \epsilon_{111} \qquad \epsilon_{11}+\epsilon_{112} ... \qquad \epsilon_{11}+ \epsilon_{11c} \qquad \epsilon_{12}+\epsilon_{121} ... \qquad \epsilon_{12}+\epsilon_{12c} \qquad ... \epsilon_{ab}+\epsilon_{abc}]^T_{abc \times 1}\\
+\end{align*}   
+Understand the covariance structure
+ \begin{align*}
+Var(\epsilon_{ij} + \epsilon_{ijk}) &= Var(\epsilon_{ij}) + Var(\epsilon_{ijk}) = \sigma_1^2 + \sigma_2^2\\
+Cov(\epsilon_{ij} + \epsilon_{ijk_1}, \epsilon_{ij} + \epsilon_{ijk_2 }) &= Var(\epsilon_{ij}) + Cov(\epsilon_{ijk_1}, \epsilon_{ijk_2}) = \sigma_1^2\\
+\Sigma &= \begin{bmatrix}
+           \sigma_1^2 + \sigma_2^2 &  \sigma_1^2 &\sigma_1^2... & 0 & 0 \\
+            &  \sigma_1^2 + \sigma_2^2 & \sigma_1^2 ... &0 & 0\\
+             &   & \sigma_1^2 + \sigma_2^2 & ... &0 \\
+             &.. &.. &.. &..\\
+         \end{bmatrix} = \sigma_1^2 I_a \otimes I_b \otimes J_c + \sigma_2^2 I_a \otimes I_b \otimes I_c\\
+\end{align*} 
+\item [(b)] Show that $\sum_{i=1}^{a} \sum_{k=1}^{c} q_{ik}(\alpha\gamma)_{ik}$ is estimable, and find its UMVUE and the variance of the UMVUE, where the $q_{ik}$'s are real numbers that satisfy\\
+\begin{align*}
+\sum_{i=1}^{a} q_{ik} = \sum_{k=1}^{c} q_{ik} =0
+\end{align*} 
+Need to find $\rho^T X = \lambda^T$, summing over $\beta$
+\begin{align*}
+\lambda^T &= (0_{a+b+c+1} \qquad q_{11} \qquad q_{12} \qquad .... q_{ac})\\
+\lambda^T \beta &= \sum_{i=1}^{a} \sum_{k=1}^{c} q_{ik}(\alpha\gamma)_{ik}\\
+\rho^T &= \frac{1}{b} (q_{11} \otimes J_b^T \qquad q_{12}  \otimes J_b^T \qquad ... q_{ac} \otimes J_b^T)\\
+\end{align*} 
+Since $\sum_{i=1}^{a} q_{ik} = \sum_{k=1}^{c} q_{ik} =0, \rho^T X = \lambda^T $, then $\lambda^T $ is estimable. 
+The UMVUE of the $\lambda^T \beta$
+\begin{align*}
+\rho^T MY &= \rho^T Y = \sum_{i=1}^{a} \sum_{k=1}^{c} q_{ik} \bar{Y}_{i.k} \qquad \text{Since} \rho \in C(X)\\
+Var(\rho^T MY) &= \rho^T M Var(Y)  M\rho = \rho^T Var(Y) \rho = \rho^T \Sigma \rho\\
+\end{align*} 
+\item[(c)] Using only Kronecker product development and notation, i) derive the orthogonal projection operator for the $\alpha$ space, denoted by $M_{\alpha}$ and, ii) derive the orthogonal
+projection operator for the $(\alpha\gamma)$ interaction space, denoted by $M_{\alpha\gamma}$. Express your answer in the simplest possible form.\\
+Let
+\begin{align*}
+P_a &= \frac{1}{a} J_a J_a^T, \qquad P_a \quad \text{o.p.o onto}\quad C(J_a)\\
+Q_a &= I_a - P_a, \qquad Q_a \quad \text{o.p.o onto}\quad C(J_a)^{\perp}\\
+M_{\alpha} &= (Q_a \otimes J_b \otimes J_c)\left ((Q_a \otimes J_b \otimes J_c)^T (Q_a \otimes J_b \otimes J_c) \right)^{-} (Q_a \otimes J_b \otimes J_c)^T\\
+&= Q_a \otimes P_b \otimes P_c\\
+M_{\alpha\gamma} &= (Q_a \otimes J_b \otimes Q_c) \left ((Q_a \otimes J_b \otimes Q_c)^T (Q_a \otimes J_b \otimes Q_c) \right)^{-} (Q_a \otimes J_b \otimes Q_c)^T\\
+&= Q_a \otimes P_b \otimes Q_c\\
+\end{align*} 
+\item[(d)]Derive the simplest possible scalar expression for $E[Y'(M_{\alpha} + M_{\gamma})Y]$, where $M_{\gamma}$ denotes the orthogonal projection operator for the space.\\
+\begin{align*}
+E[Y'(M_{\alpha} + M_{\gamma})Y] &= tr \left((M_{\alpha} + M_{\gamma})\Sigma \right) + E(Y)^T(M_{\alpha} + M_{\gamma}) E(Y)\\
+M_{\gamma} &= P_a \otimes P_b \otimes Q_c\\
+E(Y) &= X\beta = \mu J_a \otimes J_b \otimes J_c + \alpha \otimes J_b \otimes J_c + J_a \otimes \beta \otimes J_c + J_a \otimes J_b \otimes \gamma + (\alpha\gamma) J_c\\
+\end{align*} 
+where $\alpha = (\alpha_1, \alpha_2,... \alpha_a)^T, \beta = (\beta_1, \beta_2,.. \beta_b)^T, \gamma = (\gamma_1, \gamma_2, .. \gamma_c)^T, (\alpha\gamma) = (\alpha\gamma_{11}, \alpha\gamma_{12}, ... \alpha\gamma_{ac})^T$.\\
+\begin{align*}
+M_{\gamma} &= P_a \otimes P_b \otimes Q_c\\
+E(Y) &= X\beta = \mu J_a \otimes J_b \otimes J_c + \alpha \otimes J_b \otimes J_c + J_a \otimes \beta \otimes J_c + J_a \otimes J_b \otimes \gamma + (\alpha\gamma) J_c\\
+M_{\alpha}\Sigma &= M_{\alpha} (\sigma_1^2 I_a \otimes I_b \otimes J_c + \sigma_2^2 I_a \otimes I_b \otimes I_c) \\
+&= \sigma_1^2 (Q_a \otimes P_b \otimes P_c) (I_a \otimes I_b \otimes J_c) + \sigma_2^2 (Q_a \otimes P_b \otimes P_c) (I_a \otimes I_b \otimes I_c)\\
+&= \sigma_1^2 (Q_a \otimes P_b \otimes J_c) + \sigma_2^2 (Q_a \otimes P_b \otimes P_c)\\
+tr(M_{\alpha}\Sigma) &= \sigma_1^2 \{ tr(Q_a) tr(P_b) tr(J_c) \} + \sigma_2^2 \{ tr(Q_a) tr(P_b) tr(P_c)\}\\
+&= \sigma_1^2 [(a-1) \times \frac{1}{b} b \times 1] + \sigma_2^2 [(a-1) \times \frac{1}{b} b \times \frac{1}{c} c]\\
+&= (a-1)(\sigma_1^2 + \sigma_2^2)\\
+M_{\gamma}\Sigma &= (P_a \otimes P_b \otimes Q_c) (\sigma_1^2 I_a \otimes I_b \otimes J_c + \sigma_2^2 I_a \otimes I_b \otimes I_c)\\
+&= \sigma_1^2(P_a \otimes P_b \otimes 0) + \sigma^_2^2 (P_a \otimes P_b \otimes Q_c)\\
+tr(M_{\gamma} \Sigma) &= \sigma_2^2 (tr(P_a) tr(P_b) tr(Q_c)) = (c-1) \sigma_2^2\\
+E(Y)'(M_{\alpha}+ M_{\gamma})E(Y) &= E(Y)'(Q_a \otimes P_b \otimes P_c + P_a \otimes P_b \otimes Q_c) E(Y) \\
+%&= \sum\sum\sum [(\alpha_i + \bar{(\alpha\gamma)_{i.}} - \bar{\alpha_{.}} - \bar{(\alpha\gamma)_{..}})^2 + (\gamma_k + \bar{(\alpha\gamma)}_{.k} - \bar{\gamma_{.}} - \bar{(\alpha\gamma)_{..}})^2]
+\end{align*} 
+
+
+Overall
+\begin{align*}
+E[Y'(M_{\alpha} + M_{\gamma})Y] &= (a-1)(\sigma_1^2 + \sigma_2^2) + (c-1) \sigma_2^2\\ 
+&+ bc \sum_{i=1}^a (\alpha_i + \bar{(\alpha\gamma)}_{i.} - \bar{\alpha}_{.} - \bar{(\alpha\gamma)}_{..})^2 + ac \sum_{i=1}^b (\gamma_k + \bar{(\alpha\gamma)}_{.k} - \bar{\gamma}_{.} - \bar{(\alpha\gamma)}_{..})^2
+\end{align*}
+\item[(e)]Using only Kronecker product development, derive the F-test for the hypothesis\\
+\begin{align*}
+H_0: \sum_{i=1}^a \sum_{k=1}^c q_{ik} (\alpha\gamma)_{ik} = 10
+\end{align*}
+And state its distribution under the null and alternative hypotheses.\\
+\begin{align*}
+H_0: & \lambda^T \beta = 10\\
+ \lambda^T \hat{\beta} &= \rho^T X \hat{\beta} = \rho^T M Y , \qquad r(\rho) = 1\\
+ F &= (\rho^T M Y - 10)^T [Var(\rho^T MY)]^{-1} (\rho^T M Y - 10)\\
+ &= \frac{(\rho^T M Y - 10)^2}{\rho^T \Sigma \rho}\\
+ r(I-M) &= abc - (a-1 + b-1 + c-1 + (a-1)(b-1) + 1) = abc -ac -b + 1\\
+ F \sim F(1, abc -ac -b + 1, \lambda)
+\end{align*}
+Where under $H_0, \lambda = 0$, under $H_1 $
+\begin{align*}
+ \lambda &= \frac{E(Y)'M_{M\rho}E(Y)}{2|\Sigma|/abc} = \frac{E(Y)'\rho (\rho'\rho)^{-} \rho' E(Y)}{2|\Sigma|/abc}\\
+ M_{M\rho} &= M\rho \left( (M\rho)' (M\rho) \right)^{-} \rho'M = \rho (\rho'\rho)^{-} \rho'
+\end{align*}
+
+\item[(f)] Using only Kronecker product development and notation, obtain the simplest possible
+expression for $M_{\beta} +M_{\alpha\gamma}$, where $M_{\beta}$ denotes the orthogonal projection operator for the $\beta$ space in model (4).\\
+\begin{align*}
+M_{\beta} &= P_a \otimes Q_b \otimes P_c\\
+M_{\beta} + M_{\alpha\gamma} &= P_a \otimes Q_b \otimes P_c +Q_a \otimes P_b \otimes Q_c\\
+&= P_a \otimes I_b \otimes P_c - P_a \otimes P_b \otimes I_c + I_a \otimes P_b \otimes Q_c
+\end{align*}
+
+\item[(g)] Write the full ANOVA table in detail for model (4) including information for all
+sources of variation, degrees of freedom, sums of squares, mean squares, and expected
+mean squares. Write all the sums of squares and expected mean squares in both
+Kronecker product form and scalar form.\\
+\begin{tabular}{l r r r r r r }
+& Kronecker & & & \\\hline
+Source & SS & EMS  \\\hline
+$M_\mu=P_a \otimes P_b \otimes P_c$ &  Y'($M_\mu$)Y & E(Y)'($M_\mu$)E(Y)  \\
+$M_\alpha=Q_a \otimes P_b \otimes P_c$	&  Y'($M_\alpha$)Y & E(Y)'($M_\alpha$)E(Y) \\
+$M_\beta= P_a \otimes Q_b \otimes P_c$	& Y'($M_\beta$)Y & E(Y)'($M_\beta$)E(Y) \\
+$M_\gamma=P_a \otimes P_b \otimes Q_c$	& Y'($M_\gamma$)Y & E(Y)'($M_\gamma$)E(Y) \\
+$M_\alpha\gamma =Q_a \otimes P_b \otimes Q_c$	& Y'($M_{\alpha\gamma}$)Y & E(Y)'($M_{\alpha\gamma}$)E(Y) \\
+$M = M_{\mu}+M_{\alpha} + M_{\beta} + M_{\gamma} + M_{\alpha\gamma} $	& Y'(M)Y & E(Y)'(M)E(Y) \\
+$= P_a \otimes Q_b \otimes P_c + I_a \otimes P_b \otimes I_c$  \\
+$M_e = I-M$	& Y'($M_e$)Y & E(Y)'($M_e$)E(Y) \\
+$= I_{abc}- P_a \otimes Q_b \otimes P_c - I_a \otimes P_b \otimes I_c$  \\
+Total	& Y'(I)Y & E(Y)'(I)E(Y) \\
+\hline
+\end{tabular}\\
+
+\begin{tabular}{l r r r r r r }
+& Scalar & & & \\\hline
+Source & SS & EMS  \\\hline
+$M_\mu$ &  $abc\bar{Y}^2_{...}$ & $abc\mu^2$  \\
+$M_\alpha$	&  $bc\sum_{i=1}^{a}(\bar{Y}_{i..}- \bar{Y}_{...})^2$ & $bc\sum_{i=1}^{a}(\alpha_i + \bar{(\alpha\gamma)}_{i.}- \bar{\alpha}_{.} - \bar{(\alpha\gamma)}_{..})^2$ \\
+$M_\beta$	&  $ac\sum_{j=1}^{b}(\bar{Y}_{.j.}- \bar{Y}_{...})^2$ & $ac\sum_{j=1}^{b}(\beta_i - \bar{\beta}_{.})^2$ \\
+$M_\gamma$	& $ab\sum_{k=1}^{c}(\bar{Y}_{..k}- \bar{Y}_{...})^2$ & $ab\sum_{k=1}^{c}(\gamma_k + \bar{(\alpha\gamma)}_{.k}- \bar{\gamma}_{.} - \bar{(\alpha\gamma)}_{..})^2$ \\
+$M_\alpha\gamma$	& $b\sum_{i=1}^{a}\sum_{k=1}^{c}(\bar{Y}_{i.k}- \bar{Y}_{i..}- \bar{Y}_{..k} + \bar{Y}_{...})^2$ & $b\sum_{i=1}^{a}\sum_{k=1}^{c}(\alpha\gamma_{ik} - \bar{(\alpha\gamma)}_{i.} - \bar{(\alpha\gamma)}_{.k} - \bar{(\alpha\gamma)}_{..})^2$ \\
+$M_e = I-M$	& $\sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{c}(Y_{ijk}-\bar{Y}_{i.k} -\bar{Y}_{.j.}  +\bar{Y}_{...})^2$ & E(Y)'($M_e$)E(Y) \\
+Total	& Y'(I)Y & E(Y)'(I)E(Y) \\
+\hline
+\end{tabular}\\
+
+\begin{align*}
+    M &= M_{\mu}+M_{\alpha} + M_{\beta} + M_{\gamma} + M_{\alpha\gamma} = P_a \otimes Q_b \otimes P_c + I_a \otimes P_b \otimes I_c\\
+    I-M &= I_{abc}- P_a \otimes Q_b \otimes P_c - I_a \otimes P_b \otimes I_c \\
+    Y'(I-M)Y & = \sum_{i=1}^{a}\sum_{j=1}^{b}\sum_{k=1}^{c}(Y_{ijk}-\bar{Y}_{i.k} -\bar{Y}_{.j.}  +\bar{Y}_{...})^2
+\end{align*}
+\end{itemize}

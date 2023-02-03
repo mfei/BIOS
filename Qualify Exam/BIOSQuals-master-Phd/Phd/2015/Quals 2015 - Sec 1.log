@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  21 JAN 2023 20:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  27 JAN 2023 13:48
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **"Quals 2015 - Sec 1.tex"
 (./Quals 2015 - Sec 1.tex
@@ -435,12 +434,37 @@ Package caption Info: End \AtBeginDocument code.
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2] [3] [4]
-Overfull \hbox (65.91435pt too wide) detected at line 225
+Overfull \hbox (65.91435pt too wide) detected at line 229
 []
  []
 
-[5] [6] [7] [8] [9] [10] [11] [12] [13] [14]
-Overfull \hbox (29.1126pt too wide) in paragraph at lines 605--606
+[5]
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 284.
+
+[6] [7] [8] [9] [10] [11] [12]
+Overfull \hbox (29.1126pt too wide) in paragraph at lines 551--552
 []\OT1/cmr/m/n/10.95 Show the dis-tri-bu-tion trans-for-ma-tion. As-sume that $
 \OML/cmm/m/it/10.95 X \OMS/cmsy/m/n/10.95 ^^X \OML/cmm/m/it/10.95 Gamma\OT1/cmr
 /m/n/10.95 (\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1)\OML/cmm/m/it/10.95 ; Y
@@ -448,13 +472,13 @@ Overfull \hbox (29.1126pt too wide) in paragraph at lines 605--606
 m/it/10.95 ^^L; \OT1/cmr/m/n/10.95 1)$,
  []
 
-[15] [16] [17] [18] [19] [20] [21] (./Quals 2015 - Sec 1.aux) ) 
+[13] [14] [15] [16] [17] [18] [19] (./Quals 2015 - Sec 1.aux) ) 
 Here is how much of TeX's memory you used:
- 6232 strings out of 478268
- 108037 string characters out of 5846347
- 424624 words of memory out of 5000000
- 24361 multiletter control sequences out of 15000+600000
- 477750 words of font info for 57 fonts, out of 8000000 for 9000
+ 6229 strings out of 478268
+ 108015 string characters out of 5846347
+ 424634 words of memory out of 5000000
+ 24360 multiletter control sequences out of 15000+600000
+ 477129 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,18n,79p,486b,290s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texl
@@ -472,11 +496,12 @@ st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2022/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2022/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on "Quals 2015 - Sec 1.pdf" (21 pages, 240189 bytes).
+ts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on "Quals 2015 - Sec 1.pdf" (19 pages, 244752 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 146 PDF objects out of 1000 (max. 8388607)
+ 92 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

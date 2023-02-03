@@ -1,0 +1,199 @@
+
+\subsubsection{Likelihood Ratio Test based on likelihood}
+
+Derive the likelihood ratio test for the hypothesis in part (e) and derive its asymptotic distribution under $H_0$.
+From part (e), we have the parameter estimates under $H_0$. While under alternative hypothesis, we have $\mu_{ij} = n_{ij}$. 
+\begin{align*}
+	LRT_n &= 2(LR(\pi_{H_1}) - LR(\pi_{H_0})) =2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{ij} - \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{\pi_{ij}}{\pi_{i+} \pi_{+j} }   \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{n_{ij} n}{n_{i+} n_{+j} }   \right) \sim \chi^2_{(I-1)(J-1)} 
+\end{align*}
+Note that the full model has $(IJ-1)$ parameters, and the null hypothesis has $(I-1)+ (J-1)$ parameters.
+\begin{align*}
+	df &= I \times J-1 - (I-1) - (J-1)\\
+	&= (I-1)(J-1)
+\end{align*}
+
+\subsubsection{Conditional Probability}
+
+Suppose that $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance. Derive the conditional likelihood of $(\pi_{11}, \pi_{12})$ and the conditional MLE's of  $(\pi_{11}, \pi_{12})$.
+If not specified, we treat as general contingency table that total n is fixed. If only $\pi_{11}, \pi_{12}$ are parameters of interest and the rest of the parameters are treated as nuisance, then we will set the rest of the parameters as one parameter, and get its distribution, which is to find the sufficient statistics for rest of the parameters.
+Write the Multinomial distribution in exponential family distribution.\\
+We can find marginal distribution by summing over along all possible values of $(n_{11}, n_{12})$. Note that $n_{11} \leq \min{n_{1+} - n_{12}, n_{+1}}$ for a given value of $n_{12}$. Similarly, $n_{12} \leq \min{n_{1+}- n_{11}, n_{+1}}$ for a given value of $n_{11}$. \\
+Additionally,
+\begin{align*}
+	n & \geq n_{1+} + n_{+1} + n_{+2} - n_{11} - n_{12} \\
+	n_{11} + n_{12} & \geq \max{ 0, n_{+1} + n_{1+} + n_{+2}}
+\end{align*}
+Let
+\begin{align*}
+	S(n_{11}, n_{12}) &= \{(n_{11}, n_{12}): n_{11} + n_{12} \geq \max{ 0, n_{+1} + n_{1+} + n_{+2}},\\
+	&  n_{11} \leq \min{(n_{1+} - n_{12}, n_{+1})}, n_{12} \leq \min{(n_{1+}- n_{11}, n_{+1})}   \} 
+\end{align*}
+
+The conditional distribution
+\begin{align*}
+	p(n_{11}, n_{12}|n_{13}, ...n_{IJ}, n) &= \frac{p(n_{ij}}{p(S_n)}\\
+	&= \frac{\frac{1}{n_{11}! n_{12}! } \pi_{11}^{n_{11}} \pi_{12}^{n_{12}}}{\sum_{(x, y \in S_n)} \frac{1}{x! y!} \pi_{11}^x \pi_{12}^y}
+\end{align*}
+And $\hat{\pi}_{11}, \hat{\pi}_{12}$ are the CMLE that maximize $p(n_{11}, n_{12}|n_{13}, ...n_{IJ}, n)$.
+
+
+
+\section{Practice}
+\subsection{Contingency table parameters}
+\begin{itemize}
+	\item [(a)] Get MLE of $\pi$ and prove CLT.\\
+	The multinomial distribution based on total n. 
+	\begin{align*}
+		p(\theta) &=n! \prod_{i=0}^1 \prod_{j=0}^1  \frac{\pi_{ij}^{n_{ij}}}{n_{ij}!}, \qquad \theta = (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})^T\\
+		ln p(\theta) &=log n!+ \sum_{i=0}^1 \sum_{j=0}^1 n_{ij}log( \pi_{ij}) - log n_{ij}! \\
+		&= log n!+ n_{00}log \pi_{00}  + n_{01}log \pi_{01}  + n_{10}log \pi_{10}  + n_{11}log (1-\pi_{00}-\pi_{01} - \pi_{10})  
+	\end{align*}
+	The MLE of the $\theta$ by taking derivative to the log-likelihood
+	\begin{align*}
+		\frac{\partial ln(\theta)}{\partial \pi_{00}} &= \frac{n_{00}}{\pi_{00}} - \frac{n_{11}}{1-\pi_{00}-\pi_{01}-\pi_{10}} = 0\\  
+		\frac{\partial ln(\theta)}{\partial \pi_{01}} &=\frac{n_{01}}{\pi_{01}} - \frac{n_{11}}{1-\pi_{00}-\pi_{01}-\pi_{10}} = 0 \\  
+		\frac{\partial ln(\theta)}{\partial \pi_{10}} &= \frac{n_{10}}{\pi_{10}} - \frac{n_{11}}{1-\pi_{00}-\pi_{01}-\pi_{10}} = 0\\ 
+		\hat{\pi_{00}} & = \frac{n_{00}}{n}\\
+		\hat{\pi_{01}} & = \frac{n_{01}}{n}\\
+		\hat{\pi_{10}} & = \frac{n_{10}}{n}\\
+		\hat{\pi_{11}} & = \frac{n_{11}}{n}, \qquad n= n_{00} + n_{01} + n_{10} + n_{11}
+	\end{align*}
+	Let $Z_i= I(X=x, Y=y) \sim $ multi $(1, \pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})$.
+	\begin{align*}
+		Z_1 &= I[(X,Y)= (0,0)]\\
+		Z_2 &= I[(X,Y)= (0,1)]\\
+		Z_3 &= I[(X,Y)= (1,0)]\\
+		Z_4 &= I[(X,Y)= (1,1)]\\
+		p(\theta) &= \prod_k \pi_{k}^{I(Z_k=1)}\\
+		M_Z(t) &= E[exp(t^TZ)] = E[exp(t^T(Z_1 + Z_2 +... Z_n))] = E[exp(t^TZ_1 + t^TZ_2 + ... t^TZ_n)]\\
+		&= E[\prod_{i=1}^n exp(t^TZ_i)]\\
+		&= \prod_{i=1}^n E[exp(t^TZ_i)]  \qquad (\text{by independence})\\
+		&= \prod_{i=1}^n M_{Z_i}(t) = \prod_{i=1}^n P(Z_i= 1) e^{tz_i}\qquad  \text{by MGF of discrete variable $Z_i$}\\
+		&= \left( \sum_{j=1}^J \pi_j exp(t_j)\right)^n \qquad \text{by MGF of multinoulli}
+	\end{align*}  
+	Then the covariance matrix of $\theta$ could be calculated by MGF.
+	\begin{align*}
+		E(Z_1 Z_2) &= \frac{\partial^2 M_Z(t)}{\partial Z_i \partial Z_j}|_{t_i = t_j = 0}\\
+		&= \frac{\partial \left(n(\pi_ie^{t_i})(\sum_{k=1}^K \pi_ke^{t_k})^{n-1} \right)'}{\partial t_j}\\
+		&= n(n-1)(\sum_{k=1}^K \pi_ke^{t_k})^{n-2}\pi_i\pi_j|_{t_i = t_j = 0} = n(n-1)\pi_i\pi_j\\
+		E(X_i) &= n\pi_i\\
+		Cov(Z_i, Z_j) &= E(Z_i Z_2) - E(Z_1)E(Z_j) = n(n-1)\pi_i\pi_j - n^2 \pi_i\pi_j = -n\pi_i\pi_j\\
+		Var(Z_i) &= E(Z_i^2) - E(Z_i)^2 \\
+		E(Z_i^2) &=  \frac{\partial \left(n(\pi_ie^{t_i})(\sum_{k=1}^K \pi_ke^{t_k})^{n-1} \right)'}{\partial t_i}\\
+		&= n(\sum_{k=1}^K \pi_ke^{t_k})^{n-1}\pi_i e^{t_i}+ n(n-1)(\sum_{k=1}^K \pi_ke^{t_k})^{n-2}\pi_i\pi_i e^{2t_i}|_{t_i = 0} \\
+		&= n\pi_i + n(n-1)\pi_i^2 = n\pi_i(1-\pi)\\
+		Var(Z_i/n) &= \frac{1}{n^2} Var(Z_i) = \frac{1}{n}\pi_i(1-\pi_i)
+	\end{align*}
+	Thus the covariance matrix is
+	\begin{align*}
+		\Sigma &= \begin{bmatrix}
+			\pi_{00}(1-\pi_{00}) &  -\pi_{00}\pi_{01}&  -\pi_{00}\pi_{10} &  -\pi_{00}\pi_{11}\\
+			-\pi_{01}\pi_{00} & \pi_{01}(1-\pi_{01}) & -\pi_{01}\pi_{10}   & -\pi_{01}\pi_{11}  \\
+			-\pi_{10}\pi_{00} & -\pi_{10}\pi_{01} &  \pi_{10}(1-\pi_{10})  & -\pi_{10}\pi_{11}  \\
+			-\pi_{11}\pi_{00} &  -\pi_{11}\pi_{01} & -\pi_{11}\pi_{10}   & \pi_{11}(1-\pi_{11})  \\
+		\end{bmatrix}= diag{(\pi_{ij}) - \theta \theta^T}
+	\end{align*}
+	By Central limit theroem, 
+	\begin{align*}
+		\sqrt{n} (\hat{\pi_{00}} - \pi_{00}, \hat{\pi_{01}}- \pi_{01}, \hat{\pi_{10}} - \pi_{10}, \hat{\pi_{11}}- \pi_{11} )^T & \xrightarrow[]{d} N(0, \Sigma)
+	\end{align*}
+	\item[(b)] Let R denote the odds ratio. Find the maximum likelihood estimate of log(R) and
+	derive its asymptotic distribution.\\
+	By invariance of MLE:
+	\begin{align*}
+		R & =  \frac{\pi_{00}\pi_{11}}{\pi_{01}\pi_{10}}\\
+		g(R) &= log R = log \pi_{00} + log \pi_{11}- log \pi_{01}- log \pi_{10}\\
+		log \hat{R} & = log \hat{\pi_{00}} + log \hat{\pi_{11}}- log \hat{\pi_{01}}- log \hat{\pi_{10}}\\
+		&= log \frac{n_{00}n_{11}}{n_{01}n_{10}}
+	\end{align*}
+	
+	By Central limit theorem, we have 
+	\begin{align*}
+		\sqrt{n} \left(\hat{g(R)} - g(R) \right) & \xrightarrow[]{d} N \left(0, \frac{\partial g(R)}{\partial \theta} \Sigma   \frac{\partial g(R)}{\partial \theta}^T \right) \\
+	\end{align*}
+	By delta method,
+	\begin{align*}
+		\frac{\partial g(R)}{\partial \theta} &= \left(
+		\frac{1}{R} \frac{\partial R}{\partial \pi_{00}} ,  \frac{1}{R}\frac{\partial R}{\partial \pi_{01}},   \frac{1}{R}\frac{\partial R}{\partial \pi_{10}} ,  \frac{1}{R} \frac{\partial R}{\partial \pi_{11}} \right)\\
+		& = \left( \frac{1}{\pi_{00}},  -\frac{1}{\pi_{01}},  -\frac{1}{\pi_{10}}, \frac{1}{\pi_{11}} \right)\\
+		\Sigma^{R} &= \frac{\partial g(R)}{\partial \theta} \Sigma \frac{\partial g(R)}{\partial \theta}' \\
+		&= \left( \frac{1}{\pi_{00}},  -\frac{1}{\pi_{01}},  -\frac{1}{\pi_{10}}, \frac{1}{\pi_{11}} \right) \begin{bmatrix}
+			\pi_{00}(1-\pi_{00}) &  -\pi_{00}\pi_{01}&  -\pi_{00}\pi_{10} &  -\pi_{00}\pi_{11}\\
+			-\pi_{01}\pi_{00} & \pi_{01}(1-\pi_{01}) & -\pi_{01}\pi_{10}   & -\pi_{01}\pi_{11}  \\
+			-\pi_{10}\pi_{00} & -\pi_{10}\pi_{01} &  \pi_{10}(1-\pi_{10})  & -\pi_{10}\pi_{11}  \\
+			-\pi_{11}\pi_{00} &  -\pi_{11}\pi_{01} & -\pi_{11}\pi_{10}   & \pi_{11}(1-\pi_{11})  \\
+		\end{bmatrix} \begin{bmatrix}
+			\frac{1}{\pi_{00}} \\
+			-\frac{1}{\pi_{01}}   \\
+			-\frac{1}{\pi_{10}}  \\
+			\frac{1}{\pi_{11}}  \\
+		\end{bmatrix}\\
+		&= (\frac{1}{\pi_{00}} + \frac{1}{\pi_{01}} + \frac{1}{\pi_{10}} + \frac{1}{\pi_{11}})\\
+	\end{align*}
+	We have the asymptotic distribution of $log(R)$
+	\begin{align*}
+		\sqrt{n} (log\hat{R} - logR) & \xrightarrow[]{d} N \left(0, (\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}) \right) 
+	\end{align*}
+	\item[(c)] Construct an approximate 95$\%$ confidence interval for the odds ratio R.\\
+	From part (b), we have the asymptotic normal distribution of $log R$. We have the asymptotic distribution of $R$.
+	\begin{align*}
+		f &= exp(g) = R, \qquad f(g)' = R\\
+		\sqrt{n} (\hat{f(g)} - f(g)) & \xrightarrow[]{d} N \left(0, f(g)'(\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}) f(g)'^T \right)\\
+		\sqrt{n} (\hat{R} - R) & \xrightarrow[]{d} N \left(0, R^2(\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}) \right)\\
+		(\hat{R} - R) & \xrightarrow[]{d} N \left(0, \frac{1}{n} R^2(\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}) \right)
+	\end{align*}
+	The 95$\%$ confidence interval for the odds ratio R
+	\begin{align*}
+		\{R &: \hat{R} - 1.96\hat{R} \sqrt{\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}} \leq  R \leq \hat{R} + 1.96\hat{R} \sqrt{\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}}} \}
+	\end{align*}
+	
+	\item[(d)] Under the assumptions of part (a), further assume that$ \pi_{1+} = \pi_{11} + \pi_{10} = \frac{exp(\alpha)}{1+\exp(\alpha)} $ and $ \pi_{+1} = \pi_{11} + \pi_{01} = \frac{exp(\alpha + \beta)}{1+\exp(\alpha + \beta)} $ . Derive the maximum likelihood estimates of $(\alpha, \beta)$, denoted by $(\hat{\alpha}; \hat{\beta})$.\\
+	\begin{align*}
+		\pi_{01} + \pi_{11} & = \frac{exp(\alpha)}{1+\exp(\alpha)} \\
+		exp(\alpha) &= \frac{\pi_{10} + \pi_{11}}{\pi_{01} + \pi_{00}}, \qquad \alpha = log \left( \frac{\pi_{10} + \pi_{11}}{\pi_{01} + \pi_{00}}\right)\\
+		\pi_{10}+ \pi_{11} & = \frac{exp(\alpha + \beta)}{1+\exp(\alpha + \beta)} \\
+		\alpha + \beta &= log \left( \frac{\pi_{01} + \pi_{11}}{\pi_{10} + \pi_{00}} \right)\\
+		\beta &= log \left( \frac{\pi_{01} + \pi_{11}}{\pi_{10} + \pi_{00}} \right) - log \frac{\pi_{10} + \pi_{11}}{\pi_{01} + \pi_{00}}, \qquad \beta &= log \left(\frac{(\pi_{01} + \pi_{11})(\pi_{01} + \pi_{00})}{(\pi_{10} + \pi_{00}) (\pi_{10} + \pi_{11})} \right)
+	\end{align*}
+	By invariance of MLE,
+	\begin{align*}
+		\hat\alpha &= log \left( \frac{\hat{\pi_{10}} + \hat{\pi_{11}}}{\hat{\pi_{01}} + \hat{\pi_{00}}}\right) = log \left(\frac{n_{10} + n_{11}}{n_{01} + n_{00}} \right)\\
+		\hat\beta &= log \left(\frac{(\hat\pi_{01} + \hat\pi_{11})(\hat\pi_{01} + \hat\pi_{00})}{(\hat\pi_{10} + \hat\pi_{00}) (\hat\pi_{10} + \hat\pi_{11})} \right) = log \left(\frac{(n_{01} + n_{11})(n_{01} + n_{00})}{(n_{10} + n_{00}) (n_{10} + n_{11})} \right)
+	\end{align*}
+	\item[(e)] Using the assumptions of part (d), derive the asymptotic distribution of $(\alpha, \beta)$ (properly normalized).\\
+	By Central limit theorem and delta method,
+	\begin{align*}
+		\xi &= (\alpha, \beta)^T \\
+		g(\xi) &= \{ log \left( \frac{\pi_{10} + \pi_{11}}{\pi_{01} + \pi_{00}}\right), log \left(\frac{(\pi_{01} + \pi_{11})(\pi_{01} + \pi_{00})}{(\pi_{10} + \pi_{00}) (\pi_{10} + \pi_{11})} \right)\}^T \\
+		\sqrt{n} (\hat{g(\xi)} - g(\xi)) & \xrightarrow[]{d} N \left(0, \Sigma^{N} \right) \\
+		\Sigma^{N} &= \frac{\partial g(\xi)}{\partial \pi} \Sigma \frac{\partial g(\xi)}{\partial \pi}^T
+	\end{align*}
+	
+	$\Sigma^{N}$ is calculated by delta method,
+	\begin{align*}
+		\frac{\partial g(\alpha)}{\partial \pi_{00}} &= -\frac{1}{(\pi_{01} + \pi_{00})} = -\frac{1}{\pi_{0+}} \\
+		\frac{\partial g(\alpha)}{\partial \pi_{01}} &= -\frac{1}{(\pi_{01} + \pi_{00})} = -\frac{1}{\pi_{0+}}\\
+		\frac{\partial g(\alpha)}{\partial \pi_{10}} &= \frac{1}{(\pi_{10} + \pi_{11})}= \frac{1}{\pi_{1+}}\\
+		\frac{\partial g(\alpha)}{\partial \pi_{11}} &= \frac{1}{(\pi_{10} + \pi_{11})}= \frac{1}{\pi_{1+}}\\
+		\frac{\partial g(\beta)}{\partial \pi_{00}} &= \frac{(\pi_{10}-\pi_{01})}{(\pi_{01} + \pi_{00})(\pi_{00} + \pi_{10})} = -\frac{1}{(\pi_{10} + \pi_{00})} +\frac{1}{(\pi_{01} + \pi_{00})} = -\frac{1}{\pi_{+0} }  +\frac{1}{\pi_{0+}}\\
+		\frac{\partial g(\beta)}{\partial \pi_{01}} &= \frac{1}{(\pi_{01} + \pi_{11})} + \frac{1}{(\pi_{01} + \pi_{00})}  \\
+		\frac{\partial g(\beta)}{\partial \pi_{10}} &=- \frac{1}{(\pi_{10} + \pi_{00})} - \frac{1}{(\pi_{10} + \pi_{11})}\\
+		\frac{\partial g(\beta)}{\partial \pi_{11}} &= \frac{(\pi_{10}-\pi_{01})}{(\pi_{10} + \pi_{11})(\pi_{01} + \pi_{11})} = - \frac{1}{(\pi_{10} + \pi_{11})} +\frac{1}{(\pi_{01} + \pi_{11})} \\
+		\frac{\partial g(\xi)}{\partial \pi} &=\begin{bmatrix}
+			-\frac{1}{\pi_{0+}} &  -\frac{1}{\pi_{0+}} &  \frac{1}{\pi_{1+}} &  \frac{1}{\pi_{1+}}\\
+			\frac{1}{\pi_{0+} }  -\frac{1}{\pi_{+0}} & \frac{1}{\pi_{0+} } + \frac{1}{\pi_{+1}} & - \frac{1}{\pi_{+0} } - \frac{1}{\pi_{1+}} & \frac{1}{\pi_{+1} } -\frac{1}{\pi_{1+}}    \\
+		\end{bmatrix}\\
+		\Sigma^{N} &= \frac{\partial g(\xi)}{\partial \pi}\Sigma \frac{\partial g(\xi)}{\partial \pi}^T\\
+		&= \left(\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}} \right) 
+	\end{align*}
+	\item[(f)] Under the model of part (d), show that $(\pi_{1+}\pi_{0+})^{-1} + (\pi_{+1}\pi_{+0})^{-1} \leq (\pi_{1+}\pi_{+0})^{-1} + (\pi_{+1}\pi_{0+})^{-1}$.\\
+	\begin{align*}
+		&(\pi_{1+}\pi_{+0})^{-1} + (\pi_{+1}\pi_{0+})^{-1} - (\pi_{1+}\pi_{0+})^{-1} - (\pi_{+1}\pi_{+0})^{-1}\\
+		&= \frac{\pi_{0+}- \pi_{+0}}{\pi_{1+}\pi_{+0}\pi_{0+}} + \frac{\pi_{+0} - \pi_{0+}}{\pi_{+1}\pi_{0+}\pi_{+0}}\\
+		&= \frac{(\pi_{0+}-\pi_{+0})(\pi_{+1}-\pi_{1+})}{\pi_{1+}\pi_{+0}\pi_{0+}\pi_{+1}}\\
+		&=  \frac{(\pi_{01}-\pi_{10})^2}{\pi_{1+}\pi_{+0}\pi_{0+}\pi_{+1}} \geq 0
+	\end{align*}
+	From above, we have $(\pi_{1+}\pi_{0+})^{-1} + (\pi_{+1}\pi_{+0})^{-1} \leq (\pi_{1+}\pi_{+0})^{-1} + (\pi_{+1}\pi_{0+})^{-1}$.
+\end{itemize}

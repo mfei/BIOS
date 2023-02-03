@@ -1,0 +1,348 @@
+\section{Measurement Theorem and Integral}
+
+\subsection{Continuous Convergence}
+
+
+\begin{definition}
+$f_n$ converges continuously to f, written $f_n \xrightarrow {c} f$ if for any convergent sequence $x_n \rightarrow x$ we have $f_n(x_n) \rightarrow f(x)$.
+
+We can show by triangle inequality
+\begin{align*}
+	| f_n(x_n) - f(x)| & \leq |f_n(x_n) - f(x_n)| + |f(x_n) - f(x)| \leq \Vert f_n - f \Vert_K + |f(x_n) - f(x)|
+\end{align*}
+
+the first term on the right-hand side converges to zero by uniform convergence on compact sets and the second term on the right-hand side converges to zeros by continuity of f.
+
+\end{definition}
+
+\subsection{Convergence Mode}
+It is very important to understand the definition and the notation for each definition.
+
+\begin{itemize}
+	\item [(i)] Converge almost everywhere
+	
+	A sequence $X_n$ converges almost everywhere (a.e) to X, denoted $X_n \xrightarrow {a.e.} X $, if $X_n(w) \rightarrow X(w)$ for all $w \in \Omega - N$ where $\mu(N) = 0$. If $\mu$ is a probability, we write a.e. as a.s. (almost surely). 
+\begin{align*}
+	\underset{n \rightarrow \infty}{lim} X_n &= X \\
+	P(\underset{m \geq n}{sup} \Big | X_m - X \Big | > \epsilon) & \rightarrow 0
+\end{align*}
+	
+Remarks: Pay attention to the notation, it says that among all the observations that after $X_n$, the biggest difference is less than a certain value. When the $\underset{m \geq n}{sup}$ come up, it has listed almost all the observations, which is the same as almost sure. 
+	
+	\item[(ii)] Converges in probability
+A sequence $X_n$ converges in measure to a measurable function X, denoted $X_n \xrightarrow {\mu} X$, if $\mu(|X_n - X| \geq \epsilon) \rightarrow 0$ for all $\epsilon > 0$. If $\mu$ is a probability measure, we say $X_n$ converges in probability to X.
+
+\begin{align*}
+	lim_{n \rightarrow \infty} P(\Vert X_n -X \Vert > \epsilon)&= 0
+\end{align*}
+
+\item[(iii)] Converges in $L_r$-distance (rth moment)
+
+Notation: $c= (c_1, ... , c_k) \in R^k, \Vert c \Vert_r = \Big( \sum_{j=1}^k | c_j |^r \Big)^{1/r}, r> 0$. If $r \geq 1$, then $\Vert  c \Vert_r $ is the $L_r-$ distance between 0 and c. When $r= 2, \Vert  c \Vert = \Vert c \Vert _2 = \sqrt{c^t c}$.
+
+\begin{align*}
+	X_n \xrightarrow {L_r} X \\
+	lim_{n \rightarrow \infty} E \Vert  X_n -X \Vert _{r}^{r}&= 0
+\end{align*}
+
+\item[(iv)] Converges in distribution
+Let $F, F_n, n= 1,2,..,$ be c.d.f.'s on $R^k$ and $P, P_n, n=1,2,..$ be their corresponding probability measures. 
+We say that $\{ F_n\}$ converges to F weakly and write $F_n \xrightarrow {w} F$ iff, for each continuity point x of F, 
+
+\begin{align*}
+	lim_{n \rightarrow \infty} F_n(x) &= F(x)
+\end{align*}
+
+We say that $\{ X_n \}$ converges to X in distribution and write $X_n \xrightarrow {d} X$ iff $F_{X_n} \xrightarrow {w} F_X$. 
+
+Note: converges in distribution is the cumulative distribution is the same.
+
+
+
+$\xrightarrow {a.s.}, \xrightarrow {p}, \xrightarrow {L_r}: $ measures how close is between $X_n$ and $X$ as $n \rightarrow \infty$. 
+
+$F_{X_n} \xrightarrow {w} F_{X}: F_{X_n}$ is close to $F_X$. but $X_n$ and $X$ may not be close, they may be on different spaces.
+
+
+Example: Let $\theta_n = 1 + n^{-1}$ and $X_n$ be an random variable having the exponential distribution $E(0, \theta_n), n=1,2..$
+Let X be a random variable having the exponential distribution $E(0,1)$. 
+
+For any $x>0,$ as $n \rightarrow \infty$,
+
+\begin{align*}
+	F_{X_n}(x) &= 1 - e^{-x/\theta_n} \rightarrow 1- e^{-x} = F_X(x)
+\end{align*}
+
+Since $F_{X_n}(x) = 0 = F_X(x)$ for $x \leq 0$, we have shown that $X_n \xrightarrow {d} X$.
+
+How about $X_n \xrightarrow {p} X$?
+
+We will need the distribution of $X_n -X$ as we need to get the probability $P(|X_n - X|> \epsilon )$.
+
+The distribution has two cases depends on whether $X_n$ and $X$ are independent or not. 
+
+\begin{itemize}
+\item[(i)] Suppose that $X_n$ and $X$ are not independent, and $X_n \equiv \theta_n X$ (then $X_n$ has the given c.d.f.).
+
+$X_n - X = (\theta_n -1) X = n^{-1} X$, which has the c.d.f. $(1- e^{-nx})I_{[0, \infty)} (x)$. 
+
+Then $X_n \xrightarrow {p} X$ because, for any $\epsilon > 0$, 
+ 
+ \begin{align*}
+	P(| X_n -X | \geq \epsilon) &= e^{-n\epsilon} \rightarrow 0
+\end{align*}
+
+Also, $X_n \xrightarrow {L_p} X$ for any $p > 0$, because
+
+ \begin{align*}
+	E(| X_n -X |^{p}) &= n^{-p} EX^{p} \rightarrow 0
+\end{align*}
+
+\item[(ii)] Suppose that $X_n$ and $X$ are independent random variables. Since p.d.f.'s for $X_n$ and $-X$ are $\theta_n^{-1} e^{-x/\theta_n} I_{(0,\infty)(x)}$ and $e^x I_{(-\infty, 0)} (x)$, respectively, we have
+
+let $y = X_n -X, x= X_n$, then $-X = y-X_n < 0$. In the below range, $y \in (-\infty, x)$
+ \begin{align*}
+	P(| X_n -X | \leq \epsilon) &= \int_{-\epsilon}^{\epsilon} \int_{0}^{\infty} \theta_n^{-1} e^{-x/\theta_n} e^{y-x} I_{(0, \infty)}(x) I_{(-\infty, x)}(y)  dx dy
+\end{align*}
+
+which converges to (by the dominated convergence theorem)
+ \begin{align*}
+ \int_{-\epsilon}^{\epsilon} \int_{0}^{\infty}  e^{-x} e^{y-x} I_{(0, \infty)}(x) I_{(-\infty, -x)}(y)  dx dy & = 1- e^{-\epsilon} \\
+&=  \int_{0}^{\epsilon}  e^{-2x} \int_{-\epsilon}^{x} e^y dy dx \\
+&=  \int_{0}^{\epsilon} e^{-x} dx \\
+&= 1- e^{-\epsilon} 
+\end{align*}
+Thus, $P(| X_n -X | \leq \epsilon) \rightarrow e^{-\epsilon} > 0$ for any $\epsilon > 0$ and, therefore, $X_n \xrightarrow {p} X$ does not hold.
+
+\end{itemize}
+
+\end{itemize}
+
+
+\subsection{Relationship between convergence modes}
+
+\begin{itemize}
+\item[(i)] If $X_n \xrightarrow {a.s.} X$, then $X_n \xrightarrow {p} X$. 
+
+Proof: 
+ \begin{align*}
+   P(\Big | X_i - X \Big | > \epsilon) \leq P(\underset{m \geq n}{sup} \Big | X_m - X \Big | > \epsilon) \rightarrow 0
+ \end{align*}
+ 
+ 
+\item[(ii)] If $X_n \xrightarrow {L_r} X$ for an $r>0$, then $X_n \xrightarrow {p} X$. 
+Consider the definition of moment convergence and probability convergence, the link that connect Expectation and Probability with inequality is Markov Inequality.
+
+For any positive and increasing function $g(\dot)$ and random variable Y, 
+
+ \begin{align*}
+   P(\Big | Y \Big | > \epsilon) \leq E \Big[ \frac{g(|Y|)}{g(\epsilon)} \Big]
+ \end{align*}
+
+In particulary, we choose $Y= \Big | X_n -X \Big |$ and $g(y) = |y|^{r}$. It gives that
+
+ \begin{align*}
+   P(\Big | X_n - X \Big | > \epsilon) \leq E \Big[ \frac{\Big | X_n - X\Big |^r}{\epsilon^r} \Big] \rightarrow 0
+ \end{align*}
+ 
+
+\item[(iii)] If $X_n \xrightarrow {p} X$, then $X_n \xrightarrow {d} X$. 
+
+Prove: need to use the definition of convergence in probability, and construct the cumulative probability $F_X(x)$.
+
+The purpose is to induce $F_{X_n}(x)$, so that we can compare $F_{X_n}(x)$ and $F(x)$. So the $F(x)$ will be rewritten as $F_{X_n}(x)$ and a probability involves $X_n - X$.
+
+
+Assume $k=1$, let x be a continuity point of $F_X$ and $\epsilon > 0$ be given. Then
+ \begin{align*}
+   F_X(x - \epsilon) &= P(X \leq x - \epsilon, X_n \leq x) +  P(X \leq x - \epsilon, X_n > x)  \\
+   & \leq P(X_n \leq x) + P(X \leq x - \epsilon, X_n > x), \qquad  P(X_n \leq x) > P(X \leq x - \epsilon, X_n \leq x) \\
+   & \leq F_{X_n}(x) + P(|X_n - X| > \epsilon), \qquad X_n - X > x - (x-\epsilon) = \epsilon 
+ \end{align*}
+Letting $n \rightarrow \infty$, we obtain that 
+ \begin{align*}
+   F_X(x - \epsilon) & \leq lim inf_{n} F_{X_n} (x) \\
+ \end{align*}
+
+Switching $X_n$ and X in the previous argument,
+ \begin{align*}
+   F_X(x + \epsilon) &= P(X \leq x + \epsilon, X_n \leq x) +  P(X \leq x + \epsilon, X_n > x)  \\
+   & \geq P(X_n \leq x) + P(X \leq x + \epsilon, X_n > x) \\
+   & \geq F_{X_n}(x) + P(|X_n - X| > \epsilon)
+ \end{align*}
+
+Letting $n \rightarrow \infty$, we obtain that
+
+ \begin{align*}
+   F_X(x - \epsilon) & \leq lim inf_{n} F_{X_n}(x) \\
+   F_X(x + \epsilon) & \geq lim sup_{n} F_{X_n}(x)
+ \end{align*}
+
+Since $\epsilon$ is arbitrary and $F_X$ is continuous at x, 
+ \begin{align*}
+   F_X(x ) & = lim_{n \rightarrow \infty} F_{X_n}(x) \\
+ \end{align*}
+
+\item[(iv)] Skorohod's theorem: a conditional converse of (i)-(iii). If $X_n \xrightarrow {d} X$, then there are random vectors $Y_n, Y_n \xrightarrow {a.s.} Y$.
+
+\item[(v)] If, for every $\epsilon > 0, \sum_{n=1}^{\infty} P(\Vert X_n -X \Vert \geq \epsilon) < \infty$, then $X_n \xrightarrow {a.s.} X$. 
+
+\item[(vi)] If $X_n \xrightarrow {p} X$, then there is a subsequence $\{ X_{n_j} , j= 1,2..\}$ such that $X_{n_j} \xrightarrow {a.s.} X$ as $j \rightarrow \infty$.
+
+We need to show that such a sequence exists, and prove by the almost surely definition. Such a sequence generally use the $2^{-k}$. 
+Because $2^{-k}$ is almost surely convergence, so any sequence that is smaller than this sequence, will definitely be almost surely convergence as well.
+
+For any $\epsilon > 0, P(\Big | X_n -X \Big | > \epsilon) \rightarrow 0$, we choose $\epsilon = 2^{-m}$ then there exists a $X_{n_m}$ such that
+
+ \begin{align*}
+   P(\Big | X_{n_m}- X \Big | > 2^{-m}) < 2^{-m}
+ \end{align*}
+ 
+ Particularly, we can choose $n_m$ to be increasing. For the sequence $\{ X_{n_m} \}$, we note that for any $\epsilon > 0$, when $n_m$ is large,
+ 
+ \begin{align*}
+   P(\underset{k \geq m}{sup} \Big | X_{n_k}- X \Big | > \epsilon) \leq \underset{k \geq m}{\sum} P(\Big | X_{n_k}- X \Big | > 2^{-k}) \leq \underset{k \geq m}{\sum} 2^{-k} \rightarrow 0
+ \end{align*}
+ 
+ Thus, $X_{n_m} \xrightarrow {a.s.} X$.
+ 
+ Remarks: Need to pay attention to the SUP and sum of probability, it is similar to the max of the sequence. So we need to think about the all sequence observations probability.
+ 
+\item[(vii)]  If $X_n \xrightarrow {d} X$, and $P(X \equiv c) \equiv 1$, where $c \in R^k$ is a constant vector, then $X_n \xrightarrow {p} c$.
+Let $X \equiv c$. 
+
+Prove by Polya's theorem:
+
+ \begin{align*}
+ P(\Big | X-n -c \Big | > \epsilon) \leq 1- F_n(c + \epsilon) + F_n(c - \epsilon) \rightarrow 1 - F_X(c+\epsilon) + F_X(c - \epsilon) = 0
+ \end{align*}
+
+Remarks:  Polya's theorem is very useful when dealing with the $F_n$ change to $F$. 
+
+\item[(viii)] Moment convergence: Suppose that $X_n \xrightarrow {d} X$, then for any $r > 0$, 
+ \begin{align*}
+   \underset{n \rightarrow \infty}{lim} E \Vert X_n \Vert_r^r &= E \Vert X \Vert_r^r < \infty
+ \end{align*}
+iff $\{ \Vert X_n \Vert_r^r \}$ is uniformly integrable (UI) in the sense that 
+ \begin{align*}
+   \underset{t \rightarrow \infty}{lim} sup E (\Vert X_n \Vert_r^r  I_{\Vert X_n \Vert_r > t})&= 0
+ \end{align*}
+In particular, $X_n \xrightarrow {L_r} X$ if and only if $\{ \Vert X_n - X\Vert_r^r \}$ is UI
+
+\item[(viii)] If $X_n \xrightarrow {p} X$ and $|X_n|^r$ is uniformly integrable, then $X_n \xrightarrow {r} X$. 
+
+\end{itemize}
+
+\subsection{Polya's theorem}
+
+If $F_n \xrightarrow {w} F$ and F is continuous on $R^{k}$, then
+ \begin{align*}
+	\underset{n \rightarrow \infty}{lim}  sup_{X \in R^k} |F_n(x) - F(x)| = 0.
+\end{align*}
+
+This proposition implies the following useful result:
+If $c_n \in R^{k}$ with $C_n \rightarrow C$, then
+ \begin{align*}
+   F_n(C_n) \rightarrow F(C)
+\end{align*}
+
+\subsection{Fatou's lemma}
+
+Given a measure space $(\Omega, \mathbf{F}, \mu)$, and a set $X \in F$, let $\{f_n \}$ be a sequence of $(F, B_{R \geq 0})$ - measurable non-negative functions:
+$f_n: X \rightarrow [0, + \infty]$. Define the function $f: X \rightarrow [0, + \infty]$ by setting $f(x) = \underset{n \rightarrow \infty}{lim inf} f_n(x)$, for every $x \in X$.
+Then $f$ is $(F, B_{R \geq 0})$ - measurable, and also 
+ \begin{align*}
+   \int_X f d\mu & \leq \underset{n \rightarrow \infty}{lim inf} \int_X f_n d\mu, 
+\end{align*}
+where the integral may be infinite.
+
+Remarks: this lemma is used a lot in expectation of sequence.
+
+\subsection{Big O and Little o}
+
+In calculus, two sequences of real numbers, $\{ a_n\}$ and $\{b_n\}$, satisfy 
+\begin{itemize}
+
+\item[(i)] $a_n = O(b_n)$ iff $ \Vert a_n \Vert \leq M | b_n |$ for all n and a constant $M < \infty$.
+Note that the equal sign does not mean equality.
+
+\item[(ii)] $a_n = o(b_n)$ iff $a_n/b_n \rightarrow 0$ as $n \rightarrow \infty$.
+
+\end{itemize}
+
+\begin{definition}
+Let $X_1, X_2,..$ be random vectors and $Y_1, Y_2,..$ be random variables defined on a common probability space.
+
+\begin{itemize}
+\item[(i)] $X_n = O(Y_n)$ a.s. iff $P(\Vert  X_n\Vert = O(|Y_n|)) = 1$
+
+Since $a_n = O(1)$ means that $\{ a_n \}$ is bounded, $\{ X_n\}$ is said to be bounded in probability if $X_n = O_p(1)$. 
+ie, O(1) - as $x \rightarrow 0$ if it is bounded on a neighborhood of zero. And we say it is o(1) as $x \rightarrow 0$ if $f(x) \rightarrow 0, x \rightarrow 0$.
+
+$X_n = O(Y_n)$ and $Y_n = O(Z_n)$ implies $X_n = O(Z_n)$.
+
+$X_n = O(Y_n)$ does not imply $Y_n = O_p(X_n)$.
+
+If $X_n = O(Z_n)$, then $X_nY_n = O_p(Y_n Z_n)$.
+
+If $X_n = O(Z_n)$ and $Y_n = O(Z_n)$, then $X_n + Y_n = O_p(Z_n)$.
+
+If $X_n \xrightarrow {d} X$ for a random variable X, then $X_n = O_p(1)$.
+
+If $E(|X_n|) = O(a_n)$, then $X_n = O_p(a_n)$, where $a_n \in (0, \infty)$.
+
+If $X_n \xrightarrow {a.s.} X$, then $sup_n|X_n| = O_p(1)$.
+
+\item[(ii)] $X_n = o(Y_n)$ a.s. iff $ X_n/Y_n \xrightarrow {a.s.} 0$
+
+$X_n = o(Y_n)$ implies $X_n = O_p(Y_n)$.
+
+\item[(iii)] $X_n = O_p(Y_n)$ iff, for any $\epsilon > 0$, there is a constant $C_{\epsilon} > 0$ such that 
+ \begin{align*}
+   sup_n P(\Vert  X_n\Vert \geq C_{\epsilon}(|Y_n|)) < \epsilon
+\end{align*}
+
+\item[(iv)] $X_n = o_p(Y_n)$ iff $X_n/Y_n \xrightarrow {p} 0$.
+
+
+\end{itemize}
+\end{definition}
+
+
+\subsection{Big $O_p$ and Little $o_p$}
+A sequence $X_n$ of random vectors is said to be $O_p(1)$ if it is bounded in probability (tight) and $o_p(1)$ if it converges in probability to zero.
+Suppose $X_n$ and $Y_n$ are random sequences taking values in any normed vector space, then
+\begin{align*}
+	X_n &= O_p(Y_n) \\
+	Pr(\Vert X_n \Vert \leq M \Vert Y \Vert) \geq 1 - \epsilon
+\end{align*}
+Means $X_n/ \Vert Y_n \Vert $ is bounded in probability 
+
+
+and
+\begin{align*}
+	X_n &= o_p(Y_n) \\
+	\frac{X_n}{\Vert Y_n \Vert} \xrightarrow{P} 0, \qquad n \rightarrow 0 \\
+	Pr(\Vert X_n \Vert \geq \epsilon \Vert Y_n \Vert) \rightarrow 0
+\end{align*}
+Means $X_n/ \Vert Y_n \Vert $ converges in probability to zero.
+
+These notations are often used when the sequence $Y_n$ is deterministic, for example, $X_n = O_p(n^{-1/2})$. 
+
+they are also often used when the sequence $Y_n$ is random, for example, we say two estimators $\hat{\theta}_n$ and $\tilde{\theta}_n$ of a parameter $\theta$ are asymptotically equivalent if 
+\begin{align*}
+	\hat{\theta}_n - \tilde{\theta}_n&= o_p(\hat{\theta}_n - {\theta}) \\
+	\hat{\theta}_n - \tilde{\theta}_n&= o_p(\tilde{\theta}_n - {\theta}) 
+\end{align*}
+
+We also use O(1), o(1) and $O_p, o_p$ for terms in equations. For example, a function f is differentiable at x if
+
+\begin{align*}
+	f(x + h) &= f(x) + f^{'}(x) h + o(h) 
+\end{align*}
+
+one case of Slutsky's theorem says
+\begin{align*}
+	X_n & \xrightarrow {w} X \qquad \rightarrow X_n + o_p(1) \xrightarrow{w} X
+\end{align*}
+

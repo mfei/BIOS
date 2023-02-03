@@ -51,7 +51,7 @@
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-\title{Qualify Exam 2015}
+\title{Qualify Exam 2015 Section I}
 \author{Mingwei Fei}
 
 \begin{document}
@@ -250,37 +250,50 @@ That's how we study the theorem, not only understand what it is, but also how to
 
 
 
-\section{Problem 2}
-Show that $Y^T A Y$ has a noncentral chi-squared distribution if and only if $A \Sigma$ is idempotent.
+\section{Problem 2 - Hypothesis Test}
+Suppose that the distribution of a discrete random variable X is given below
+
+\begin{center}
+\begin{tabular}{ c c c c c c}
+ X & -2 & -1 & 0 & 1 & 2 \\ 
+ \hline
+p(x) & $\theta_1(1-\theta_2)$ & $(\frac{1}{2} - \alpha) \frac{1-\theta_1}{1-\alpha} $ & $ \alpha \frac{1-\theta_1}{1-\alpha} $ & $(\frac{1}{2} - \alpha) \frac{1-\theta_1}{1-\alpha}$ & $ \theta_1 \theta_2$ \\  
+\end{tabular}
+\end{center}
+
+ where $0< \theta_1 < \alpha < 1/2$, $\alpha$ is known, $0< \theta_2 < 1$, and both $\theta_1, \theta_2$ unknown. Suppose we would like to test hypothesis
+
+\begin{align*}
+	H_0: &  \theta_1 = \alpha, \theta_2 = 1/2 \\
+	H_1: &  \theta_1 < \alpha, \theta_2  \neq 1/2
+\end{align*} 
+
+\subsection{LRT }
+
+Derive the $\alpha$ level likelihood ratio test (LRT) for $H_0$ versus $H_1$ and obtain its power function.
+
 
 \subsubsection{Preparation}
-This problem needs to prove "if and only if", that From part(c), we have shown that if $\lambda_i = 0,1$ which is idempotent will lead to $Y^T A Y$ as a noncentral chi-squared distribution. 
-
-While if $Y^T A Y$ is a noncentral chi-squared distribution, then $\lambda_i = 0, 1$ then it is a idempotent. 
-
-Idempotent is $A^2 = A, A^T = A$. So if $A \Sigma = (A \Sigma)^2$, $A \Sigma$ is idempotent. 
-
-we have the MGF of linear combination of non-central chi-square distribution Y
 \begin{align*}
-	M(t) &= \prod_{i=1}^n M_{W_i}(\lambda_i t)\\
-	&=\prod_{i=1}^n  (1-2 \lambda_j t)^{-1/2} exp \left( \frac{ 2 \delta_i \lambda_i t }{1-2 \lambda_i t} \right)
+	V(\beta) &= \text{diag} \Big( v_1(\beta), …, v_n(\beta) \Big) \\
+	e(\beta) &= (y_1 - \mu_1(\beta), …, y_n- \mu_n(\beta))^{'} \\
+	D_{\theta} (\beta)^{'} &= \Big( \partial_{\beta} \beta_1(\beta),…,  \partial_{\beta} \beta_n(\beta)\Big)_{p \times n} \\
+	D (\beta)^{T} &= \Big( \partial_{\beta} \mu_1(\beta),…,  \partial_{\beta} \mu_n(\beta) \Big)_{p \times n} \\
+	\dot{l}_n(\beta) &= \phi D_{\theta}(\beta)^{T} e(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} e(\beta) \\
+	E \Big[ -\ddot{l}_n(\beta) \Big] &= \phi D_{\theta}(\beta)^{'} V D_{\theta}(\beta) = \phi D(\beta)^{'} V(\beta)^{-1} D(\beta) 
 \end{align*}
-
-Then we can see that the shape parameter is $\frac{1}{2 \lambda_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $\lambda_i$ need to be the same, 1. Otherwise it won't be a chi-square. 
 
 \subsubsection{Proof}
 
 \begin{align*}
-	M_Y(t) &= \prod_{i=1}^n  (1-2 \lambda_i t)^{-1/2} exp \left( \frac{ 2 \delta_i \lambda_i t }{1-2 \lambda_i t} \right) \\
-	&= (1-2 t)^{-n/2} exp \left( \frac{ \sum_{i=1}^n 2 \delta_i t }{1-2  t} \right) 
+	LRT &= \frac{\underset{\theta \in \Theta_0}{\sup} l(\theta_0)}{\underset{\theta \in \Theta}{\sup} l(\theta)} \\
+	&= 
 \end{align*}
 
-And for chi-square distribution, the shape parameter has to be $1/2$, so the $w_i = 1$. So we prove that if Y is a non-central chi-square distribution, A has to have the eigenvalues either 1 or 0. 
-
-When the eigenvalues are only 0, 1, then $A\Sigma$ is a projection matrix, then it is idempotent.
 
 
-\section{Problem 2 - Linear Model}
+
+\section{Problem }
 Consider the linear model $Y = X \beta + \epsilon$, where $\epsilon \sim N_n(0, \sigma^2 I)$, X is $n \times p$ of rank p, $\beta$ is $p \times 1$, and $(\beta, \sigma^2)$ are unknown. Define $H = X(X^TX)^{-1}X^T$ and let $h_{ii}$ denote the ith diagonal element of H. Further let $\hat{\sigma}^2$ denote the usual unbiased estimator of $\sigma^2$ for the linear regression model and let $\hat{\epsilon}_i$ denote the ordinary residual. Let 
 \begin{align*}
 	A_i & = \frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})} \\
@@ -756,6 +769,9 @@ Let $H_1(Y) = P(S=1|Y)/P(Y|S=1)$ and $H_2(x) = p(x|S=1)/p(S=1|x)$
 	\tilde{\mu}(X,D) &= E[Y|X, D, S=1] = \mu(X) + \{ D - Pr(D=1|X)\} \gamma(X)
 \end{align*} 	 
  
+
+
+
  \subsubsection{Preparation}
  Find the expectations in the case-control study from 762 slides.
  

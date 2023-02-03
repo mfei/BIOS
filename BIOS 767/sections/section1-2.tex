@@ -1,0 +1,328 @@
+
+ \section{Chi-Square Distribution}
+ 
+The $\chi^2(n)$ distribution is defined as the distribution that results from summing the squares of n independent random variables $N(0,1)$, so
+
+$\chi^2(n)$ will denote both a Chi squared distribution with n degrees of freedom and a random variable with such distribution. Now, the pdf of the $\chi^2(n)$
+ distribution is
+ 	\begin{align*}
+		f_{\chi^2} (x, n) &= \frac{1}{2^{\frac{n}{2}} \Gamma(\frac{n}{2})} x^{\frac{n}{2} -1} e^{-\frac{x}{2}}, \qquad x \leq 0
+	\end{align*}
+ 
+ So, indeed the $\chi^2(n)$ distribution is a particular case of the $\Gamma(a, b)$ distribution with pdf
+ 
+ 	\begin{align*}
+		f_{\Gamma} (x, a, b) &= \frac{1}{b^{a} \Gamma(a)} x^{a -1} e^{-\frac{x}{b}}, \qquad x \leq 0
+	\end{align*} 
+ 
+ $\chi^2(n) \sim \Gamma(\frac{n}{2}, \frac{1}{2})$.
+ 
+\subsection{Non-Central Chi-Square}
+
+
+
+\subsection{Moment Generating Function}
+
+We can get MGF for chi-square from $E[x^2 t]$ and $E[(\mu + Z)^2 t]$, where $Z \sim N(0,1)$.
+Let's prove it in two methods:
+\begin{itemize}
+	\item [(i)] Method 1:
+	
+	\begin{align*}
+		M_i(t) &= E[x^2 t] = \frac{1}{\sqrt{2\pi}} \int exp(x^2 t) exp \left( - \frac{(x-\mu)^2}{2} \right) dx\\
+		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) x^2 + \mu x -\frac{\mu^2}{2} \right) dx \\
+		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{1}{2}(1-2t) \{ x^2 - \frac{2 \mu x}{(1-2t)} + \frac{\mu^2}{(1-2t)^2} \} + \frac{\mu^2}{2(1-2t)} -\frac{\mu^2}{2}  \right) dx \\
+		&= \frac{1}{\sqrt{(1-2t)}} \int \frac{(1-2t)}{\sqrt{2\pi}} exp\left( -\frac{(x-\frac{\mu}{1-2t})^2}{2 (1-2t)^{-1}} \right) dx \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right]\\
+		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad \lambda = \mu^2\\
+		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\lambda t}{1-2t} \right)
+	\end{align*}
+	
+	Then the MGF for $Q_i \sim \chi^2 _{k_i}(\lambda_i)$
+	\begin{align*}
+		M(t) &= E[ \sum_{i=1}^k x_i^2 t] = \prod_{i=1}^k M_i(t) \\
+		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \sum_{i=1}^k \lambda_i t }{1-2t} \right)\\
+		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \lambda t }{1-2t} \right)\\
+		&= (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right), \qquad \text{i.i.d}
+	\end{align*}
+	
+	\item[(ii)] Method 2:
+	
+	\begin{align*}
+	M(t) &= E[(\mu + Z)^2 t] = \frac{1}{\sqrt{2\pi}} \int exp \left((\mu + Z)^2 t \right) exp \left( - \frac{Z^2}{2} \right) dz\\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) z^2 + 2\mu t z + \mu^2 t \right) dz \\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{(1-2t)}{2} \{ z^2 - \frac{4 \mu t z}{(1-2t)} + \frac{2 \mu^2 t^2}{(1-2t)^2} \} + \frac{2 \mu^2 t^2}{(1-2t)} + \mu^2 t   \right) dz \\
+	&= \frac{1}{\sqrt{(1-2t)}} \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right] \int \frac{1}{\sqrt{2\pi/(1-2t)}} exp\left( -\frac{(z-\frac{2 \mu t}{1-2t})^2}{2 (1-2t)^{-1}} \right) dz \\
+	&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad t<1/2
+\end{align*}
+
+
+\end{itemize}
+
+The general case of a linear combination of independent $\chi^2_{k_i}(\lambda_i)$
+
+\begin{align*}
+	Q &= \sum_{i=1}^k a_i Q_i
+\end{align*}
+We also can prove using MGF.
+
+\subsection{Linear Combination of Chi-Square Distribution}
+
+The linear combination of chi-square distribution $Y_j$. Let us denote by $X \sim \Gamma(r, \lambda)$ the fact that the r.v. X has a Gamma distribution with shape parameter r and rate parameter $\lambda$ 
+
+\begin{align*}
+	f_{X}(x) &= \frac{\lambda^x}{\Gamma (r)} exp(- \lambda x) x^{r-1}, \qquad (r, \lambda >0, x >0)
+\end{align*}
+
+Then we have, for $j=1,..p$,
+
+\begin{align*}
+	Y_j & \sim  \Gamma(\frac{k_j}{2}, \frac{1}{2}) \rightarrow Z_j = w_j Y_j \sim \Gamma(\frac{k_j}{2}, \frac{1}{2w_j})
+\end{align*}
+
+The MGF for linear combinations $Z_j = w_j Y_j$
+\begin{align*}
+	M(t) &= E[exp(Y_j t)] = (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right)\\
+	M_{Z_j} (t) & = E[exp(w_j Y_j t)] = E[exp( Y_j (w_jt))] \\
+	&= (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
+
+\begin{align*}
+	M_Y(t) &= E[exp(Y t)] = E[exp(t [w_1 Y_1 + w_2 Y_2 + w_3 Y_3 +.. w_n Y_n])]\\
+	&= E[exp(w_1 t Y_1)]E[exp(w_2 t Y_2)]... E[exp(w_n t Y_n)]\\
+	&= M_{X_1}(w_1 t) M_{X_2}(w_2 t) M_{X_3}(w_3 t).. M_{X_n}(w_n t)\\
+	&= \prod_{i=1}^n M_{X_i}(w_i t)
+\end{align*}
+
+The third equation comes from the properties of exponents, as wells as from the expectation of the product of functions of independent random variables. 
+
+I need to pay attention that, only under independent and identical situation, we can write
+ \begin{align*}
+ 	M_Y(t) &= M_{X}(t)^n
+ \end{align*}
+
+Other than that, we can not further simplify that. So back to the non-central chi-square distribution, we have the MGF of Y
+\begin{align*}
+	M_Y(t) &= \prod_{i=1}^n M_{X_i}(w_i t)\\
+	&=\prod_{i=1}^n  (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
+
+Then we can see that the shape parameter is $\frac{1}{2 w_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $w_j$ need to be the same. 
+
+ If $Z_1, ..., Z_k$ are independent, standard normal random variables, then the sum of their squares,
+\begin{align*}
+	Q &= Z_i^2 \sim \chi^2(k)\\
+    p(k) &= \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} exp(-\frac{x}{2})
+\end{align*}
+
+\begin{itemize}
+
+\item[(a)] Non-Central Chi-square distribution
+\begin{definition}
+Let $(X_{1},X_{2},\ldots ,X_{i},\ldots ,X_{k})$ be k independent, normally distributed random variables with means $\mu _{i}$ and unit variances. Then the random variable
+\begin{align*}
+    Q &= \sum_{i=1}^k X_i^2 \sim \chi^2(k, \lambda), \qquad \lambda = \sum_{i=1}^k \mu_i^2
+\end{align*}
+where the degrees of freedom is $k$.
+
+
+The sample mean of n i.i.d. chi-squared variables of degree k is distributed according to a gamma distribution with shape $\alpha$  and scale $\theta$  parameters:
+\begin{align*}
+	\bar{X} &= \frac{1}{n} \sum_{i=1}^n X_i \sim Gamma(\alpha = nk/2, \theta = 2/n)
+\end{align*}
+\end{definition}
+
+\begin{lemma}	
+
+Let $Q_i \sim \chi^2 _{k_i}(\lambda_i)$ for $i=1,…,n$, be independent. Then, $Q = \sum_{i=1}^n Q_i$ is a noncentral $\chi^2_k(\lambda)$, where $k = \sum_{i=1}^n k_i$ and $\lambda =\sum_{i=1}^n \lambda_i$.
+\end{lemma}
+
+
+
+The distribution transformation use moment generating function.
+
+We can get MGF from $E[x^2 t]$
+\begin{align*}
+	M_i(t) &= E[x^2 t] = \frac{1}{\sqrt{2\pi}} \int \exp(x^2 t) \exp \left( - \frac{(x-\mu)^2}{2} \right) dx\\
+	&=  \frac{1}{\sqrt{2\pi}}  \int \exp \left( (t- \frac{1}{2}) x^2 + \mu x -\frac{\mu^2}{2} \right) dx \\
+	&=  \frac{1}{\sqrt{2\pi}}  \int \exp \left(  -\frac{1}{2}(1-2t) \{ x^2 - \frac{2 \mu x}{(1-2t)} + \frac{\mu^2}{(1-2t)^2} \} + \frac{\mu^2}{2(1-2t)} -\frac{\mu^2}{2}  \right) dx \\
+	&= \frac{1}{\sqrt{(1-2t)}} \int \frac{(1-2t)}{\sqrt{2\pi}} \exp\left( -\frac{(x-\frac{\mu}{1-2t})^2}{2 (1-2t)^{-1}} \right) dx \left[\exp \left( \frac{\mu^2 t}{1-2t} \right) \right]\\
+	&=\frac{1}{\sqrt{(1-2t)}} \exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad \lambda = \mu^2\\
+	&=\frac{1}{\sqrt{(1-2t)}} \exp \left( \frac{\lambda t}{1-2t} \right)
+\end{align*}
+
+Then the MGF for $Q_i \sim \chi^2 _{k_i}(\lambda_i)$
+\begin{align*}
+	M(t) &= E[ \sum_{i=1}^k x_i^2 t] = \prod_{i=1}^k M_i(t) \\
+	&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k \exp \left( \frac{ \sum_{i=1}^k \lambda_i t }{1-2t} \right)\\
+	&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k \exp \left( \frac{ \lambda t }{1-2t} \right)\\
+	&= (1-2t)^{-k/2} \exp \left( \frac{ \lambda t }{1-2t} \right), \qquad \text{i.i.d}
+\end{align*}
+
+The general case of a linear combination of independent $\chi^2_{k_i}(\lambda_i)$
+
+\begin{align*}
+	Q &= \sum_{i=1}^k a_i Q_i
+\end{align*}
+We also can prove using MGF.
+
+
+\subsection{Chi-square MGF}
+We can get MGF for chi-square from $E[x^2 t]$ and $E[(\mu + Z)^2 t]$, where $Z \sim N(0,1)$.
+Let's prove it in two methods:
+\begin{itemize}
+	\item [(i)] Method 1:
+	
+	\begin{align*}
+		M_i(t) &= E[x^2 t] = \frac{1}{\sqrt{2\pi}} \int exp(x^2 t) exp \left( - \frac{(x-\mu)^2}{2} \right) dx\\
+		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) x^2 + \mu x -\frac{\mu^2}{2} \right) dx \\
+		&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{1}{2}(1-2t) \{ x^2 - \frac{2 \mu x}{(1-2t)} + \frac{\mu^2}{(1-2t)^2} \} + \frac{\mu^2}{2(1-2t)} -\frac{\mu^2}{2}  \right) dx \\
+		&= \frac{1}{\sqrt{(1-2t)}} \int \frac{(1-2t)}{\sqrt{2\pi}} exp\left( -\frac{(x-\frac{\mu}{1-2t})^2}{2 (1-2t)^{-1}} \right) dx \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right]\\
+		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad \lambda = \mu^2\\
+		&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\lambda t}{1-2t} \right)
+	\end{align*}
+	
+	Then the MGF for $Q_i \sim \chi^2 _{k_i}(\lambda_i)$
+	\begin{align*}
+		M(t) &= E[ \sum_{i=1}^k x_i^2 t] = \prod_{i=1}^k M_i(t) \\
+		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \sum_{i=1}^k \lambda_i t }{1-2t} \right)\\
+		&=\left(\frac{1}{\sqrt{(1-2t)}} \right)^k exp \left( \frac{ \lambda t }{1-2t} \right)\\
+		&= (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right), \qquad \text{i.i.d}
+	\end{align*}
+	
+	\item[(ii)] Method 2:
+	
+	\begin{align*}
+	M(t) &= E[(\mu + Z)^2 t] = \frac{1}{\sqrt{2\pi}} \int exp \left((\mu + Z)^2 t \right) exp \left( - \frac{Z^2}{2} \right) dz\\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left( (t- \frac{1}{2}) z^2 + 2\mu t z + \mu^2 t \right) dz \\
+	&=  \frac{1}{\sqrt{2\pi}}  \int exp \left(  -\frac{(1-2t)}{2} \{ z^2 - \frac{4 \mu t z}{(1-2t)} + \frac{2 \mu^2 t^2}{(1-2t)^2} \} + \frac{2 \mu^2 t^2}{(1-2t)} + \mu^2 t   \right) dz \\
+	&= \frac{1}{\sqrt{(1-2t)}} \left[exp \left( \frac{\mu^2 t}{1-2t} \right) \right] \int \frac{1}{\sqrt{2\pi/(1-2t)}} exp\left( -\frac{(z-\frac{2 \mu t}{1-2t})^2}{2 (1-2t)^{-1}} \right) dz \\
+	&=\frac{1}{\sqrt{(1-2t)}} exp \left( \frac{\mu^2 t}{1-2t} \right), \qquad t<1/2
+\end{align*}
+
+
+\end{itemize}
+
+The general case of a linear combination of independent $\chi^2_{k_i}(\lambda_i)$
+
+\begin{align*}
+	Q &= \sum_{i=1}^k a_i Q_i
+\end{align*}
+We also can prove using MGF.
+
+
+\item[(b)] Linear Combination of Chi-Square Distribution
+The linear combination of chi-square distribution $Y_j$. Let us denote by $X \sim \Gamma(r, \lambda)$ the fact that the r.v. X has a Gamma distribution with shape parameter r and rate parameter $\lambda$ 
+
+\begin{align*}
+	f_{X}(x) &= \frac{\lambda^x}{\Gamma (r)} exp(- \lambda x) x^{r-1}, \qquad (r, \lambda >0, x >0)
+\end{align*}
+
+Then we have, for $j=1,..p$,
+
+\begin{align*}
+	Y_j & \sim  \Gamma(\frac{k_j}{2}, \frac{1}{2}) \rightarrow Z_j = w_j Y_j \sim \Gamma(\frac{k_j}{2}, \frac{1}{2w_j})
+\end{align*}
+
+The MGF for linear combinations $Z_j = w_j Y_j$
+\begin{align*}
+	M(t) &= E[exp(Y_j t)] = (1-2t)^{-k/2} exp \left( \frac{ \lambda t }{1-2t} \right)\\
+	M_{Z_j} (t) & = E[exp(w_j Y_j t)] = E[exp( Y_j (w_jt))] \\
+	&= (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
+
+\begin{align*}
+	M_Y(t) &= E[exp(Y t)] = E[exp(t [w_1 Y_1 + w_2 Y_2 + w_3 Y_3 +.. w_n Y_n])]\\
+	&= E[exp(w_1 t Y_1)]E[exp(w_2 t Y_2)]... E[exp(w_n t Y_n)]\\
+	&= M_{X_1}(w_1 t) M_{X_2}(w_2 t) M_{X_3}(w_3 t).. M_{X_n}(w_n t)\\
+	&= \prod_{i=1}^n M_{X_i}(w_i t)
+\end{align*}
+
+The third equation comes from the properties of exponents, as wells as from the expectation of the product of functions of independent random variables. 
+
+I need to pay attention that, only under independent and identical situation, we can write
+ \begin{align*}
+ 	M_Y(t) &= M_{X}(t)^n
+ \end{align*}
+
+Other than that, we can not further simplify that. So back to the non-central chi-square distribution, we have the MGF of Y
+\begin{align*}
+	M_Y(t) &= \prod_{i=1}^n M_{X_i}(w_i t)\\
+	&=\prod_{i=1}^n  (1-2 w_jt)^{-1/2} exp \left( \frac{ \lambda w_j t }{1-2 w_j t} \right)
+\end{align*}
+
+Then we can see that the shape parameter is $\frac{1}{2 w_i}$. If we want to have a non-central chi-square distribution for $Y$, then all $w_j$ need to be the same. 
+
+
+\item[(c)] Independence 
+
+If $y \sim N(0, \sigma^2 I)$, M is a symmetric idempotent matrix of order n, and L is a $k \times n$ matrix, then $Ly$ and $y' M y$ are independently distribution if $LM = 0$.
+
+
+The proof will use the orthogonal matrix Q, which is $Q'Q = I$, we could add this term wherever we want to.
+
+Define the matrix Q so that
+ \begin{align*}
+	Q^T M Q &= \Lambda = \begin{bmatrix}
+	I & 0\\
+	0 & 0
+	\end{bmatrix}
+\end{align*}
+
+Let r denote the dimension of the identity matrix which is equal to the rank of M. Thus $r = tr M$.
+
+Let $v = Q' y$ and partition $v$ as follows
+
+ \begin{align*}
+	v &=  \begin{bmatrix}
+	v_1\\
+	v_2
+	\end{bmatrix} = \begin{bmatrix}
+	v_1\\
+	v_2 \\
+	..\\
+	v_r \\
+	v_{r+1}\\
+	..\\
+	v_n
+	\end{bmatrix} 
+\end{align*}
+
+The number of elements of $v_1$ is r, while $v_2$ contains $n-r$ elements. Clearly $v_1$ and $v_2$ are independent of each other since they are independent standard normals. What we will show now is that $y' M y$ depends only on $v_1$ and $Ly$ depends only on $v_2$. Given that the $v_i$ are independent, $y' M y$ and $Ly$ will be independent. 
+
+ \begin{align*}
+	y'My &= v' Q' M Q v \\
+	&= v' \begin{bmatrix}
+	I & 0\\
+	0 & 0
+	\end{bmatrix} v \\
+	&= v_1^T v_1
+\end{align*}
+
+Now consider the product of L and Q which we denote C. Partition C as $(C_1, C_2)$. $C_1$ has k rows and r columns. $C_2$ has k rows and $n-r$ columns. Now consider the following product
+
+  \begin{align*}
+	C(Q' M Q) &= L Q Q'  M Q, \qquad C=LQ\\
+	&= LMQ = 0, \qquad LM = 0 
+\end{align*}
+
+Now consider the product of C and matrix $Q'MQ$
+  \begin{align*}
+	C(Q' M Q) &= (C_1, C_2) \begin{bmatrix}
+	I & 0\\
+	0 & 0
+	\end{bmatrix} \\
+	&= 0
+\end{align*}
+This implies that $C_1 = 0$, then implies that $LQ = C = (0, C_2)$
+
+Now consider $Ly$. It can be written 
+  \begin{align*}
+	Ly&= LQQ'y = C v = C_2 v_2
+\end{align*}
+
+Now note that $Ly$ depends only on $v_2$, and $y'My$ depends only on $v_1$. But since $v_1$ and $v_2$ are independent, so are $Ly$ and $y'My$.
+
+
+
+
+\end{itemize}

@@ -1,0 +1,70 @@
+
+ \section{UMVUE in linear model}
+  By the Gauss-Markov theorem that the least squares estimator is the unique minimum variance unbiased linear estimator. 
+  
+ Consider the usual linear model $Y = X\beta + \epsilon, \epsilon \sim N(0, \sigma^2 I)$, rank(X) = r.
+ 
+ Using the property of MVN, $Y \sim N_n (X \beta, \sigma^2 I) $, the joint density $Y = (Y_1, .., Y_n)'$
+ 
+ Now we will show that if $\epsilon \sim N_n(0, \sigma^2 I)$, then the least squares estimator is the uniform minimum variance unbiased estimator (UMVUE). 
+ 
+\begin{definition}
+Suppose T(Y ) is a vector valued statistic in Y . Then T(Y ) is said to be a complete sufficient statistic for the family of distributions indexed by $\theta \in \Theta$  , if T(Y ) is sufficient and 
+\begin{align*}
+E[f(T(Y))] = 0 \rightarrow f(T(Y)) = 0
+\end{align*}
+with probability 1 for all $\theta \in \Theta$, where $\Theta$ denotes the parameter space.
+\end{definition}
+
+
+\begin{theorem}
+If T(Y) is a complete sufficient statistics, then $f(T(Y))$ is the unique UMVUE of $E[f(T(Y))] $
+\end{theorem}
+
+The least square estimate of $\lambda' \beta = \rho' MY$ regardless of the rank of the model. So we would like to see when the least square estimate is equal to UMVUE.
+
+We now would like to show that $\rho' MY$ is the unique UMVUE of $\rho' \beta \beta $. 
+The density of Y is 
+
+\begin{align*}
+f(Y)& \propto (\sigma^2)^{-\frac{n}{2}} \exp \Big \{ - \frac{(Y- X\beta)^T(Y- X\beta)}{\sigma^2} \Big \} \\
+&= (\sigma^2)^{-\frac{n}{2}} \exp \Big \{ - \frac{(X\beta)^T(X\beta)}{\sigma^2} \Big \}  \exp \Big \{ - \frac{Y^TY- \beta X' Y)}{\sigma^2} \Big \} \\
+&= h(Y) c(\beta, \sigma^2) \exp \Big \{ - \frac{Y^TY- \beta X' Y)}{\sigma^2} \Big \} 
+\end{align*}
+We need to find the sufficient complete statistics for parameters, $Y'Y, X'Y$ are complete sufficient statistics for $(-\frac{1}{\sigma^2}, \frac{\beta}{\sigma^2},.. \frac{\beta}{\sigma^2})$
+ 
+ An unbiased estimate of $\lambda' \beta = \rho' X \beta$ 
+ \begin{align*}
+\rho' M Y &= \rho' X(X'X)^{-1}X' Y
+\end{align*}
+
+Thus, $\rho' MY$ is a function of the complete sufficient statistics so it is the unique minimum variance unbiased estimator of $\rho' X \beta$. 
+
+Moreover, $\frac{Y'(I-M)Y}{n-r}$ is an unbiased estimator of $\sigma^2$, and $Y'(I-M)Y = Y'Y - (Y'X)(X'X)^{-1}(Z'Y) $ is a function of the complete sufficient statistics $(Y'Y, Y'X)$. Therefore, it is the UMVUE for $\sigma^2$. 
+
+\subsection{UMVUE in generalized covariance matrix}
+
+What if $\epsilon \sim N(0, \sigma^2 V)$ where V is a known positive definite matrix. We have the following results:
+\begin{itemize}
+\item[(i)] $\rho' AY$ is the unique UMVUE of $\rho' X \beta$, where $A = X (X'V^{-1}X)^{-1} X' V^{-1}$. 
+
+\item[(ii)]  $\rho' AY \sim N_1(\rho' X \beta, \sigma^2 \rho' AVA' \rho)$.
+
+\item[(iii)] $P' AY$ is the unique UMVUE of $P'X\beta$, where P is an $n \times s$ matrix of constants. Also 
+ \begin{align*}
+P' A Y & \sim N_s (P'X \beta, \sigma^2 P' AVA'P)
+\end{align*}
+
+\item[(iv)] $\frac{Y' (I-A)' V^{-1} (I-A) Y}{n-r}$ is the unique UMVUE of $\sigma^2$.
+
+\item[(v)] Any weighted least squares estimate of $\beta$ is an MLE of $\beta$.
+
+\item[(vi)] If X has full rank p, then the UMVUE of $\beta$ is 
+
+\begin{align*}
+\hat{\beta} &=  (X'V^{=1}X)^{-1} X' V^{-1} Y\\
+\hat{\beta} & \sim N_p \Big( \beta, \sigma^2 (X'V^{=1}X)^{-1} \Big)
+\end{align*}
+
+
+\end{itemzie}

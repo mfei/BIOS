@@ -1,0 +1,148 @@
+	\section{Sampling Method}
+	 cross-sectional, prospective, retrospective sampling method.\\
+	
+
+	\subsection{Retrospective}
+	In retrospective study, we know the response and further select patients accordingly, in other words, the columns margin is fixed. So we know the percentage of X in the Y categories. 
+	
+	For retrospective study, the Y is fixed. The likelihood function is constructed as below:
+	
+	\begin{align*}
+		\theta &= p(X=1|Y=1) = \frac{\pi_{11}}{\pi_{11} + \pi_{21}}\\
+		1- \theta &= p(X=0|Y=1) = \frac{\pi_{21}}{\pi_{11} + \pi_{21}}\\
+		\gamma &= p(X=1|Y=0) = \frac{\pi_{12}}{\pi_{12} + \pi_{22}}\\
+		1- \gamma &= p(X=0|Y=0) = \frac{\pi_{22}}{\pi_{12} + \pi_{22}}
+	\end{align*} 
+	
+	$X | Y$ are binomial distribution, which is different from above multinomial distribution. And the $X|Y=0, X|Y=1$ are independent. 
+	
+	\begin{align*}
+		p(\theta, \gamma) &= \theta^{n_{11}} (1-\theta)^{n_{21}} \gamma^{n_{12}} (1-\gamma)^{n_{22}}\\
+		\log p(\theta, \gamma) &= n_{11} \log \theta + n_{21} \log (1-\theta) + n_{12} \log \gamma + n_{22} \log(1-\gamma)\\
+		\frac{\partial ln}{\partial \theta} &= \frac{n_{11}}{\theta} - \frac{n_{21}}{1-\theta} = 0\\
+		\hat{\theta} &= \frac{n_{11}}{n_{11}+ n_{21}}\\
+		\frac{\partial ln}{\partial \gamma} &= \frac{n_{12}}{\gamma} - \frac{n_{22}}{1-\gamma} = 0\\
+		\hat{\gamma} &= \frac{n_{12}}{n_{12}+ n_{22}}
+	\end{align*} 
+	By CLT,
+	\begin{align*}
+		\sqrt{n} \Bigg ( \begin{pmatrix} 
+		\theta \\
+		\gamma
+		\end{pmatrix} -  \begin{pmatrix} 
+		\hat{\theta} \\
+		\hat{\gamma}
+		\end{pmatrix} \Bigg ) & \xrightarrow{d}  N(0, \Sigma)
+	\end{align*} 
+		
+	The covariance matrix, binomial distribution variance is $np(1-p)$
+	
+	\begin{align*}
+		\sqrt{n} \left( \theta - \hat{\theta} \right) & \xrightarrow[]{d} N(0, \Sigma)\\
+		\Sigma &= \begin{bmatrix}
+			\theta(1-\theta) &  0 \\
+			0 &  \gamma(1-\gamma) \\
+		\end{bmatrix}\\
+	\end{align*} 	
+	
+	The Fisher Information matrix is inverse of Covariance matrix.
+	
+	\begin{align*}
+	  I(\theta, \gamma) &= \Sigma^{-1} \\
+	  &= \begin{bmatrix}
+			\theta^{-1}(1-\theta)^{-1} &  0 \\
+			0 &  \gamma^{-1}(1-\gamma)^{-1} 
+		\end{bmatrix}
+	\end{align*} 		
+	
+	Then get covariance matrix by delta method for odds ratio, 
+	
+	\begin{align*}
+		g(\theta) &= \frac{n_{11}n_{22}}{n_{21}n_{12}} = \frac{\theta/(1-\theta)}{\gamma/(1-\gamma)}\\
+		\sqrt{n} \left( g(\hat\theta) - g({\theta}) \right) & \xrightarrow[]{d} N(0, g(\theta)' \Sigma^{New} g(\theta)'^T)\\  
+		g(\theta)' &= \left( \frac{(1-\gamma)/\gamma}{1/(1-\theta)^2}, \frac{\theta/(1-\theta)}{-1/\gamma^2} \right)
+	\end{align*} 
+	
+	The standard error for odds ratio in retrospective study
+	
+	\begin{align*}
+		se(\hat R) &= \hat{R} \sqrt{\frac{1}{n_{.1}\hat{\pi}_{X=2|Y=1}\hat{\pi}_{X=1|Y=1} } + \frac{1}{n_{.2}\hat{\pi}_{X=2|Y=2} \hat {\pi}_{X=1|Y=2} } }\\
+		\hat{\pi}_{X=2|Y=1} &= \frac{n_{21}}{n_{11}+ n_{21}}\\
+		\hat{\pi}_{X=1|Y=1} &= \frac{n_{11}}{n_{11}+ n_{21}}\\
+		\hat{\pi}_{X=2|Y=2} &=  \frac{n_{12}}{n_{12} + n_{22}}\\
+		\hat {\pi}_{X=1|Y=2} &= \frac{n_{12}}{n_{12} + n_{22}}\\
+		n_{.1} = n_{11}+ n_{21}, \quad n_{.2}=n_{12} + n_{22}\\
+		se(\hat R) &= \frac{n_{22}n_{11}}{(n_{21}n_{12})} \sqrt{\frac{n_{11}+n_{21}}{n_{11}n_{21}} + \frac{n_{12}+n_{22}}{n_{12}n_{22}} }\\
+		&= \frac{{n_{22}n_{11}}}{(n_{21}n_{12})} \sqrt{\frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}\\
+	\end{align*}
+	
+\subsection{Prospective}
+In prospective study, the row margin is fixed. We will need to figure out how many parameters are needed to construct the likelihood function.
+
+We have
+	\begin{align*}
+	P(Y=1|X=1) &= \frac{\pi_{11}}{\pi_{11} + \pi_{12}} = \theta\\
+	P(Y=0|X=1) &= \frac{\pi_{12}}{\pi_{11} + \pi_{12}} = 1 - P(Y=1|X=1)\\
+	P(Y=1|X=  0) &= \frac{n_{21}}{n_{21}+ n_{22}} = \gamma \\
+	P(Y= 0|X=  0) &=  \frac{n_{22}}{n_{21}+ n_{22}} = 1 - P(Y=1|X=  0)
+\end{align*}
+
+So the likelihood function
+\begin{align*}
+	P(\theta, \gamma) &= \theta^{n_{11}} (1-\theta)^{n_{12}} \gamma^{n_{21}} (1-\gamma)^{n_{22}}
+\end{align*}
+
+The standard error for odds ratio in prospective study
+	\begin{align*}
+		se(\hat R) &= \hat{R} \sqrt{\frac{1}{n_{1.}\hat{\pi}_{Y=2|X=1}\hat{\pi}_{Y=1|X=1} } + \frac{1}{n_{2.}\hat{\pi}_{Y=2|X=2} \hat {\pi}_{Y=1|X=2} } }\\
+		\hat{\pi}_{Y=2|X=1} &= \frac{n_{12}}{n_{11}+ n_{12}}\\
+		\hat{\pi}_{Y=1|X=1} &= \frac{n_{11}}{n_{11}+ n_{12}}\\
+		\hat{\pi}_{Y=2|X=2} &=  \frac{n_{22}}{n_{21} + n_{22}}\\
+		\hat {\pi}_{Y=1|X=2} &= \frac{n_{21}}{n_{21} + n_{22}}\\
+		n_{1.} = n_{11}+ n_{12}, \quad n_{2.}=n_{21} + n_{22}\\
+		se(\hat R) &= \frac{n_{22}n_{11}}{(n_{21}n_{12})} \sqrt{\frac{n_{11}+n_{12}}{n_{11}n_{12}} + \frac{n_{21}+n_{22}}{n_{21}n_{22}} }\\
+		&= \frac{{n_{22}n_{11}}}{(n_{21}n_{12})} \sqrt{\frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}\\
+	\end{align*}
+	
+	\subsection{Cross-Sectional}
+	For cross-sectional study, we only have the total n fixed. That is the difference for each scenario. 
+	To calculate the covariance matrix, we will use the MGF and take derivatives. Or use the cumulant function KGF to get the covariance.
+	Use one random variable for the two way contingency table. While the Fisher information is the inverse of the covariance matrix, however we don't use Fisher information to calculate covariance matrix due to the math computation.\\
+	
+	Show that the sample odds ratio $\hat R = n_{22}n_{11}/(n_{21}n_{12})$ has the same standard error for cross-sectional, prospective and retrospective studies.
+	
+	
+	The standard error for odds ratio in cross sectional study\\
+	\begin{align*}
+		se(\hat R) &= \frac{\hat{R}}{\sqrt{n}} \sqrt{\frac{1}{\hat{\pi_{11}}} + \frac{1}{\hat{\pi_{12}}} + \frac{1}{\hat{\pi_{21}}} + \frac{1}{\hat{\pi_{22}}}}\\
+		&= \frac{{n_{22}n_{11}}}{(n_{21}n_{12})} \sqrt{\frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}\\
+	\end{align*}
+
+	
+	By comparing the above standard errors in three types of studies, we see that they have same standard errors. Odds ratio is invariant in terms of sampling method. 
+Similarly the coefficient of a particular covariate is associated with the odds ratio of the covariate, which is invariant with prospective and retrospective studies. Check out p747.
+
+
+\subsection{Odds ratio}
+	The covariance of odds ratio by delta method. We simplify $2 \times 2$ table as $\pi_{11} = \pi_1, \pi_{12} = \pi_2, \pi_{21} = \pi_3, \pi_{22} = \pi_4$.
+	\begin{align*}
+		g(\pi) &= \frac{\pi_{22}\pi_{11}}{\pi_{12}\pi_{21}} \qquad \pi=(\pi_{11}, \pi_{12}, \pi_{21}, \pi_{22})\\
+		\sqrt{n} \left( g(\hat{\pi}) - g({\pi}) \right) & \xrightarrow[]{d} N \left(0, \diffp*{g(\pi)}{\pi}{} \Sigma \diffp*{g(\pi)}{\pi}{}^T \right)\\
+		\diffp{g(\pi)}{\pi}  &= \left( \frac{\partial g}{\partial \pi_{11}}, \frac{\partial g}{\pi_{12}}, \frac{\partial g}{\partial \pi_{21}}, \frac{\partial g}{\partial \pi_{22}} \right)^T\\
+		& = \left( \frac{\pi_{22}}{\pi_{21}\pi_{12}}, \frac{-\pi_{11}\pi_{22}}{\pi_{21}\pi_{12}^2}, \frac{-\pi_{11}\pi_{22}}{\pi_{12}\pi_{21}^2}, \frac{\pi_{11}}{\pi_{21}\pi_{12}} \right)^T\\
+		\Sigma^{\ast} &= g(\pi)^2(\frac{1}{\pi_{11}} + \frac{1}{\pi_{12}} + \frac{1}{\pi_{21}} + \frac{1}{\pi_{22}})
+	\end{align*} 
+	So that,
+	\begin{align*}
+		Var(\hat R) &=  \frac{1}{n} \Sigma^{\ast} 
+	\end{align*} 
+	We consider $log \hat R$ instead of $\hat R$, because $log \hat R$ converges rapidly to a normal distribution compared to $\hat R$.
+	\begin{align*}
+		log(\hat{R}) &= log \pi_1 + \log \pi_2 - \log \pi_3  \log \pi_4\\
+		\diffp{g(\pi)}{\pi}  &= \left(\frac{1}{\pi_{11}} , -\frac{1}{\pi_{12}}, -\frac{1}{\pi_{21}}, \frac{1}{\pi_{22}} \right)^T\\
+		Var(log(\hat{R})) &= \frac{1}{n} \Tilde{\Sigma} \\
+		\Tilde{\Sigma} &= \diffp*{g(\pi)}{\pi}{}^T \Sigma \diffp*{g(\pi)}{\pi}{}\\
+		log(\hat R) &=  \frac{1}{n}\left( \frac{1}{\hat \pi_{11}} + \frac{1}{\hat \pi_{12}} + \frac{1}{\hat \pi_{21}} + \frac{1}{\hat \pi_{22}} \right)\\
+		s.e. log(\hat R) &=  \frac{1}{\sqrt{n}} \sqrt{\frac{1}{\hat \pi_{11}} + \frac{1}{\hat \pi_{12}} + \frac{1}{\hat \pi_{21}} + \frac{1}{\hat \pi_{22}}} 
+	\end{align*} 
+

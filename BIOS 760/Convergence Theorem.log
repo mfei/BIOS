@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  22 JAN 2023 15:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  27 JAN 2023 10:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -431,149 +431,129 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
+Overfull \hbox (0.8402pt too wide) detected at line 81
+[]
+ []
+
 [1
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2] [3]
-Overfull \hbox (43.81815pt too wide) detected at line 214
+Overfull \hbox (43.81815pt too wide) detected at line 229
 []
  []
 
-[4] [5] [6] [7]
-Overfull \hbox (58.49156pt too wide) detected at line 414
+[4] [5] [6] [7] [8]
+Overfull \hbox (7.31088pt too wide) detected at line 483
 []
  []
 
-<Figure/dist1.PNG, id=37, 645.91313pt x 237.13594pt>
-File: Figure/dist1.PNG Graphic file (type png)
-<use Figure/dist1.PNG>
-Package pdftex.def Info: Figure/dist1.PNG  used on input line 438.
-(pdftex.def)             Requested size: 426.79134pt x 156.68748pt.
-
-Overfull \hbox (8.53766pt too wide) in paragraph at lines 438--439
-[][] 
- []
-
-[8]
-<Figure/dist2.PNG, id=42, 530.73282pt x 435.87843pt>
-File: Figure/dist2.PNG Graphic file (type png)
-<use Figure/dist2.PNG>
-Package pdftex.def Info: Figure/dist2.PNG  used on input line 442.
-(pdftex.def)             Requested size: 569.05511pt x 467.3896pt.
-
-Overfull \hbox (150.80144pt too wide) in paragraph at lines 442--443
-[][] 
- []
-
-[9 <./Figure/dist1.PNG>] [10 <./Figure/dist2.PNG>]
-Overfull \hbox (7.31088pt too wide) detected at line 514
+[9] [10] [11]
+Overfull \hbox (15.93915pt too wide) detected at line 573
 []
  []
 
-[11] [12] [13]
-Overfull \hbox (15.93915pt too wide) detected at line 604
-[]
- []
-
+[12]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 630.
+(amsmath)                 on input line 599.
 
-[14] [15] [16] [17] [18] [19] [20] [21]
-Overfull \hbox (30.64833pt too wide) in paragraph at lines 998--999
+[13] [14] [15] [16] [17] [18] [19] [20]
+Overfull \hbox (30.64833pt too wide) in paragraph at lines 967--968
 []\OT1/cmr/m/n/10.95 Continuing the elim-i-na-tion pro-cess be-yond this point 
 (i.e., per-form-ing a block Gauss{Jordan
  []
 
-[22] [23]
-Overfull \hbox (8.12813pt too wide) detected at line 1160
+[21] [22]
+Overfull \hbox (8.12813pt too wide) detected at line 1129
 []
  []
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 
 LaTeX Warning: Command \textperiodcentered invalid in math mode on input line 1
-172.
+141.
 
 Missing character: There is no · in font cmr10!
 Missing character: There is no · in font cmr10!
 Missing character: There is no · in font cmr10!
 
-Overfull \hbox (7.09494pt too wide) detected at line 1175
+Overfull \hbox (7.09494pt too wide) detected at line 1144
 []
  []
 
 
-Overfull \hbox (102.57626pt too wide) detected at line 1182
+Overfull \hbox (102.57626pt too wide) detected at line 1151
 []
  []
 
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 1182--1184
+
+Underfull \hbox (badness 10000) in paragraph at lines 1151--1153
 
  []
 
 
-Overfull \hbox (23.81415pt too wide) detected at line 1188
+Overfull \hbox (23.81415pt too wide) detected at line 1157
 []
  []
 
-[25]
-Overfull \hbox (11.18599pt too wide) detected at line 1228
+[23] [24]
+Overfull \hbox (11.18599pt too wide) detected at line 1197
 []
  []
 
-[26] [27] (./Convergence Theorem.aux) ) 
+[25] (./Convergence Theorem.aux) ) 
 Here is how much of TeX's memory you used:
- 6258 strings out of 478268
- 108502 string characters out of 5846347
- 427634 words of memory out of 5000000
- 24382 multiletter control sequences out of 15000+600000
- 478091 words of font info for 58 fonts, out of 8000000 for 9000
+ 6243 strings out of 478268
+ 108208 string characters out of 5846347
+ 429627 words of memory out of 5000000
+ 24370 multiletter control sequences out of 15000+600000
+ 479775 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,18n,79p,411b,352s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/font
-s/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmss10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmss12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfr
-m1095.pfb>
-Output written on "Convergence Theorem.pdf" (27 pages, 418248 bytes).
+ 69i,18n,79p,411b,362s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc
+/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr17.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmss10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmss12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1095.
+pfb>
+Output written on "Convergence Theorem.pdf" (25 pages, 272017 bytes).
 PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 172 PDF objects out of 1000 (max. 8388607)
+ 109 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

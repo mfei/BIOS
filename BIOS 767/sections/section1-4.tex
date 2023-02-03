@@ -1,0 +1,123 @@
+\section{linear model} 
+
+Suppose that Y is a $4 \times 1$ vector with $E(Y ) = \mu, \mu \in C(E)$, where E is the set $E = \{ \mu: \mu' = (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) \} $ where the $\beta_i$ are real numbers, $i = 1, 2, 3$. Further assume that $Cov(Y) = \sigma^2I_{4 \times 4}$, where $\sigma^2$ is unknown.\\
+\begin{itemize}
+    \item [(a)] Derive $\hat\mu$, the ordinary least squares estimate of $\mu$, by carrying out the
+appropriate projection.\\
+E(Y) is in the column space of C(E), we need to find the o.p.o on C(E). Also $Cov(Y) = \sigma^2 I_{4 \times 4}$, we can use ordinary least squares estimator as i.i.d.
+\begin{align*}
+    \mu' &= (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) = X \beta\\
+    \beta &= (\beta_1, \beta_2, \beta_3)^T\\
+    X &= \begin{bmatrix}
+           1  & 1 & -1  \\
+           0 &  1 & 1\\
+           0  & -1 & -1  \\
+           -1 &  -1 & 1\\
+         \end{bmatrix}\\
+    C(X) &= X_1 = \begin{bmatrix}
+           1  & 1   \\
+           0 &  1 \\
+           0  & -1  \\
+           -1 &  -1 \\
+         \end{bmatrix}\\
+    M_{\mu} &= X_1(X_1'X_{1})^{-1} X_{1}^T = \begin{bmatrix}
+           1  & 1   \\
+           0 &  1 \\
+           0  & -1  \\
+           -1 &  -1 \\
+         \end{bmatrix}\begin{bmatrix}
+           1  & -1/2   \\
+           -1/2 &  1/2 \\
+         \end{bmatrix}\begin{bmatrix}
+           1 & 0 & 0 & -1    \\
+           1 & 1 & -1 & -1
+         \end{bmatrix}\\
+       \hat{\mu} &= M_{\mu} Y =  1/2 \begin{bmatrix}
+           1  & 0 & 0 & -1   \\
+           0 &  1 & -1 & 0 \\
+           0  & -1 & 1 & 0 \\
+           -1 &  0 & 0 & 1 \\
+         \end{bmatrix} (y_1, y_2, y_3, y_4)^T = 1/2 (y_1- y_4, y_2-y_3, y_3-y_2, y_4-y_1)^T
+\end{align*}
+\item[(b)] Find the BLUE of $\beta_2 - \beta_3$ or show that it is nonestimable.
+\begin{align*}
+    \lambda &= (0, 1,-1)^T, \qquad \lambda^T \beta = \beta_2 - \beta_3\\
+    \lambda^T &= \rho^T X = (\rho_1, \rho_2, \rho_3, \rho_4)  \begin{bmatrix}
+           1  & 1 & -1  \\
+           0 &  1 & 1\\
+           0  & -1 & -1  \\
+           -1 &  -1 & 1\\
+         \end{bmatrix} = (0, 1,-1)\\
+         \rho_1 &= \rho_4, \qquad \rho_2 - \rho_3 = 1, \qquad \rho_2 - \rho_3 = -1
+\end{align*}
+The contradict of $\rho_2 - \rho_3$ indicate that  $\beta_2 - \beta_3$ is not estimable.
+\item[(c)] Consider testing $H_0: \beta_2 + \beta_3 = 0$  versus $H_1: \beta_2 + \beta_3 \neq 0$ . Let $E_0$ denote the set E assuming that $H_0$ is true. Explicitly give the sets $E_0$ and $E \cap E_0^{\perp}$.\\
+Find the $M_{0}, M_{1}$ are the o.p.o onto C(X) for $H_0, H_1$.$\textbf{Not on C(Y)}$.Then the $C(M_{0}), C(M_{1})$ and the sets $E_0$ and $E \cap E_0^{\perp}$ relationship needs attention.
+\begin{align*}
+    \lambda &= (0, 1, 1)^T, \qquad \lambda^T \beta = \beta_2 + \beta_3\\
+    \lambda^T &= \rho^T X = (\rho_1, \rho_2, \rho_3, \rho_4)  \begin{bmatrix}
+           1  & 1 & -1  \\
+           0 &  1 & 1\\
+           0  & -1 & -1  \\
+           -1 &  -1 & 1\\
+         \end{bmatrix} = (0, 1, 1)\\
+         \rho &= (1, 2, 1, 1)^T
+\end{align*}
+$ \beta_2 + \beta_3$ is estimable with one $\rho = (1, 2, 1, 1)^T$. Then we can have $H_0: \rho^T M Y = 0$ that $\rho^T M \perp C(E_0)$. 
+\begin{align*}
+    M_1 &= ( M\rho) [(M\rho)^T ( M\rho)]^{-1} ( M\rho)^T\\
+    M\rho &=  \rho_N= (0, 1, -1, 0)^T \\
+    M_1 &= \rho_N [(\rho_N)^T (\rho_N)]^{-1} (\rho_N)^T =1/2 \begin{bmatrix}
+           0  & 0 & 0 & 0  \\
+           0 &  1 & -1 & 0\\
+           0  & -1 & 1 & 0 \\
+           0 & 0 & 0 & 0\\
+         \end{bmatrix} \\
+         & = 1/2 (0, 1, -1, 0)^T
+\end{align*}
+And the complement of $M_0 = M- M_1$ 
+\begin{align*}
+    M_0 & = M- M_1 = 1/2 \begin{bmatrix}
+           1  & 0 & 0 & -1  \\
+           0 & 0 & 0 & 0\\
+           0 & 0 & 0 & 0\\
+           -1  & 0 & 0 & 1  \\
+         \end{bmatrix} \\
+         & = 1/2 (1, 0,  0, -1)^T
+\end{align*}
+Also we can just look at C(Y) column space
+\begin{align*}
+    E_0 & = span \{(\beta_1+2\beta_2, 0, 0, -\beta_1-2\beta_2)^T \}= span \{(1, 0,  0, -1)^T \}
+\end{align*}
+\item[(d)] Assuming normality for Y , construct the simplest possible expression for
+the F statistic for the hypothesis $H_0: \mu \in E_0$ versus $H_1: \mu \not\in E_0$, where $E_0$ is
+specified in part (c), and give the distribution of the F statistic under the null and
+alternative hypotheses.\\
+\begin{align*}
+    M\rho &=  \rho_N= (0, 1, -1, 0)^T \in M, \qquad r(\rho_N) = 1\\
+    M_{\rho} &= \rho_N [(\rho_N)^T (\rho_N)]^{-1} (\rho_N)^T=1/2 \begin{bmatrix}
+           0  & 0 & 0 & 0  \\
+           0 &  1 & -1 & 0\\
+           0  & -1 & 1 & 0 \\
+           0 & 0 & 0 & 0\\
+         \end{bmatrix}\\
+    MSE &= \lVert (I-M)Y \rVert = 1/2 (y_1+y_4)^2 + 1/2 (y_2 + y_4)^2 \\
+    F &= \frac{Y^T M_{\rho} Y/r(\rho)}{MSE} = \frac{2(y_2 - y_3)^2}{(y_1+y_4)^2 + (y_2 + y_4)^2} \sim F(1,2, \gamma), \qquad r(M-M_{\rho}) = 1, r(I-M) = 2
+\end{align*} 
+In which, under $H_0, \gamma = 0$, and under $H_1$.
+\begin{align*}
+    \gamma &= \frac{\lVert (M_1) X\beta \rVert}{2 \lVert (I-M)Y \rVert/2}\\
+    &= \frac{(\beta_2 + \beta_3)^2}{\sigma^2}
+\end{align*} 
+\item[(e)] Assuming normality for Y , construct an exact 95$\%$ confidence interval for $\beta_2 + \beta_3$.\\
+From part(d), we have
+\begin{align*}
+ \lambda' = (0, 1, 1)\\
+ \rho &= (1, 1, 0, 1)^T\\
+ \lambda^T \beta &=  \rho M Y = M_1 Y= 1/2 (y_2 - y_3)\\
+  F &= \frac{\lVert \lambda^T \beta \rVert/r(\rho)}{\sigma^2} = \frac{\lambda'\beta [\lambda'[X'X]^{-1} \lambda]^{-1} (\lambda'\beta)^T }{\sigma^2} \sim F(1,2, \gamma)\\
+  [\lambda'[X'X]^{-1} \lambda]^{-1} & = 2\\
+ &\{\beta: \frac{\lambda'\beta [\lambda'[X'X]^{-1} \lambda]^{-1} (\lambda'\beta)^T }{\sigma^2} \leq F(0.95, 1,2) \} 
+\end{align*} 
+
+\end{itemize}

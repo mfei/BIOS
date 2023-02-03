@@ -1,0 +1,401 @@
+
+ \section{Generalized Least Squares}
+ 
+Consider the linear model $Y = X\beta + Z\gamma + \epsilon$, where $E(\epsilon) = 0$ and $Cov(\epsilon) = V$, V is assumed known and positive definite, and $(\beta, \gamma)$ are unknown. Further, let $A =X(X'V^-X)^-X'V^{-1}$, X is $n \times p$, Z is $n \times q$, and both X and Z may be less than full rank. Let C(H) denote the usual label for the column space of an arbitrary matrix H.
+
+If we want to do hypothesis testing, we will need to construct F test by breaking down the quadratic forms into chi-square terms (independent/orthogonal), so the variance term needs to be identical and independent.
+
+\begin{itemize}
+    \item [(a)] Show that $(I-A)'V^{-1}(I-A) = (I-A)'V^{-1} = V^{-1}(I-A)$. \\
+    Lets review the o.p.o onto C(X), and a projection $A =X(X'V^-X)^-X'V^{-1}$.
+\begin{align*}
+ V &= QQ^{T}\\
+ P &= Q^{-1}X [(Q^{-1}X)' (Q^{-1}X)]^{-} (Q^{-1}X)^{T} = Q^{-1}X [X' V^{-1}X]^- X^{T} Q^{-1} 
+\end{align*}     
+
+We need to transform P to A, so by definition, $AX = X$. we would like to prove $ P Q^{-1}X = Q^{-1}X$
+\begin{align*}
+ P Q^{-1}X &=Q^{-1}X [X' V^{-1}X]^{-} X^T Q^{-1} Q^{-1}X = Q^{-1}X, \qquad X [X' V^{-1}X]^{-} X^T Q^{-1} Q^{-1} = A
+\end{align*}  
+
+Then we have $AX = X$, then A is a projection onto C(X). \textbf{Need attention that A is not a o.p.o. with respective to $x'y$ (not symmetric) it is only a projection. But is o.p.o to $x' V^{-1}y$ }.\\
+For $\rho'A Y = \rho' MY$, that $M= X(X'X)^{-} X^{T}$, we need to have $C(X) = C(VX), C(X) = C(V^{-1}X)$, then $A =X(X'V^-X)^-X'V^{-1}$.\\
+Show that A, I-A are projections
+\begin{align*}
+A^2 &= A\\
+X(X'V^-X)^-X'V^{-1} X(X'V^-X)^-X'V^{-1} &= X(X'V^-X)^-X'V^{-1}\\
+(I-A)^2 &= I-A \\
+(I-A)(I-A) &= I-A-A + A^2 = I-A
+\end{align*}  
+Then transform the equation
+\begin{align*}
+(I-A)'V^{-1}(I-A)(I-A) &= (I-A)'V^{-1}(I-A), \\
+(I-A)'V^{-1}(I-A) &= (I-A)'V^{-1} 
+\end{align*} 
+To show $(I-A)'V^{-1}(I-A) = V^{-1}(I-A)$
+\begin{align*}
+(I-A)'(I-A)' &= [(I-A)(I-A)]^T = (I-A)^T\\
+(I-A)'(I-A)'V^{-1}(I-A) &= (I-A)'V^{-1}(I-A) \\
+(I-A)'V^{-1}(I-A) &= V^{-1}(I-A) 
+\end{align*} 
+\item[(b)] Show that A is the projection operator onto C(X) along $C(V^{-1} X)^{\perp}$.
+We need to show $AX=X, x \in C(X) $, and $Aw = 0, w \in C(V^{-1} X)^{\perp}, C(V^{-1}X) = C(X)$
+We have shown that $AX=X$ in above (a), then let $w \in C(V^{-1} X)^{\perp}$
+\begin{align*}
+(V^{-1} X)'w &= 0, \qquad X' V^{-1} w = 0\\
+Aw & =w, \qquad  X' V^{-1} A w = 0 \\
+X' V^{-1} A &= 0, \qquad A \perp  C(V^{-1} X)
+\end{align*}
+\item[(c)]Let B denote the projection operator onto C(X,Z) along $C(V^{-1} (X,Z))^{\perp}$.
+Assume that all matrix inverses exist. Show that
+\begin{align*}
+B &= A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1}
+\end{align*}
+To show B is a projection, $B^2 = B$, but if need to show projection onto C(X,Z), then show $BX=X, x \in C(X,Z)$. If need to show projection along, then show$ Bw = 0, w \in C(V^{-1} (X,Z))^{\perp}$. 
+\begin{align*}
+B^2 &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) \\
+&= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) = B\\
+A(I-A) & = 0\\
+\end{align*}
+Show  $B (X, Z) = (BX, BZ) = (X, Z)$.
+\begin{align*}
+BX &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) X\\
+&= AX + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} (I-A)  X =X , \qquad \text{part (a)}\\
+BZ &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) Z\\
+&= AZ + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} (I-A)Z = AZ + (I-A)Z = Z, \quad \text{part (a)}
+\end{align*}
+Next show projection along $C(V^{-1} (X,Z))^{\perp}$. 
+\begin{align*}
+(V^{-1} (X,Z))'w &= 0, \qquad X' V^{-1} w = 0, Z' V^{-1} w = 0\\
+Bw &= \left(A + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} \right) w= 0 \\
+&= Aw + (I-A)Z [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)'V^{-1} w = 0\\
+(X,Z)' V^{-1} B &= 0, \qquad B \perp  C(V^{-1} (X,Z))
+\end{align*}
+\item[(d)] Show that $(\hat{\gamma}, \hat{\beta})$ are generalized BLUE's for the linear model, where $(\hat{\gamma}, \hat{\beta})$ satisfy
+\begin{align*}
+\hat{\gamma} &= [Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)' V^{-1} (I-A)Y\\
+X\hat{\beta} &= A(Y-Z \hat{\gamma})
+\end{align*}
+To show projection operator onto C(Z) is $[Z'(I-A)' V^{-1} (I-A)Z]^{-1} Z'(I-A)' V^{-1}$, also it is along $C(V^{-1} Z)^{\perp}$.\\
+By Gauss-Markov theorem, the least square estimates of $\gamma, \beta$ are BLUE's. 
+\begin{align*}
+Y &= X\beta + Z\gamma \\
+AY &= AX\beta + AZ\gamma = X\beta + AZ\gamma \\
+(I-A)Y &= (I-A)Z \gamma\\
+\end{align*}
+We can construct projection operation regarding C(Z).
+\begin{align*}
+Q^{-1}(I-A)Y &= Q^{-1}(I-A)Z \gamma\\
+P_z &= Q^{-1}(I-A)Z [(Q^{-1}(I-A)Z)' (Q^{-1}(I-A)Z)]^{-} (Q^{-1}(I-A)Z)' \\
+P_z Q^{-1}(I-A)Z &= Q^{-1}(I-A)Z \\
+\end{align*}
+\begin{align*}
+[Z'(I-A)'V^{-1}(I-A)Z]^{-}Z'(I-A)'V^{-1} Z&=  Z, \qquad \text{also use part (a)}\\
+C &= [Z'(I-A)'V^{-1}(I-A)Z]^{-}Z'(I-A)'V^{-1}, \qquad CZ = Z
+\end{align*}
+We have C a projection operator onto C(Z), also we can prove orthogonality to $C(V^{-1} Z)^{\perp}$.
+Then we have proved.
+\item[(e)] Suppose that $\epsilon \sim N_n(0, V )$ and V is known. Further, suppose that
+ $\gamma, \beta$ are both estimable. From first principles, derive the likelihood ratio test for
+the hypothesis $H_0: \gamma= 0 $, where $\gamma, \beta$ are both unknown, and state the exact
+distribution of the test statistic under the null and alternative hypotheses.\\
+To derive the likelihood ratio test, we link with F-test and construct independent chi-square statistics. The nominator is the square difference between two models, and the denominator is MSE.\\
+\begin{align*}
+Y &= X\beta + Z\gamma + \epsilon, \qquad Y&= W\delta + \epsilon, \\
+W &= (X, Z), \delta = (\beta, \gamma)^T, \qquad V = Q Q^{T}, X_{n \times p}, Z_{n \times q}, 
+\end{align*}
+Assume rank(W) = p+q, \textbf{Pay attention to define matrix rank}
+\begin{align*}
+Q^{-1}Y &= W = Q^{-1}X \beta + Q^{-1}Z \gamma \sim N(0, I) \\
+Q^{-1}Y &= \Tilde{Y}, Q^{-1}Z = \Tilde{Z}, \qquad Q^{-1}X = \Tilde{X}\\
+\Tilde{Y} &= \Tilde{W} \delta + \Tilde{\epsilon},  \qquad \Tilde{\epsilon} \sim N(0,I)
+\end{align*}
+The likelihood ratio test
+\begin{align*}
+LRT &= \frac{Sup_{H_0} L(\delta| W)}{Sup_{H_1}L(\delta| W)} 
+\end{align*}
+The likelihood under $H_0$
+\begin{align*}
+\delta_0 &= (\beta_0, 0)', \qquad W_0 = (\Tilde{X}) \\
+L(\beta_0|W) &=\frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - W_0\delta_0)'(\Tilde{Y} - W_0\delta_0) \right) \\
+&= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - \Tilde{X}\hat{\beta})'(\Tilde{Y} - \Tilde{X}\hat{\beta}) \right)\\
+\Tilde{X}\hat{\beta} &= M_0 W_0, \qquad \hat{\beta} \text{ satisfy}\\
+M_0 &= \Tilde{X}[(\Tilde{X})'(\Tilde{X})]^{-1}\Tilde{X}' 
+\end{align*}
+Thus the numerator is 
+\begin{align*}
+L(\beta_0|W) &= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y}' (I- M_0) \Tilde{Y} \right)
+\end{align*}
+The likelihood under $H_1$
+\begin{align*}
+L(\delta|W) &=\frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y} - W\delta)'(\Tilde{Y} - W\delta) \right)\\
+\Tilde{W} \hat{\delta} &= M \Tilde{W} \qquad \hat{\delta} \text{ satisfy}\\
+M &= \Tilde{W}[(\Tilde{W})'(\Tilde{W})]^{-1}\Tilde{W}' 
+\end{align*}
+Thus the denominator is 
+\begin{align*}
+L(\delta|W) &= \frac{1}{\sqrt{2\pi}} exp \left(\frac{-1}{2} (\Tilde{Y}' (I- M) \Tilde{Y} \right)
+\end{align*}
+The LRT test 
+\begin{align*}
+-2 \Lambda &= \frac{\left(\Tilde{Y}' (I- M_0) \Tilde{Y} \right)}{\left(\Tilde{Y}' (I- M) \Tilde{Y} \right)} = \left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right)
+\end{align*}
+Thus we reject the $H_0$, if $\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) > c$.
+$M-M_0$ is an orthogonal projection as $(M-M_0)(M-M_0) = (M-M_0)$ and $M-M_0$ is symmetric. So $r(M-M_0) = q$ when X and Z are full rank.\\
+\begin{align*}
+\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) &\sim (H_0) \chi^2(q)\\
+\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) &\sim (H_1) \chi^2(q, \theta)\\
+\theta &= \frac{\lVert (M-M_0) \Tilde{W} \delta \rVert}{2}
+\end{align*}
+Thus we reject $H_0$ at level $\alpha$ if $\left(\Tilde{Y}' (M -M_0) \Tilde{Y} \right) > \chi^2_{\alpha}(q)$
+\item[(f)] Suppose that $\epsilon \sim N_n(0, \sigma^2 R )$, where R is known and positive definite, and
+$\beta, \gamma, \sigma^2$ are all unknown. Further, assume that $\beta, \gamma$ are both estimable. Derive an exact joint 95$\%$ confidence region for $\beta, \gamma, \sigma^2$.\\
+To write the distribution of $\beta, \gamma, \sigma^2$, such as F distribution or Chi-square (if $\sigma^2$ is known) distribution $M_{\beta}/ \sigma^2, M_{\gamma}/ \sigma^2$.
+\begin{align*}
+Y &= X\beta + Z\gamma + \epsilon, \qquad Y = W\delta + \epsilon, \\
+W &= (X, Z), \delta = (\beta, \gamma)^T, \qquad R = Q Q^{T}, X_{n \times p}, Z_{n \times q}, 
+\end{align*}
+Assume rank(W) = p+q, \textbf{Pay attention to define matrix rank}
+\begin{align*}
+Q^{-1}Y &= W = Q^{-1}X \beta + Q^{-1}Z \gamma \sim N(0, \sigma^2 I)\\
+Q^{-1}Y &= \Tilde{Y}, Q^{-1}Z = \Tilde{Z}, \qquad Q^{-1}X = \Tilde{X}\\
+\Tilde{Y} &= \Tilde{W} \delta + \Tilde{\epsilon},  \qquad \Tilde{\epsilon} \sim N(0,\sigma^2 I)
+\end{align*}
+We have the F test for $\beta$  
+\begin{align*}
+\lambda' &= (1,0,0), \qquad \rho'\Tilde{W} = \lambda', \\
+F_{\beta} &= \frac{(\Tilde{Y}- \Tilde{W} b)'M_{MP} (\Tilde{Y}- \Tilde{W} b)/r(M_{MP})}{\sigma^2}\\
+ &= \frac{(\Tilde{Y}- \Tilde{W} b)' (M\rho) [\rho' M \rho]^{-} (M\rho)' (\Tilde{Y}- \Tilde{W} b)/r(M_{MP})}{\sigma^2} \\
+ &= \frac{( \rho'M \Tilde{Y}- \rho'M \Tilde{W} b)'  [\rho' M \rho]^{-} ( \rho'M \Tilde{Y}-  \rho'M \Tilde{W} b/r(M_{MP})}{\sigma^2} \\
+&=  \frac{(\lambda' \hat{\delta} - \lambda' \delta)'  [\rho' M \rho]^{-} (\lambda' \hat{\delta} - \lambda' \delta)/r(M_{MP})}{\sigma^2} \\
+&=  \frac{(\hat{\beta} - \beta)'  [\rho' M \rho]^{-} (\hat{\beta} - \beta)/r(M_{MP})}{\sigma^2}, \qquad r(M_{MP}) = p
+\end{align*}
+We have the chi-square distribution for $\sigma^2$ 
+\begin{align*}
+\frac{Y'(I-M) Y}{\sigma^2} & \chi^2(n-p-q) \\
+\end{align*}
+The degrees of freedom is $n-p-q$ since both $(\beta, \gamma)$ are estimable. \\
+Furthermore, we have the chi-square distribution for $\delta$, because $M \perp (I-M)$
+\begin{align*}
+\frac{ \lVert M Y - \Tilde{W} \delta \rVert}{\sigma^2} & \sim \chi^2(p+q) \\
+P\{ \chi^2_{a/2}{(p+q)} &\leq \frac{\lVert MY - \Tilde{W} \delta  \rVert}{\sigma^2} \leq \chi^2_{1-a/2}{(p+q)}, \quad
+\chi^2_{b/2}{(n-p-q)} \leq \frac{\lVert (I-M) Y \rVert}{\sigma^2} \leq \chi^2_{1-b/2}{(n-p-q)} \}\\
+&= 1- \alpha
+\end{align*}
+Such that $(1-a)(1-b) = 1-\alpha$. \\
+The region is given
+\begin{align*}
+\{(\delta, \sigma^2): \chi^2_{a/2}{(p+q)} &\leq \frac{\lVert MY -\Tilde{W} \delta \rVert}{\sigma^2} \leq \chi^2_{1-a/2}{(p+q)}, \quad
+\chi^2_{b/2}{(n-p-q)} \leq \frac{\lVert (I-M) Y \rVert}{\sigma^2} \leq \chi^2_{1-b/2}{(n-p-q)} \}\\
+&= 1- \alpha
+\end{align*}
+\end{itemize}
+
+
+ 
+ \subsection{Segmented linear regression} 
+ 
+ Assume one function in a certain range of X and another in a different range. For a general segmented linear regression:
+    \[ 
+    \begin{split}
+     Y_i = \beta_0 + \beta_1 x_i + \epsilon_i, \qquad  x_i \leq t \\
+     Y_i = \alpha_0 + \alpha_i x_i + \epsilon_i, \qquad x_i > t
+    \end{split}
+    \] 
+with independent, identically distributed normal errors, $\epsilon \sim N(0, \sigma^2), i= 1,..n$.
+
+The model is continuous if $\beta_0 + \beta_1t = \alpha_0 + \alpha_1t$, and discontinuous otherwise. Assume that t is known, Let $I(z)$ be the indicator function, and define $(z)_{+} = max(0,z)$. Consider fitting the regression model:
+
+    \begin{equation}
+     Y_i = \delta_0 + \delta_1 x_i + \delta_2I(x_i-t) + \delta_3 (x_i-t)_{+} \epsilon_i, 
+    \end{equation}
+
+with independent, identically distributed normal errors, $\epsilon \sim N(0, \sigma^2), i= 1,..n$.
+
+\begin{itemize}
+    \item [(a)] Give the relations between $\beta_0, \beta_1, \alpha_0, \alpha_1$, and $\delta_0,... \delta_3$.\\
+    Compare the model at $X_i>t, X_i \leq t$, we can find the relations. 
+    \item [(b)] Write the model (3.1) for the form $Y=X\beta + \epsilon$, clearly identify all the components and \textbf{derive} the UMVUE of $(\beta_1, \alpha_1)'$ using appropriate projections.\\
+    \[ 
+    \begin{split}
+     Y = (Y_1, Y_2,.. Y_n) \\
+     \beta = (\delta_0, \delta_1, \delta_2, \delta_3)\\
+     X=  \begin{bmatrix}
+           1 & x_1 & I(x_1 - t) & (x_1 -t)_{+} \\
+           1 & x_2 & I(x_2 - t) & (x_2 -t)_{+}\\
+           . & . & . & .\\
+           1 & x_n & I(x_n - t) & (x_n -t)_{+}\\
+         \end{bmatrix} 
+    \end{split}
+    \]     
+    Derive UMVUE, we need to write the likelihood function:\\
+    \[ 
+    \begin{split}
+    L(\beta, \sigma) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} exp\{\frac{-(y_i-x_i\beta)^2}{2\sigma^2}\} \\
+    \textbf{or we can write in matrix form}\\
+    L(\beta, \sigma) = \frac{1}{\sqrt{2\pi}\sigma}^n exp\{\frac{-(Y-X\beta)^T(Y-X\beta)}{2\sigma^2}\} \\
+    ln L(\beta, \sigma) = n -ln(\sqrt{2\pi}\sigma) + \frac{-(Y-X\beta)^T(Y-X\beta)}{2\sigma^2} \\
+    \frac{\partial lnL}{\partial \beta} = \frac{X^T(Y-X\beta)}{\sigma^2} = 0\\
+    X^TY = X^TX\beta\\
+    \frac{\partial lnL}{\partial \sigma} = \frac{-n}{\sigma} + \frac{(Y-X\beta)^T(Y-X\beta)}{\sigma^3} = 0\\
+    \sigma^2 = \frac{(Y-X\beta)^T(Y-X\beta)}{n}
+    \end{split}
+    \]     
+    Assume X is full rank, then we have 
+    \[ 
+    \begin{split}
+    \hat{\beta} = (X^TX)^{-1}X^TY = (\hat{\delta_0}, \hat{\delta_1},\hat{\delta_2}, \hat{\delta_3})\\
+    \end{split}
+    \]   
+    Since $X^TY$ is sufficient and complete statistics for $\beta$ based on exponential family form of the likelihood, so $\hat{\beta}$ is the UMVUE of $\beta$. And hence, the UMVUE of $\alpha_1, \beta_1$ is 
+    \[ 
+    \begin{split}
+    \hat{\beta_1} = \hat{\delta_1},\\
+    \hat{\alpha_1}=\hat{\delta_1}+ \hat{\delta_3}\\
+    \end{split}
+    \] 
+    \item[(c)] Use model (3.1) and appropriate projections to derive the F test for the null hypothesis:\\
+    \begin{itemize}
+        \item [(i)] $H_0:$ continuity of the segmented regression: $\beta_0 + \beta_1 t = \alpha_0 + \alpha_1 t$. 
+    \[ 
+    \begin{split}
+    H_0: \beta_0 + \beta_1 t = \alpha_0 + \alpha_1 t,\\
+    \beta_0 - \alpha_0 = (\alpha_1 - \beta_1)t\\
+    \delta_0 - (\delta_0 + \delta_2 - \delta_3t) = (\delta_1 + \delta_3- \delta_1)t\\
+    \delta_2 = 0
+    \end{split}
+    \]    
+    So the $H_0: \delta_2 = 0, \lambda^T \beta = 0, \lambda^T = (0,0,1,0)$\\
+    The F-test takes the form:
+    \[ 
+    \begin{split}
+    F-test = \frac{[\lambda^T\hat{\beta}-0]' (\lambda^T (X^TX)^{-} \lambda)^{-1} [\lambda^T\hat{\beta}-0]/r(M_{\lambda}) }{MSE},\\
+    M_{\lambda} = MP [(MP)'(MP)]^{-} P'M= MP [P'MP]^{-} P'M= MP[P' X(X'X)^{-}X' P]^{-1} P'M\\
+   = MP (\lambda^T (X^TX)^{-} \lambda)^{-1} P'M\\
+    = \frac{[\lambda^T (X^TX)^{-1}X^TY]^T (\lambda^T (X^TX)^{-} \lambda)^{-1} [\lambda^T (X^TX)^{-1}X^TY]}{\sigma^2} \\
+    = \frac{[\lambda^T (X^TX)^{-1}X^TY]^T [\lambda^T (X^TX)^{-1}X^TY]}{\sigma^2 (\lambda^T (X^TX)^{-} \lambda)} 
+    = \frac{Y^T [X (X^TX)^{-1} \lambda \lambda^T (X^TX)^{-1}X^T]Y}{\sigma^2 (\lambda^T (X^TX)^{-} \lambda)} \\
+    \lambda \lambda^T = \begin{bmatrix}
+           0 \\
+           0\\
+           1\\
+           0\\
+         \end{bmatrix} (0,0,1,0) = \begin{bmatrix}
+           0 & 0& 0 & 0 \\
+           0 & 0& 0 & 0\\
+           0 & 0 & 1 & 0\\
+           0 & 0& 0 & 0 \\
+         \end{bmatrix} 
+    \end{split}
+    \]
+    Note that $M_{\Lambda} = [X (X^TX)^{-1} \lambda \lambda^T (X^TX)^{-1}X^T]$ is orthogonal projection with rank 1, since $\lambda \lambda^T$ is rank 1.
+    \[ 
+    \begin{split}
+    F-test = Y^T M_{\Lambda} Y,\\
+    \sigma^2 = \frac{Y^T (I-M) Y}{n-4}\\
+    \end{split}
+    \] 
+    $M= X(X'X)^{-1}X'$ is opo onto $C(X)$, we claim\\
+     \[ 
+    \begin{split}
+    F-test =\frac{Y^T M_{\Lambda} Y/1}{Y^T (I-M) Y/(n-4)} \sim F(1, n-4, \gamma) ,\\
+    \gamma = \frac{\mu' M_{\Lambda} \mu}{2\sigma^2} \\
+    \end{split}
+    \]    
+    To show independence in F-test, we need to prove $M_{\Lambda} (I-M) = 0$.\\
+    \item[(ii)] $H_0:$ identity of the two segments: $\beta_0 = \alpha_0, \beta_1 = \alpha_1$. \\
+    The null hypothesis could be written as:
+    \[ 
+    \begin{split}
+    H_0: \beta_0 = \alpha_0, \qquad \delta_0 = \delta_0 + \delta_2 - \delta_3t\\
+    \beta_1 = \alpha_1, \qquad \delta_1 = \delta_1+\delta_3\\
+    H_0: \delta_2 - \delta_3t= 0,\qquad \delta_3 = 0\\
+    \Lambda^T = \begin{bmatrix}
+           0 & 0& 1 & -t \\
+           0 & 0& 0 & 1\\
+         \end{bmatrix}
+    \end{split}
+    \]    
+    The orthogonal projection operator for $H_0$ we can write $\Lambda^T = P^T X$. Let 
+    \[ 
+    \begin{split}
+    M_{MP} = MP[(MP)'(MP)]^{-1} (MP)' = MP[P'MP]^{-1}P'M \\
+    F-test = (\Lambda \hat{\beta})^TCov(\Lambda \hat{\beta})^{-1}(\Lambda \hat{\beta})\\
+     = \frac{Y'M_{MP}Y/r(M_{MP})}{MSE},\\
+    \end{split}
+    \] 
+    \end{itemize}
+    
+    \item[(d)] Derive a joint 95$\%$ confidence region for $(\beta_1-\alpha_1, \beta_0+\beta_1, \sigma^2)$\\
+     \[ 
+    \begin{split}
+    \beta_1-\alpha_1 = \delta_1 - (\delta_1+\delta_3) = -\delta_3\\
+    \beta_0 + \beta_1 = \delta_0 + \delta_1\\
+    \end{split}
+    \]    
+    Thus we want a joint confidence region for 
+     \[ 
+    \begin{split}
+    (-\delta_3, \delta_0+\delta_1, \sigma^2)' = (\Lambda^T\beta, \sigma^2)^T\\
+    \Lambda^T = \begin{bmatrix}
+           0 & 0& 0 & -1 \\
+           1 & 1 & 0 & 0\\
+         \end{bmatrix}\\
+    \hat{\beta} = (X'X)^{-1}X'Y
+    \end{split}
+    \]     
+    
+    $\Lambda^T \hat{\beta} $ is the UMVUE of  $\Lambda^T \beta $ by Gauss-Markov theorem. \\
+    Since $\Lambda^T \beta$ is estimable, we can find a matrix P so that
+     \[ 
+    \begin{split}
+    \Lambda^T = P' X\\
+    \Lambda^T \beta = P' X \beta = P' MY , \qquad M= X(X'X)^{-1}X'\\
+    M_{MP} = (MP) [(MP)^T(MP)]^{-1} (MP)^T\\
+    \end{split}
+    \]  
+    $M_{MP}$ is the appropriate opo for testing $H_0: \Lambda^T \beta = 0$.\\
+     \[ 
+    \begin{split}
+    M_{MP} (Y- X\beta) \sim N(0, \sigma^2 M_{MP})\\
+    \frac{\lVert M_{MP}(Y- X\beta) \rVert }{\sigma^2} \sim \chi^2 (r(M_{MP}))\\
+    r(M_{MP}) = 2\\
+    \end{split}
+    \]     
+    $M_{MP}Y$ is the UMVUE of $M_{MP}X \hat{\beta}$ \\
+    The UMVUE of $\sigma^2$ is
+     \[ 
+    \begin{split}
+    \frac{\lVert (I-M)Y \rVert }{\sigma^2} \sim \chi^2 (n-4)\\
+    r(M_{MP}) = 2\\
+    \end{split}
+    \]
+    Thus $M_{MP} \perp (I-M)$\\
+    A joint 95$\%$ confidence region for $(\Lambda^T\beta, \sigma^2)^T$\\
+     \[ 
+    \begin{split}
+    P\{ \chi^2_{a}(2) < \frac{\lVert M_{MP}(Y- X\beta) \rVert }{\sigma^2} < \chi^2_{1-a}(2)\}, \qquad
+    P\{ \chi^2_{b}(n-4) < \frac{\lVert (I-M)Y \rVert }{\sigma^2} < \chi^2_{1-b}(n-4)\}\\
+    = P\{ \chi^2_{a}(2) < \frac{\lVert M_{MP}(Y- X\beta) \rVert }{\sigma^2} < \chi^2_{1-a}(2)\}
+    P\{ \chi^2_{b}(n-4) < \frac{\lVert (I-M)Y \rVert }{\sigma^2} < \chi^2_{1-b}(n-4)\} \\
+    = 1- \alpha
+    \end{split}
+    \]    
+    where a and b are chosen so that $(1-2a)(1-2b) = 1-\alpha$
+    \item[(e)] Under model (3.1), derive a  95$\%$ prediction region for a future $q \times 1$ future response vector taken at the $q \times 4$ future covariate matrix $X_f$.\\
+    The prediction could be considered as bayesian rule, so the $\sigma_{new}^2 = \sigma^2 (1+ X_f(X'X)^{-1}X_f^T)$.\\
+     \[ 
+    \begin{split}
+    Cov(X_f \beta) = Cov(X_f (X'X)^{-1}X'Y) = [X_f (X'X)^{-1}X'] Cov(Y) [X_f X(X'X)^{-1}]^T\\
+    = [X_f (X'X)^{-1}X'] Cov(Y) [X(X'X)^{-1} X_f^{T}] = \sigma^2[X_f (X'X)^{-1} X_f^T]\\
+    \sigma_{new}^2 = \sigma^2 (1+ X_f(X'X)^{-1}X_f^T)\\
+    \sigma^2 = \frac{\lVert (I-M)Y \rVert}{(n-4)}
+    \end{split}
+    \]     
+    Thus a 95$\%$ prediction region for a future  $q \times 1$ vector $Y_f$\\
+     \[ 
+    \begin{split}
+    \{ Y_f: \frac{((\hat{Y_f}-Y_f)^T (X_f (X'X)^{-1} X_f^T)^{-1} (\hat{Y_f}-Y_f))}{MSE} \leq F(.95, q, n-4) \}
+    \end{split}
+    \]     
+\end{itemize}
