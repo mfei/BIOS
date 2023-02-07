@@ -1,0 +1,87 @@
+\section{Likelihood Ratio Test}
+
+THE LIKELIHOOD FUNCTION IS THE KEY:
+FOR NORMAL DISTRIBUTION, WE NEED TO KNOW IF $\sigma^2$ IS KNOWN OR NOT. THE DISTRIBUTION WILL BE DIFFERENT.
+
+SECOND, I need to get familiar with the $X\beta = MY$, especially $M$ only be calculated from column space $X$, so we don't need to rely on $\beta$ or get a MLE of $\hat{\beta}$.
+
+
+
+\subsection{Exercise}
+
+ Consider the two way ANOVA with one observation per cell $Y_{ij} = \mu + \alpha_i + \eta_j + \epsilon_{ij}, i=1,2, j=1,..b, \epsilon \sim N(0, \sigma^2)$. 
+ The likelihood ratio test for 
+ \begin{align*}
+ H_0 &: \alpha_1 = \alpha_2 \\
+ H_1 &: \alpha_1 \neq \alpha_2
+ \end{align*}
+ 
+ \begin{itemize}
+ \item[(a)] Develop likelihood ratio test
+\begin{align*}
+ LRT &= \frac{\underset{\theta \in \Theta_0}{Sup} l(\theta| y)}{\underset{\theta \in \Theta}{Sup} l(\theta| y)} \\
+ &= \frac{(\sigma_0^2)^{-\frac{n}{2}} \exp \Big(-\frac{1}{2 \sigma_0^2} Y' (I-M_0) Y \Big) }{(\sigma^2)^{-\frac{n}{2}} \exp \Big(-\frac{1}{2 \sigma^2} Y' (I-M) Y \Big) }\\
+ \end{align*}
+ 
+ Need to be aware of that, $\sigma^2 =Y' (I-M) Y $
+ \begin{align*}
+ LRT &=  \frac{(\sigma_0^2)^{-\frac{n}{2}} \exp \Big(-\frac{n}{2}  \Big) }{(\sigma^2)^{-\frac{n}{2}} \exp \Big(-\frac{n}{2 }  \Big) }\\
+ &=  \frac{(\sigma_0^2)^{-\frac{n}{2}}  }{(\sigma^2)^{-\frac{n}{2}} }\\
+ &=  \frac{Y'(I-M)Y  }{Y'(-M_0) Y}^{\frac{n}{2}}
+ \end{align*}
+ 
+ The test statistics
+  \begin{align*}
+  LRT &=  \frac{Y'(I-M)Y  }{Y'(-M_0) Y}^{\frac{n}{2}} < c, \qquad \text{reject H0}
+ \end{align*}
+ 
+ $I-M$ and $I-M_0$ are not orthogonal, and we won't be able to get a distribution of LRT. So we generally use F-test
+ 
+ 
+ \item[(b)] Derive F-test
+   \begin{align*}
+  I- M_0 &=  I-M + (M-M_0)
+ \end{align*}
+ 
+ Because $C(X_0) \subset C(X)$, we can prove that $(I-M) (M-M_0) = 0$, when $M_0 \subset M$. 
+ 
+ So 
+ \begin{align*}
+ LRT &=  \frac{Y'(I-M_0) Y}{Y'(I-M)Y} =  \frac{Y'(I-M) Y + Y'(M - M_0) Y}{Y'(I-M)Y} = 1 + \frac{Y'(M - M_0) Y}{Y'(I-M)Y} > k , \qquad \text{reject H0}\\
+ &= \frac{Y'(M - M_0) Y \Bigg / r(M-M_0)}{Y'(I-M)Y \Bigg / r(I-M)} > k'
+ \end{align*}
+ 
+ The F-test $ r(M-M_0) = 1$, and $r(I-M) = 2b - (1 + b-1 + 1) = b-1$
+  \begin{align*}
+ F-test &= \frac{Y'(M - M_0) Y }{Y'(I-M)Y \Bigg / (b-1)} \sim F(1, b-1, \frac{\mu' (M-M_0) \mu}{2 \sigma^2}) 
+ \end{align*}
+ 
+ Pay attention that, the non-centrality is the half of the expected value under $H_1$. Under $H_0$, it is 0.
+ 
+ The scalar form, just need to know that 
+   \begin{align*}
+M_{\alpha} Y &= \bar{Y}_{i.} - \bar{Y}_{..}= \mu + \alpha_{i} + \eta_{.}  -\mu - \alpha_{.} - \eta_{.} = \alpha_{i} - \alpha_{.} \\
+M_{\mu} Y &= \frac{1}{2b} J_{2b} Y_{ij} = \bar{Y}_{..} = \mu + \alpha_{.} + \eta_{.} \\
+(I-M) Y &=  \sum_{i=1}^2 \sum_{j=1}^b  Y_{ij} - (M_{\mu} + M_{\alpha} + M_{\eta}) Y_{ij} \\
+&=\sum_{i=1}^2 \sum_{j=1}^b  Y_{ijk} - \bar{Y}_{..} - (\bar{Y}_{i.} - \bar{Y}_{..}) - (\bar{Y}_{.j} - \bar{Y}_{..})\\
+&= \sum_{i=1}^2 \sum_{j=1}^b Y_{ijk} - \bar{Y}_{i.} - \bar{Y}_{.j} + \bar{Y}_{..} \\
+&= \mu + \alpha_{i} + \eta_{j} + \epsilon_{ij} - \Big[\mu + \alpha_{.} + \eta_{.}  \Big] - \Big[ \alpha_{i} - \alpha_{.}\Big] - \Big[ \eta_{j} - \eta_{.}\Big] \\
+&= \epsilon_{ij} , \qquad \text{due to no interaction term}
+ \end{align*}
+ 
+ $M-M_0$Y could be written by breaking down into orthogonal components
+\begin{align*}
+(M - M_0) Y &= (M_{\mu} + M_{\alpha} + M_{\eta} - M_{\mu} - M_{\alpha_0} - M_{\eta}) Y \\
+&= (M_{\alpha} - M_{\alpha_0})Y
+ \end{align*}
+ 
+ Under $H_0$, $M_{\alpha_0} = \frac{1}{2b}J_{2b}^{2b} - M_{\mu} = 0$ 
+ \begin{align*}
+(M - M_0) Y &= b \sum_{i=1}^2 (\bar{Y}_{i.} - \bar{Y}_{..})^2 = b \sum_{i=1}^2 (\alpha_{i.} - \alpha_{.})^2 \\
+r &= \frac{b}{2 \sigma^2} \sum_{i=1}^2 (\alpha_{i.} - \alpha_{.})^2
+ \end{align*}
+ 
+ 
+ \end{itemize}
+ 
+ 

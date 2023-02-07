@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  2 FEB 2023 21:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  3 FEB 2023 16:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -374,7 +374,8 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count297
 \l__pdf_internal_box=\box55
 )
-(./main.aux)
+(./main.aux (./sections/section4-1.aux) (./sections/section3-1.aux)
+(./sections/section3-2.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
@@ -468,11 +469,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [2
 
 
-] (./main.toc)
+] (./main.toc [3])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [3]
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -481,18 +482,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[4
-
-]
+[4]
 Chapter 1.
 (./sections/section1-1.tex
 Overfull \hbox (15.93915pt too wide) detected at line 22
 []
  []
 
-) (./sections/section1-2.tex [1
+) [1
 
-]
+
+] (./sections/section1-2.tex
 Overfull \hbox (7.31088pt too wide) detected at line 38
 []
  []
@@ -505,7 +505,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[2] [3]
+[2
+
+] [3]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -553,7 +555,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[8] [9]) (./sections/section1-3.tex
+[8] [9])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -562,7 +564,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[10] [11]
+[10] (./sections/section1-3-BiNormal.tex [11
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -571,12 +575,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[12]
+[12] [13]
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 169.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[14] [15
+
+])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[16] (./sections/section1-3-MVN.tex
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 14.
 
 
-Overfull \hbox (20.50471pt too wide) in paragraph at lines 169--170
+Overfull \hbox (20.50471pt too wide) in paragraph at lines 14--15
 []\OT1/cmr/m/n/10.95 So we have $\OML/cmm/m/it/10.95 X[]; :::X[]$ \OT1/cmr/m/n/
 10.95 are in-de-pen-dent stan-dard nor-mal, $\OML/cmm/m/it/10.95 X \OT1/cmr/m/n
 /10.95 = (\OML/cmm/m/it/10.95 X[]; ::X[]\OT1/cmr/m/n/10.95 )[] \OMS/cmsy/m/n/10
@@ -584,7 +608,9 @@ Overfull \hbox (20.50471pt too wide) in paragraph at lines 169--170
 T1/cmr/m/n/10.95 )$. 
  []
 
-[13]
+[17
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -593,7 +619,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14] [15]) (./sections/section1-4.tex
+[18]) [19] (./sections/section1-4.tex)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -602,7 +628,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[16]) (./sections/section1-5.tex) [17]
+[20
+
+] (./sections/section1-5.tex) [21
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -611,11 +641,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[18
+[22
 
 ]
 Chapter 2.
-[19]
+[23]
 \openout2 = `sections/section4-1.aux'.
 
  (./sections/section4-1.tex)
@@ -627,19 +657,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20
+[24
 
 ]
 Chapter 3.
 (./sections/section2-1.tex
 Underfull \vbox (badness 1721) has occurred while \output is active []
 
- [21
+ [25
 
 
 
 ])
-(./sections/section2-2.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -648,45 +677,56 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[22] [23]
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
-
-)
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[24]
-Chapter 4.
-[25
+[26] (./sections/section2-2.tex [27
 
 ]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[28]
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 88.
+
+) [29]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30
+
+]
+Chapter 4.
+[31]
 \openout2 = `sections/section3-1.aux'.
 
  (./sections/section3-1.tex
@@ -698,9 +738,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[26
+[32
 
-] [27]
+] [33]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -709,12 +749,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[28]
+[34]
 Overfull \hbox (43.81815pt too wide) detected at line 161
 []
  []
 
-[29]
+[35]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -723,7 +763,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[30] [31])
+[36] [37])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -732,7 +772,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[32]
+[38]
 \openout2 = `sections/section3-2.aux'.
 
  (./sections/section3-2.tex
@@ -740,7 +780,8 @@ Overfull \hbox (59.40607pt too wide) detected at line 18
 []
  []
 
-) [33
+) [39
+
 
 
 
@@ -753,53 +794,50 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[34
+[40
 
 
 
 ] (././bibliography.tex
 No file main.bbl.
-) [35
+) [41
 
 
 ] (./main.aux (./sections/section4-1.aux) (./sections/section3-1.aux)
-(./sections/section3-2.aux))
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+(./sections/section3-2.aux)) ) 
 Here is how much of TeX's memory you used:
- 6992 strings out of 478268
- 120838 string characters out of 5846347
- 449430 words of memory out of 5000000
- 25073 multiletter control sequences out of 15000+600000
+ 7008 strings out of 478268
+ 121251 string characters out of 5846347
+ 451799 words of memory out of 5000000
+ 25080 multiletter control sequences out of 15000+600000
  480860 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,18n,79p,422b,372s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
-</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pf
-b></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
-/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
-xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/tex
-live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/local/texl
-ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
-ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
-/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
-022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
-22/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (39 pages, 329516 bytes).
+</usr/local/texlive/2022/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/publ
+ic/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmss12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmss17.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+0.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
+.pfb>
+Output written on main.pdf (45 pages, 339503 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
+ 251 PDF objects out of 1000 (max. 8388607)
+ 162 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

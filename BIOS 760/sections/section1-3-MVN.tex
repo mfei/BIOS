@@ -1,0 +1,124 @@
+
+\section{Multivariate Normal Distribution}
+
+\subsection{Moment Generating Function}
+
+Suppose $Y \sim MVN(\mu, \Sigma)$, $\Sigma$ is positive definite matrix. 
+
+Then we can decompose $\Sigma = B B^T$ for some nonsingular matrix B since $\Sigma$ is positive definite. 
+
+ \begin{align*}
+    X &= B^{-1} (Y- \mu), \qquad Y = \mu + B X 
+\end{align*}
+
+So we have $X_1, … X_n$ are independent standard normal, $X = (X_1,.. X_n)^T \sim MVN(0, I_n)$. 
+
+ \begin{align*}
+    M_Y(t) &=  E\Big[ e^{t^T Y}\Big ]=  E\Big[ e^{t^T (\mu + B X)}\Big ] = e^{t^T \mu} E \Big[ e^{l^T X} \Big], \qquad l^T = t^T B \\
+    &= e^{t^T \mu} E \Big[ e^{\sum_{i=1}^n l_i Y_i} \Big], \qquad l= (l_1,.. l_n)\\
+    &= e^{t^T \mu} \prod_{i=1}^n E \Big[ e^{ l_i Y_i} \Big] \\
+    &= e^{t^T \mu} \prod_{i=1}^n e^{l_i^2/2}\\
+    &= \exp \Big( \mu^T t + \frac{1}{2} l^T l \Big) \\
+    &= \exp \Big( \mu^T t + \frac{1}{2} t^T \Sigma t \Big)
+\end{align*}
+
+ \subsection{Marginal and conditional distributions of a multivariate normal vector}
+
+A $K \times 1$ random vector X is multivariate normal if its joint probability density function is 
+\begin{align*}
+	f_X(x) &= (2\pi)^{-K/2} |det(V)|^{-1/2} exp(-\frac{1}{2} (x-\mu)^T V^{-1}(x-\mu)) 
+\end{align*}
+
+where $\mu$ is a $K \times 1$ mean vector, $V$ is a $K \times K$ covariance matrix.
+
+Partition of the vector:
+
+ We partition X into two sub-vectors $X_a$ and $X_b$ such that
+\begin{align*}
+	X &= \begin{pmatrix}
+		X_a \\
+		X_b
+	\end{pmatrix}
+\end{align*}
+The sub-vectors $X_a$ and $X_b$ have dimensions $K_a \times 1$ and $K_b \times 1$ respectively. Moreover, $K_a + K_b = K$.
+
+Partition of the parameters
+
+We partition the mean vector and covariance matrix as follows:
+
+\begin{align*}
+	\mu &= \begin{pmatrix}
+		\mu_a \\
+		\mu_b
+	\end{pmatrix}
+\end{align*}
+and 
+
+\begin{align*}
+	V &= \begin{pmatrix}
+		V_a & V_{ab}^T \\
+		V_{ab} & V_b
+	\end{pmatrix}
+\end{align*}
+
+Normality of the sub-vectors
+
+The marginal distributions of the two sub-vectors are also multivariate normal.
+
+\begin{itemize}
+
+\item[(i)] 
+\begin{proof}
+
+The random vector $X_a$ can be written as a linear transformation of X:
+
+\begin{align*}
+	X_a &= A X
+\end{align*}
+Where $A$ is a $K_a \times K$ matrix whose entries are either zero or one. Thus, $X_a $ has a multivariate normal distribution because it is a linear transformation of the multivariate normal random vector X and multivariate normality is preserved by linear transformations. Same as $X_b = B X$ where $B$ is a $K_b \times K$ matrix whose entries are either zero or one. 
+
+Independence of the sub-vectors
+
+$X_a$ and $X_b$ are independent if and only if $V_{ab} = 0$.
+
+$X_a$ and $X_b$ are independent if and only if their joint moment generating function is equal to the product of their individual moment generating functions. Since $X_a$ is multivariate normal, its joint moment generating function is 
+
+\begin{align*}
+	M_{X_a}(t_a) &= exp(t^T_a \mu_a + \frac{1}{2} t_a^T V_a t_a) \\
+	M_{X_b}(t_b) &= exp(t^T_b \mu_b + \frac{1}{2} t_b^T V_b t_b) 
+\end{align*}
+
+The joint moment generating function of $X_a$ and $X_b$, which is just the joint moment generating function of X, is
+
+\begin{align*}
+	M_{X_a, X_b}(t_a, t_b) &= M_{X}(t) \\
+	&= exp(t^T \mu + \frac{1}{2} t^T V t) \\
+	&= exp \left( [t_a^T t_b^T] \begin{bmatrix}
+		\mu_a \\
+		\mu_b
+	\end{bmatrix} + \frac{}{} [t_a^T t_b^T] \begin{bmatrix}
+	V_a & V_{ab}^T \\
+	V_{ab} & V_b
+\end{bmatrix} [t_a t_b] \right) \\
+&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b + \frac{1}{2} t_b^T V_{ab} t_a + \frac{1}{2} t_a^T V_{ab}^T t_b \right) \\
+&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b +  t_b^T V_{ab} t_a  \right) \\
+&= exp \left( t_a^T \mu_a + \frac{1}{2} t_a^T V_a t_a \right) exp \left( t_b^T \mu_b + \frac{1}{2} t_b^T V_b t_b \right) exp( t_b^T V_{ab} t_a)
+\end{align*}
+
+from which it is obvious that $M_{X_a, X_b}(t_a, t_b) = M_{X_a}(t_a) M_{X_b}(t_b)$ if and only if $V_{ab} = 0$.
+
+\end{proof}
+
+\item[(ii)] Conditional distributions of MVN are MVN. 
+Suppose $X \sim N_n(\mu, \Sigma)$. Using the partition above, we have
+
+\begin{align*}
+	X_1 | X_2 &= x_2 \sim N_r(\mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2), \Sigma_{11.2})\\
+	\Sigma_{11.2} &= \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21} = (1 - \rho^2) \sigma_1^2
+\end{align*}
+\end{itemize}
+
+
+
+
+

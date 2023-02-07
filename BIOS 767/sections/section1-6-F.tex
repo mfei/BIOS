@@ -1,0 +1,65 @@
+\section{F Test}
+
+F-test need to find two independent quadratic form, and rank. To do that, we will need to find M, directly construct the F-test from the data.
+
+
+\subsection{Exercise}
+
+ Consider the two way ANOVA with one observation per cell $Y_{ij} = \mu + \alpha_i + \eta_j + \epsilon_{ij}, i=1,2, j=1,..b$. 
+ Consider the more general error structure
+  \begin{align*}
+  \begin{pmatrix} \epsilon_{1j} \\  \epsilon_{2j} \end{pmatrix}  & \sim N_2 \Big( \begin{pmatrix} 0 \\ 0 \end{pmatrix}  ,   \begin{pmatrix} \sigma_1^2 & \rho \sigma_1 \sigma_2 \\ \rho \sigma_1 \sigma_2 &  \sigma_2^2  \end{pmatrix}  \Big) 
+ \end{align*}
+ where $\epsilon_{1j}, \epsilon_{2j}$ are i.i.d. for $j=1,..b$. Define $D_{j} = Y_{1j} - Y_{2j}, j=1,..b$
+ 
+ The hypothesis test for 
+ \begin{align*}
+ H_0 &: \alpha_1 = \alpha_2 \\
+ H_1 &: \alpha_1 \neq \alpha_2
+ \end{align*}
+ 
+ \begin{itemize}
+ \item[(a)] Develop F-test, which is only a function of the $D_j$'s. 
+ 
+ We will need to develop the model of $D_j$, get the distribution and variance from the bi-normal of $Y_{ij}$. It is collapsed from two dimensions to one dimension, we often use delta method. 
+ 
+\begin{align*}
+ D_j &= Y_{1j} - Y_{2j} = \alpha_{1} - \alpha_{2} + \epsilon_{1i} - \epsilon_{2j}
+ \end{align*}
+ 
+ By Delta method,
+ \begin{align*}
+ Var(D_j) &=  \Big( \partial_{Y_1j}  \partial_{Y_2j} \Big) Var(Y_{ij}) \begin{pmatrix} \partial_{Y_{1j}} \\  \partial_{Y_{2j}} \end{pmatrix} \\
+ &=  \Big( 1  -1 \Big) \begin{pmatrix} \sigma_1^2 & \rho \sigma_1 \sigma_2 \\ \rho \sigma_1 \sigma_2 &  \sigma_2^2  \end{pmatrix} \begin{pmatrix} 1 \\  -1 \end{pmatrix} \\
+ &= \sigma_1^2 - 2\rho \sigma_1 \sigma_2 + \sigma_2^2 = \sigma_b^2
+ \end{align*}
+ 
+ I need to notice that there are b $j's$, which this is MVN
+  \begin{align*}
+  D & \sim  N_b \Big( (\alpha_1 - \alpha_2) J_b,  \sigma_b^2 I_{b \times b} \Big) \\
+  D &= (\alpha_1 - \alpha_2) J_b + \sigma_b^2 \epsilon, \
+  \epsilon = N(0, I)
+ \end{align*}
+ 
+  We will use F-test,
+  \begin{align*}
+  C(X) &=  \sim  J_b, \
+  M = \frac{1}{b} J_b^b \\
+  M D_j &= \bar{Y}_{1.} - \bar{Y}_{2.} \\
+  I-M &= I - \frac{1}{b} J_b^b ,\
+  (I-M) D_j &= D_j - \bar{D}_j = Y_{1j} - Y_{2j} - (\bar{Y}_{1.} - \bar{Y}_{2.})
+  \end{align*}
+ 
+ Then 
+   \begin{align*}
+  F &=  \frac{D^T M D \Big / r(M)}{D^T (I-M) D \Big / r(I-M)} \
+  r(M) = 1, \qquad r(I-M) = b-1\\
+  D^T M D &= b (\bar{Y}_{1.} - \bar{Y}_{2.} )^2 \\
+  D^T (I-M) D &= \sum_{i=1}^b (Y_{1j} - Y_{2j} - (\bar{Y}_{1.} - \bar{Y}_{2.}))^2
+  \end{align*}
+  
+  We can show that this F-test is the same as the F-test in section 1-5. There is no general condition on parameters. Whether the variance is independent or general, it does not affect the F-test. As the difference between the two observations are independent from each other.
+  
+ \end{itemize}
+ 
+ 

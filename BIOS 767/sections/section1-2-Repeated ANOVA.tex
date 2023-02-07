@@ -1,0 +1,52 @@
+
+ \section{Repeated ANOVA}
+
+The model setup: assume there are 2 groups (boys and girls), and there are 10 boys, 15 girls. The measurement 4 times at age (8, 10, 12,14), 
+
+\begin{align*}
+Y_i & \sim N_n (\mu_i, \Sigma) \\
+\Sigma &= \sigma_b^2 J_n J_n' + \sigma_e^2 I_n
+\end{align*}
+
+The repeated ANOVA assumes the $\sigma_b^2$ is constant among the measurements of the same person. The two variance components could be written in the random effect ANOVA model.
+
+\begin{align*}
+Y_{ijk} &= \mu_{ij} + b_{ij} + \epsilon_{ijk} 
+\end{align*}
+
+The means $\mu_{ij}$ total degrees of freedom (parameters) $(H-1)(n-1)$, and the error term degrees of freedom  $(\sum_{h=1}^H (n_h - H)(n-1)$. 
+
+The mean squares term generally will subtract the interaction terms
+
+
+ \begin{center}
+\begin{tabular}{ c c c c c }
+ Effect & SS & DF & MS & F \\ 
+ \hline
+Groups& $SS_G$ & H-1 &$MS_G= \frac{SS_G}{H-1}$ & $F = \frac{MS_G}{MS_{EU}}$ \\  
+Errors for groups & $SS_{GU} = SS_T - SS_G$ & $(\sum_{h=1}^{H} n_h - H) $ (no n ) & $MS_{EU} = \frac{SS_{GU}}{\sum_{h=1}^{H} n_h - H) } $ & \\  
+Time & $SS_T $ & $ n -1$ & $MS_T = \frac{SS_T}{n-1}$& $F = \frac{MS_T}{MS_{E}}$  \\  
+Group by Time & $ SS_{GT} $ & $ (H-1)(n-1)$ \\  
+Errors & $SS_E $ & $ (\sum_{i=1}^{H} n_h -H)(n-1) $  & $MS_E$\\  
+ \hline
+Total &  $SS_{ToT} $ & $ n \sum_{i=1}^{H} n_h -1 $ \\  
+\end{tabular}
+\end{center}
+
+For ease of interpretation, we represent the mean response for group h and time j as below, 
+
+SSG and SSGT are like the one-way ANOVA, that we can get the form
+The interaction term, $M = M_G + M_T + M_{GT}, SS_{GT} = SSM - SS_G - SS_T $
+$C(M) = C(X_{11},.. X_{ab}) - J_{n}$, so $SS_M = \sum_{h=1}^H n_h \sum_{j=1}^n (\bar{Y}_{h.j} - \bar{Y}_{…})^2$
+Then $M_{GT} = SS_M - SS_T - SS_G$
+
+\begin{align*}
+\mu_{hj} &= \mu + \tau_h + \gamma_{j} + \eta_{hj} \\
+SS_G &= \sum_{h=1}^H n_h n (\bar{Y}_{h..} - \bar{Y}_{…})^2 \\
+SS_{GU} &= n \sum_{h=1}^H \sum_{i=1}^{n_h} (Y_{hi.} - Y_{h.})^2 \\
+SS_T &= n (\sum_{h=1}^{H} n_h) \sum_{j=1}^n (\bar{Y}_{..j} - \bar{Y}_{…})^2 \\
+SS_{GT} &= \sum_{h=1}^H n_h \sum_{j=1}^n (\bar{Y}_{h.j} - \bar{Y}_{…})^2 - SS_T- SS_G \\
+SS_E &= \sum_{h=1}^H n_h \sum_{j=1}^n (\bar{Y}_{hij} - \bar{Y}_{h.j})^2 \\
+SS_{ToT} &= \sum_{h=1}^H n_h \sum_{j=1}^n (\bar{Y}_{hij} - \bar{Y}_{…})^2 \\
+SS_E &= SS_{ToT} - SS_G -SS_T - SS_{GT}
+\end{align*}

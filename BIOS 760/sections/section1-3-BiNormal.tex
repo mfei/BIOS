@@ -1,5 +1,4 @@
-
- \section{Normal Distribution}
+\section{Normal Distribution}
 
 \subsection{MGF for Univariate Normal}
 
@@ -114,6 +113,7 @@ Now, if you want two jointly normal random variables X and Y such that $X \sim N
 
 construction using Z1 and Z2 can be used to solve problems regarding bivariate normal distributions. Third, this method gives us a way to generate samples from the bivariate normal distribution using a computer program. 
 
+
 \subsection{Conditional Distribution}
 
 \begin{theorem}
@@ -152,124 +152,87 @@ Since $Z_1$ and $Z_2$ are independent, knowing $Z_1$ does not provide any inform
 	Var[Y|X=x] &= \sigma_Y^2 (1- \rho^2) Var(Z_2) = (1- \rho^2) \sigma_Y^2
 \end{align*}
 
+\clearpage
 
+\subsection{Exercise}
 
-\section{Multivariate Normal Distribution}
+Use o.p.o to prove orthogonal/independence
 
-\subsection{Moment Generating Function}
-
-Suppose $Y \sim MVN(\mu, \Sigma)$, $\Sigma$ is positive definite matrix. 
-
-Then we can decompose $\Sigma = B B^T$ for some nonsingular matrix B since $\Sigma$ is positive definite. 
-
- \begin{align*}
-    X &= B^{-1} (Y- \mu), \qquad Y = \mu + B X 
-\end{align*}
-
-So we have $X_1, … X_n$ are independent standard normal, $X = (X_1,.. X_n)^T \sim MVN(0, I_n)$. 
-
- \begin{align*}
-    M_Y(t) &=  E\Big[ e^{t^T Y}\Big ]=  E\Big[ e^{t^T (\mu + B X)}\Big ] = e^{t^T \mu} E \Big[ e^{l^T X} \Big], \qquad l^T = t^T B \\
-    &= e^{t^T \mu} E \Big[ e^{\sum_{i=1}^n l_i Y_i} \Big], \qquad l= (l_1,.. l_n)\\
-    &= e^{t^T \mu} \prod_{i=1}^n E \Big[ e^{ l_i Y_i} \Big] \\
-    &= e^{t^T \mu} \prod_{i=1}^n e^{l_i^2/2}\\
-    &= \exp \Big( \mu^T t + \frac{1}{2} l^T l \Big) \\
-    &= \exp \Big( \mu^T t + \frac{1}{2} t^T \Sigma t \Big)
-\end{align*}
-
- \subsection{Marginal and conditional distributions of a multivariate normal vector}
-
-A $K \times 1$ random vector X is multivariate normal if its joint probability density function is 
+$(X_1, Y_1), .., (X_n, Y_n)$ random sample from bivariate normal distribution with mean (0,0), covariance matrix identity matrix
 \begin{align*}
-	f_X(x) &= (2\pi)^{-K/2} |det(V)|^{-1/2} exp(-\frac{1}{2} (x-\mu)^T V^{-1}(x-\mu)) 
+U &= \frac{\Big( \sum_{i=1}^n X_i Y_i \Big) ^2}{\sum_{i=1}^n X_i^2} \\
+V &= \Big( \sum_{i=1}^n Y_i^2 \Big) - U
 \end{align*}
-
-where $\mu$ is a $K \times 1$ mean vector, $V$ is a $K \times K$ covariance matrix.
-
-Partition of the vector:
-
- We partition X into two sub-vectors $X_a$ and $X_b$ such that
-\begin{align*}
-	X &= \begin{pmatrix}
-		X_a \\
-		X_b
-	\end{pmatrix}
-\end{align*}
-The sub-vectors $X_a$ and $X_b$ have dimensions $K_a \times 1$ and $K_b \times 1$ respectively. Moreover, $K_a + K_b = K$.
-
-Partition of the parameters
-
-We partition the mean vector and covariance matrix as follows:
-
-\begin{align*}
-	\mu &= \begin{pmatrix}
-		\mu_a \\
-		\mu_b
-	\end{pmatrix}
-\end{align*}
-and 
-
-\begin{align*}
-	V &= \begin{pmatrix}
-		V_a & V_{ab}^T \\
-		V_{ab} & V_b
-	\end{pmatrix}
-\end{align*}
-
-Normality of the sub-vectors
-
-The marginal distributions of the two sub-vectors are also multivariate normal.
 
 \begin{itemize}
+\item[(a)] show conditional on $(X_1,..X_n)$, U and V are independent. 
 
-\item[(i)] 
-\begin{proof}
+NEED TO KNOW THE LINK BETWEEN SCALAR FORM AND MATRIX FORM. besides the above distribution transformation, MGF, we also can use linear algebra and matrix form to prove orthogonal. 
 
-The random vector $X_a$ can be written as a linear transformation of X:
+We know that, 
+$Y | X \sim N(0,1)$, conditional distribution in bionormal distribution is also normal
 
+PROVE:
+We can rewrite the U and V as following
 \begin{align*}
-	X_a &= A X
-\end{align*}
-Where $A$ is a $K_a \times K$ matrix whose entries are either zero or one. Thus, $X_a $ has a multivariate normal distribution because it is a linear transformation of the multivariate normal random vector X and multivariate normality is preserved by linear transformations. Same as $X_b = B X$ where $B$ is a $K_b \times K$ matrix whose entries are either zero or one. 
-
-Independence of the sub-vectors
-
-$X_a$ and $X_b$ are independent if and only if $V_{ab} = 0$.
-
-$X_a$ and $X_b$ are independent if and only if their joint moment generating function is equal to the product of their individual moment generating functions. Since $X_a$ is multivariate normal, its joint moment generating function is 
-
-\begin{align*}
-	M_{X_a}(t_a) &= exp(t^T_a \mu_a + \frac{1}{2} t_a^T V_a t_a) \\
-	M_{X_b}(t_b) &= exp(t^T_b \mu_b + \frac{1}{2} t_b^T V_b t_b) 
+U &= \frac{ (X'Y)' (X'Y)}{X'X} \\
+V &= Y'Y - (X'Y)' ({X'X} )^{-1}(X'Y) = Y'(I-M)Y
 \end{align*}
 
-The joint moment generating function of $X_a$ and $X_b$, which is just the joint moment generating function of X, is
-
+Since 
 \begin{align*}
-	M_{X_a, X_b}(t_a, t_b) &= M_{X}(t) \\
-	&= exp(t^T \mu + \frac{1}{2} t^T V t) \\
-	&= exp \left( [t_a^T t_b^T] \begin{bmatrix}
-		\mu_a \\
-		\mu_b
-	\end{bmatrix} + \frac{}{} [t_a^T t_b^T] \begin{bmatrix}
-	V_a & V_{ab}^T \\
-	V_{ab} & V_b
-\end{bmatrix} [t_a t_b] \right) \\
-&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b + \frac{1}{2} t_b^T V_{ab} t_a + \frac{1}{2} t_a^T V_{ab}^T t_b \right) \\
-&= exp \left( t_a^T \mu_a + t_b^T \mu_b + \frac{1}{2} t_a^T V_a t_a + \frac{1}{2} t_b^T V_b t_b +  t_b^T V_{ab} t_a  \right) \\
-&= exp \left( t_a^T \mu_a + \frac{1}{2} t_a^T V_a t_a \right) exp \left( t_b^T \mu_b + \frac{1}{2} t_b^T V_b t_b \right) exp( t_b^T V_{ab} t_a)
+(X, Y) & \sim N \Big( \begin{pmatrix}
+0 \\
+0
+\end{pmatrix} , I_{2 \times 2}\Big) 
 \end{align*}
 
-from which it is obvious that $M_{X_a, X_b}(t_a, t_b) = M_{X_a}(t_a) M_{X_b}(t_b)$ if and only if $V_{ab} = 0$.
+U and V are orthogonal since $M(I-M) = 0$, so $U \perp V$
 
-\end{proof}
+\item[(b)] Define $r = \frac{\sum_{i=1}^n X_i Y_i}{\sqrt {\sum_{i=1}^n X_i^2 \sum_{i=1}^n Y_i^2}}$. Define the exact distribution of $Z=\sqrt{n-1} \frac{r}{\sqrt{1- r^2}}$.
 
-\item[(ii)] Conditional distributions of MVN are MVN. 
-Suppose $X \sim N_n(\mu, \Sigma)$. Using the partition above, we have
+1. We can recognize that r is correlation, I can relate to the binormal distribution. What is the distribution of correlation? 
+2. The exact distribution exists only for F test under normal distribution circumstance. Z is a function of r, but we can't use the traditional method to go from distribution of r and further get Z.
+3. The alternative method is to simplify the expression of Z in terms of X and Y, if r distribution is too complicated to get. 
 
 \begin{align*}
-	X_1 | X_2 &= x_2 \sim N_r(\mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2), \Sigma_{11.2})\\
-	\Sigma_{11.2} &= \Sigma_{11} - \Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21} = (1 - \rho^2) \sigma_1^2
+r^2 &= \frac{ (X'Y)' (X'Y)}{(X'X)(Y'Y)} = \frac{Y' X X' Y }{(X'X)(Y'Y)}\\
+&= \frac{Y' X(X'X)^{-1}X' Y}{Y'Y} \\
+1- r^2 &=  \frac{Y'Y - Y' X(X'X)^{-1} X' Y}{Y'Y}, \qquad M= X(X'X)^{-1}X'\\
+&= \frac{Y' (I-M) Y'}{Y'Y}
 \end{align*}
+
+Furthermore,
+\begin{align*}
+Z &=\sqrt{n-1} \frac{r}{\sqrt{1- r^2}} = \sqrt{n-1} \frac{ (X'Y) \sqrt{Y'Y} }{ \sqrt{ (X'X)(Y'Y) Y'(I-M)Y} }  \\
+& = \frac{X' Y \Big / \sqrt{X'X}}{ Y'(I-M)Y \Big / (n-1) }\\
+\end{align*}
+
+We could see that r is just the ratio of two quadratic form, it is not a distribution that we know. So the standard method of getting r distribution is not plausible. 
+NEED TO GET FAMILIAR WITH LINEAR ALGEBRA MATRIX AND SCALAR FORM.
+
+Given X, $X'Y \sim N(0, X'X)$ by delta method, as $Var(Y) = 1, Var(X'Y) = X' Var(Y) X$, then
+\begin{align*}
+\frac{X'Y}{\sqrt{X'X}} & \sim N(0,1) \\
+Y'(I-M)Y & \sim \chi^2(n-1)\\
+X'Y & \perp (I-M)Y, \qquad X'Y \perp Y'(I-M) Y \\
+\end{align*}
+
+Then the ratio of standard normal and chi-square distribution
+
+\begin{align*}
+Z & \sim t(n-1)
+\end{align*}
+
+\item[(c)] Derive asymptotic distribution of Z
+
+We will use slutsky theorem to get the asymptotic distribution. When we talked about the asymptotic distribution, the slutsky theorem could be used in the situation when we known one part of the distribution, and the other part is converge in probability to a number. 
+
+\begin{align*}
+\frac{Y'(I-M)Y}{n-1} & \xrightarrow{p} Var(Y) = 1 \\
+\frac{X' Y \Big / \sqrt{X'X}}{ Y'(I-M)Y \Big / (n-1) } \xrightarrow{d} X' Y \Big / \sqrt{X'X} = N(0,1)
+\end{align*}
+
+t distribution is asymptotic to normal distribution.
+
 \end{itemize}
-

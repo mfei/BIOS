@@ -26,6 +26,99 @@
  The spectral decomposition allows the representation of any symmetric matrix in terms of an orthogonal matrix and a diagonal matrix of eigenvalues.
  \end{definition}
  
-\textbf{Example}:
+ \clearpage
  
+\subsection{Exercise}
+
+Consider model $Y = X_1 \beta_1 + X_2 \beta_2 + \epsilon, \epsilon \sim N(0, \sigma^2 I)$. Y is $n \times 1$, X is $n \times p$ with rank $p_1$, $\beta$ is $p_1 \times 1$, $X_2$ is $n \times p_2$ with rank $p_2$. 
+$\beta_2$ is $p_2 \times 1$, and $X= (X_1, X_2)$ with rank $p \leq p_1 + p_2$.
+
+The hypothesis test
+\begin{align*}
+H_0 &: \beta_2 = 0 \\
+H_1 &: \beta_2 \neq 0
+\end{align*}
+
+\begin{itemize}
+\item[(a)] Derive an expression for the expected mean square of the numerator of F-test.
+
+This is a standard F-test, we need to find the o.p.o for $H_0, H_1$, which 
+
+\begin{align*}
+H_0 &: \beta_2 = 0 \
+Y_0 = X_1 \beta_1 + \epsilon \\
+H_1 &: \beta_2 \neq 0 \
+Y_1 = X_1 \beta_1 + X_2 \beta_2 + \epsilon
+\end{align*}
+
+Then let $M_0$ be the o.p.o on $C(X_1)$, $M$ be the o.p.o on $C(X_1, X_2)$. Then we have $M-M_0 \perp I-M$, 
+
+the F-test
+
+\begin{align*}
+F-test &= \frac{Y' (M-M_0) Y \Big / r(M- M_0)}{Y' (I - M) Y \Big / r(I - M)} \sim F(p-p_1, n-p, \gamma)\\
+r(M-M_0) = p-p_1, \quad r(I-M) = n-p \\
+MS_1 &= \frac{Y' (M-M_0) Y }{r(M- M_0)} =  \frac{Y' (M-M_0) Y }{p - p_1} \\
+\gamma &= 0 , \qquad H_0\\
+\gamma &= \frac{(X\beta)' (M-M_0) (X \beta)}{2 \sigma^2} = \frac{(X_2 \beta_2)' (M-M_0) (X_2 \beta_2)}{2 \sigma^2}
+\end{align*}
+
+NEED TO NOTE THE RELATIONSHIP BETWEEN THE ORTHOGONALITY $M-M_0$ and $I-M$. 
+
+\item[(b)] Suppose $X_2$ is fixed, show that the expected mean square is maximized when all columns of $X_1$ are chosen orthogonal to all columns of $X_2$.
+
+The expected mean square
+\begin{align*}
+E [ Y' (M-M_0) Y \Big / r(M- M_0) ] &= \frac{E[ Y' (M-M_0) Y] }{p-p_1} = \frac{E[tr( (M-M_0) Y Y')] }{p-p_1} \\
+&= \frac{ r(M-M_0) \sigma^2 + (X\beta)' (M-M_0) (X\beta)}{p-p_1} \\ 
+&= \sigma^2 + \frac{(X\beta)' (M-M_0) (X\beta)}{p-p_1} \\
+&= \sigma^2 + \frac{(X_2 \beta_2)' (M-M_0) (X_2 \beta_2)}{p-p_1} 
+\end{align*}
+
+Furthermore, 
+\begin{align*}
+(X_2 \beta_2)' (M-M_0) (X_2 \beta_2) &= (X_2 \beta_2)' M (X_2 \beta_2)  - (X_2 \beta_2)' M_0 (X_2 \beta_2) \\
+&=  (X_2 \beta_2)' M (X_2 \beta_2)  - \beta)2 X_2' X_1 (X_1' X_1)^{-1} X_1' X_2 \beta_2 
+\end{align*}
+
+We could see that when $X_1 \perp X_2$, we have $E [ Y' (M-M_0) Y \Big / r(M- M_0) ] $ reaches the maximum. 
+
+\item[(c)] Suppose $X_2$ is fixed, Derive the simplest possible expression for the BLUE of $\beta_1$.
+
+We know that the BLUE is UMVUE, then we can just use the $M_1 = X_1(X_1'X_1)^{-1} X_1'$ if $X_1 \perp X_2$.
+Need to know that $X_1, X_2$ could be correlated, and we will need to get the orthogonal M from different column spaces, just like the ANOVA table.
+
+In ANOVA table, the Gram-Schmidt is used to get the orthogonal o.p.o, but here we can use the known orthogonal matrix
+
+$C(X_2) \perp C((I- M_2) X_1)$
+\begin{align*}
+M_2 &= X_2 (X_2' X_2)^{-1} X_2' \\
+Y &= M_2 X_2 \beta_2 + (I-M_2) X_1 \beta_1 = (I-M_2) X_1 \beta_1
+\end{align*}
+
+Make transformation to the column space of X, but make sure the column space is the same, then o.p.o matrixes are the same, the estimates are the same.
+The model could be rewritten as $Y = M_2 X_2 \beta_2 + (I-M_2) X_1 \beta_1 $. When $\beta_1^{\ast}, \beta_2^{\ast}$ are independent, we can just take out one parameter.
+
+So the BLUE of $\beta_1$ is $(X_1' (I-M_2) X_1)^{-1} X_1' (I-M_2) Y$
+
+\item[(d)] Assume that $X_2$ does not equal to zero matrix and the rank of X is $p_1$. Show that 
+\begin{align*}
+\hat{\beta} &= \begin{pmatrix}
+(X_1' X_1)^{-1} X_1 \\
+0
+\end{pmatrix} Y
+\end{align*}
+is a solution to $X'X \beta = X' Y$.
+
+I just need to prove that the equation exists, show the space belongs in the other space. Also there is rank information there.
+
+\item[(e)] Show that $ith$ component of $\beta_1 (1 \leq i \leq r)$ is estimable if and only if the $ith$ row of $(X_1' X_1)^{-1}X_1' X_2$ is the zero vector.
+
+
+
+
+\end{itemize}
+
+
+
  

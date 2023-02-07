@@ -1,9 +1,10 @@
 \section{linear model} 
 
-Suppose that Y is a $4 \times 1$ vector with $E(Y ) = \mu, \mu \in C(E)$, where E is the set $E = \{ \mu: \mu' = (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) \} $ where the $\beta_i$ are real numbers, $i = 1, 2, 3$. Further assume that $Cov(Y) = \sigma^2I_{4 \times 4}$, where $\sigma^2$ is unknown.\\
+Suppose that Y is a $4 \times 1$ vector with $E(Y ) = \mu, \mu \in C(E)$, where E is the set $E = \{ \mu: \mu' = (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) \} $ where the $\beta_i$ are real numbers, $i = 1, 2, 3$. Further assume that $Cov(Y) = \sigma^2I_{4 \times 4}$, where $\sigma^2$ is unknown.
+
 \begin{itemize}
-    \item [(a)] Derive $\hat\mu$, the ordinary least squares estimate of $\mu$, by carrying out the
-appropriate projection.\\
+\item[(a)] Derive $\hat{\mu}$, the ordinary least squares estimate of $\mu$, by carrying out the appropriate projection.
+    
 E(Y) is in the column space of C(E), we need to find the o.p.o on C(E). Also $Cov(Y) = \sigma^2 I_{4 \times 4}$, we can use ordinary least squares estimator as i.i.d.
 \begin{align*}
     \mu' &= (\beta_1 + \beta_2 - \beta_3, \beta_2 + \beta_3, -\beta_2 - \beta_3, -\beta_1-\beta_2 + \beta_3) = X \beta\\
@@ -39,6 +40,7 @@ E(Y) is in the column space of C(E), we need to find the o.p.o on C(E). Also $Co
            -1 &  0 & 0 & 1 \\
          \end{bmatrix} (y_1, y_2, y_3, y_4)^T = 1/2 (y_1- y_4, y_2-y_3, y_3-y_2, y_4-y_1)^T
 \end{align*}
+
 \item[(b)] Find the BLUE of $\beta_2 - \beta_3$ or show that it is nonestimable.
 \begin{align*}
     \lambda &= (0, 1,-1)^T, \qquad \lambda^T \beta = \beta_2 - \beta_3\\
@@ -89,6 +91,15 @@ Also we can just look at C(Y) column space
 \begin{align*}
     E_0 & = span \{(\beta_1+2\beta_2, 0, 0, -\beta_1-2\beta_2)^T \}= span \{(1, 0,  0, -1)^T \}
 \end{align*}
+
+
+NOTE: THE CONTRAST TEST WE GENERALLY USE 
+
+\begin{align*}
+    F-test & = \frac{(\Lambda' \beta -d)^T \Big (\Lambda' (X'X) \Lambda \Big)^{-1}  (\Lambda' \beta -d) \Big / r(\Lambda)}{\sigma^2}
+\end{align*}
+In this way, we don't need to calculate the $\rho, P'$ matrix.
+
 \item[(d)] Assuming normality for Y , construct the simplest possible expression for
 the F statistic for the hypothesis $H_0: \mu \in E_0$ versus $H_1: \mu \not\in E_0$, where $E_0$ is
 specified in part (c), and give the distribution of the F statistic under the null and
@@ -109,7 +120,8 @@ In which, under $H_0, \gamma = 0$, and under $H_1$.
     \gamma &= \frac{\lVert (M_1) X\beta \rVert}{2 \lVert (I-M)Y \rVert/2}\\
     &= \frac{(\beta_2 + \beta_3)^2}{\sigma^2}
 \end{align*} 
-\item[(e)] Assuming normality for Y , construct an exact 95$\%$ confidence interval for $\beta_2 + \beta_3$.\\
+
+\item[(e)] Assuming normality for Y , construct an exact 95$\%$ confidence interval for $\beta_2 + \beta_3$.
 From part(d), we have
 \begin{align*}
  \lambda' = (0, 1, 1)\\

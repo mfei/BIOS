@@ -281,7 +281,7 @@ Consider linear model with error i.i.d. $\epsilon_i \sim N(0, \sigma^2), \tau = 
 
 \begin{itemize}
 
-\item[(i)] Calculate based on given information 
+\item[(a)] Calculate based on given information 
 
 \begin{itemize}
 \item[(i)] Compute $P(\beta^2 > .25| y)$.
@@ -293,8 +293,8 @@ y & \sim N(X \beta, \sigma^2 I_{4 \times 4}), \qquad \tau = 1 \\
 
 Then the posterior distribution of $\beta$ is also a normal distribution due to conjugate prior
 \begin{align*}
-P(\beta | y) & \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (y- X\beta)^T (y- X\beta)}{2} \Big) (\sigma_0^2)^{-\frac{n}{2}} \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \sigma_0^2} \Big) \\
-& \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (\beta- \hat\beta)^T X'X (\beta- \hat\beta)}{2} \Big) (\sigma_0^2)^{-\frac{n}{2}} \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \sigma_0^2} \Big) \\
+P(\beta | y) & \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (y- X\beta)^T (y- X\beta)}{2} \Big) (\sigma_0^2)^{-\frac{1}{2}} \exp \Big( -\frac{(\beta - \mu_0)^2}{2 \sigma_0^2} \Big) \\
+& \propto (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (\beta- \hat\beta)^T X'X (\beta- \hat\beta)}{2} \Big) (\sigma_0^2)^{-\frac{1}{2}} \exp \Big( -\frac{(\beta - \mu_0)^2}{2 \sigma_0^2} \Big) \\
 & \propto \exp \Bigg \{ -\frac{\tau}{2} \Big[ (X'X) \beta^2 - 2 \hat{\beta} (X'X) \beta + \hat{\beta}^2 \Big] - \frac{(\beta - \mu_0)^2}{2 \sigma_0^2} \Bigg\} \\
 & \propto  \exp \Bigg \{ -\frac{1}{2} \Big( (X'X)\tau + \frac{1}{\sigma_0^2}  \Big) \beta^2  + \Big( (X'X)\tau \hat{\beta} + \frac{\mu_0}{\sigma_0^2} \Big) \beta \Bigg\} \\
 & \propto \exp \Bigg \{ -\frac{1}{2} \Big( (X'X)\tau + \frac{1}{\sigma_0^2}  \Big) \Bigg( \beta - \frac{\tau X'Y + \frac{\mu_0}{\sigma_0^2}}{\tau (X'X) + \sigma_0^{-2}}\Bigg) \Bigg\}
@@ -307,7 +307,6 @@ X'Y &= 6.535, \qquad X'X = 25.5,\qquad \tau = 1,\qquad \mu_0 = 0 \\
 P(\beta | y) & \sim N \{ \frac{6.535}{25.5 + 0.001}, \frac{1}{25.5+0.001} \} 
 \end{align*}
 
-Then 
 \begin{align*}
 P(\beta^2 > .25| y) &=  P(\beta > .5| y) + P(\beta < -.5| y) \\
 &= \sim N \{ \frac{6.535}{25.5 + 0.001}, \frac{1}{25.5+0.001} \}  = N \{ 0.256, 0.039 \} \\
@@ -324,19 +323,37 @@ P(\beta^2 > .25| y) &= 0.107 + 0.00006 = 0.10706
 
 \item[(iii)] Let $z = (z_1, z_2, z_3)$ be a $3 \times 1$ vector of future observations. Find the predictive distribution of $z$ at $X_f = (1,2,3)'$.
 
-The predictive distribution is also a normal distribution, 
+The predictive distribution is a t distribution, 
 
 \begin{align*}
 p(z| X, Y) &= \int p(\beta | Y) p(z| \beta) d\beta \\
 & \propto \int  \exp \Big(-\frac{(\beta - 0.256)^2}{2 \times 0.039} \Big) \exp \Big(- \frac{ (z- X_f \beta)^T (z- X_f \beta)}{2} \Big) d\beta \\
 & \propto \int \exp \Big(-\frac{1}{2} \Big[ \frac{1}{0.039} + x_f^T x_f \Big] \Big( \beta^2 - 2\frac{\frac{0.256}{0.039} + z^T x_f}{\frac{1}{0.039} + x_f^T x_f } \Big ) \Big) d\beta \\
-&\propto \exp \Big(-\frac{z^TZ}{2}  \Big) \exp \Big(\frac{1}{2} \frac{\Big(\frac{0.256}{0.039} + z^T x_f \Big)^2}{\frac{1}{0.039} + x_f^T x_f } \Big) 
+&= S_3 (n-1, X_f \hat{\beta}, s^2(1 + \frac{1}{n}))
 \end{align*}
 
-when $X_f = (1,2,3)'$, the predictive distribution is 
+The mean of the predictive distribution is the same as the frequentist point estimate of z, and note that $s^2(1 + \frac{1}{n})$ is the frequentist estimate of $Var(z - \bar{X})$.
 \begin{align*}
-p(z| X, Y) &=  (2\pi 0.039)^{-\frac{1}{2}} \Big[ \frac{1}{0.039} + 14 \Big]^{\frac{3}{2}} \exp \Big(-\frac{z^TZ}{2} - \frac{0.256^2}{2 \times 0.039} \Big) \exp \Big(\frac{1}{2} \frac{\Big(\frac{0.256}{0.039} + z^T x_f \Big)^2}{\frac{1}{0.039} + 14} \Big) 
+\hat{\beta} &= (X'X)^{-1} X' Y = 0.256\\
+M &= X (X'X)^{-1} X' \\
+s^2 &= \frac{Y' (I-M) Y}{n-1} = 0.034\\
+E(z) &= X_f \hat{\beta} = (1,2,3)' 0.256 = (0.256, 0.512, 0.768)' \\
+Var(z - \bar{X}) &=  s^2(1 + \frac{1}{n}) = 0.034 (1 + \frac{1}{4}) = 0.0425\\
+p(z| Y) &= t_3 ( n-1, E(z), Var(z- \bar(X))) = t(3, (0.256, 0.512, 0.768)', 0.0425 I_{3 \times 3})
 \end{align*}
+
+The R codes for calculating estimates:
+
+\begin{lstlisting}[language=R]
+X= c(1, 1.5, 2.5, 4) 
+Y = c(0.45, 0.6, 0.65, 0.89)
+beta = solve(t(X) %*% X) * t(X) %*% Y
+Xf = c(1,2,3)
+Ez = Xf * beta
+inv = solve(t(X) %*% X)
+M= X %*% inv %*% t(X)
+s2 = t(Y) %*% Y - t(Y) %*% M %*% Y
+\end{lstlisting}
 
 \end{itemize}
 \item[(b)] Suppose $\tau = 1$, consider the hypothesis 
@@ -346,17 +363,18 @@ H_1 &: \beta = 1
 \end{align*}
 Derive a general expression for the Bayes factor in favor of $H_0$, and then compute the Bayes factor using $x, y$ given above.
 
-The Bayes factor 
+The Bayes factor under $H_0:  \beta = 0, vs. H_1: \beta = 1$ could be simplified as following:
+
 \begin{align*}
- B &=  \frac{p(x| {H_0})}{p(x| {H_1})} = 
+ B &=  \frac{p(x | {H_0})}{p(x| {H_1})} = \frac{\int p(x | H_0, \theta) \lambda(\theta| H_0) d\theta}{\int p(x | H_1, \theta) \lambda(\theta| H_1) d\theta}\\
+ &= \frac{p(x | \beta_0)}{p(x | \beta_1)}  \\
+ &= (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (y- X \beta_0)^T (y- X \beta_0)}{2} \Big) \Bigg / (\tau)^{\frac{n}{2}} \exp \Big(- \frac{\tau (y- X \beta_1)^T (y- X \beta_1)}{2} \Big) \\
+ &= \frac{ \exp \Big(- \frac{\tau (y- X \beta_0)^T (y- X \beta_0)}{2} \Big) }{\exp \Big(- \frac{\tau (y- X \beta_1)^T (y- X \beta_1)}{2} \Big) }\\
+ &= \exp \Big[-\frac{y^T y}{2} + \frac{(y-x)^T(y-x)}{2} \Big] \\
+ &= 500.2
 \end{align*}
  
- The posterior distribution of $\beta$ from above part () is 
- 
- Then the $p(y)$ is 
- 
- The Bayes factor is
- 
+ Due to $B = 500$, there is strong evidence in favor of $H_0$. 
  
  
   \item[(c)] Suppose both $(\tau, \beta)$ are unknown, and suppose we wish to test 
@@ -373,14 +391,141 @@ Derive a general expression for the Bayes factor in favor of $H_0$, and then com
 
  The posterior distribution of $\beta$ with $\tau$ unknown is
  
+ Under $H_0: \beta = 0$, 
  
- Under $H_0: \beta = 0$, the $p(y)$ 
-  
-Under $H_1$, the $p(y)$ with integral of $\beta$
- 
+ \begin{align*}
+ \lambda(\theta | H_0) &= p(\tau) \\
+ &= \frac{\frac{\gamma_0}{2}^{\frac{\delta_0}{2}}}{\Gamma(\frac{\delta_0}{2})} \tau^{\frac{\delta_0}{2}-1} \exp \Big(-\tau \frac{\gamma_0}{2} \Big)
+\end{align*}
+
+Under $H_1: \beta \neq 0$, 
+  \begin{align*}
+ \lambda(\theta | H_1) &= p( \beta | \tau) p(\tau) \\
+ &= (2\pi)^{-\frac{n}{2}} \tau^{\frac{n}{2}} \exp \Big( - \frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \tau^{-1} \sigma^2_0} \Big) \frac{\frac{\gamma_0}{2}^{\frac{\delta_0}{2}}}{\Gamma(\frac{\delta_0}{2})} \tau^{\frac{\delta_0}{2}-1} \exp \Big(-\tau \frac{\gamma_0}{2} \Big)
+\end{align*}
+
+
  The Bayes factor is
+ \begin{align*}
+ B &=  \frac{p(x | {H_0})}{p(x| {H_1})} = \frac{\int p(x | \beta_0) p(\tau) d \tau}{\int \int p(x | \beta, \tau) p(\beta| \tau) p(\tau) d\beta d\tau}
+\end{align*}
  
- 
+ The numerator is
+  \begin{align*}
+ p(y | {H_0}) &= (2\pi)^{-\frac{n}{2}} \frac{(\frac{\gamma_0}{2})^{\frac{\delta_0}{2}}}{\Gamma(\frac{\delta_0}{2})} \int \tau^{\frac{n}{2}} \exp \Big(- \tau \frac{y^T y}{2} \Big) \frac{(\frac{\gamma_0}{2})^{\frac{\delta_0}{2}}} {\Gamma(\frac{\delta_0}{2})} \tau^{\frac{\delta_0}{2}-1} \exp \Big(-\tau \frac{\gamma_0}{2} \Big) d\tau \\
+ &=  (2\pi)^{-\frac{n}{2}} \frac{(\frac{\gamma_0}{2})^{\frac{\delta_0}{2}}}{\Gamma(\frac{\delta_0}{2})} \int \tau^{\frac{n}{2} + \frac{\delta_0}{2} -1} \exp \Big( - \tau (\frac{y^T y}{2} + \frac{\gamma_0}{2}) \Big) d\tau \\
+ &= (2\pi)^{-\frac{n}{2}}  \frac{\Gamma(\frac{n}{2} + \frac{\delta_0}{2})}{\Gamma(\frac{\delta_0}{2})} \frac{\frac{\gamma_0}{2}^{\frac{\delta_0}{2}}}{(\frac{y^T y}{2} + \frac{\gamma_0}{2})^{\frac{n}{2} + \frac{\delta_0}{2}}}\\
+ &= A
+\end{align*}
+
+The denominator is 
+
+ \begin{align*}
+ p(y | {H_1}) &= (2\pi \sigma_0^2)^{-\frac{1}{2}} (2\pi)^{-\frac{n}{2}} \frac{(\frac{\gamma_0}{2})^{\frac{\delta_0}{2}}}{\Gamma(\frac{\delta_0}{2})} \frac{(\frac{\gamma_0}{2})^{\frac{\delta_0}{2}}} {\Gamma(\frac{\delta_0}{2})} \\
+ & \int \int \tau^{1/2} \exp \Big( -\frac{(\beta - \mu_0)^2}{2 \tau^{-1} \sigma_0^2} \Big) \tau^{\frac{n}{2}} \exp \Big(- \tau \frac{(y- x \beta)^T (y- x \beta)}{2} \Big)\\
+ & \tau^{\frac{\delta_0}{2}-1} \exp \Big(-\tau \frac{\gamma_0}{2} \Big) d\tau d\beta \\
+ &= S_n \Big( \delta_0, X \mu_0, \frac{\gamma_0}{\delta_0} (I + \sigma_0^2 X  X') \Big)\\
+ &= \Bigg ( \frac{\Gamma(\frac{n + \delta_0}{2}) (\pi \delta_0)^{-\frac{n}{2}} (\frac{\gamma_0}{\delta_0})^{-\frac{n}{2}} \Big | I + X \sigma_0^2 X' \Big |}{\Gamma(\frac{\delta_0}{2})} \Bigg) \\
+ & \Bigg [ 1 + \frac{1}{\gamma_0} (Y- X \mu_0)^T (I + X \sigma_0^2 X')^{-1} (Y- X \mu_0) \Bigg ]^{-\frac{n+ \delta_0}{2}}\\
+ &= B
+\end{align*}
+
+Then Baye's factor is $A/B = 125$, which is a strong evidence in favor of $H_0$.
+
+we have R codes as following:
+
+\begin{lstlisting}[language=R]
+X= c(1, 1.5, 2.5, 4) 
+Y = c(0.45, 0.6, 0.65, 0.89)
+n = 4
+delta0 = 4
+gamma0 = 1
+mu0 = 0
+sigma0 = 1000
+matrix = diag(n) + sigma0^2 * X %*% t(X)
+a = (2* pi)^(-n/2) *  gamma(n/2 + delta0 /2) *(gamma0/2)^(delta0 / 2) / gamma(delta0 /2) / ( t(Y) %*% Y /2 + gamma0 / 2)^(n/2 + delta0/2)
+b = gamma(n/2 + delta0 /2) *(pi * delta0 )^(-n/2) * (gamma0/ delta0)^(-n/2) * det(matrix)^(-1/2) * (1 + 1/gamma0 * t(Y- mu0 * X)  %*% solve(matrix) %*% (Y- mu0 * X) )^(-n/2 - delta0/2)
+bf = a/b
+\end{lstlisting}
+
+
+
+\item[(d)] Consider the model space $M = \{ m_1, m_2 \}$, where $m_1$ is the model $y_i = \epsilon_i$, and $m_2$ is the model $y_i = \beta x_i + \epsilon_i$. Suppose the prior probabilities of the models are 
+$p(m_1) = .2$ and $p(m_2) = 0.8 $. Using the priors and data given in part c), compute the posterior model probabilities for $m_1$ and $m_2$.
+
+We have the posterior model probabilities for all models $m \in M$,
+
+For model $m_1$, $\beta^{(m_1)} = 0$, we could get the $p(y| m_1)$ from part (c) that
+\begin{align*}
+ p(m_1 | y) &= \frac{p(y | m_1) p(m_1)}{\sum_{m \in M} p(y|m) p(m)} \\
+ p(y | m_1) &= \int \int p(y | X^{(m_1)}, \beta^{(m_1)}, \tau) \pi( \beta^{(m_1) | \tau}) \pi(\tau) d \beta^{(m_1)} d \tau \\
+ & =  (2\pi)^{-\frac{n}{2}}  \frac{\Gamma(\frac{n}{2} + \frac{\delta_0}{2})}{\Gamma(\frac{\delta_0}{2})} \frac{\frac{\gamma_0}{2}^{\frac{\delta_0}{2}}}{(\frac{y^T y}{2} + \frac{\gamma_0}{2})^{\frac{n}{2} + \frac{\delta_0}{2}}} =A
+\end{align*}
+
+For model $m_2$, $\beta^{(m_2)} \neq 0$, we could get the $p(y| m_2)$ from part (c) that
+\begin{align*}
+ p(m_2 | y) &= \frac{p(y | m_2) p(m_2)}{\sum_{m \in M} p(y|m) p(m)} \\
+ p(y | m_2) &= \int \int p(y | X^{(m_2)}, \beta^{(m_2)}, \tau) \pi( \beta^{(m_2) | \tau}) \pi(\tau) d \beta^{(m_2)} d \tau \\
+ & = S_n \Big( \delta_0, X \mu_0, \frac{\gamma_0}{\delta_0} (I + X \sigma_0^2 X') \Big) =B
+\end{align*}
+
+Then 
+\begin{align*}
+ p(m_1 | y) &= \frac{p(y | m_1) p(m_1)}{\sum_{m \in M} p(y|m) p(m)} \\
+ & =  \frac{0.2 A }{0.2 A + 0.8 B}  = 0.969\\
+  p(m_2 | y) &= \frac{p(y | m_2) p(m_2)}{\sum_{m \in M} p(y|m) p(m)} \\
+ & =  \frac{0.8 B}{0.2 A + 0.8 B} = 0.031\\
+\end{align*}
+
+Based on the posterior probabilities, it is in favor of model $m_1$ with $ p(m_1 | y) = 0.969$.
+
+\item[(e)] Suppose that $(\beta, \tau)$ are both unknown, derive a general expression for the $95\%$ HPD interval for $\beta$, and use the data in part (b) along with hyperparameters to construct the actual interval.
+
+The posterior distribution for $\beta$ as below
+\begin{align*}
+ p(\beta | y) & \propto p(y | \beta, \tau) \pi(\beta | \tau) \pi(\tau) \\
+ & \propto  \tau^{1/2}  \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \tau^{-1} \sigma_0^2} \Big) \tau^{\frac{n}{2}} \exp \Big(- \tau \frac{(y- x \beta)^T (y- x \beta)}{2} \Big) \tau^{\frac{\delta_0}{2}-1} \exp \Big(-\tau \frac{\gamma_0}{2} \Big) \\
+ & \propto \tau^{\frac{n+ \delta_0 -1}{2}} \exp \Big( -\frac{(\beta - \mu_0)^T (\beta - \mu_0)}{2 \tau^{-1} \sigma_0^2} - \tau \frac{(y- x \beta)^T (y- x \beta)}{2}  \Big) \exp \Big(-\tau \frac{\gamma_0}{2} \Big) \\
+ & = S_p \Bigg ( n+ \delta_0, \tilde{\beta}, \tilde{s}^2  \Big (X'X + (\sigma_0^2)^{-1} \Big )^{-1} \Bigg ) \\
+ \tilde{\beta} &= \Lambda \mu_0 + (I- \Lambda) \hat{\beta} \\
+ \Lambda &=  \Big (X'X + (\sigma_0^2)^{-1} \Big )^{-1} + (\sigma_0^2)^{-1} \\
+ \hat{\beta} &= (X'X)^{-1} X'Y \\
+ \tilde{s}^2 &= (n + \delta_0)^{-1} \Big[Y' (I-M) Y + (\hat{\beta} - \mu_0)' (\Lambda' X' X) (\hat{\beta} - \mu_0) + \gamma_0 \Big]
+\end{align*}
+
+So we have
+\begin{align*}
+ \frac{\beta - \tilde{\beta}}{\sqrt {\tilde{s}^2  \Big (X'X + (\sigma_0^2)^{-1} \Big )^{-1} \Big / n}} & \sim t_{n + \delta_0}
+\end{align*}
+
+Then the $95\%$ HPD interval for $\beta$
+\begin{align*}
+ \Bigg \{ \beta &:  \tilde{\beta} +  t_{\frac{\alpha}{2}, n + \delta_0} \sqrt {\tilde{s}^2  \Big (X'X + (\sigma_0^2)^{-1} \Big )^{-1} \Big / n} \leq  \beta \leq  \tilde{\beta} +  t_{1-\frac{\alpha}{2}, n + \delta_0} \sqrt {\tilde{s}^2  \Big (X'X + (\sigma_0^2)^{-1} \Big )^{-1} \Big / n}  \Bigg \} \\
+ \Bigg \{ \beta &: -0.636 \leq  \beta \leq  1.128 \Bigg \}
+\end{align*}
+
+The R codes for calculating estimates:
+
+\begin{lstlisting}[language=R]
+X= c(1, 1.5, 2.5, 4) 
+Y = c(0.45, 0.6, 0.65, 0.89)
+XX = t(X) %*% X
+inv = solve(t(X) %*% X)
+beta = solve(t(X) %*% X) * t(X) %*% Y
+n = 4
+delta0 = 4
+gamma0 = 1
+mu0 = 0
+sigma0 = 1000
+lambda = 1/(XX + 0.001) + 0.001
+tbeta = (1 - lambda) * beta
+M= X %*% inv %*% t(X)
+s2 = t(Y) %*% Y - t(Y) %*% M %*% Y
+ts2 = 1/(n+ delta0) *(s2 + beta^2*lambda*XX + gamma0)
+LL = tbeta + qt(0.025, 8) *sqrt(ts2) 
+UU = tbeta + qt(0.975, 8) * sqrt(ts2) 
+\end{lstlisting}
+
 
 \end{itemize}
 
