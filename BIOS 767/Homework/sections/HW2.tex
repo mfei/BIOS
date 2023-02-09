@@ -37,8 +37,6 @@ While $Z = aY + c$, then we have the MGF for Z
 
 So $E(Z) = (a \mu + c), Var(Z) = a \Sigma a'$, and $Z \sim Normal (a \mu + c, a \Sigma a')$.
 
-\item[(ii)] Show that $Y_1|Y_2$ is multivariate normal with mean and covariance given by
-
 
 \end{itemize}
 
@@ -151,9 +149,10 @@ By looking at the equation(3) from Harville's paper
 \end{align*}
 
 Let $\Sigma = \sigma^2 \Omega$, then 
- \begin{align*}
-\det(\Sigma) &= \det(\sigma^2 \Omega) = \( \sigma^2 \)^{n-p} \det(\Omega) , \qquad \Sigma_{n-p \times n-p}\\
-\det(\Sigma)^{-1/2} &= \det(\sigma^2 \Omega)^{-1/2} = \( \sigma^2 \)^{-\frac{n-p}{2}} \det(\Omega) ^{-1/2}
+
+\begin{align*}
+\det(\Sigma) &= \det(\sigma^2 \Omega) = ( \sigma^2 )^{n-p} \det(\Omega) , \qquad \Sigma_{n-p \times n-p}\\
+\det(\Sigma)^{-1/2} &= \det(\sigma^2 \Omega)^{-1/2} = ( \sigma^2 )^{-(n-p)/2} \det(\Omega)^{-1/2}
 \end{align*}
 
 So, also need to show that $\exp \Big(-\frac{1}{2} \frac{Y' P Y}{\sigma^2} \Big)$ is the same as $\exp \Big(-\frac{1}{2} (y- X \hat{\beta})^T \Sigma^{-1} (y- X \hat{\beta}) \Big)$
@@ -165,11 +164,160 @@ So, also need to show that $\exp \Big(-\frac{1}{2} \frac{Y' P Y}{\sigma^2} \Big)
 
 From above equation, we can see that the two equations are the same from the two papers.
 
-\item[(ii)] 
+\item[(ii)] Explain how the REML estimator of $\beta$ in this setting can be viewed as a type of "plug-in" generalized least squares estimator where the weight matrix is equal to the REML estimate for $\Omega$.
 
+The REML log-likelihood does not contain $\beta$, we could use the REML log-likelihood to estimate the $\Omega$, denoted by $\hat{\Omega}$. Furthermore, we can estimate the $\beta$ by the following
+
+ \begin{align*}
+\hat{\beta} &= (X' \hat{\Omega}^{-1}X)^{-1} X' \hat{\Omega}^{-1} Y 
+\end{align*}
+
+In the weighted least square estimator, 
+ \begin{align*}
+\tilde{\beta} &= (X' W X)^{-1} X' W Y , \qquad W= diag\{ w_1, …w_n\}
+\end{align*}
+
+Thus, the REML estimate of $\beta$ could be considered as WLS estimate with "plug-in" $W = \hat{\Omega}^{-1}$.
+\end{itemize}
+
+\item[(d)] Now, consider the non-regression case where each random vector $Y_i$ has mean $\mu$. Note that we may formulate this case as a regression model with matrix $X_{N n \times n}$ defined by
+
+ \begin{align*}
+X &= \begin{pmatrix}
+X_1 \\
+X_2 \\
+.. \\
+X_N
+\end{pmatrix} = \begin{pmatrix}
+I_n \\
+I_n \\
+.. \\
+I_n
+\end{pmatrix}
+\end{align*}
+and $\beta = \mu$. Show that the REML estimate for $\Sigma$ maximizes the log-likelihood given by
+
+\begin{align*}
+log l_{REML} (\Sigma) & \propto \frac{N-1}{2} log(\vert \Sigma^{-1} \vert) - \frac{1}{2} tr \Big[ (N-1) S \Sigma^{-1} \Big]
+\end{align*}
+
+Proof: From above, we have the REML log-likelihood as following:
+
+\begin{align*}
+ln_{REML}(\beta) & \propto {\frac{1}{2}}  (\log \vert \Omega^{-1}  \vert ) -\frac{1}{2} (\log \vert X' \Omega^{-1} X \vert )  -\frac{1}{2} (Y- X \hat{\beta})^T \Omega^{-1} (Y- \hat{\beta})  \\
+\vert \Omega \vert &= \vert \Sigma \vert ^{N}, \qquad X' \Omega^{-1} X = \sum_{i=1}^N X' \Sigma^{-1} X \\
+ln_{REML}(\beta)  & \propto  \frac{N}{2} (log \vert \Sigma^{-1} \vert ) -\frac{N}{2}  (\log \vert X' \Sigma^{-1} X \vert ) -\frac{1}{2} (\beta- \hat{\beta})^T X^T \Omega^{-1} X (\beta- \hat{\beta}) , \qquad X= I \\
+& \propto  \frac{N}{2} (\log \vert \Sigma^{-1} \vert ) -\frac{1}{2}  (\log \vert N \Sigma^{-1}  \vert ) -\frac{1}{2} tr \Big[ \sum_{i=1}^N (Y_i - X_i \hat{\beta})^T \Sigma^{-1} (Y_i - X_i \hat{\beta})^T    \Big ], \\
+& \propto  \frac{N}{2} (\log \vert \Sigma^{-1} \vert )- \frac{n}{2} log N -\frac{1}{2}  (\log \vert \Sigma^{-1}  \vert ) - \frac{1}{2} tr \Big[ \sum_{i=1}^N (Y_i - \bar{Y}_i) (Y_i - \bar{Y}_i))^T \Sigma^{-1}     \Big ]   \\
+& \propto \frac{N-1}{2} log(\vert \Sigma^{-1} \vert) - \frac{1}{2} tr \Big[ (N-1) S \Sigma^{-1} \Big]
+\end{align*}
+
+We prove the REML log-likelihood function
+
+\item[(e)] Derive the REML estimate for $\Sigma$ is the same as $S$.
+
+We will take the first derivative of the REML log-likelihood function as in part(d) 
+
+\begin{align*}
+\partial_{\Sigma^{-1}}ln_{REML}(\beta) & = \frac{N-1}{2} \Sigma- \frac{N-1}{2} S = 0 \\
+\Sigma &= S
+\end{align*}
 
 
 \end{itemize}
 
+\section{Problem 3}
+
+Objective: Develop understanding of applying the EM Algorithm by deriving the REML estimator for using an EM approach. 
+
+Let $Y_i, i=1,..N$, be i.i.d. random sample of $n \times 1$ random vectors with $Y_i \sim MVN(\mu, \Sigma)$ for positive definite $\Sigma$. We will apply the EM algorithm to estimate $\Sigma$ and observe the estimator is equal to that obtained in problem 2. 
+
+\begin{itemize}
+\item[(a)] Write the complete data log-likelihood $l(\Sigma | \mu, Y)$. Note that we are writing the expression with $\mu$ on the RHS simply to convey that we are treating it effectively as missing data for this exercise.
+
+The complete data log-likelihood, treating $\mu$ as missing,
+
+\begin{align*}
+p(\Sigma | \mu, Y_i) &= (2\pi)^{-\frac{n}{2}} \vert \Sigma \vert^{-\frac{1}{2}} \exp \Big( -\frac{1}{2} (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu) \Big) \\
+ln(\Sigma | \mu, Y_i) & =-\frac{n}{2} log (2 \pi) - \frac{1}{2} \log  \vert \Sigma \vert - \frac{1}{2} (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu) \\
+ln(\Sigma | \mu, Y) & =-\frac{Nn}{2} log (2 \pi) - \frac{N}{2} \log  \vert \Sigma \vert - \sum_{i=1}^N \frac{1}{2} (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu) 
+\end{align*}
+
+\item[(b)] Verify the conditional distribution for the missing data $\mu$ given the observed data $Y_i, i=1,..N$ is given by
+
+\begin{align*}
+\mu | Y, \Sigma^{(t)} & \sim Normal \Big( \bar{Y}, \frac{\Sigma^{(t)}}{N} \Big) 
+\end{align*}
+
+Prove: We know that the conditional distribution of $\mu$
+
+\begin{align*}
+f(\mu | \Sigma, Y) &= \frac{f(\mu, Y | \Sigma)}{f(Y| \Sigma)} \propto f(\mu, Y | \Sigma)
+\end{align*}
+
+When $\Sigma$ is known, we will have the distribution of $\mu$ 
+
+\begin{align*}
+f(\mu, Y | \Sigma) & \propto \prod_{i=1}^N \exp \Big( -\frac{1}{2} \sum_{i=1}^N (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu) \Big) 
+\end{align*}
+
+We will write the distribution in terms of known Y statistics and $\Sigma^{(t)}$ 
+
+\begin{align*}
+f(\mu, Y | \Sigma) & \propto \prod_{i=1}^N \exp \Big( -\frac{1}{2} \sum_{i=1}^N (Y_i^T  \Sigma^{-1} Y_i - 2 \mu^T \Sigma^{-1} Y_i + \mu^T \Sigma^{-1} \mu \Big) \\
+& \propto \prod_{i=1}^N \exp \Big( -\frac{1}{2} \sum_{i=1}^N (\mu^T \Sigma^{-1} \mu - 2 \mu^T \Sigma^{-1} Y_i \Big) \\
+& \propto \prod_{i=1}^N \exp \Big( -\frac{1}{2}(N \mu^T \Sigma^{-1} \mu - 2 N \mu^T \Sigma^{-1} \bar{Y_i} \Big) \\
+& \propto \prod_{i=1}^N \exp \Big( -\frac{1}{2}( (\mu -  \bar{Y_i} )^T (N \Sigma^{-1}) (\mu -  \bar{Y_i} ) \Big) \\
+& \sim N \Big(\bar{Y_i},  \frac{\Sigma}{N} \Big)
+\end{align*}
+
+We could replace $\Sigma$ by $\Sigma^{(t)}$, thus we have the proof.
+
+\item[(c)] 	Compute $Q(\Sigma | \Sigma^{(t)})$ and derive the $\Sigma^{(t+1)}$ as a function of $\Sigma^{(t)}$. 
+
+$Q(\Sigma | \Sigma^{(t)})$ is the expectation of $ln(\Sigma | \mu^{(t)}, Y) $
+
+\begin{align*}
+Q(\Sigma | \Sigma^{(t)}) &= E\Big[ ln(\Sigma | \mu, Y) \Big] \\
+& = E \Big[ -\frac{Nn}{2} log (2 \pi) - \frac{N}{2} \log  \vert \Sigma \vert - \sum_{i=1}^N \frac{1}{2} (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu) \Big] \\
+& \propto - \frac{N}{2}E \Big[ \log  \vert \Sigma \vert \Big] - \frac{1}{2} E \Big[ \sum_{i=1}^N  (Y_i - \mu)^T \Sigma^{-1} (Y_i - \mu)  \Big] \\
+&  \propto - \frac{N}{2}E \Big[ \log  \vert \Sigma \vert \Big] - \frac{1}{2} E \Big[ \sum_{i=1}^N  Y_i^T \Sigma^{-1} Y_i - 2 Y_i^T  \Sigma^{-1}  \mu + \mu^T \Sigma^{-1} \mu \Big] 
+\end{align*}
+
+We have 
+\begin{align*}
+E[\mu] &= \bar{Y_i} \\
+E[\mu^T \Sigma^{-1} \mu] &= E \Big[ tr \Big(  \mu \mu^T \Sigma^{-1} \Big) \Big] \\
+&= tr \Big( E \Big[   \mu \mu^T \Sigma^{-1}  \Big] \Big) = \Sigma^{-1}  tr \Big( Var (\mu)  + E[\mu]^2 \Big) \\
+&= tr \Big[ \Big( \frac{\Sigma^{(t)}}{N}  + \bar{Y}^{\otimes 2} \Big)\Sigma^{-1}  \Big] \\
+\end{align*}
+
+Then we have
+\begin{align*}
+Q(\Sigma | \Sigma^{(t)}) &  \propto - \frac{N}{2}E \Big[ \log  \vert \Sigma^{(t)} \vert \Big] - \frac{1}{2} E \Big[ \sum_{i=1}^N  Y_i^T \Sigma^{-1} Y_i - 2 Y_i^T  \Sigma^{-1}  \mu + \mu^T \Sigma^{-1} \mu \Big] \\
+& \propto - \frac{N}{2} \log  \vert \Sigma^{(t)} \vert - \frac{1}{2} \sum_{i=1}^N  Y_i^T \Sigma^{-1} Y_i +  \sum_{i=1}^N Y_i^T  \Sigma^{(t)-1} \bar{Y_i} + \frac{N}{2} tr \Big( \frac{\Sigma^{(t)}}{N} \Sigma^{-1}  + \bar{Y}^{\otimes 2} \Sigma^{-1} \Big) \\
+& \propto - \frac{N}{2}\log  \vert \Sigma^{(t)} \vert - \frac{1}{2} \sum_{i=1}^N  Y_i^T \Sigma^{-1} Y_i +  \sum_{i=1}^N Y_i^T  \Sigma^{(t) -1} \bar{Y_i} + \frac{N}{2} tr \Big( \frac{\Sigma^{(t)}}{N} \Sigma^{-1}  + \bar{Y}^{T} \Sigma^{-1} \bar{Y} \Big) \\
+& \propto - \frac{N}{2} \log  \vert \Sigma^{(t)} \vert  - \frac{1}{2} tr \Big[ \sum_{i=1}^N (Y_i- \bar{Y})^T \Sigma^{-1} (Y_i - \bar{Y}) + \Sigma^{(t)} \Sigma^{-1}  \Big]\\
+& \propto - \frac{N}{2} \log  \vert \Sigma^{(t)} \vert - \frac{1}{2} tr \Big[ \{ \sum_{i=1}^N (Y_i - \bar{Y})(Y_i- \bar{Y})^T + \Sigma^{(t)} \} \Sigma^{-1}  \Big]\\
+& \propto - \frac{N}{2} \log  \vert \Sigma^{(t)} \vert - \frac{1}{2} tr \Big[ \{ (N-1)S + \Sigma^{(t)} \} \Sigma^{-1}  \Big]
+\end{align*}
+
+The $\Sigma^{(t+1)}$ could be derived by MLE of $Q(\Sigma | \Sigma^{(t)}) $
+\begin{align*}
+\partial_{\Sigma}Q(\Sigma | \Sigma^{(t)}) &= - \frac{N}{2}   \Sigma^{(t)}  - \frac{1}{2}  \{ (N-1)S + \Sigma^{(t)} \} = 0 \\
+\Sigma &= \frac{N-1}{N} S + \frac{1}{N} \Sigma^{(t)} \\
+\Sigma^{(t+1)} &= \frac{N-1}{N} S + \frac{1}{N} \Sigma^{(t)}
+\end{align*}
+
+The limiting of  $\Sigma^{(t+1)}$ 
+\begin{align*}
+\Sigma^{(t+1)} &= \frac{N-1}{N} S + \frac{1}{N} \Sigma^{(t)} \\
+\Sigma^{(t+k)} &= \Big( \frac{N-1}{N} + \frac{N-1}{N} \frac{1}{N} + .. +  \frac{N-1}{N}  \frac{1}{N}^{k-1}  \Big) S + \frac{1}{N}^k \Sigma^{(t)} \\
+\Sigma^{(t+k)} \xrightarrow{k \rightarrow \infty} S \frac{\frac{N-1}{N}}{1 - \frac{1}{N}} = S
+\end{align*}
+
+So $\hat{\Sigma_{MLE}} = S$
 \end{itemize}
+
+ 
 

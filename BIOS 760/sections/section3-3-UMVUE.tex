@@ -1,0 +1,181 @@
+\section{UMVUE}
+
+\subsection{Sufficient Statistics}
+We learn sufficient statistics from a specific example, then extend to generalized case. So the first sufficient statistics that easily to look at is the sufficient statistics for mean. For every distribution which we can write in exponential family, the sufficient statistics for mean is the statistics with the parameter. 
+
+Similarly, we can extend this finding to other statistics(ie. variance) by factorization.
+
+The denotation of a distribution, $f(x | \theta)$ write in this form as the sample data X is known, while the $\theta$ is unknown. So the distribution is only available when the $\theta$ is known. 
+
+\subsection{Factorization Theorem}
+
+Let  $f(x | \theta)$ denote the joint pdf or pmf of a sample X. A statistic $T(X)$ is a sufficient statistic for $\theta$ if and only if there exist functions  
+
+\begin{align*}
+	f(x | \theta) &=g(T(x)| \theta) h(x)
+\end{align*}
+
+such that, for all sample points X and all parameter points  $\theta$,
+
+
+To understand this theorem, we can see that in the exponential family distribution
+
+\begin{align*}
+	f(x | \theta) &= \phi exp( \theta - b(\theta) - c(y))
+\end{align*}
+
+So we can write the distribution in factorization form, one part involves $\theta$ and the other part does not.
+
+
+The proof needs to use the definition of the sufficient statistics that the distribution based on sufficient statistics does not depend on $\theta$. So we will construct a conditional distribution, which the nominator is the joint distribution of the sample X, and denominator is the distribution of the sufficient statistics.
+
+When we prove the theorem using the specific distribution (ie. normal distribution), we can easily write out the joint distribution and distribution of $T(x)$. But now we are using the general form of distribution.
+
+So the proof needs to find the distribution of $T(x)$. We need to see if there is any relationship between $g(T(x)| \theta)$ and $P_{\theta}(T(x) = t)$. Need to pay attention that, the distribution of $T(X)$ is actually the sum of the distributions with any $y = T(X)$. We use the concept in the nuisance parameter, which need to find the distribution of statistics.
+
+
+First, suppose $T(x)$ is sufficient statistics. 
+
+As it is the general case, so we just choose 
+$g(t| \theta) = P_{\theta}(T(x) = t)$.
+
+Then $h(x) = P(X=x | T(X))$, Because $T(X)$ is sufficient, the conditional probability defining  
+$h(x)$ dose not depend on $\theta$. Thus, the choice of $h(x)$ and $g(t|\theta)$ is legitimate.
+
+For this choice,
+
+\begin{align*}
+	f(x | \theta) &= P_{\theta}(X = x) \\
+	&=  P_{\theta}(X = x, T(X)= T(x)) \\
+	&= P_{\theta}(X = x | T(X)= T(x)) P_{\theta}(T(X) = T(x)) \\
+	&= g(T(x)| \theta) h(x)
+\end{align*}
+
+Now assume factorization exists. Let $q(t|\theta)$ be the pmf of $T(X)$. To show that $T(X)$ is sufficient we exam the ratio $f(x|\theta) / q(T(X)|\theta)$. Define $A_{T(x)} = y: T(y) = T(x)$. Then
+
+\begin{align*}
+	\frac{f(x | \theta)}{q(T(X)|\theta)} &= \frac{g(T(x)| \theta) h(x)}{q(T(X)|\theta)} \\
+	&=  \frac{g(T(x)| \theta) h(x)}{\sum_{A_{T(x)} } g(T(y)| \theta) h(y)} \\
+	&=  \frac{g(T(x)| \theta) h(x)}{g(T(x)| \theta) \sum_{A_{T(x)} }  h(y)} \\
+	&= \frac{h(x)}{\sum_{A_{T(x)} }  h(y)}
+\end{align*}
+
+Since the ratio does not depend on $\theta$, by Theorem, $T(X)$ is a sufficient statistic for  
+$\theta$. We factor the joint pdf into two parts, one part not depending on $\theta$, which is  
+$h(x)$ function. The other part depends on $\theta$, depends on the sample x only through some function $T(x)$ and this function is a sufficient statistic for $\theta$.
+
+
+\subsubsection{Uniform Sufficient Statistic}
+Let $X_1, X_2,..., X_n$ be i.i.d. observations from the discrete uniform distribution on $1,..\theta$. The pmf of $X_i$ is 
+
+\begin{align*}
+	f(x|\theta) &= \begin{cases}
+		\frac{1}{\theta} & x=1,2, .. \theta \\
+		0 & \text{otherwise}
+	\end{cases}
+\end{align*}
+
+Thus the joint pmf of $X_1, ...X_n$ is 
+
+\begin{align*}
+	f(x|\theta) &= \begin{cases}
+		\frac{1}{\theta^n} & x_i \in \{1,2, .., \theta\} \theta \\
+		0 & \text{otherwise}
+	\end{cases}
+\end{align*}
+
+Let $N= \{1,2.. \}$ be the set of positive integers and let $N_{\theta} = \{1,2,.. \theta\}$. Then the joint pmf of $X_1, ... X_n$ is
+
+\begin{align*}
+	f(x|\theta) &= \prod_{i=1}^n \theta^{-1} I_{N_{\theta}} (x_i) = \theta^{-n} \prod_{i=1}^n I_{N_{\theta}} (x_i) 
+\end{align*}
+
+Defining $T(x) = max_i x_i$ then
+
+\begin{align*}
+	\prod_{i=1}^n I_{N_{\theta}} (x_i) = (\prod_{i=1}^n I_{N} (x_i)) I_{N_{\theta}} (T(x))
+\end{align*}
+
+The equation here is similar as the $I_{x_1 < x_2 <.. x_{max}} (x_m < \theta)$.
+
+Thus, we have the factorization
+\begin{align*}
+	f(x|\theta) &= \theta^{-n} \prod_{i=1}^n I_{N_{\theta}} (T(x))  (\prod_{i=1}^n I_{N} (x_i))
+\end{align*}
+
+The uniform distribution statistics is difficult to understand, it is not explicit using the identity function. 
+
+\subsubsection{Normal Sufficient Statisitc for Both Parameters}
+Assume $X_1,..X_n$ are i.i.d. $N(\mu, \simga^2)$ with both parameters unknown. When using Theorem 5.1, any part of the joint pdf that depends on either must be include in the g function. Define  Then
+
+
+\subsection{Minimum Sufficient Statistics}
+Let $X \sim Gamma(\alpha, 1)$ and $Y \sim Gamma(\beta, 1)$ where the paramaterization is such that $\alpha$ is the shape parameter. Then 
+\begin{align*}
+	\frac{X}{X+Y} \sim Beta(\alpha, \beta)
+\end{align*}
+
+\begin{itemize}
+	\item [(i)] How do we create the transformed variables $U= \frac{X}{X+Y} $, V, such that it is easy to get the distribution of U and V, and easy to integrate out V to get the margin distribution of U? This requires familiarity of Beta and Gamma distribution.
+	
+	One proposal is $V= Y$, and the other is $V= X+Y$. Compare between the two and see which one is better.
+	
+	\textbf{Note:} The way to choose new parameter is easier to get the original parameter by simple arithmetic calculation or just itself.
+	If we are using the first set of new parameter, it would get the distribution very complicated, the Beta distribution has the form of $U, 1-U$, need to keep in mind of the achieving the product of two distribution form. 
+	
+	\item[(ii)] We could see that $V=X+Y$ is better as U and V are independent from each other.
+\begin{align*}
+	f(X) &= \frac{1}{\Gamma{(\alpha)}} x^{\alpha-1} e^{-x}\\
+	f(Y) &= \frac{1}{\Gamma{(\beta)}} y^{\beta-1} e^{-y}
+\end{align*}	
+Let
+\begin{align*}
+	U &= \frac{X}{X+Y}, \qquad V = X + Y
+\end{align*}	
+Then
+\begin{align*}
+	X &= UV, \qquad Y = V - UV
+\end{align*}
+	 	
+The Jacobian transformation matrix
+\begin{align*}
+	J &= \begin{pmatrix}
+		\diffp{X}{U} & \diffp{X}{V} \\
+		\diffp{Y}{U} & \diffp{Y}{V} 
+	\end{pmatrix} =  \begin{pmatrix}
+	V & U \\
+	-V & 1-U
+\end{pmatrix}\\
+|J| &= V
+\end{align*}
+X and Y are independent, so the joint distribution of (X, Y) 
+\begin{align*}
+	f(X, Y) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} x^{\alpha -1} e^{-x} y^{\beta -1} e^{-y}\\
+	f(U, V) &= \frac{1}{\Gamma{(\alpha)} \Gamma{(\beta)}} U^{\alpha -1} (1-U)^{\beta -1} V^{\alpha + \beta -1} e^{-V}
+\end{align*}
+
+We don't always need to integrate out the other parameter, if we can write the distribution in the form that we can recognize, then will directly get the distribution. 
+
+$V \sim Gamma (\alpha + \beta, 1)$ and $U \sim Beta(\alpha, \beta)$.
+
+\end{itemize}
+
+\subsection{Complete Statistics}
+
+The completeness ensures that the distributions corresponding to different values of the parameters are distinct. It is closely related to the idea of identifiability (unique, distinct distribution).
+
+\begin{definition}
+Consider a random variable X whose probability distribution belongs to a parametric model $P_{\theta}$ parametrized by $\theta$. Say T is a statistic, that is, the composition of a measurable function with a random sample $X_1,.. X_n$. The statistic T is said to be complete for the distribution of X if, for every measurable function g; 
+if $E_{\theta} (g(T)) = 0$ for all $\theta$ then $P_{\theta}(g(T) = 0) = 1$ for all $\theta$. 
+\end{definition}
+
+For some parametric families, a complete sufficient statistic does not exist. For example, if you take a sample sized $n > 2$ from a $N(\theta, \theta^2)$ distribution, then $\Big( \sum_{i=1}^n X_i, \sum_{i=1]^n X_i^2 \Big)$ is a minimal sufficient statistic and is a function of any other minimal sufficient statistic, but $2 \Big( \sum_{i=1]^n X_i^2 \Big) - (n+1) \sum_{i=1]^n X_i^2$ has an expectation of 0 for all $\theta$, so there can not be a complete statistic. 
+
+\subsubsection{Importance of completeness}
+
+Lehmann-Scheffe theorem
+
+Completeness occurs in the Lehmann-Scheffe theorem, which states that if a statistic that is unbiased, complete and sufficient for some parameter $\theta$, then it is the best mean-unbiased estimator for $\theta$. In other words, this statistic has a smaller expected loss for any convex loss function, in many practical applications with the squared loss-function, it has a smaller mean squared error among an estimators with the same expected value. 
+
+Basu's theorem
+
