@@ -1,0 +1,126 @@
+
+\section{Problem 1}
+Consider the usual linear model given by $Y = X \beta + \epsilon, \epsilon \sim N_n(0, \sigma^2 I)$, and X is $n \times p$ of full rank. Consider the full power prior for $\beta, \tau$ given by equation (2.3) on page 207 of the notes.
+
+\begin{itemize}
+\item[(i)] Derive marginal posterior distribution of $\beta$ and $\tau$.
+\begin{align*}
+	P(Y | \beta, \tau) & \propto \tau^{\frac{n}{2}} \exp \Big[-\frac{\tau}{2} (Y- X \beta)^T (Y- X \beta) \Big] \\
+	\pi(\beta, \tau) & \propto \tau^{\frac{n_0 a_0 + \delta_0}{2} -1} \exp \Big[ -\frac{a_0 \tau}{2} \Big( (Y_0 - X_0 \beta)^T (Y_0 - X_0 \beta) + \frac{\gamma_0}{a_0} \Big) \Big] \\
+	P(\beta, \gamma | Y) & \propto \tau^{\frac{n}{2}} \tau^{\frac{n_0 a_0 + \delta_0}{2} -1} \\
+	& \exp \Big \{  -\frac{\tau}{2} \Big[ (Y- X \beta)^T (Y- X \beta) + a_0 \Big( (Y_0 - X_0 \beta)^T (Y_0 - X_0 \beta) + \frac{\gamma_0}{a_0} \Big)  \Big ] \Big  \} \\
+	&= \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{  -\frac{\tau}{2} \Big[ Y^T(I-M)Y + (\beta - \hat{\beta})^T(X^T X) (\beta - \hat{\beta}) \\
+	& + a_0 \Big( Y_0^T(I-M_0)Y_0 + (\beta - \hat{\beta})^T(X_0^T X_0) (\beta - \hat{\beta})  + \frac{\gamma_0}{a_0} \Big)  \Big ] \Big  \} \\
+ \end{align*}
+
+Let $Y^T(I-M)Y = (n-p) S^2, Y_0^T(I-M_0)Y_0 = (n-p) S_0^2$, 
+
+\begin{align*}
+	P(\beta, \tau |Y) & \propto \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2} \Big[ (n-p) S^2 + (\beta - \hat{\beta})^T(X^T X) (\beta - \hat{\beta}) \\
+	& + \Big( a_0  (n-p) S_0^2 + a_0  (\beta - \hat{\beta})^T(X_0^T X_0) (\beta - \hat{\beta})  + \gamma_0 \Big)  \Big ] \Big \} \\
+	& \propto \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2}  (n-p) S^2  - \frac{\tau}{2} a_0  (n-p) S_0^2 - \frac{\tau}{2}  \gamma_0 \Big \}  \\
+	& \exp \Big \{  -\frac{\tau}{2} \Big[ (\beta - \hat{\beta})^T(X^T X) (\beta - \hat{\beta}) +  a_0  (\beta - \hat{\beta})^T(X_0^T X_0) (\beta - \hat{\beta}) \Big ] \Big \} \\
+	& \propto \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2} \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 \Big ]  \Big \}  \\
+	& \exp \Big \{  -\frac{\tau}{2} \Big[ (\beta - \tilde{\beta})^T \Big (X^T X +  a_0 X_0^T X_0 \Big ) (\beta - \tilde{\beta}) \\
+	& - \tilde{\beta}' (X'X + a_0 X_0'X_0)  \tilde{\beta} + \hat{\beta}' X'X \hat{\beta} + \hat{\beta}_0^T (a_0 X_0^TX_0) \hat{\beta}_0 \Big ] \Big \} \\
+	\Lambda &= \frac{a_0 X_0^T X_0}{X^T X +  a_0 X_0^T X_0} \\
+	I - \Lambda &=  \frac{X^T X}{X^T X +  a_0 X_0^T X_0} \\
+	\hat{\beta} & = (X'X)^{-1}X^TY \\
+	\hat{\beta}_0 & = (X_0'X_0)^{-1}X_0^TY_0 
+ \end{align*}
+ 
+ By calculation,
+ \begin{align*}
+ - \tilde{\beta}' (X'X + a_0 X_0'X_0)  \tilde{\beta} + \hat{\beta}' X'X \hat{\beta} + \hat{\beta}_0^T (a_0 X_0^TX_0) \hat{\beta}_0 &= (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0)
+ \end{align*}
+ 
+ We can write the marginal posterior distribution $P(\tau | Y) $
+ \begin{align*}
+	P( \beta, \tau | Y) &= P(\beta | \tau, Y) P(\tau | Y) \\
+	P(\tau | Y) &= \int P( \beta, \tau | Y) d\beta \\
+	P(\tau | Y) & \propto \tau^{\frac{n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2} \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 + (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0) \Big ] \Big \}  \\
+	a &= \frac{ n_0 a_0 + \delta_0}{2} \\
+	b &= \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 + (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0) \Big ] \\
+	P(\tau | Y) & \sim \Gamma (a, b)
+ \end{align*}
+ 
+ the marginal posterior distribution $P(\beta | Y) $
+  \begin{align*}
+	P(\beta | Y) & = \int P( \beta, \tau | Y) d\tau \\
+	& \propto \int \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2} \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 + (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0) \Big ] \Big \} \\
+	& \exp \Big \{  -\frac{\tau}{2} \Big[ (\beta - \tilde{\beta})^T \Big (X^T X +  a_0 X_0^T X_0 \Big ) (\beta - \tilde{\beta})  \Big ] \Big \} d\tau \\
+	\tilde{S}^2 & =  (n + n_0 a_0 + \delta_0)^{-1} \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 + (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0) \Big ]\\
+	P(\beta | Y) & \sim S_p \Big( n + n_0 a_0 + \delta_0, \tilde{\beta}, \tilde{S}^2 (X^T X +  a_0 X_0^T X_0 \Big )^{-1}	\Big)
+ \end{align*}
+ 
+ 
+ \item[(ii)] Let $z_{q \times 1}$ vector of future observations take at $X_f$ , where $X_f$ is $q \times p$. Derive the predictive distribution of z based on the full power prior for $\beta, \tau$ given by equation (2.3) on page 207 of the notes.
+ 
+Derive the predictive distribution of z
+  \begin{align*}
+	P(z | Y) & = \int P( \beta, \tau | Y) P(z | \beta, \tau) d\beta d\tau \\
+	&= \int \tau^{\frac{n + n_0 a_0 + \delta_0}{2} -1} \exp \Big \{ -\frac{\tau}{2} \Big[ (n-p) S^2  + a_0  (n-p) S_0^2 + \gamma_0 + (\hat{\beta} - \hat{\beta}_0)^T(\Lambda^T X'X) (\hat{\beta} - \hat{\beta}_0) \Big ]  \Big \}  \\
+	& \exp \Big \{  -\frac{\tau}{2} \Big[ (\beta - \tilde{\beta})^T \Big (X^T X +  a_0 X_0^T X_0 \Big ) (\beta - \tilde{\beta}) \tau^{\frac{q}{2}} \exp \Big( -\frac{\tau}{2} (z - X_f \beta)^T (z - X_f \beta) \Big) d\beta d\tau\\
+	\Sigma^{-1} &= X^T X +  a_0 X_0^T X_0 \\
+	\tilde{\beta}_f & = \Big (X_f'X_f + \Sigma^{-1} \Big )^{-1} \Big[ (X_f' X_f) \hat{\beta}_z + \Sigma^{-1} \tilde{\beta} \Big] \\
+	\Lambda_f &= \Big (X_f'X_f + \Sigma^{-1} \Big )^{-1} X_f' X_f \\
+	P(z | Y) & \sim S_q \Big( n + n_0 a_0 + \delta_0- p, X_f \tilde{\beta} , \tilde{S}^2 (I + X_f \Sigma X_f')	\Big)
+ \end{align*}
+
+ \end{itemize}
+
+\section{Problem 2}
+Derive the distribution of $(z| X_{(i)}, Y_{(i)})$ given on page 286 of the notes. Use this result to obtain $p(z| X_{(i)}, Y_{(i)})$.
+
+We have 
+  \begin{align*}
+  Y_{(i)}& = X_{(i)} \beta + \epsilon \\
+  \pi(\beta, \tau) &= \tau^{-1}
+ \end{align*}
+
+The posterior distribution of $\beta, \tau$
+
+  \begin{align*}
+  P(\beta, \tau | Y_{(i)}) &  \propto \tau^{\frac{n-1}{2}}  \tau^{-1} \exp \Big \{  -\frac{\tau}{2} \Big[ (Y_{(i)}- X_{(i)} \beta)^T (Y_{(i)}- X_{(i)} \beta)   \Big ] \Big  \} \\
+  &  \propto \tau^{\frac{n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} \Big[ Y_{(i)}^T(I- M_{(i)}) Y_{(i)} + (\beta - \hat{\beta})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}) \Big ] \Big \} \\
+  & \propto \tau^{\frac{n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} \Big[ (n-p-1)S^2 + (\beta - \hat{\beta}_{(i)})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}_{(i)}) \Big ] \Big \} 
+ \end{align*}
+ 
+ The predictive distribution of $z | X_{(i)}, Y_{(i)}$,
+ 
+  \begin{align*}
+  P(z | X_{(i)}, Y_{(i)}) &= \int \int  P(\beta, \tau | Y_{(i)}) P(z| \beta, \tau) d\beta d\tau \\
+  & \propto \int \int \tau^{\frac{n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} (n-p-1)S^2 \Big \} \exp \Big \{  -\frac{\tau}{2} (\beta - \hat{\beta}_{(i)})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}_{(i)}) \Big \} \\
+  & \tau^{\frac{n}{2}} \exp \Big \{ -\frac{\tau}{2} (z - X \beta)^T(z - X \beta) \Big \} d\beta d\tau  
+ \end{align*}
+  
+ In which, we have
+ 
+ \begin{align*}
+& (z - X \beta)^T(z - X \beta) = z^T (I-M) z + (\beta - \hat{\beta})^T X'X (\beta - \hat{\beta}) \\
+ P(z | X_{(i)}, Y_{(i)}) & \propto \int \int \tau^{\frac{n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} (n-p-1)S_{(i)}^2  \Big \} \exp \Big \{  -\frac{\tau}{2} (\beta - \hat{\beta}_{(i)})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}_{(i)}) \Big \} \\
+ &  \tau^{\frac{n}{2}} \exp \Big \{ -\frac{\tau}{2}  \Big(\beta - \hat{\beta})^T X'X (\beta - \hat{\beta} + z^T (I-M) z \Big )  \Big \} d\beta d\tau  \\
+ & \propto \int \int  \tau^{\frac{2n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} (n-p-1)S_{(i)}^2 \Big \} \exp \Big \{  -\frac{\tau}{2} \Big [ z^T (I-M) z \\
+ & +(\beta - \hat{\beta}_{(i)})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}_{(i)}) + (\beta - \hat{\beta})^T X'X (\beta - \hat{\beta}) \Big ]\Big \}d\beta d\tau 
+ \end{align*}
+ 
+ In which, 
+  \begin{align*}
+& (\beta - \hat{\beta}_{(i)})^T X_{(i)}'  X_{(i)} (\beta - \hat{\beta}_{(i)}) + (\beta - \hat{\beta})^T X'X (\beta - \hat{\beta}) \\
+&= (\beta - \tilde{\beta})^T (X_{(i)}'  X_{(i)} + X'X) (\beta - \tilde{\beta}) - \tilde{\beta}' (X_{(i)}'  X_{(i)} + X'X) \tilde{\beta} + \hat{\beta}_{(i)}' X_{(i)}' X_{(i)} \hat{\beta}_{(i)} + \hat{\beta}' X' X \hat{\beta} \\
+&= (\beta - \tilde{\beta})^T \Big (X_{(i)}'X_{(i)} + X'X \Big ) (\beta - \tilde{\beta}) - \tilde{\beta}' \Big (X_{(i)}'X_{(i)} + X'X \Big ) \tilde{\beta} + \hat{\beta}_{(i)}' X_{(i)}' X_{(i)} \hat{\beta}_{(i)} + \hat{\beta}' X'X \hat{\beta} \\
+&= (\beta - \tilde{\beta})^T \Big (X_{(i)}'X_{(i)} + X'X \Big ) (\beta - \tilde{\beta}) + (\hat{\beta}_{(i)} - \hat{\beta})^T(\Lambda' X' X) (\hat{\beta}_{(i)} - \hat{\beta})\\
+\Lambda &= \frac{X'X}{X_{(i)}'X_{(i)} + X'X }
+ \end{align*}
+ 
+ So we have
+  \begin{align*}
+  P(z | X_{(i)}, Y_{(i)}) & \propto \int_{0}^{\infty} \int_{-\infty}^{\infty}  \int \int  \tau^{\frac{2n-1}{2} -1} \exp \Big \{  -\frac{\tau}{2} \Big[ (n-p-1)S_{(i)}^2 + (\beta - \tilde{\beta})^T \Big (X_{(i)}'X_{(i)} + X'X \Big ) (\beta - \tilde{\beta}) \Big ] \Big \} \\
+  &\exp \Big \{  -\frac{\tau}{2} \Big [ z^T (I-M) z + (\hat{\beta}_{(i)} - \hat{\beta})^T(\Lambda' X' X) (\hat{\beta}_{(i)} - \hat{\beta}) \Big ]\Big \} d\beta d\tau \\
+   P(z | X_{(i)}, Y_{(i)}) & \sim S_{n} \Big( n-p-1, X \hat{\beta}_{(i)}, S^2_{(i)} (I + X(X_{(i)}'X_{(i)})^{-1} X') \Big) \\
+   S^2_{(i)} &= \frac{Y_{(i)}' (I- M_{(i)}) Y_{(i)}}{n-p-1}
+ \end{align*}
+ 
+\section{Problem 3}
+
+

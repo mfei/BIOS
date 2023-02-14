@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  5 FEB 2023 11:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.1.15)  12 FEB 2023 19:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -420,12 +420,7 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box57
 )
-(./main.aux
-(/usr/local/texlive/2022/texmf-dist/tex/generic/babel/locale/it/babel-italian.t
-ex
-Package babel Info: Importing basic data for italian
-(babel)             from babel-it.ini. Reported on input line 11.
-))
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
@@ -534,149 +529,77 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-(./sections/HW2.tex
+(./sections/HW3.tex
 LaTeX Font Info:    Trying to load font information for T1+cmss on input line 2
 .
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 3.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 48.
-
-[1
+) [1
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (59.34975pt too wide) detected at line 61
+Overfull \hbox (58.8852pt too wide) detected at line 46
 []
  []
 
-[2] [3]
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 141.
-
-
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 144.
-
-
-Overfull \hbox (17.54482pt too wide) detected at line 157
+Overfull \hbox (70.99629pt too wide) detected at line 55
 []
  []
 
-[4]
-Overfull \hbox (0.6822pt too wide) in paragraph at lines 165--167
-[]\T1/cmr/m/n/10.95 We trans-form the gamma dis-tri-bu-tion to chi-square dis-t
-ri-bu-tion, let $\OML/cmm/m/it/10.95 ^^R \OT1/cmr/m/n/10.95 = []\OML/cmm/m/it/1
-0.95 ; w \OT1/cmr/m/n/10.95 =
- []
-
-
-Overfull \hbox (4.81285pt too wide) detected at line 201
+[2]
+Overfull \hbox (69.79865pt too wide) detected at line 69
 []
  []
 
-[5]
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 231.
-
-
-Overfull \hbox (1.24344pt too wide) in paragraph at lines 231--232
-\T1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 U\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/1
-0.95 a; b\OT1/cmr/m/n/10.95 )$ \T1/cmr/m/n/10.95 de-note the uni-form dis-tri-b
-u-tion on the in-ter-val $\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 a; b\OT1/cmr/
-m/n/10.95 )$\T1/cmr/m/n/10.95 . Given $\OML/cmm/m/it/10.95 ^^R$\T1/cmr/m/n/10.9
-5 , sup-pose $\OML/cmm/m/it/10.95 X[]; :::X[]$
- []
-
-[6] [7]
-Overfull \hbox (31.38925pt too wide) detected at line 322
+Overfull \hbox (21.7389pt too wide) detected at line 96
 []
  []
 
-[8]
-Overfull \hbox (22.00238pt too wide) detected at line 343
+
+Overfull \hbox (26.36287pt too wide) detected at line 106
 []
  []
 
-(/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2020/03/24 1.8d listings language file
-)
-(/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2020/03/24 1.8d listings language file
-)
-(/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2020/03/24 1.8d listings language file
-)
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-47.
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [9] [10] [11]
-Overfull \hbox (45.33745pt too wide) detected at line 494
+[3]
+Overfull \hbox (9.06656pt too wide) detected at line 115
 []
  []
 
-[12]
-Overfull \hbox (40.35916pt too wide) detected at line 505
+
+Overfull \hbox (72.53603pt too wide) detected at line 123
 []
  []
 
-) [13] (./main.aux) ) 
+) [4] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 10784 strings out of 478268
- 172877 string characters out of 5846347
- 807284 words of memory out of 5000000
- 28826 multiletter control sequences out of 15000+600000
- 482116 words of font info for 56 fonts, out of 8000000 for 9000
+ 9621 strings out of 478268
+ 158820 string characters out of 5846347
+ 502855 words of memory out of 5000000
+ 27686 multiletter control sequences out of 15000+600000
+ 479194 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,15n,79p,373b,2006s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-sup
-er/cm-super-t1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfon
-ts/cmextra/cmex8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6
-.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
-fb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb
-></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb><
-/usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></u
-sr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr
-/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/l
-ocal/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb>
-Output written on main.pdf (13 pages, 277671 bytes).
+ 69i,12n,79p,311b,280s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-supe
+r/cm-super-t1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r6.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
+></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></u
+sr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr
+/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/l
+ocal/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb>
+Output written on main.pdf (4 pages, 163890 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

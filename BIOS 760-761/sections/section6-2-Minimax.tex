@@ -1,0 +1,191 @@
+\section{Minimax Rule}
+
+The Baye's rule is to minimize the average risk, while the Minimax rule is to minimize the worse case risk. 
+
+In minimax estimation, we collapse our risk function by looking at the worse-case risk. Given $X \sim P_{\theta}$, where $\theta \in \Omega$ , and a loss function $L(\theta, d)$, we want to find an estimator $\delta$ that
+minimizes the maximum risk: $\underset{\theta \in \Omega}{Sup} R(\delta, \theta)$.
+
+
+\subsection{Use Baye's estimator to find Minimax rule}
+
+The least favorable prior 
+
+\begin{Definition}
+If exists a prior $\Lambda'$, such that the Baye's risk $r_{\Lambda'} \geq r_{\Lambda}$ for any other prior distribution, then $\Lambda'$ is the least favorable prior.
+\end{Definition}
+
+\begin{Theorem}
+Suppose $\delta_{\Lambda}$ is Bayes for $\Lambda$ with 
+
+\begin{align*}
+r_{\Lambda \in \Omega} &= \underset{\theta}{Sup} R(\delta_{\Lambda}, \theta)
+\end{align*}
+
+That is, the Baye's risk $r_{\Lambda}$ is the maximum risk of $\delta_{\Lambda}$. Then
+
+1. $\delta_{\Lambda}$ is minimax rule;
+
+2. $\Lambda$ is least favorable prior;
+
+3. If $\delta_{\Lambda}$ is the unique Bayes estimator for $\Lambda, a. s. P_{\theta}$, then it is the unique minimax estimator. 
+\end{Theorem}
+
+
+The proof needs to understand the relationship of the Bayes risk and minimax risk.
+
+\begin{align*}
+ Sup R(\theta, \delta) & \geq \int R(\theta, \delta) d \Lambda(\theta) \geq \int R(\theta, \delta_{\Lambda}) d \Lambda(\theta) = \underset{\theta}{Sup} R(\delta_{\Lambda}, \theta)
+\end{align*}
+
+So we have the definition of Minimax rule
+\begin{align*}
+Sup R(\theta, \delta) & \geq  \underset{\theta}{Sup} R(\delta_{\Lambda}, \theta)
+\end{align*}
+
+where the first step holds because the worst-case risk of $\delta$ is greater than (or equal to) the average risk of $\delta$. 
+
+the second step holds because $\delta_{\Lambda}$ is Bayes (and hence has an average risk no higher than that of $\delta$), 
+
+and the third step holds because of our assumption that the Bayes risk of $\delta_{\Lambda}$ is equal to the worst-case risk. This implies that $\delta_{\Lambda}$ is minimax.
+
+If $\delta_{\Lambda}$ is the unique Bayes estimator, then the second inequality above is strict for $\delta \neq \delta_{\Lambda}$, which implies that $\delta_{\Lambda}$ is the unique minimax.
+
+Let $\Lambda'$ be any other prior distribution. Then we have 
+
+\begin{align*}
+r_{\Lambda'} &= \inf \int L(\theta, \delta) d \Lambda' \leq \int L(\theta, \delta_{\Lambda}) d \Lambda' \leq \underset{\theta}{Sup} R(\theta, \delta_{\Lambda}) = r_{\Lambda}
+\end{align*}
+
+The first step first and second steps are by the definition of Bayes risk, and the third step holds because the worst-case risk of $\delta_{\Lambda}$ is no less than its average risk over the distribution $\Lambda'$. Since the worst-case risk of $\delta_{\Lambda}$ is its Bayes risk over $\Lambda$ (by our assumption), we can infer that that $\Lambda$  is a least favorable prior distribution.
+
+\begin{Corollary}
+If a Bayes estimator $\delta_{\Lambda}$ has constant risk, $R(\theta, \delta_{\Lambda}) = R(\theta', \delta_{\Lambda}) $ for all $\theta, \theta'$, then $\delta_{\Lambda}$ is minimax. Note that this is a sufficient but not necessary condition.
+\end{Corollary}
+
+It is often relatively easy to check whether an estimator has constant risk, and this is typically our first line of attack for determining whether an estimator is minimax.
+
+\subsection{RISK FUNCTION}
+
+
+\begin{Example}
+Let $X \sim b(n,p), 0 \leq p \leq 1$. We seek a minimax estimator of p of the form $\alpha X + \beta$, using the squared-error loss function.
+
+Or the question could be, is the sample proportion $\frac{X}{n}$ minimax? 
+
+We can get the risk function of sample proportion $\frac{X}{n}$, 
+
+\begin{align*}
+R(\theta, \delta) &= \frac{\theta (1- \theta)}{n}
+\end{align*}
+
+But the risk function is not constant, and reaches the maximum at $\frac{1}{2}$, while not $\frac{X}{n}$. So we could see that $\frac{X}{n}$ is not minimax.
+
+To find the minimax, we need to assume a prior function Beta function, $B(a,b)$. The Baye's estimate under squared error loss is $\frac{X + a}{n+ a +b}$.
+
+The risk function is only related to the distribution of $X| \theta$, while not the posterior distribution. Or we can consider that $\pi(p) = 1$. 
+ \begin{align*}
+R(\delta, p) &= E_{p} \Big[ (\alpha X + \beta - p)^2 \Big] = E_{p} \Big[ \alpha (X - np) + \beta + (\alpha n-1) p \Big]^2 \\
+&= E_{p} \Big[ \alpha^2 (X - np)^2 + [\beta + (\alpha n-1) p]^2 + 2 \alpha (X- np) [\beta + (\alpha n -1)p] \Big] \\
+&= \alpha^2 E[(X-np)^2 ] + [\beta + (\alpha n -1) p]^2 \\
+&= \Big[ (\alpha n -1)^2 - \alpha^2 n \Big] p^2 + \Big[ \alpha^2 n + 2 \beta(\alpha n -1) \Big] p + \beta^2
+\end{align*}
+
+To find $\alpha, \beta$ such that $R(p, \delta)$ is constant for all $p \in H$, we see the coefficients of $p^2, p$ equal to 0 to get
+
+ \begin{align*}
+(\alpha n -1)^2 - \alpha^2 n & = 0 \\
+\alpha^2 n + 2 \beta(\alpha n -1) &= 0
+\end{align*}
+
+\end{Example}
+
+\subsection{Admissibility of Minimax Estimators}
+
+So far we know the admissibility of Minimax estimators when the risk function is constant. Note that minimaxity does not guarantee admissibility; it only ensures the worst case
+risk is optimal. We need to check for admissibility. 
+
+\begin{Example}
+Let $X_1,.. X_n$ be i.i.d $N \sim (\mu, \sigma^2)$ where $\sigma^2$ is known, and $\theta$ is the estimand. Then the minimax estimator is $\bar{X} $ under squared error loss, and we would like to determine
+whether $\bar{X} $ is admissible.
+
+We would like to ask a more general question, when is $a\bar{X} + b$ admissible?
+
+We need to consider the prior distribution of $\theta$, generally it is Gaussian distribution. However, $\bar{X}$ is not Bayes for any prior, because under squared-error loss unbiased estimators are Bayes estimators only in the degenerate situations of zero risk, and $\bar{X}$ is unbiased.
+
+We might try to consider the wider class of estimators $\delta_{a, \mu_0} = a \bar{X} + (1-a) \mu_0 = a\bar{X} + b$, because many of the Bayes estimators we've encountered are convex combinations of a prior and a data mean. Note however that the worst case risk for these estimators is infinite:
+
+\begin{align*}
+\underset{\theta}{Sup} E_{\theta} [(\theta - \delta(x))]^2 & =  \underset{\theta}{Sup} E_{\theta} [(\theta -\bar{X}  + \bar{X} - \delta(x))]^2 \\
+& =  \underset{\theta}{Sup} E_{\theta} \Big [(\theta -\bar{X} )^2 + (\bar{X} - \delta(x))^2 \Big ]\\
+& =  \underset{\theta}{Sup} E_{\theta} \Big [\frac{Var(X)}{n} + (\bar{X} - \delta(x))^2 \Big ]\\
+\end{align*}
+
+
+\begin{align*}
+\underset{\theta}{Sup} E_{\theta} [(\theta -  \delta_{a, \mu_0})]^2 & =  \underset{\theta}{Sup} E_{\theta} [a\theta - a \bar{X} + (1-a) \theta - (1-a) \mu_0]^2 \\
+& =  \underset{\theta}{Sup} E_{\theta} \Big [a^2 (\theta -\bar{X} )^2 + (1-a)^2 (\theta - \mu_0)^2 \Big ]\\
+& =  \underset{\theta}{Sup} E_{\theta} \Big [a^2 \frac{Var(X)}{n} + (1-a)^2 (\theta - \mu_0)^2 \Big ]\\
+&= a^2 \frac{Var(X)}{n} + (1-a)^2 \underset{\theta}{Sup} (\theta - \mu_0)^2 \\
+&= + \infty
+\end{align*}
+
+\begin{itemize}
+\item[(a)] 0< a < 1.
+
+For prior distribution such as $\theta \sim N(0, m^2)$. we could prove the risk converge to a constant, $r_{\Lambda_m} \rightarrow \frac{\sigma^2}{n} =: r$. Using the conjugate prior is a good starting point,
+so we let  $\Lambda_m$  be the conjugate priors with variance tending to $\infty$, so that $\Lambda_m$ tends to the (improper with $\pi(\theta) = 1$) uniform prior on R. 
+
+The posterior for $\theta$ associated with each $\Lambda_m$,
+
+We could see that $\delta = \frac{\frac{n \bar{X}}{\sigma^2}}{\frac{n \bar{X}}{\sigma^2} + \frac{1}{m^2}}$, which is $0 < a < 1$.
+
+In particular, the posterior variance does not depend on $X_1,…X_n $, so Lemma 1 below automatically yields the Bayes risk
+
+\begin{align*}
+r_{\Lambda_m} &= \frac{\frac{1}{\frac{n \bar{X}}{\sigma^2} + \frac{1}{m^2}} \xrightarrow{m \rightarrow \infty} \frac{\sigma^2}{n} = \underset{\theta}{Sup} R(\theta, \bar{X}). 
+\end{align*}
+
+It follows from Theorem 1 that $\bar{X}$ is minimax and $\Lambda_m$  is least favorable.
+
+
+Since we are using squared error loss, which is strictly convex, this Bayes estimator is unique. So, by Theorem 5.2.4 (which basically tells us that a unique Bayes estimator will always be admissible), $a \bar{X} + b$ is admissible.
+
+\item[(b)] a = 0.
+
+ In this case b is also a unique Bayes estimator with respect to a degenerate prior distribution with unit mass at $\theta = b$. So by Theorem 5.2.4, b is admissible
+
+\item[(c)] a = 1 and b=0.
+
+$\delta = \bar{X}$ is a minimax when prior is 1.
+
+\item[(d)] $ a = 1, b \neq 0$.
+
+In this case $\bar{X} + b$ is not admissible because it is dominated by $\bar{X}$. To see this, note that  $\bar{X}$ has the same variance as  $\bar{X} + b$, but strictly smaller bias.
+
+In general, the risk of $a \bar{X} + b$
+\begin{align*}
+E[(a \bar{X} + b - \theta)^2] &= E [a (\bar{X}- \theta) + b + \theta(a -1)]^2 \\
+&= \frac{a^2 \sigma^2}{n} + (b + \theta(a -1))^2
+\end{align*}
+
+\item[(e)] a > 1.
+
+If we apply the above result,
+\begin{align*}
+E[(a \bar{X} + b - \theta)^2] &= \frac{a^2 \sigma^2}{n} + (b + \theta(a -1))^2 > \frac{\sigma^2}{n} = R(\bar{X}, \theta)
+\end{align*}
+
+The first inequality follows because the second summand in the expression for the general risk is always nonnegative. $\bar{X}$ dominates $a \bar{X} + b$  when a > 1, and so in this case  $a \bar{X} + b$  is
+inadmissible.
+
+\begin{align*}
+E[(a \bar{X} + b - \theta)^2] & > (b + \theta(a -1))^2 \\
+&> (a-1)^2 (\theta + \frac{b}{a-1})^2
+\end{align*}
+
+We can see that $(\theta + \frac{b}{a-1})^2$ is also a risk function, we can set $\delta = -\frac{b}{a-1}$. So, $\delta = -\frac{b}{a-1}$ dominates $a \bar{X} + b$ ,
+and therefore, $a \bar{X} + b$  is again inadmissible.
+
+\end{itemize}
+
+\end{Example}

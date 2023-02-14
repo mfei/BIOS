@@ -1,0 +1,238 @@
+\section{Normal Distribution}
+
+\subsection{MGF for Univariate Normal}
+
+\begin{align*}
+	M(t) &= exp(\mu t + \sigma^2 t^2/2), \qquad \text{MGF for } N(\mu, \sigma^2)\\
+	M_{\sqrt{w_i}X_i}(t) &= E[exp(\sqrt{w_i} t X_i)] = exp(\mu \sqrt{w_i} t + \sigma^2 [\sqrt{w_i} t]^2/2), \qquad \mu=0 \\
+	&= exp(\sigma^2 w_i t^2/2)
+\end{align*}
+Then the linear combination $y_n$
+\begin{align*}
+	M_{Y_n}(t) &= E[exp \left( (\sqrt{w_1} X_1 + \sqrt{w_2} X_2 + .. + \sqrt{w_n} X_n) t \right)] \\
+	&= E[exp(\sqrt{w_1} X_1 t)] E[exp(\sqrt{w_2} X_2 t)] E[exp(\sqrt{w_3} X_3 t)].. E[exp(\sqrt{w_n} X_n t)] \\
+	&= exp(\sigma^2 w_1 t^2/2) exp(\sigma^2 w_2 t^2/2) exp(\sigma^2 w_3 t^2/2).. exp(\sigma^2 w_n t^2/2) \\
+	&= exp(\sigma^2 [w_1+ w_2 + .. w_n] t^2/2) = exp(\sigma^2 t^2/2)
+\end{align*}
+So $Y_n \sim N(0, \sigma^2)$. 
+
+\subsection{Bivariate Normal Distribution}
+
+The Bivariate Normal Distribution is always connected with partitioned covariance matrix. Assume vector (X, Y) is Gaussian. 
+
+\begin{Theorem}
+
+Two random variables X and Y are said to be bivariate normal, or jointly normal, if $aX+bY$ has a normal distribution for all $a,b \in R$.
+\end{Theorem}
+
+If $X \sim N( \mu_X, \sigma^2_X)$ and $Y \sim N( \mu_Y, \sigma^2_Y)$ are jointly normal, then $ X + Y  \sim N( \mu_X + \mu_Y, \sigma^2_X + \sigma^2_Y + 2 \rho(X,Y) \sigma_X \sigma_Y) $. 
+
+
+We consider $X + Y$ is a also normal distribution, then the covariance 
+
+\begin{align*}
+	Cov(X+Y) &= Cov(X) + Cov(Y) + 2Cov(XY) = \sigma^2_X + \sigma^2_Y + 2 \rho(X,Y) \sigma_X \sigma_Y
+\end{align*}
+
+How to provide a simple way to generate jointly normal random variables? The basic idea is that we can start from several independent random variables and by considering their linear combinations, we can obtain bivariate normal random variables. 
+
+Let $Z_1$ and $Z_2$ be two independent N(0,1) random variables. Define
+
+\begin{align*}
+	X &= Z_1, \qquad Y= \rho Z_1 + \sqrt{1-\rho^2} Z_2
+\end{align*}
+
+where $\rho$ is a real number in (-1, 1). Show that X and Y are bivariate normal.
+
+First, note that since $Z_1$ and $Z_2$ are normal and independent, they are jointly normal, with the joint PDF
+
+\begin{align*}
+	f_{Z_1, Z_2} (z_1, z_2) &= f_{Z_1}(z_1) f_{Z_2}(z_2) \\
+	&= \frac{1}{2 \pi} exp \left(-\frac{1}{2} [z_1^2 + z_2^2] \right)
+\end{align*}
+
+We need to show $aX+bY$ is normal for all $a,b \in R$. We have
+
+\begin{align*}
+	aX + bY &= a Z_1 + b(\rho Z_1 + \sqrt{1- \rho^2} Z_2) \\
+	&= (a + b\rho) Z_1 + b \sqrt{1- \rho^2} Z_2
+\end{align*}
+
+which is a linear combination of $Z_1$ and $Z_2$, and thus it is normal.
+
+
+We can use the method of transformation to find the joint PDF of X and Y. The inverse transformation is given by
+
+\begin{align*}
+	Z_1 &= X = h_1(X, Y) \\
+	Z_2 &= -\frac{\rho}{\sqrt{1-\rho^2}} X + \frac{1}{\sqrt{1-\rho^2}} Y = h_2(X, Y)
+\end{align*}
+
+We have
+
+\begin{align*}
+	f_{XY}(z_1, z_2) &= f_{Z_1, Z_2} (h_1(X, Y), h_2(X, Y)) |J|\\
+	&= f_{Z_1, Z_2} (x, -\frac{\rho}{\sqrt{1-\rho^2}} x + \frac{1}{\sqrt{1-\rho^2}} y) |J|
+\end{align*}
+
+where 
+
+\begin{align*}
+	J &= det \begin{bmatrix}
+		\diffp{h_1}{x} & \diffp{h_1}{y} \\
+		\diffp{h_2}{x} & \diffp{h_2}{y}
+	\end{bmatrix} = det \begin{bmatrix}
+	1 & 0 \\
+	-\frac{\rho}{\sqrt{1-\rho^2}} & \frac{1}{\sqrt{1-\rho^2}}
+\end{bmatrix} = \frac{1}{\sqrt{1-\rho^2}}
+\end{align*}
+
+Thus, we conclude that,
+
+\begin{align*}
+	f_{XY}(z_1, z_2) &= \frac{1}{2 \pi \sqrt{1-\rho^2}} exp \left( -\frac{1}{2 (1- \rho^2)} [x^2 -2 \rho xy + y^2] \right)
+\end{align*}
+
+
+To find the $\rho$
+
+\begin{align*}
+	Var(X) &= Var(Z_1) =1 \\
+	Var(Y) &= \rho^2 Var(Z_1) + (1- \rho^2) Var(Z_2) = 1 \\
+	\rho(X,Y) &= Cov(X, Y) = Cov(Z_1, \rho Z_1 + \sqrt{1-\rho^2} Z_2) \\
+	&= \rho Cov(Z_1, Z_2) + \sqrt{1-\rho^2} Cov(Z_1, Z_2) \\
+	&= \rho
+\end{align*}
+
+Now, if you want two jointly normal random variables X and Y such that $X \sim N(\mu_X, \sigma^2_X), Y \sim N(\mu_Y, \sigma^2_Y)$, and $\rho(X,Y)= \rho$, you can start with two independent N(0,1) random variables, $Z_1$ and $Z_2$, and define
+
+\begin{align*}
+	X &= \sigma_X Z_1 + \mu_X \\
+	Y &= \sigma_Y \left(\rho Z_1 + \sqrt{1-\rho^2} Z_2 \right)  + \mu_Y
+\end{align*}
+
+construction using Z1 and Z2 can be used to solve problems regarding bivariate normal distributions. Third, this method gives us a way to generate samples from the bivariate normal distribution using a computer program. 
+
+
+\subsection{Conditional Distribution}
+
+\begin{Theorem}
+Suppose X and Y are jointly normal random variables with parameters $\mu_X, \sigma^2_X, \mu_Y, \sigma^2_Y$, and $ \rho $. Then, given $X=x, Y$ is normally distributed with
+
+\begin{align*}
+	E[Y|X=x] &= \mu_Y + \rho \sigma_Y \frac{x-\mu_X}{\sigma_X} \\
+	Var(Y|X=x) &= (1- \rho^2) \sigma^2_Y
+\end{align*}
+
+\end{Theorem}
+
+One way to solve this problem is by using the joint PDF formula. In particular, since $X \sim N(\mu_X, \sigma^2_X), Y \sim N(\mu_Y, \sigma^2_Y)$, we can use
+
+\begin{align*}
+	f_{Y|X=x} (y|x) &= \frac{f_{XY} (x, y)}{f_X(x)}
+\end{align*}
+or we use
+
+\begin{align*}
+	X &= \sigma_X Z_1 + \mu_X \\
+	Y &= \sigma_Y \left(\rho Z_1 + \sqrt{1-\rho^2} Z_2 \right)  + \mu_Y
+\end{align*}
+
+Thus, given $X=x$, 
+\begin{align*}
+	Z_1 &= \frac{x - \mu_X}{\sigma_X} \\
+	Y &= \sigma_Y \rho \frac{x- \mu_X}{\sigma_X} + \sigma_Y \sqrt{1- \rho^2} Z_2 + \mu_Y 
+\end{align*}
+
+Since $Z_1$ and $Z_2$ are independent, knowing $Z_1$ does not provide any information on $Z_2$. We have shown that given $X=x, Y$ is a linear function of $Z_2$, thus it is normal. In particular
+
+\begin{align*}
+	E[Y|X=x] &= \sigma_Y \rho \frac{x- \mu_X}{\sigma_X} + \sigma_Y \sqrt{1- \rho^2} E[Z_2] + \mu_Y  \\
+	 &= \mu_Y + \rho \sigma_Y \frac{x-\mu_X}{\sigma_X} \\
+	Var[Y|X=x] &= \sigma_Y^2 (1- \rho^2) Var(Z_2) = (1- \rho^2) \sigma_Y^2
+\end{align*}
+
+\clearpage
+
+\subsection{Exercise}
+
+Use o.p.o to prove orthogonal/independence
+
+$(X_1, Y_1), .., (X_n, Y_n)$ random sample from bivariate normal distribution with mean (0,0), covariance matrix identity matrix
+\begin{align*}
+U &= \frac{\Big( \sum_{i=1}^n X_i Y_i \Big) ^2}{\sum_{i=1}^n X_i^2} \\
+V &= \Big( \sum_{i=1}^n Y_i^2 \Big) - U
+\end{align*}
+
+\begin{itemize}
+\item[(a)] show conditional on $(X_1,..X_n)$, U and V are independent. 
+
+NEED TO KNOW THE LINK BETWEEN SCALAR FORM AND MATRIX FORM. besides the above distribution transformation, MGF, we also can use linear algebra and matrix form to prove orthogonal. 
+
+We know that, 
+$Y | X \sim N(0,1)$, conditional distribution in bionormal distribution is also normal
+
+PROVE:
+We can rewrite the U and V as following
+\begin{align*}
+U &= \frac{ (X'Y)' (X'Y)}{X'X} \\
+V &= Y'Y - (X'Y)' ({X'X} )^{-1}(X'Y) = Y'(I-M)Y
+\end{align*}
+
+Since 
+\begin{align*}
+(X, Y) & \sim N \Big( \begin{pmatrix}
+0 \\
+0
+\end{pmatrix} , I_{2 \times 2}\Big) 
+\end{align*}
+
+U and V are orthogonal since $M(I-M) = 0$, so $U \perp V$
+
+\item[(b)] Define $r = \frac{\sum_{i=1}^n X_i Y_i}{\sqrt {\sum_{i=1}^n X_i^2 \sum_{i=1}^n Y_i^2}}$. Define the exact distribution of $Z=\sqrt{n-1} \frac{r}{\sqrt{1- r^2}}$.
+
+1. We can recognize that r is correlation, I can relate to the binormal distribution. What is the distribution of correlation? 
+2. The exact distribution exists only for F test under normal distribution circumstance. Z is a function of r, but we can't use the traditional method to go from distribution of r and further get Z.
+3. The alternative method is to simplify the expression of Z in terms of X and Y, if r distribution is too complicated to get. 
+
+\begin{align*}
+r^2 &= \frac{ (X'Y)' (X'Y)}{(X'X)(Y'Y)} = \frac{Y' X X' Y }{(X'X)(Y'Y)}\\
+&= \frac{Y' X(X'X)^{-1}X' Y}{Y'Y} \\
+1- r^2 &=  \frac{Y'Y - Y' X(X'X)^{-1} X' Y}{Y'Y}, \qquad M= X(X'X)^{-1}X'\\
+&= \frac{Y' (I-M) Y'}{Y'Y}
+\end{align*}
+
+Furthermore,
+\begin{align*}
+Z &=\sqrt{n-1} \frac{r}{\sqrt{1- r^2}} = \sqrt{n-1} \frac{ (X'Y) \sqrt{Y'Y} }{ \sqrt{ (X'X)(Y'Y) Y'(I-M)Y} }  \\
+& = \frac{X' Y \Big / \sqrt{X'X}}{ Y'(I-M)Y \Big / (n-1) }\\
+\end{align*}
+
+We could see that r is just the ratio of two quadratic form, it is not a distribution that we know. So the standard method of getting r distribution is not plausible. 
+NEED TO GET FAMILIAR WITH LINEAR ALGEBRA MATRIX AND SCALAR FORM.
+
+Given X, $X'Y \sim N(0, X'X)$ by delta method, as $Var(Y) = 1, Var(X'Y) = X' Var(Y) X$, then
+\begin{align*}
+\frac{X'Y}{\sqrt{X'X}} & \sim N(0,1) \\
+Y'(I-M)Y & \sim \chi^2(n-1)\\
+X'Y & \perp (I-M)Y, \qquad X'Y \perp Y'(I-M) Y \\
+\end{align*}
+
+Then the ratio of standard normal and chi-square distribution
+
+\begin{align*}
+Z & \sim t(n-1)
+\end{align*}
+
+\item[(c)] Derive asymptotic distribution of Z
+
+We will use slutsky theorem to get the asymptotic distribution. When we talked about the asymptotic distribution, the slutsky theorem could be used in the situation when we known one part of the distribution, and the other part is converge in probability to a number. 
+
+\begin{align*}
+\frac{Y'(I-M)Y}{n-1} & \xrightarrow{p} Var(Y) = 1 \\
+\frac{X' Y \Big / \sqrt{X'X}}{ Y'(I-M)Y \Big / (n-1) } \xrightarrow{d} X' Y \Big / \sqrt{X'X} = N(0,1)
+\end{align*}
+
+t distribution is asymptotic to normal distribution.
+
+\end{itemize}

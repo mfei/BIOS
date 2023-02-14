@@ -1,0 +1,144 @@
+\documentclass[a4paper,11pt]{book}
+\usepackage{import}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\theoremstyle{plain}
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{Definition}[Theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{Example}{Example}[section]
+\newtheorem{Exercise}{Exercise}[section]
+\numberwithin{equation}{section}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\T}{\mathcal T}
+\newcommand{\s}[2]{\langle #1,#2 \rangle}
+\usepackage[thinc]{esdiff}
+\usepackage[utf8]{inputenc}
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\newcolumntype{C}[1]{>{\Centering}m{#1}}
+\renewcommand\tabularxcolumn[1]{C{#1}}
+\usepackage{graphicx,calc}
+\newlength\myheight
+\newlength\mydepth
+\settototalheight\myheight{Xygp}
+\settodepth\mydepth{Xygp}
+\setlength\fboxsep{0pt}
+\newcommand*\inlinegraphics[1]{%
+  \settototalheight\myheight{Xygp}%
+  \settodepth\mydepth{Xygp}%
+  \raisebox{-\mydepth}{\includegraphics[height=\myheight]{#1}}%
+}
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{makeidx}
+\makeindex
+
+
+
+\begin{document}
+
+\frontmatter
+\import{./}{title.tex}
+
+\clearpage
+%\thispagestyle{empty}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Distributions}
+
+\import{sections/}{section1-2.tex}
+\clearpage
+\import{sections/}{section1-3-BiNormal.tex}
+\clearpage
+\import{sections/}{section1-3-MVN.tex}
+\clearpage
+\import{sections/}{section1-4.tex}
+\clearpage
+\import{sections/}{section1-5.tex}
+
+\chapter{Distribution Transformation}
+\include{sections/section4-1}
+
+\chapter{Parameter Estimates}
+
+\input{sections/section2-1.tex}
+\clearpage
+\input{sections/section2-2.tex}
+
+\chapter{Convergence Theorem}
+
+\include{sections/section3-1}
+\clearpage
+\include{sections/section3-2}
+\clearpage
+\include{sections/section4-ancillary}
+\clearpage
+\include{sections/section4-sufficient-complete}
+\clearpage
+\include{sections/section4-UMVUE}
+
+\chapter{Hypothesis Test}
+
+\include{sections/section5-1-Hypothesis}
+\clearpage
+\include{sections/section5-2-Hypothesis}
+
+\chapter{Decision Rule}
+\include{sections/section6-1-Bayes rule}
+\clearpage
+\include{sections/section6-2-Minimax}
+\clearpage
+\backmatter
+\end{document}
