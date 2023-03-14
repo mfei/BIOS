@@ -1,0 +1,167 @@
+\section{UMVUE}
+
+\subsection{Methods to get UMVUE}
+
+All the theorems need to be learnt from the stand of points of how they will be used. 
+
+\begin{Theorem}
+Lehmann-Scheffe theorem: 
+Suppose that there exists a \textbf{sufficient and complete statistics} $T(X)$ for $p \in P$. If $\theta$ is estimable, then there is a \textbf{unique} estimate of $\theta$ that is of the form $h(T)$ with Borel function h. Furthermore, $h(T)$ is the \textbf{unique} UMVUE of $\theta$. 
+\end{Theorem}
+
+The method of using this theorem is to use the sufficient and complete statistics to construct an unbiased estimator. We will need the distribution of $T(X)$, for example, if the maximum of X is the sufficient and complete statistics, then we will need to get the distribution of $X_{(n)}$, so that we can further get the $E[X_{(n)}]$. Try to find some function h to see if $E[h(T)] = \theta$.
+
+
+Rao-Blackwell theorem:
+
+This method is also an extension from Lehmann- Scheffe theorem. Use the \textbf{conditioning method} to derive a UMVUE on a sufficient and complete statistics $T(X)$. If $U(X)$ is any unbiased estimator of $\theta$, then $E[U(X)| T]$ is the UMVUE of $\theta$. 
+
+This method will not need the distribution of T, often times, the T will be used in the conditional distribution of $U(X)$. And by the uniqueness of UMVUE, it doesn't matter what the $U(X)$ is. 
+We only need to work out $E[U(X)| T(X)]$, so choose $U(X)$ that make the calculation easy. 
+
+The key to get the conditional distribution, is always try to find the relationship between the nominator and denominator, to get the two independent distribution.
+ And by transformation and integral, we will get marginal distribution of the interested distribution.
+
+Note: in this process, we will need to use Basu's theorem to finally get rid of conditional $T(X)$. For example, the ratio of the two gamma distribution is beta distribution, and it is ancillary (don't depend on $\theta$).
+Such ancillary statistics, in normal distribution $\frac{X- \mu}{\sigma}$, in exponential distribution $\frac{X_1}{\bar{X}}$. 
+
+Besides, we often use ancillary statistics in hypothesis testing. normal z distribution, t distribution, $\chi^2$ distribution. 
+
+
+\subsection{MLE vs. UMVUE}
+
+MLE only needs sufficient statistics, while UMVUE needs both sufficient and complete statistics. As we learnt from previous slides that, it is not common to have both sufficient and complete statistics.
+
+\begin{Example}
+\label{Exexp}
+Consider the \textit{exponential distribution }with parameter $\theta$; this is the distribution with density
+\begin{equation}
+\label{3.4}
+f(x) = \frac{e^{-x/\theta}}{\theta} \quad\quad (x\ge 0) ,
+\end{equation}
+and $f(x)=0$ for $x<0$. Let's first find $EX$ for an exponentially distributed random variable $X$:
+\[
+EX = \frac{1}{\theta}\int_0^{\infty} xe^{-x/\theta}\, dx = -xe^{-x/\theta}\Bigr|_0^{\infty}  + \int_0^{\infty} e^{-x/\theta}\, dx = \theta ,
+\]
+by an integration by parts in the first step. (So it \textit{is }natural to use $\theta$ as the parameter, rather than $1/\theta$.)
+
+To find the MLE for $\theta$, we have to maximize
+$\theta^{-n}e^{-S/\theta}$ (writing, as usual, $S=\sum x_j$). This gives
+\[
+-n\theta^{-n-1}e^{-S/\theta} + \frac{S}{\theta^2}\theta^{-n}e^{-S/\theta} = 0
+\]
+or $\widehat{\theta}=S/n$, that is, as a statistic, $\widehat{\theta}=\overline{X}$.This MLE is unbiased.
+
+What would have happened if he had used $\eta=1/\theta$ in \eqref{3.4} instead, to avoid the reciprocals?
+So $f(x)=\eta e^{-\eta x}$ for $x\ge 0$, and I now want to find the MLE $\widehat{\eta}$ for $\eta$. In other words,
+I want to maximize $\eta^n e^{-\eta S}$, and proceeding as above, we find that this happens at $\widehat{\eta}=n/S$
+or $\widehat{\eta}=1/\overline{X}$.
+
+Now recall that $\eta=1/\theta$, and the MLE for $\theta$ was $\widehat{\theta}=\overline{X}$. This is no coincidence;
+essentially, we solved the same maximization problem twice, with slightly changed notation the second time. In general,
+we have the following (almost tautological) statement:
+
+\begin{Theorem}
+\label{T3.1}
+Consider parameters $\eta,\theta$ that parametrize the same distribution.
+Suppose that they are related by $\eta = g(\theta)$, for a bijective $g$. Then, if $\widehat{\theta}$ is a MLE
+for $\theta$, then $\widehat{\eta}=g(\widehat{\theta})$ is a MLE for $\eta$.
+\end{Theorem}
+
+\end{Example}
+
+NEED TO PAY ATTENTION:
+The MLE estimator is no longer unbiased after the transformation.
+Since $\overline{X}=S/n$, the Exercise in particular says that $\overline{X}$ has density
+\begin{equation}
+\label{3.3}
+f(x) = \frac{n}{(n-1)!\theta^n} (nx)^{n-1} e^{-nx/\theta} \quad\quad (x\ge 0) .
+\end{equation}
+This is already quite interesting, but let's keep going. We were originally interested in $Y=1/\overline{X}$, the MLE for $\eta=1/\theta$.
+We apply the usual technique to transform the densities:
+\[
+P(Y\le y) = P(\overline{X}\ge 1/y) = \int_{1/y}^{\infty} f(x)\, dx ,
+\]
+and since $g=f_Y$ can be obtained as the $y$ derivative of this, we see that
+\begin{equation}
+\label{3.41}
+g(y) = \frac{1}{y^2} f(1/y) = \frac{n}{(n-1)!\theta^n} y^{-2}(n/y)^{n-1} e^{-n/(\theta y)} \quad\quad (y>0) .
+\end{equation}
+This gives
+\begin{align*}
+EY & = \int y g(y)\, dy = \frac{n}{(n-1)!\theta^n} \int_0^{\infty} y^{-1} \left( \frac{n}{y} \right)^{n-1} e^{-n/(\theta y)}\, dy \\
+& = \frac{n}{(n-1)!\theta} \int_0^{\infty} t^{n-2} e^{-t}\, dt .
+\end{align*}
+We have used the substitution $t=n/(\theta y)$ to pass to the second line. The integral can be evaluated by repeated
+integration by parts, or, somewhat more elegantly, you recognize it as $\Gamma(n-1)=(n-2)!$. So, putting things together,
+it follows that
+\[
+E(1/\overline{X}) = \frac{n}{(n-1)\theta} = \frac{n}{n-1}\, \eta .
+\]
+In particular, $Y=1/\overline{X}$ is not an unbiased estimator for $\eta$; we are off by the factor $n/(n-1)>1$ (which, however,
+is very close to $1$ for large $n$).
+
+NOTE: MLE estimator is not always unbiased. 
+
+\newpage
+
+\subsection{Exercise}
+
+\begin{Example}
+Let $X_1, ..X_n$ be i.i.d from the exponential distribution, $f(x) = \frac{1}{\theta} \exp \Big(-\frac{x}{\theta} \Big) I(0, \infty)$. And $F_{\theta}(x) = \Big( 1 - e^{-\frac{x}{\theta}}\Big) I(0, \infty)$. 
+Consider the estimation of $\xi = 1 - F(X) = e^{-\frac{x}{\theta}}$. Find UMVUE of $\xi$.
+
+We know that $\bar{X}$ is sufficient and complete statistics for $\theta > 0$. By using Rao-Blackwell method, the UMVUE of $\xi$ is $E[U(X)| \bar{X}]$. 
+
+We can get any one of the $1 - F(X_i)$ as $U(X)$ as long as it is unbiased, and furthermore, $\frac{X_1}{\bar{X}}$ and $\bar{X}$ are independent. PAY ATTENTION TO THE EXPECTATION AND PROBABILITY HERE!
+
+By Basu's theorem,
+\begin{align*}
+E[ I_{(t, \infty)} (X_1)] & = P(X_1 > t) = \xi \\
+T(X) &= E[ I_{(t, \infty)} (X_1) | \bar{X}] = P(X_1 > t | \bar{X}) 
+P[\frac{X_1}{\bar{X}} >  \frac{t}{\bar{X}} | \bar{X}] & = P[\frac{X_1}{\bar{X}} >  \frac{t}{\bar{X}} ]
+\end{align*}
+
+we will need to find the distribution of $p(\frac{X_1}{\bar{X}})$. Note that $\sum_{i=1}^n X_i = X_1 + \sum_{i=2}^n X_i$, and $X_1, \sum_{i=2}^n X_i$ are independent. 
+From the two independent variables, we will have the joint distribution and further do transformation.
+
+\begin{align*}
+Z &= \sum_{i=2}^n X_i \\
+f(Z) &= \frac{1}{\Gamma(n-1) \theta^{n-1}} Z^{n-2} \exp \Big(- \frac{Z}{\theta} \Big) \\
+f(X_1, Z) &=\frac{1}{\theta} \exp \Big(-\frac{X_1}{\theta} \Big) \frac{1}{\Gamma(n-1) \theta^{n-1}} Z^{n-2} \exp \Big(- \frac{Z}{\theta} \Big) 
+\end{align*}
+
+Distribution transformation
+
+\begin{align*}
+U &= \frac{X_1}{Z + X_1} \
+V = X_1 \\
+X_1 &= U\
+Z = U (\frac{1-V}{V})
+\end{align*}
+
+Jacobian matrix 
+
+\begin{align*}
+J &= \partial_{U, V} (X_1, Z)\\
+&=  \begin{pmatrix} 
+\partial_{U} X_1 & \partial_{V} X_1 \\
+\partial_{U} Z & \partial_{V} Z 
+\end{pmatrix}\\
+&=  \begin{pmatrix} 
+1 & 0 \\
+\frac{1-V}{V} & -\frac{1}{V^2}
+\end{pmatrix}\\
+\vert J \vert &= \frac{U}{V^2}
+\end{align*}
+
+So the transformed distribution $f(U, V)$
+
+\begin{align*}
+f(V) &= \int f(U, V) dv = (n-1) (1-v)^{n-2} I(0,1)(v) \\
+P(X_1 > t | \bar{X}) &= (n-1) \int_{\frac{t}{\bar{X}}}^1 (1-x)^{n-2} dx = \Big( 1 - \frac{t}{n\bar{X}} \Big)^{n-1}
+\end{align*}
+
+The UMVUE of $\xi$ is $T(X) =  \Big( 1 - \frac{t}{n\bar{X}} \Big)^{n-1}$. 
+
+\end{Example}

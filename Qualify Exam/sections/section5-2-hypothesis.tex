@@ -1,0 +1,16 @@
+
+\section{Likelihood Ratio Test}
+
+Derive the likelihood ratio test for the hypothesis in part (e) and derive its asymptotic distribution under $H_0$.
+From part (e), we have the parameter estimates under $H_0$. While under alternative hypothesis, we have $\mu_{ij} = n_{ij}$. 
+\begin{align*}
+	LRT_n &= 2(LR(\pi_{H_1}) - LR(\pi_{H_0})) =2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{ij} - \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \pi_{i+} \pi_{+j} \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{\pi_{ij}}{\pi_{i+} \pi_{+j} }   \right)\\
+	&= 2\left( \sum_{i=1}^I \sum_{j=1}^J n_{ij} log \frac{n_{ij} n}{n_{i+} n_{+j} }   \right) \sim \chi^2_{(I-1)(J-1)} 
+\end{align*}
+Note that the full model has $(IJ-1)$ parameters, and the null hypothesis has $(I-1)+ (J-1)$ parameters.
+\begin{align*}
+	df &= I \times J-1 - (I-1) - (J-1)\\
+	&= (I-1)(J-1)
+\end{align*}
+

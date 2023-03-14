@@ -1,0 +1,166 @@
+\section{Bayes Rule}
+
+Why does it called Baye's rule? As it involves multiple probability distribution, the parameters have different distribution, the decision rule $\delta$ has distribution probability. The decision rule is based on the observed data X, so it actually get the probability for the parameters based on observed data (posterior probability).
+
+Risk function: average (expected) loss function
+
+
+\subsection{Admissibility of Unique Bayes Estimators}
+
+How do we prove theorem? Generally we use the definition, and then construct the contrast of the definition.
+
+\begin{Definition}
+Bayes rule: If exists a decision rule $\delta^{\ast}$ that the average risk reaches the minimum.
+
+\begin{align*}
+r(\delta^{\ast}) &=\min  \int L(\theta, \delta) f(x| \theta) d\theta
+\end{align*}
+
+\end{Definition}
+
+\begin{Definition}
+InAdmissibility: If exists a decision rule $\delta^{\ast}$ that 
+
+\begin{align*}
+R(\delta^{\ast}, \theta) & \leq R(\delta, \theta), \qquad \text{for all} \theta \in \Omega \\
+R(\delta^{\ast}, \theta) & < R(\delta, \theta), \qquad \text{for some} \theta \in \Omega
+\end{align*}
+
+\end{Definition}
+
+And the unique Bayes rule admissibility, we will need to use the definition of inadmissibility as a contradiction, 
+
+\begin{Theorem}
+A unique Bayes estimator is admissible
+
+\end{Theorem}
+
+Proof: Suppose $\delta_{\Lambda}$ is a Baye's rule for $\Lambda$, and for some $\delta', R(\delta', \theta) \leq R(\delta_{\Lambda}, \theta)$ for all $\theta \in \Omega$. Then if we take expectation with respect to $\theta$, the inequality is preserved, then we get,
+
+\begin{align*}
+\int_{\theta \in \Omega} R(\delta^{\ast}, \theta) d \Lambda(\theta) & \leq \int_{\theta \in \Omega} R(\delta_{\Lambda}, \theta) d \Lambda(\theta)
+\end{align*}
+
+This implies that  $\delta^{\ast}$ is also Baye's rule since $\delta^{\ast}$ has less risk than or equal to $\delta_{\Lambda}$, which minimizes the average risk, and it is a contradiction with the unique Baye's estimator. 
+
+
+\subsection{Why Consider Baye's Rule}
+
+All admissible estimators are limits of Baye's estimators. Under very weak conditions on a decision problem, every admissible estimator is either a Bayes estimator or a limit of Bayes estimators. That is, there exists a sequence of prior distributions ($\Lambda_m$) such that $\delta_{\Lambda_m} \rightarrow \delta(x) a. e. P_{\theta}$ as $m \rightarrow \infty$. 
+
+Another good reason to use Bayes estimators is that they allow us to incorporate relevant prior information and experience into our estimators. 
+
+Baye's estimator is unique, and Baye's estimators often are admissible (when unique, convex function). While other method such as UMVUE method, always produce inadmissible estimators. 
+
+Also we can evaluate the quality of Baye's estimators using alternative quality criteria, for instance, a search for minimax estimators often begins with Bayes estimators. 
+
+
+\begin{align*}
+R_{T}(\theta) &= E[L(\theta, d(x))] = \int L(\theta, d(x)) f(x| \theta) d\theta
+\end{align*}
+
+Risk is the marginal distribution of loss function, averaging over the parameter $\theta$. We get rid of the unknown parameter, and finally use Bayesian method to get the posterior distribution, risk based on the data.
+
+We need to find the Baye's rule by minimizing the risk
+
+\begin{Definition}
+Let A be an action space in a decision problem and $L(\theta, a) \geq 0$ be a loss function. For any $x \in X$, a Bayes' action w.r.t $\pi$ is any $\delta(x) \in A$ such that
+ \begin{align*}
+E [L(\theta, \delta(x)) | X= x]&= \underset{a \in A}{\min} E[L(\theta, a) | X = x] 
+\end{align*}
+
+If we consider the estimate of $g(\theta)$, and $\int_{H} [g(\theta)]^2 d\pi < \infty$, the loss function is squared error loss $L(\theta, a) = [g(\theta) -a]^2$, the Bayes' rule
+ \begin{align*}
+\delta(x) &= \frac{\int_{H} g(\theta) f_{\theta}(x) d\pi}{m(x)} = \frac{\int_{H} g(\theta) f_{\theta}(x) d\pi}{\int_{H} f_{\theta}(x) d\pi}
+\end{align*}
+which is the posterior expectation of $g(\theta)$, given $X = x$.
+\end{Definition}
+
+\begin{Example}
+Let $X \sim b(n, p)$, and $L(p, \delta(x)) = [p- \delta(x)]^2$. Let $\pi(p) = 1$ for $0< p<1$ be a prior pdf of p. Find the Baye's rule $\delta(x)$.
+
+We need to understand the key issue is that, the $\delta(x)$ is the one which minimize the risk function $E[(\theta - a)^2]$, so the risk function is composite by likelihood function and prior function,
+
+ \begin{align*}
+R_{T}(p)&= \int_{p \in (0,1)} (p - a)^2 l(p, X) f(p) dp \\
+\delta(x) &=  E [f(p | X)] \\
+f(p |X) & \propto p^{\sum X_i} (1- p)^{n- \sum X_i} I \{ 0 \leq p \leq 1\}\\
+& \sim B(\sum X_i + 1, n- \sum X_i + 1)
+\end{align*}
+
+The Baye's rule is $\delta(X) = \frac{\sum X_i + 1}{n+2}$
+
+\end{Example}
+
+A very common question is about the Baye's rule for $\sigma^2$ in normal distribution. Under this condition, we generally have $\beta$ unknown but fixed. Then the posterior distribution of $\sigma^2$ is a Gamma distribution. 
+
+NOTE: THERE IS GENERALLY MISTAKE $E[1/X] \neq 1/E[X]$!
+
+\begin{Example}
+Consider a linear model $X_{ij} = \beta^T Z_i + \epsilon_{ij}, i= 1,..k, j= 1,.. n_i, \epsilon_{ij} \sim N(0, \sigma^2_i)$, the parameter vector is $\theta = (\beta, w)$, where $w= (w_1,.. w_k), w_i = \frac{1}{2 \sigma_i^2}$. 
+Assume that the prior for $\theta$ has the pdf $c \pi(\beta) \prod_{i=1}^k w_i^{\alpha} e^{-\frac{w_i}{\gamma}}$, hyperparameters are known. Get Baye's rule for $\sigma_i^2$ under squared error loss.
+
+Here we need to get the likelihood $l(\beta, w)$
+
+ \begin{align*}
+l(\beta, w, X) &= \prod_{i=1}^k (2\pi)^{-1/2} w_i^{n_i/2} \exp \Big(- \sum_{j=1}^{n_i}(X_{ij}- \beta^T Z_{i})^2 w_i \Big) ,\qquad n_i \times N(\mu_i, \sigma_i^2) 
+\end{align*}
+
+The posterior distribution
+
+ \begin{align*}
+f(\theta | X) & \propto \prod_{i=1}^k w_i^{n_i /2} \exp \Big(- [\sum_{j=1}^{n_i} (X_{ij}- \beta^T Z_i)^2 + \frac{1}{\gamma} ]w_i \Big) \pi(\beta) \prod_{i=1}^k w_i^{\alpha} \\
+& \propto \pi(\beta) \prod_{i=1}^k w_i^{n_i /2 + \alpha} \exp \Big(- [\sum_{j=1}^{n_i }(X_{ij}- \beta^T Z_i)^2 + \frac{1}{\gamma} ]w_i \Big) 
+\end{align*}
+
+We need to get the posterior mean $E[\sigma_i^2] = E[\frac{1}{2 w_i}]$, then the posterior distribution of $w_i$ 
+ \begin{align*}
+f(w_i | X) & \propto \pi(\beta)  w_i^{n_i /2 + \alpha} \exp \Big(- [\sum_{j=1}^{n_i} (X_{ij}- \beta^T Z_i)^2 + \frac{1}{\gamma} ]w_i \Big) \\
+E[\frac{1}{2 w_i}] & \propto \int \frac{1}{2 w_i} w_i^{n_i /2 + \alpha} \exp \Big(- [\sum_{j=1}^{n_i} (X_{ij}- \beta^T Z_i)^2 + \frac{1}{\gamma} ]w_i \Big) \\
+& \int w_i^{\alpha + \frac{n_i}{2} -1} e^{-[\frac{1}{\gamma} + \sum_{j=1}^{n_i }(X_{ij}- \beta^T Z_i)^2 ] w_i } \\
+&= \frac{\gamma^{-1} + v(\beta)}{2 \alpha + n_i}
+\end{align*}
+
+\end{Example}
+
+The above exercises are based on squared error loss, however, we can use the other loss function, such as weighted loss function.
+
+\begin{Example}
+Suppose $X_1, .. X_n$ are i.i.d. sample for $N(0, \sigma^2)$, where $\sigma^2$ is unknown. Consider the prior distribution of $\tau = \frac{1}{2\sigma^2}$ to be a Gamma distribution, which has a density function
+
+ \begin{align*}
+f(\tau) & = \frac{1}{\Gamma(a) b^a} \tau^{a-1} e^{-\tau/b}, \qquad E(\tau) = ab, Var(\tau) = ab^2
+\end{align*}
+
+under the loss function $L(\sigma^2, d) = \frac{(d- \sigma^2)^2}{\sigma^4}$. Find the Bayes' rule of $\sigma^2$.
+
+We will derive the Baye's rule by taking derivative of the risk function regarding to $\delta$
+
+ \begin{align*}
+r & = inf \int \frac{(d - \sigma^2)^2}{\sigma^4} f(\sigma^2 | X) d\sigma^2 \\
+\partial_{\delta} r &= \int \frac{1}{\sigma^4} 2 (d- \sigma^2) f(\sigma^2 | X) d \sigma^2 = 0 \\
+d \int \frac{1}{\sigma^4}  f(\sigma^2 | X) d \sigma^2 & =  \int \frac{1}{\sigma^2}  f(\sigma^2 | X) d \sigma^2 \\
+d &= \frac{\int \frac{1}{\sigma^2}  f(\sigma^2 | X) d \sigma^2 }{\int \frac{1}{\sigma^4}  f(\sigma^2 | X) d \sigma^2 } \\
+d &= \frac{E [ \frac{1}{\sigma^2} | X]}{E [ \frac{1}{\sigma^4} | X]}
+\end{align*}
+
+Note that, we need to get the posterior mean of $\frac{1}{\sigma^2} $ and $\frac{1}{\sigma^4}$. 
+
+The posterior distribution of $\sigma^2$ 
+
+ \begin{align*}
+f(\sigma^2 | X) & \propto \tau^{a-1} e^{-\tau/b} {\sigma^2}^{-\frac{n}{2}} \exp \Big( - \frac{\sum X_i^2}{2 \sigma^2} \Big) \\
+& \propto  \tau^{a-1} e^{-\tau/b} {\tau}^{\frac{n}{2}} \exp \Big( - \tau {\sum X_i^2} \Big) \\
+& \propto  \tau^{a + \frac{n}{2} -1} \exp \Big( - \tau {\sum X_i^2 + \frac{1}{b}} \Big)
+\end{align*}
+
+Therefore, $\tau| X \sim \Gamma(a + \frac{n}{2}, (\frac{1}{b} + \sum x_i^2)^{-1})$
+ \begin{align*}
+E(\frac{1}{ \sigma^2} | X) & =  E(2 \tau | X)  = \frac{2(a + \frac{n}{2})}{\frac{1}{b} + \sum x_i^2 } \\
+E(\frac{1}{ \sigma^4} | X) & = 4 E(\tau^2 | X) = 4 \Big( E(\tau | X)^2 + var(\tau | X) \Big) \\
+&= \frac{(a + \frac{n}{2})(a + \frac{n}{2} + 1)}{(\frac{1}{b} + \sum x_i^2)^2}
+\end{align*}
+
+Then the $\delta(x) = E(\frac{1}{ \sigma^2} | X) / E(\frac{1}{ \sigma^4} | X)$
+
+\end{Example}

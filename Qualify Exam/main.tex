@@ -1,46 +1,32 @@
-% !TEX TS-program = pdflatex
-% !TEX encoding = UTF-8 Unicode
-
-% This is a simple template for a LaTeX document using the "article" class.
-% See "book", "report", "letter" for other types of document.
-
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[a4paper,11pt]{book}
 \usepackage{import}
-\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lipsum} 
+\usepackage[]{mdframed}
 
-\usepackage[T1]{fontenc}
-\usepackage[UKenglish]{babel}% http://ctan.org/pkg/babel
-\usepackage[UKenglish]{isodate}% http://ctan.org/pkg/isodate
-\usepackage[top=1.5in,bottom=1in,right=1in,left=1.3in,headheight=65pt,headsep=1cm]{geometry}
-\usepackage{xcolor}
-\usepackage{listings}
-
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-
-\lstset{style=mystyle}
-
+\theoremstyle{plain}
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{Definition}[Theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{Example}{Example}[section]
+\newtheorem{Exercise}{Exercise}[section]
+\numberwithin{equation}{section}
+\newcommand{\C}{\mathbb C}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\T}{\mathcal T}
+\newcommand{\s}[2]{\langle #1,#2 \rangle}
+\usepackage[thinc]{esdiff}
+\usepackage[utf8]{inputenc}
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
 % See the LaTeX Companion or other references for full information.
@@ -62,9 +48,20 @@
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 \usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
-\usepackage{amsmath}
-\usepackage{mathtools}
-\usepackage[thinc]{esdiff}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\newcolumntype{C}[1]{>{\Centering}m{#1}}
+\renewcommand\tabularxcolumn[1]{C{#1}}
+\usepackage{graphicx,calc}
+\newlength\myheight
+\newlength\mydepth
+\settototalheight\myheight{Xygp}
+\settodepth\mydepth{Xygp}
+\setlength\fboxsep{0pt}
+\newcommand*\inlinegraphics[1]{%
+  \settototalheight\myheight{Xygp}%
+  \settodepth\mydepth{Xygp}%
+  \raisebox{-\mydepth}{\includegraphics[height=\myheight]{#1}}%
+}
 % These packages are all incorporated in the memoir class to one degree or another...
 
 %%% HEADERS & FOOTERS
@@ -80,24 +77,39 @@
 % (This matches ConTeXt defaults)
 
 %%% ToC (table of contents) APPEARANCE
-\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage{blindtext}
+\usepackage{titlesec}
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\usepackage{makeidx}
+\makeindex
 
-%%% END Article customizations
 
-%%% The "real" document content comes below...
-
-\title{BIOS 767 Homework 4}
-\author{Mingwei Fei}
-\date{} % Activate to display a given date or no date (if empty),
-         % otherwise the current date is printed 
 
 \begin{document}
-\maketitle
 
-%\import{sections/}{HW1.tex}
-\import{sections/}{HW4.tex}
+\frontmatter
+\import{./}{title.tex}
 
+\clearpage
+%\thispagestyle{empty}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{2015 Section I}
+\import{sections/}{Quals 2015 - Sec 1.tex}
+\chapter{2015 Section II}
+\import{sections/}{Quals 2015 - Sec 2.tex}
+\clearpage
+
+\chapter{2016}
+\import{sections/}{Quals 2016 - Sec 1.tex}
+%\include{sections/section4-1}
+\clearpage
+
+
+\backmatter
 \end{document}

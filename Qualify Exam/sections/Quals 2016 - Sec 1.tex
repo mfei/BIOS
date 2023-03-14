@@ -1,0 +1,659 @@
+	
+\section{Problem 1}
+
+\subsection{Distribution}
+\begin{mdframed}
+The first problem always is distribution, especially conditional distribution under different parameters. Then we need to get the expectation, variance, UMVUE, etc. 
+\end{mdframed}
+
+
+	Let $X_1, X_2,... X_n$ be an i.i.d. sample from the density
+	\begin{align*}
+		f(X) = \begin{cases}
+		0 & \text{with probability p} \\
+		U[0, \theta] & \text{with probability 1-p}
+		\end{cases}
+	\end{align*}	
+	First, assume p is known constant in (0,1), and that $\theta > 0$ is the only parameter of interest.
+
+\subsection{a. Compute Expectation, Variance, UMVUE}
+Based on only one observation $X_1$, find all the unbiased estimator for $\theta$ and calculate the variances. Does the UMVUE exists for $\theta$? 
+
+\begin{mdframed}
+BE AWARE: 
+
+1. only one observation $X_1$, but it does not mean the unbiased estimator is $X_1$. It could be the function of $X_1$, so we denote $T(X_1)$ as the assumed unbiased estimator.
+
+2. The conditional distribution of f(X), $f(X = 0 |Z=1) = p, f(X = U(0, \theta)|Z=0) = 1-p $. When there is situation that two distributions involve, we need to consider conditional distribution. 
+
+3. $E[T(X_1)] = E[ E[T(X_1)| Z]] = E[T(0) | Z=1] p(Z=1) + E[T(X_1) | Z=0] p(Z=0)  $
+
+4. $Var[T(X_1)] = E \big[ Var[T(X_1)| Z] \big] + Var \big[E \big(T(X_1)|Z \big) \big]  $
+
+\end{mdframed}
+
+The expectation:
+	\begin{align*}
+		E[T(X_1)] &= E[ E[T(X_1)| Z]] = E[T(0) | Z=1] p(Z=1) + E[T(X_1) | Z=0] p(Z=0) \\
+		&= T(0) p + \int_{0}^{\theta} T(X_1) \frac{1}{\theta} dx, \qquad \text{Use definition of expectation, not the expecation of uniform distribution} \\
+		E[T(X_1)]  &=\theta \\
+		&= \theta T(0) p + \int_{0}^{\theta} T(X_1) dx (1-p)= \theta^2 \\
+		&= T(0) + T(X_1) (1-p)= 2 \theta \\
+		T(X_1) &= \frac{1}{1- p} (2x - T(0)p ), \qquad x \in [0, \theta]
+	\end{align*}	
+
+The unbiased estimator is 
+	\begin{align*}
+		T(X_1) &= \begin{cases}
+		\frac{1}{1- p} (2x - T(0)p ) & x \in (0, \theta] \\
+		T(0) & x= 0
+		\end{cases}
+	\end{align*}	
+
+The variance is
+	\begin{align*}
+	Var[T(X_1)] &= E \big[ Var[T(X_1)| Z] \big] + Var \big[E \big(T(X_1)|Z \big) \big] \\
+	Var[T(X_1)| Z] &=  \begin{cases}
+	0 & Z = 1 \\
+	Var \big(\frac{1}{1- p} (2x - T(0)p )  \big) & Z  = 0
+	\end{cases}\\
+	E \big[ Var[T(X_1)| Z] \big]&=0 \times p + (1-p) Var \big(\frac{1}{1- p} (2x - T(0)p )  \big)  \\
+	&= \frac{4}{(1-p)^2} Var(x) (1-p) \\
+	& = \frac{1}{3(1-p)} \theta^2
+	\end{align*}	
+The variance calculation is not straight forward, need to be very careful.
+	\begin{align*}
+	Var \big[E \big(T(X_1)|Z \big) \big] &= Var \big[p \times T(0) + (1-p) E [T(X_1) | Z= 0] \big] \\
+	E [T(X_1) | Z= 0] &= \frac{2}{1-p} E[X_1 | Z_1 = 0] - \frac{p}{1-p} T(0) , \qquad T(X_1) = \frac{1}{1- p} (2x - T(0)p ) , \text{Definition}\\
+	&= \frac{2}{1-p} \frac{\theta}{2} -  \frac{p}{1-p} T(0) 
+	\end{align*}	
+
+Here need to know that, $E [T(X_1) | Z] $ is a random variable, we could use Z as an indicator due to variance, otherwise if we use the probability, there would be no variance.
+	\begin{align*}
+	E [T(X_1) | Z] &= T(0) Z_1 +  \frac{1}{1-p} (\theta - p T(0)) (1- Z_1)\\
+	&=  \frac{1}{1-p} ( T(0) - \theta ) Z_1 +  \frac{1}{1-p} (\theta - p T(0)) \\
+	Var \big[E \big(T(X_1)|Z \big) \big] &= Var \Big[ \frac{1}{1-p} ( T(0) - \theta ) Z_1 +  \frac{1}{1-p} (\theta - p T(0)) \Big] \\
+	&= \frac{p}{1-p} (T(0) - \theta)^2, \qquad var(Z_1) = p(1-p)
+	\end{align*}	
+Finally, $Var(Z_1) =\frac{p}{1-p} (T(0) - \theta)^2 + \frac{1}{3(1-p)} \theta^2 $
+
+
+
+\begin{mdframed}
+Note: 
+1. UMVUE: there exists a statistics with the minium variance. However, the variance of $T(X)$ does not depend on the $T(X)$, instead only depend on the $\theta$. So there does not exist such UMVUE estimator.
+\end{mdframed}
+
+\subsection{Estimator}
+Once we had the distribution, look at the expectation of the parameter, then we would like to find a statistics to estimate the parameter. The sufficient statistics and MLE is often the interest. 
+
+\begin{mdframed}
+Note: 
+1. When there are $X_1, ... X_n$ observations, then the MLE estimator and likelihood function is the essential. In this problem, need to notice that the likelihood function is a function of $\theta$, not a function of $X_{(n)}$. So when the likelihood function is a decreasing function, we find the max at the smallest number $X_{(n)}$.
+
+2. The conditional distribution will need to use the indicator $I(Z_i =1)$, need to get familiar with the likelihood function of conditional distribution.
+\end{mdframed}
+
+
+
+
+
+\subsection{Distribution of statistics}	
+\begin{mdframed}
+Note: 
+1. We need to get the distribution under different parameter setting. Here it is a two-stage distribution, how to handle that?
+
+2. The difference here between a single distribution is that, there is a jump at $X=0$. The CDF is not starting from 0, and continue and smooth. It is a two-stage, but the method is the same. 
+
+3. The best way to understand the distribution, is to set a value to the parameter and then draw the density or CDF to help understand.
+
+4. Show consistency: show the probability convergence. 
+
+\end{mdframed}
+
+
+
+\subsection{Asymptotic Distribution of the statistics}
+\begin{mdframed}
+Note: 
+1. Generally we will use Central Limit Theorem for the asymptotic distribution; Other methods include sluktsky method, delta method. But the CLT will require the statistics approach the mean of the parameter. 
+
+2. Use distribution transformation, use the existing distribution to get the new statistics distribution. 
+
+3. Start from CDF, to get the density function.
+\end{mdframed}
+
+
+\section{Problem 2}
+Suppose that the distribution of a discrete random variable X is given below
+
+\begin{center}
+\begin{tabular}{ c c c c c c}
+ X & -2 & -1 & 0 & 1 & 2 \\ 
+ \hline
+p(x) & $\theta_1(1-\theta_2)$ & $(\frac{1}{2} - \alpha) \frac{1-\theta_1}{1-\alpha} $ & $ \alpha \frac{1-\theta_1}{1-\alpha} $ & $(\frac{1}{2} - \alpha) \frac{1-\theta_1}{1-\alpha}$ & $ \theta_1 \theta_2$ \\  
+\end{tabular}
+\end{center}
+
+ where $0< \theta_1 < \alpha < 1/2$, $\alpha$ is known, $0< \theta_2 < 1$, and both $\theta_1, \theta_2$ unknown. Suppose we would like to test hypothesis
+
+\begin{align*}
+	H_0: &  \theta_1 = \alpha, \theta_2 = 1/2 \\
+	H_1: &  \theta_1 < \alpha, \theta_2  \neq 1/2
+\end{align*} 
+
+\subsection{LRT }
+
+Derive the $\alpha$ level likelihood ratio test (LRT) for $H_0$ versus $H_1$ and obtain its power function.
+
+
+\subsubsection{Preparation}
+
+
+\subsubsection{Proof}
+
+\begin{align*}
+	LRT &= \frac{\underset{\theta \in \Theta_0}{\sup} l(\theta_0)}{\underset{\theta \in \Theta}{\sup} l(\theta)} \\
+	&= 
+\end{align*}
+
+
+
+
+\section{Problem }
+Consider the linear model $Y = X \beta + \epsilon$, where $\epsilon \sim N_n(0, \sigma^2 I)$, X is $n \times p$ of rank p, $\beta$ is $p \times 1$, and $(\beta, \sigma^2)$ are unknown. Define $H = X(X^TX)^{-1}X^T$ and let $h_{ii}$ denote the ith diagonal element of H. Further let $\hat{\sigma}^2$ denote the usual unbiased estimator of $\sigma^2$ for the linear regression model and let $\hat{\epsilon}_i$ denote the ordinary residual. Let 
+\begin{align*}
+	A_i & = \frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})} \\
+	B_i & = \frac{(n-p)\hat{\sigma}^2 }{\sigma^2} - \frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}
+\end{align*}
+
+\subsection{a. Show that $B \sim \chi^2_{n-p-1}$}
+
+\subsubsection{Preparation}
+In order to prove $B \sim \chi^2_{n-p-1}$, we need to show that it is a sum of n-p-1 normal distribution square (by definition of chi-square distribution). 
+
+We can write $\sigma^2, \hat{\sigma}^2$ the quadratic form in the sum of squares of normal distribution. But the fraction between two quadratic forms is what distribution? 
+
+Note that the division is not F-distribution, as it didn't divided by degrees of freedom. 
+
+$\hat{\sigma}^2$ is the usual unbiased estimator of $\sigma^2$, we need to know that if unbiased, then the degrees of freedom is n-p.
+
+Another thing need to pay attention that,  $\sigma^2$ is not a distribution, it is fixed and it is the variance of $Y_i$ just unknown. 
+
+Variance of $Y_i$ is also the variance of $\epsilon$, but we need to know the difference and how to use them.
+
+\begin{align*}
+	\frac{(n-p)\hat{\sigma}^2 }{\sigma^2} &= \frac{Y^T (I-H) Y}{\sigma^2} = \frac{[(I-H)Y]^T [(I-H)Y]}{\sigma^2} \\
+	&= \sum_{i=1}^n  \frac{(y_i-\hat{y}_i)^2}{Var(y_i)}
+\end{align*}
+So  is n-p sum of normal distribution square. Then try to link the second term
+
+\begin{align*}
+	\frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}&= \frac{\hat{\epsilon}_i^2}{V(e_i)} 
+\end{align*}
+
+This question requires understanding the matrix H, or the relationship between o.p.o matrix and scalar form. And the characteristic of H matrix itself $H^2 = H, H^T = H$. 
+
+If we write that in scalar form, 
+
+\begin{align*}
+	(h_{i1} , h_{i2} ... h_{in}) \begin{pmatrix*} 
+		h_{i1} \\
+		h_{i2}\\
+		..\\
+		h_{in}
+		\end{pmatrix*}
+		  &= h_{i1}^2 + h_{i2}^2 + .. + h_{in}^2 = h_{ii}
+\end{align*} 
+
+Variance, Covariance of $e$
+
+\begin{align*}
+	V(e) &= E[(e - E(e_i)) (e - E(e_i))^T] = (I-H) E(\epsilon \epsilon^T) (I-H)^T \\
+	&= (I-H) I \sigma^2 (I-H)^T \\
+	&= (I-H)  (I-H)^T  I \sigma^2 = (I-H) \sigma^2
+\end{align*} 
+
+Need to know that $V(e_i)$ is given by the ith diagonal element $1 - h_{ii}$  and $Cov(e_i ,e_j )$ is given by the (i, j)th  element of $ -h_{ij}$ of the matrix $(I-H) \sigma^2$.
+
+We also need to know that both $Y_i$ and $\epsilon_i$ follows the same distribution
+
+\begin{align*}
+	e - E(e) &= (I-H) Y = (Y- X\beta) = (I-H) \epsilon \\
+	E(\epsilon \epsilon^T) &= V(\epsilon) = I\sigma^2 , \qquad E(\epsilon) = 0
+\end{align*} 
+
+We also have correlation
+\begin{align*}
+   \rho_{ij} &= \frac{Cov(e_i, e_j)}{\sqrt{V(e_i)V(e_j)}} = -\frac{h_{ij}}{(1-h_{ii}) (1-h_{jj})} \\
+   SS(b) &= SS(parameter) = b^T X^T Y = \hat{Y}^T Y = Y^T H^T Y =  Y^T H Y =  Y^T H^2 Y = \hat{Y}^T \hat{Y}
+\end{align*} 
+
+The average $V(\hat{Y}_i)$ to all data points is
+\begin{align*}
+	\sum_{i=1}^n \frac{V(\hat{Y}_i)}{n} &= \frac{trace(H \sigma^2)}{n} = \frac{p \sigma^2}{n} \\
+	\hat{Y}_i &= h_{ii}Y_i + \sum_{j \neq i} h_{ij} Y_j
+\end{align*} 
+
+Studentized residual
+
+\begin{align*}
+	 V(e_i) & = (1- h_{ii}) \sigma^2 
+\end{align*} 
+where $\sigma^2$ is estimated by $s^2$
+\begin{align*}
+ s^2 & = \frac{e^T e}{n-p} = \frac{\sum_{i=1}^n e_i^2}{n-p}
+\end{align*} 
+
+Sum of Squares attributable to $e_i$
+
+\begin{align*}
+	e & = (I-H)Y\\
+	e_i &= -h_{i1} Y_1 - h_{i2} Y_2 - ... + (1- h_{ii}) Y_i -.. -h_{in} Y_n = c^T Y\\
+	Var(e_i) &= c^T Var(Y) c = \sigma^2 c^T c \\
+	c^T &= ( -h_{i1}, - h_{i2}, ..  (1- h_{ii}), .. -h_{in}), \qquad (I-H) I-H = I-H\\
+	c^T c &= \sum_{j=1}^n h_{ij}^2 + (1- 2h_{ii}) = (1-h_{ii})\\
+	Var(e_i) &=  \sigma^2 (1-h_{ii}) \\
+	SS(e_i) &= {e_i^2} = \Big((I-H)y\Big)^T (I-H)y = y^T (I-H) y
+\end{align*} 
+
+Need to learn to write in matrix form. 
+
+
+
+\subsubsection{Proof}
+Write $B_i$ in matrix form
+\begin{align*}
+	\frac{(n-p)\hat{\sigma}^2 }{\sigma^2} &= \frac{Y^T (I-H) Y}{\sigma^2} = \frac{[(I-H)Y]^T [(I-H)Y]}{\sigma^2} \\
+	\frac{\hat{\epsilon}_i^2}{\sigma^2(1-h_{ii})}&= \frac{[e_i^T (I-H)Y]^T [ e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2}
+\end{align*}
+where $e_i = (0,..0, 1, 0, 0..0)$ 
+Then 
+\begin{align*}
+	\frac{[e_i^T (I-H)Y]^T [ e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} & = \frac{[ Y^T (I-H) e_i e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} 
+\end{align*}
+
+Then
+\begin{align*}
+	B_i &= \frac{[Y^T (I-H)Y]}{\sigma^2} -   \frac{[ Y^T (I-H) e_i e_i^T (I-H)Y]/(1- h_{ii})}{\sigma^2} \\
+	&= \frac{Y}{\sigma}^T \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big] \frac{Y}{\sigma}
+\end{align*}
+$\frac{Y}{\sigma} \sim N_n(0, I)$. 
+
+To show that $C = \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big]  $ is a projection matrix, we need to show $C^2 = C, C^T= C$.
+
+Here $(I-H)(I-H) = I-H, e_i^T (I-H) e_i = 1- h_{ii}$ 
+
+Therefore, $B_i \sim \chi^2(r)$, where $r = rank \Big[C \Big]$. For projection matrix, the rank is also the trace.
+
+\begin{align*}
+	rank \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big] &= tr \Big[(I-H) - (I-H) \frac{e_i e_i^T }{1- h_{ii}} (I-H)\Big]  \\
+	&= n-p - \frac{1}{1-h_{ii}} tr[(I-H) e_i e_i^T (I-H)] \\
+	&= n-p -  \frac{1}{1-h_{ii}} tr[e_i^T (I-H) (I-H) e_i ] \\
+	&= n-p -  \frac{1}{1-h_{ii}} tr[e_i^T (I-H)  e_i ] \\
+	&= n-p -  \frac{1-h_{ii}}{1-h_{ii}} \\
+	&= n-p-1
+\end{align*}
+
+So $B_i \sim \chi^2(n-p-1)$.
+
+\subsection{b. Show $A_i$ and $B_i$ are independent}
+
+\subsubsection{Preparation}
+Note that $A_i$ and $B_i$ are quadratic forms, which we need to show that their projection matrix product is 0, which will need to use linear algebra.
+
+Another method is that, there are chi-square distribution, which we just need to show that the two statistics are ancillary.
+
+Traditional method is to derive the distributions, and if we could write the distribution of $A_i + B_i$ as the product of distribution of $A_i$ and $B_i$, then we can prove the independence. 
+
+One more question, are we able to use the moment generating function to do this? It is always easier to prove in MGF.
+
+First, we need to write the MGF of $A_i$, $B_i$
+\begin{align*}
+	M_{A_i} & =E[exp[A_i t]] = \int exp[A_i t] \frac{1}{\sqrt{2 \pi \sigma^2}} exp(-\frac{x^2}{2 \sigma^2}) dx\\
+	M_{B_i} & =E[exp[B_i t]] = \int exp[B_i t] \frac{1}{\sqrt{2 \pi \sigma^2}} exp(-\frac{x^2}{2 \sigma^2}) dx
+\end{align*} 
+
+Then we can use MGF properties to prove
+\begin{align*}
+	W_i & = A_i + B_i\\
+	M_{W_i} &= E[exp(W_i t)] = E[exp[(A_i + B_i) t]] \\
+	&= E[exp[A_i t] exp[B_i t]], \qquad \text{all based on normal distribution} \\
+	&= E[exp[A_i t]] E[exp[B_i t]] = M_{A_i} M_{B_i}
+\end{align*} 
+
+Also we need to notice that, this is a quadratic form chi-square distribution.
+
+\begin{itemize}
+\item[(a)] Quadratic form theorem 1: 
+
+Let the $n \times 1$ vector $y \sim N(0, I)$, let $A$ be an $n \times n$ idempotent matrix of rank m, let B be an $n \times n$ idempotent matrix of rank s, and suppose $BA = 0$. Then $y'Ay$ and $y'By$ are independently distributed $\chi^2$ variables.
+
+\textbf{Why need to be idempotent matrix?} 
+It is because for idempotent matrix $A^2 = A$, then the quadratic form could be written as $ y'Ay = (Ay)^T(Ay)$, then further we can use the product of two vectors = 0 to show independence. 
+
+The proof is try write the two quadratic from in partition, so that show that they dependent on different vectors, further they are independent. Need to compare with the proof in 762 slides.
+
+\item[(b)] Quadratic form theorem 2 (Craig's Theorem):
+If $y \sim N(\mu, \Omega)$ where $\Omega$ is positive definite, then $q_1 = y'Ay$ and $q_2= y'By$ are independently distributed if $A\Omega B = 0$
+
+This is just a generalization of above theorem. Since $\Omega$ is a covariance matrix of full rank it is positive definite and can be factored as $\Omega = T T'$.
+Therefore the condition $A\Omega B =0$ can be written $ATT'B = 0$. 
+
+\begin{align*}
+	T'ATT'BT& = 0\\
+	C &= T'AT, \quad K = T'BT \\
+	CK &= (T'AT)(T'BT) = T' \Omega B T = T'0T = 0
+\end{align*} 
+
+In the 762 slides, it used the covariance matrix = 0 to prove independence in MVN.
+
+\begin{align*}
+	Y'AY& = Y' RR' Y = (R'Y)'(R'Y)\\
+	Y'BY& = Y' SS' Y = (S'Y)'(S'Y)
+\end{align*} 
+
+Thus $Y'AY$ and $Y'BY$ are independent if $R'Y$ and $S'Y$ are independent. $R'Y$ and $S'Y$ are independent if and only if 
+
+\begin{align*}
+	Cov(R'Y, S'Y)& =  0\\
+	& = R' \Sigma S = 0 \\
+	&= R'WW'S = 0 \\
+	&= C(Q'S) \perp C(Q'R)
+\end{align*} 
+
+\end{itemize}
+
+
+\subsubsection{Proof}
+
+\begin{align*}
+	A_i & = \frac{ [Y^T (I-H) e_i e_i^T (I-H) Y]/(1-h_{ii})}{\sigma^2} \\
+	B_i &=  \frac{ [Y^T \Big[(I-H) - (I-H) \frac{e_i e_i^T }{(1-h_{ii})} (I-H) \Big]Y]}{\sigma^2} 
+\end{align*} 
+
+We would like to show the product of two projection matrix are 0, by using the above theorem
+
+\begin{align*}
+	M_{A_i} M_{B_i} & = (I-H)  \frac{e_i e_i^T }{1-h_{ii}} (I-H)  \Big[(I-H) - (I-H) \frac{e_i e_i^T }{(1-h_{ii})} (I-H) \Big] \\
+	&= 0 \\
+	e_i^T (I-H) e_i &= 1-h_{ii}
+\end{align*} 
+
+
+\subsection{c. Derive exact distribution}
+Let
+\begin{align*}
+	r_i & = \frac{\hat{\epsilon}_i}{\hat{\sigma} \sqrt{1- h_{ii}}}
+\end{align*} 
+Using part(a) and (b), derive the exact distribution of $r_i^2/ (n-p)$.
+
+\subsubsection{Preparation}
+
+This problem needs observation of the $r_i$ and connection between $A_i$ and $B_i$. Also use the results from part (a) and (b) that, $A_i$ and $B_i$ are independent chi-square.
+\begin{align*}
+	\frac{r_i^2 }{(n-p)} & = \frac{A_i}{A_i + B_i} 
+\end{align*} 
+
+The transformation of distribution, first we can use the distribution theory that the sum of independent chi-square distribution is also a chi-square. 
+The first method we need to try is to use MGF, then try to use the distribution transformation.
+
+if we use distribution transformation, then we need to use two independent distributions
+\begin{align*}
+	w & = \frac{A_i}{A_i + B_i} \\
+	B_i &= \frac{1-w}{w} A_i
+\end{align*} 
+replace $B_i$ by w, then integrate out of $A_i$, then we will get the distribution of $w$.
+
+the chi-square distribution $X \sim \chi^2(k)$ is a special case of the gamma distribution, in that $X \sim \Gamma(\frac{k}{2}, \frac{1}{2})$ using the rate parameterization of the gamma distribution.
+
+
+\subsubsection{Proof}
+We need to know the relationship between Gamma distribution and Beta distribution.
+As $A_i \perp B_i$
+\begin{align*}
+	\frac{A_i}{A_i + B_i} & \sim Beta (\frac{1}{2} , \frac{n-p-1}{2}) 
+\end{align*} 
+
+Show the distribution transformation. Assume that $X \sim Gamma(\alpha, 1), Y \sim Gamma(\beta, 1)$, and X and Y are independent. then find the distribution of $\frac{X}{X+Y}$.
+\begin{align*}
+	f_{X,Y}(x, y) & =  \frac{1}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha-1} y^{\beta -1} e^{-(x+y)}
+\end{align*} 
+
+let $w= \frac{x}{x+y}, u= x$, then we have
+\begin{align*}
+	x & =  y, \qquad y= \frac{(1-w)u}{w} \\
+	J &= \Bigg | \begin{pmatrix} 
+	\diffp{x}{u} & \diffp{x}{w} \\
+	\diffp{y}{u} & \diffp{y}{w} 
+	\end{pmatrix}
+	\Bigg | \\
+	&=  \Bigg | \begin{pmatrix} 
+		1 & 0\\
+		\frac{(1-w)}{w} & -\frac{u}{w^2} 
+	\end{pmatrix}
+	\Bigg |  = \frac{u}{w^2}
+\end{align*} 
+
+Then integrate out u
+\begin{align*}
+	f(w) & = \int_{0}^{\infty} f(w,u) du \\
+	& =  \int_{0}^{\infty}  \frac{1}{\Gamma(\alpha) \Gamma(\beta)} u^{\alpha-1} (\frac{(1-w)u}{w})^{\beta -1} e^{-\frac{u}{w}} \frac{u}{w^2} du \\
+	& \sim Beta(\alpha, \beta)
+\end{align*} 
+
+
+
+\subsection{d. Outlier Model 1}
+Suppose we suspect that the ith case is an outlier and we consider the mean shift outlier model
+$Y= X \beta + d_i \phi + \epsilon$, where $\epsilon \sim N_n(0, \sigma^2 I)$, $\phi$ is an unknown scalar, and $d_i$ is an $n \times 1$ vector with a 1 in the ith position and zeros elsewhere.
+Derive the maximum likelihood estimate of $\phi$.
+
+\subsubsection{Preparation}
+We can construct the model by introducing the unknown parameter $\phi$, then use the MLE to estimate.
+
+The way to get MLE is to construct likelihood function first, Y is a normal distribution, and only ith case is an outlier, while all other cases are not. Solve the problem similar as the random model.
+
+As the Y are independent variables, $Y_1, ... Y_{i-1}, Y_{i+1}, ..Y_{n} \sim N(X_k \beta, \sigma^2)$, while 
+$Y_{i} \sim N(X_i \beta + \phi, \sigma^2)$.
+
+If using scalar form, the $\beta , \phi$ are correlated with each other, which we won't be able to solve. 
+\begin{align*}
+	f_k(\beta, \phi) &= \frac{1}{\sqrt{2\pi} \sigma} exp(-\frac{(y_k - x_k \beta)^2}{2 \sigma^2}) \\
+	f_i(\beta, \phi) &= \frac{1}{\sqrt{2\pi} \sigma} exp(-\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2}) \\
+	log f_k(\beta, \phi)  &= -\frac{(y_k - x_k \beta)^2}{2 \sigma^2} \\
+	log f_i(\beta, \phi)  &= -\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2} \\
+	ln (\beta, \phi) &= \sum_{k=1, k \neq i} ^{n} -\frac{(y_k - x_k \beta)^2}{2 \sigma^2} -\frac{(y_i - x_i \beta - \phi)^2}{2 \sigma^2} 
+\end{align*}
+The MLE of $\phi$
+
+\begin{align*}
+	\diffp{ln}{\phi}  &=\frac{(y_i - x_i \beta - \phi)}{\sigma^2} = 0\\
+	\phi &= y_i - x_i \hat{\beta}\\
+\end{align*}
+where $\hat{\beta}$ is the MLE of $\beta$. 
+
+So we need to use the linear algebra form in solve this kind of question. Need to notice that the linear regression estimate in matrix form all use the linear algebra. 
+
+\subsubsection{Proof}
+The maximum likelihood function in linear algebra form
+
+\begin{align*}
+	L (\beta, \phi) & \propto exp \Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	l (\beta, \phi) & \propto \Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	&= -\frac{1}{2\sigma^2} \Big[(Y-X\beta)^T (Y-X\beta) -2 (Y-X\beta)^T d_i \phi + d_i^T d_i \phi^2 \Big]
+\end{align*}
+
+The MLE 
+\begin{align*}
+	\diffp{l}{\phi} & =\Bigg( -\frac{(Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi)}{2 \sigma^2}  \Bigg) \\
+	&\rightarrow -2(Y-X\beta)^T d_i + d_i^T d_i (2 \phi) = 0 \\
+	\phi &= (Y-X\beta)^T d_i
+\end{align*}
+
+MLE of $\beta$ 
+\begin{align*}
+	X\beta & = HY \\
+	\hat{\beta} &= (X^TX)^{-1} X^T Y
+\end{align*}
+There is no need to get the estimate of $\beta$, we only need to estimate  $(Y-X\beta)^T$. 
+So $\hat{\phi} = (I-H)Y^T d_i$
+
+\subsection{d. Outlier Model 2}
+Suppose we wish to test $H_0 : \phi = 0$. Derive the test statistic for this hypothesis and derive its exact distribution under $H_0$.
+
+\subsubsection{Preparation}
+
+The hypothesis test always comes with the estimate. There are several hypothesis test method we can do, wald test, score test and likelihood ratio test. The score test is generally the way as it is easy to get the estimate, score function and fisher information under $H_0$.
+
+We can use $A_i$ and $B_i$ are independent and they are quadratic form, so we can have F -test and try to find the connection between the $\hat{\phi}$ and F-test.
+
+
+
+\subsubsection{Proof}
+
+To test $\phi = 0$, consider wald test
+
+\begin{align*}
+	W_n & = (\hat{\phi} - 0)^T I_n (\phi) (\hat{\phi} - 0) 
+\end{align*}
+
+Find the fisher information $I_n(\phi)$ 
+
+\begin{align*}
+	I_n (\phi)& = n I(\phi) \\
+	I(\phi) &= -E \Big[\diffp{l}{\phi \phi} \Big] \\
+	&= \frac{1}{\sigma^2}\\
+	I_n(\phi) & =\frac{n}{\sigma^2}
+\end{align*}
+
+We need to find the MLE of $\sigma^2$.
+
+\begin{align*}
+	\diffp{l}{{\sigma^2}} &= \frac{1}{2 \sigma^4} (Y- X\beta -d_i \phi)^T (Y- X\beta -d_i \phi) +
+	\frac{\partial}{\partial \sigma^2} log [(\sigma^2)^{-1/2}] \\
+	\hat{\sigma^2} &= \Vert Y- X \beta -d_i \phi \Vert \\
+	&= \Vert (I-H)Y -d_i \hat{\phi} \Vert
+\end{align*}
+So the wald statistics
+
+\begin{align*}
+	W_n &= d_i^T Y(I-H) \Bigg( \frac{n}{ \Vert (I-H)Y -d_i \hat{\phi} \Vert} \Bigg) (I-H) Y^T d_i
+\end{align*}
+
+Under $H_0$, it is a $\chi^2(1)$. 
+
+
+
+The second method is to use F-test, as $A_i$ and $B_i$ are independent quadratic form 
+
+\begin{align*}
+	A_i & = \frac{ [Y^T (I-H) e_i e_i^T (I-H) Y]/(1-h_{ii})}{\sigma^2} = \frac{ [\hat{\phi}^2]/(1-h_{ii})}{\sigma^2}\\
+	B_i &=  \frac{ [(I-H)Y ]^T[(I-H)Y ]- [\hat{\phi}^2]/(1-h_{ii})}{\sigma^2} 
+\end{align*} 
+
+\begin{align*}
+	F &= \frac{A_i}{B_i/(n-p-1)} \\
+	&= \frac{\hat{\phi}^2/(1-h_{ii})}{[(I-H)Y ]^T[(I-H)Y ]- [\hat{\phi}^2]/(1-h_{ii})/(n-p-1)} 
+\end{align*}
+
+We can perform F-test by setting up the rejection region.
+
+\subsection{e. Cook's Distance}
+ Let $I = \{ 1,.. m\}$ be the subset of the first m cases in the dataset. Let $D_I$ denote the Cook's distance based on simultaneously deleting m cases from the dataset, which is given by
+\begin{align*}
+	D_I & = \frac{(\hat{\beta} - \hat{\beta}_I)^T (X^T X) (\hat{\beta} - \hat{\beta}_I)}{p \hat{\sigma}^2}
+\end{align*} 
+where $\hat{\beta}^I$ denotes the least squares estimate of $\beta$ with the cases deleted from set I and $\hat{\beta}$ denotes the estimate of $\beta$ based on the full data. Show that $D_I$ can be written as 
+\begin{align*}
+	D_I & = \frac{1}{p} \sum_{i=1}^m h_i^2 \left( \frac{\lambda_i}{1- \lambda_i} \right)
+\end{align*} 	
+where the $\lambda_i, i=1,..m$, are the eigenvalues of the matrix $P_I = X_I (X^T X)^{-1} X_I^T$ based on a spectral decomposition of $P_I$.
+ 
+  \subsubsection{Preparation}
+  The single deletion case
+  \begin{align*}
+  	\hat{\beta}_{(1)} & = \hat{\beta} - \frac{(X'X)^{-1} x_i^T \hat{\epsilon}_i}{1-h_{ii}}
+  \end{align*} 	
+  
+  This method is used in Bayesian method, get marginal distribution from joint distribution, expectation of conditional distribution.
+  
+  The probability involved in retrospective study sampling method
+  
+  The likelihood function for the retrospective study is the conditional density of $X=x$ given Y and $S=1$, denoted by $p(x|Y, S=1)$. To avoid biased sampling, we assume that the inclusion of a subject is independent of x given Y, that is,
+  
+   \begin{align*}
+  	P(S=1| X, Y) &= P(S=1|Y)
+  \end{align*} 	
+
+Under unbiased sampling, we have 
+   \begin{align*}
+	p(x|Y, S=1) &= \frac{P(S=1| x, Y) p(x|Y)}{P(S=1|Y)} = p(x|Y)
+\end{align*} 	
+
+Furthermore, $p(x|Y, S=1)$ can be expressed as 
+
+ \begin{align*}
+	p(x|Y, S=1) &= \frac{P(Y|S=1, x) p(x|Y)P(x|S=1)}{P(Y|S=1)} = p(x|Y)
+\end{align*} 	
+
+and $p(Y|x, S=1)$ is given by
+
+ \begin{align*}
+	p(Y|x, S=1) &= \frac{p(X|Y,S=1) p(Y, S=1)}{p(X, S=1)} = p(Y|x) \frac{p(S=1|Y)}{p(Y|S=1)]}\\
+	&=  \frac{p(X, Y,S=1) }{p(X, S=1)}  = \frac{p(Y,S=1|x) p(x) }{p(S=1|x) p(x)}  \\
+	&= \frac{p(S=1|x,Y) p(Y)}{p(S=1|x) }  = \frac{p(S=1|Y) p(Y|x)}{p(S=1|x) } \\
+\end{align*} 	
+
+Finally, $p(x|Y, S=1)$ can be expressed as
+
+ \begin{align*}
+	p(x|Y, S=1) &= \frac{P(Y|x) p(x|S=1) P(S=1|Y)}{P(Y|S=1) p(S=1|x)}
+\end{align*} 	
+
+Why do we write in this form? As it is how we select the patients in the case-control study, and it reveals the relationship between prospective and retrospective probability.
+
+The ratio $p(x|S=1)/p(S=1/x)$ only depends on x and $P(S=1|Y)$ and $P(Y|S=1)$ are determined by the sampling scheme. 
+
+We can construct the likelihood function for the retrospective study
+
+Let $H_1(Y) = P(S=1|Y)/P(Y|S=1)$ and $H_2(x) = p(x|S=1)/p(S=1|x)$
+
+ \begin{align*}
+	\prod_{i=1}^ n p(x_i|Y_i, S_i=1) &= \prod_{i=1}^ n P(y_i|x_i,\beta)  \prod_{i=1}^ n [H_1(y_i) H_2(x_i)]
+\end{align*} 	
+
+ \subsubsection{Proof}
+ 
+ 
+ \section{Problem 3 - Expectation in case control study}
+ 
+ \subsection{a. Expectation}
+ Consider the conditional mean of Y given $(X,D)$, denoted by $\tilde{\mu}(X,D) = E[Y|X,D]$. Show that
+ 
+\begin{align*}
+	\mu(X) & = \tilde{\mu}(X,1) Pr(D=1|X) + \tilde{\mu}(X,0) Pr(D=0|X) \\
+	\tilde{\mu}(X,D) &= E[Y|X, D, S=1] = \mu(X) + \{ D - Pr(D=1|X)\} \gamma(X)
+\end{align*} 	 
+ 
+
+
+
+ \subsubsection{Preparation}
+ Find the expectations in the case-control study from 762 slides.
+ 
+ 
+ \subsubsection{Proof}
+ The expectation of conditional distribution 
+ \begin{align*}
+ 	E(Y|X) & = E[E[Y|X, D]|X] \\
+ 	&= E[Y|X, D=1] Pr(D=1|X) + E[Y|X, D=0]  Pr(D=0|X) \\
+ 	&= \tilde{\mu}(X,1) Pr(D=1|X) + \tilde{\mu}(X,0) Pr(D=0|X)
+ \end{align*} 
+
+ In terms of $\tilde{\mu}(X,D) = E[Y|X, D, S=1] $, here we know that all the patients in the case-control study with $S=1$, so $\tilde{\mu}(X,D) = E[Y|X, D, S=1] == E[Y|X, D] $.
+ 
+  \begin{align*}
+ 	E(Y|X) &= \tilde{\mu}(X,1) Pr(D=1|X) + \tilde{\mu}(X,0) Pr(D=0|X)
+ \end{align*} 
+

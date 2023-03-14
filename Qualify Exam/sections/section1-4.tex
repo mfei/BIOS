@@ -1,0 +1,45 @@
+\subsection{Beta distribution}
+If $Y_1, ..., Y_{n+1}$ are i.i.d $Exp(\theta)$, then 
+\begin{align*}
+	Z_i &= \frac{Y_1 + ...+ Y_i}{Y_1+ .. + Y_{n+1}} \sim Beta(i, n-i+1) 
+\end{align*}
+Particularly, $(Z_1, ... Z_n)$ has the same distribution as the order statistics $(\xi_{n:1}, .. \xi_{n:n})$ of n Uniform(0,1) random variables.
+
+\begin{itemize}
+\item[(i)]
+Prove Beta distribution
+The $Z_{n+1} = 1$, so we don't need to calculate this distribution. 
+We can use the method in above problem to get the distribution of $Z_i$, and we need to get the joint distribution of $(Z_1, ... Z_n)$.
+
+Let 
+\begin{align*}
+	U &=Y_1 + ...+ Y_i, \qquad V= Y_{i+1}+ .. + Y_{n+1} 
+\end{align*}
+Then $U \sim Gamma(i, \theta), V \sim Gamma(n+1-i, \theta)$, Let
+\begin{align*}
+ 	Z_i &= U/(U+V), \qquad W = U+V 
+\end{align*}
+
+Consider the transformation $(U,V)^T \rightarrow (Z_i, W)^T$, note that the transform is one-to-one with the Jacobian
+\begin{align*}
+	\Bigg |\diffp{(U,V)}{{(Z_i, W)}} \Bigg | &= |W|
+\end{align*}
+ 
+For joint distribution of  $(U,V)^T$, 
+\begin{align*}
+	\frac{1}{\Gamma{(i)}} \theta exp(-\theta u) (\theta u)^{i-1} I(u > 0) \times \frac{1}{\Gamma{(n+1-i)}} \theta exp(-\theta v) (\theta v)^{n-i} I(v > 0)
+\end{align*}
+We obtain the joint density of $(Z_i, W)$ as 
+\begin{align*}
+&	\frac{1}{\Gamma{(i)}} \theta exp(-\theta z_i w) (\theta z_i w)^{i-1} \\
+	& \times \frac{1}{\Gamma{(n+1-i)}} \theta exp(-\theta (1-z_i) w) (\theta (1-z_i) w)^{n-i} w \times I(0< z_i< 1) I(w > 0)
+\end{align*}
+
+Thus, the marginal density of $Z_i = X/(X+Y)$ is equal to
+\begin{align*}
+ & (1-z_i)^{n-i} z_i^{i-1} I(0< z_i <1)	\frac{\Gamma(n+1)}{\Gamma(i) \Gamma(n+1-i)} \int_{w} \theta exp(-\theta w) (\theta w)^n I(w>0) 	dw \\
+ &= \frac{\Gamma(n+1)}{\Gamma(i) \Gamma(n+1-i)} (1-z_i)^{n-i} z_i^{i-1} I(0< z_i <1)
+\end{align*}
+That is $Z_i \sim Beta(i, n+1-i)$
+
+\end{itemize}
