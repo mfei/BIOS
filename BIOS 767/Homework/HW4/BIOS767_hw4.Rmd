@@ -1,0 +1,32 @@
+---
+title: "BIOS776-HW4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Generate random number for marginal distribution of treatment group
+
+```{R}
+mean = 50
+sigma1 <-  13
+sigmab2 = 135.3
+delta = seq(0,50, by=0.1)
+n=100
+z1 = 1.96
+q1 = z1* sqrt(sigmab2) 
+p = pnorm(q1, mean = delta, sd = sqrt(sigmab2), lower.tail = FALSE)
+idx <- min(which(p >= 0.8))
+delta[idx]
+```
+
+## Power Plot of total sample size
+
+
+```{r, echo=FALSE}
+totaln = seq(100, 300, by=10)
+
+```
+
