@@ -1,0 +1,1045 @@
+---
+title: "Question 4"
+author: "Michael Jetsupphasuk"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	fig.height = 3
+)
+```
+
+
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(readr)
+library(cmdstanr)
+check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
+library(posterior)
+library(bayesplot)
+# color_scheme_set("brightblue")
+theme_set(theme_bw())
+```
+
+```{r, echo=FALSE}
+data = read_table('crime.dat', col_names = FALSE)
+data$X15 = NULL
+colnames(data) = c('R', 'Age', 'S', 'Ed', 'Ex0', 'Ex1', 'LF', 'M', 'N', 'NW', 'U1', 'U2', 'W', 'Xstar')
+```
+
+
+## Part a
+
+```{r, echo=FALSE}
+ggplot(data, aes(x=R)) + 
+  geom_histogram(aes(y=..density..), bins = 20) +
+  stat_function(fun=dnorm, args=list(mean=mean(data$R), sd=sd(data$R)), color='blue') +
+  labs(title = 'Histogram of crime rate (original scale)')
+```
+
+```{r, echo=FALSE}
+ggplot(data %>% mutate(R = log(R)), aes(x=R)) + 
+  geom_histogram(aes(y=..density..), bins = 20) +
+  stat_function(fun=dnorm, args=list(mean=mean(log(data$R)), sd=sd(log(data$R))), color='blue') +
+  labs(title = 'Histogram of crime rate (log scale)')
+```
+
+```{r, echo=FALSE}
+ggplot(data %>% mutate(R = sqrt(R)), aes(x=R)) + 
+  geom_histogram(aes(y=..density..), bins = 20) +
+  stat_function(fun=dnorm, args=list(mean=mean(sqrt(data$R)), sd=sd(sqrt(data$R))), color='blue') +
+  labs(title = 'Histogram of crime rate (sqrt scale)')
+```
+
+The plots above show histograms of the outcome variable, crime rate (number of offenses known to police per 1 million people), under no transformation, the natural log transformation, and the square root transform, with normal densities overlayed. The original data is truncated on the left side with more mass than expected under a normal distribution on the right tail. Both log and square root transformations seem to follow a normal distribution more closely with the log seeming to give a slightly better fit. The below Q-Q plots show a similar story. 
+
+
+```{r, echo=FALSE}
+qqnorm((data$R), main='Q-Q plot for R')
+qqline((data$R), col='red')
+```
+
+```{r, echo=FALSE}
+qqnorm(log(data$R), main='Q-Q plot for log(R)')
+qqline(log(data$R), col='red')
+```
+
+```{r, echo=FALSE}
+qqnorm(sqrt(data$R), main='Q-Q plot for sqrt(R)')
+qqline(sqrt(data$R), col='red')
+```
+
+
+
+```{r}
+data = data %>% mutate(R = log(R))
+```
+
+
+
+## Part b
+
+
+```{r}
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  vector[N] y;
+}
+parameters {
+  real mu;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real sigma = sqrt(1/tau);
+}
+model {
+  target += -log(tau);
+  y ~ normal(mu, sigma);
+}
+generated quantities {
+  real y_f = normal_rng(mu, sigma);
+}
+")
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+
+N = 47
+y = data$R
+data_list = list(N=N, y=y)
+
+fit = model$sample(
+  data = data_list,
+  seed = 730840,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+```
+
+
+```{r}
+mcmc_trace(fit$draws('mu')) + ggtitle('Trace plot for mu')
+mcmc_trace(fit$draws('tau')) + ggtitle('Trace plot for tau')
+
+mcmc_acf(fit$draws('mu')) + ggtitle('ACF plot for mu')
+mcmc_acf(fit$draws('tau')) + ggtitle('ACF plot for tau')
+```
+
+Trace plots and ACF plots are shown above for $\mu$ and $\tau$, demonstrating good mixing. 
+
+
+
+```{r}
+mcmc_hist(fit$draws('mu'))
+mcmc_hist(fit$draws('tau'))
+```
+
+The marginal posterior distributions of $\mu$ and $\tau$ are given above.
+
+
+```{r}
+mean(fit$draws('mu') > 600)
+mean(fit$draws('y_f') > 500)
+```
+
+The $P(\mu > 600|y)$ was estimated to be 1. The $P(z > 500 |y)$ for a future single observation $z$ was estimated to be `r mean(fit$draws('y_f') > 500)`. The predictive density of $z$ is plotted below.
+
+
+```{r}
+mcmc_hist(fit$draws('y_f')) + 
+  labs(title = 'Predictive density of z',
+       x = '')
+```
+
+Analytically, from Theorem 2.4 of the notes, $\mu | y \sim S_p(n-p, \hat{\beta}, s^2(X'X)^{-1}$ and $\tau |y \sim gamma(\frac{n-p}{2}, \frac{(n-p)s^2}{2})$ where $s^2 = \frac{Y'(I-M)Y}{n-p}$, $X$ is the $n \times p$ covariate matrix (in this case simple a $n \times 1$ vector of ones), $\hat{beta}$ is the MLE of $\beta$, $M$ is the orthogonal projection operator. 
+
+By Theorem 2.6 in the notes, the predictive distribution is given by $z | X_f, y \sim S_1(n-p, X_f\hat{\beta}, s^2(I + X_f(X'X)^{-1}X_f'))$ where $X_f = 1$ here. The desired quantities are given below and approximately match those computed using Stan. 
+
+```{r}
+# define quantities
+p = 1
+X = matrix(1, nrow=N)
+beta_hat = solve(t(X)%*%X) %*% t(X) %*% y
+M = X %*% solve(t(X)%*%X) %*% t(X)
+s2 = (t(y) %*% (diag(N) - M) %*% y) / (N-p)
+
+# compute desired probabilities
+library(extraDistr)
+1 - plst(600, mu = as.numeric(beta_hat), sigma = sqrt(s2/N), df = N-p)
+1 - plst(500, mu = as.numeric(beta_hat), sigma = sqrt(s2 * (1+1/N)), df = N-p) 
+```
+
+
+## Part c
+
+```{r}
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  int<lower=1> K;
+  vector[N] y;
+  matrix[N, K] x;
+}
+parameters {
+  vector[K] beta;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real sigma = sqrt(1/tau);
+}
+model {
+  target += -log(tau);
+  y ~ normal(x * beta, sigma);
+}
+")
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+
+N = 47
+y = data$R
+x = model.matrix(~.-R, data=data)
+K = ncol(x)
+data_list = list(N=N, y=y, x=x, K=K)
+
+fit = model$sample(
+  data = data_list,
+  seed = 67328341,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+Trace plots above show good mixing.
+
+
+```{r}
+mcmc_hist((fit$draws('beta[2]'))) + labs(title='Beta_1 posterior', x='')
+mcmc_hist((fit$draws('beta[4]'))) + labs(title='Beta_3 posterior', x='')
+mcmc_hist((fit$draws('beta[12]'))) + labs(title='Beta_11 posterior', x='')
+mcmc_hist((fit$draws('beta[14]'))) + labs(title='Beta_13 posterior', x='')
+```
+
+Marginal posterior distributions of the requested parameters are given above. 
+
+Analytically, from Theorem 2.4 of the notes, $\beta | y \sim S_p(n-p, \hat{\beta}, s^2(X'X)^{-1}$ where the quantities are as defined in the previous part. 
+
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13')))
+```
+
+The 95 percent HPD intervals for the requested parameters are given by the outer lines in the plot above (inner lines give 50 percent HPD). The numerical answers are given above for $\beta_1$, $\beta_3$, $\beta_{11}$, and $\beta_{13}$, respectively.
+
+For age, education, male unemployment rate (age 35-49 relative to other age groups), and income inequality individually there is a positive association on crime rate, holding all other variables fixed. The association with respect to age has a relatively narrow HPD while there is a large range of plausible association sizes for the coefficients on education and male unemployment (age 35-49). 
+
+
+```{r}
+# frequentist model
+
+fit.freq = lm(R ~ ., data=data)
+summary(fit.freq) %>% broom::tidy(conf.int=TRUE) %>% mutate_if(is.numeric, round, 3)
+```
+
+The results of a frequentist analysis are given in the above table. The point estimates and 95 percent confidence intervals for the parameters under consideration are approximately the same as the corresponding expectations and HPD in the Bayesian analysis. 
+
+
+## Part d
+
+<!-- I center the predictor matrix due to instability in MCMC convergence.  -->
+
+```{r}
+
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  int<lower=1> K;
+  real<lower=0> a0;
+  real<lower=0> delta0;
+  real<lower=0> gamma0;
+  vector[K] mu0;
+  vector[N] y;
+  matrix[N, K] x;
+  matrix[K, K] xx_inv;
+}
+parameters {
+  vector[K] beta;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real<lower=0> sigma = inv_sqrt(tau);
+}
+model {
+  target += gamma_lpdf(tau | delta0*inv(2), gamma0*inv(2));
+  target += multi_normal_lpdf(beta | mu0, inv(a0)*inv(tau) * xx_inv);
+  y ~ normal(x * beta, sigma);
+}
+")
+
+# 'tau ~ gamma(delta0*inv(2), gamma0*inv(2));
+#   beta ~ multi_normal(mu0, inv(a0)*inv(tau) * xx_inv);'
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+# define data
+N = 47
+y = data$R
+x = model.matrix(~.-R, data=data)
+# x = scale(x, scale=FALSE)  # center covariates for better mixing
+# x[,1] = 1
+xx_inv = solve(t(x) %*% x)
+K = ncol(x)
+y0 = log(c(604, 1611, 606, 1851, 1158, 633, 934,
+1638, 922, 684, 1664, 715, 493, 708,
+680, 920, 662, 822, 488, 1326, 594,
+630, 1181, 882, 668, 1908, 473, 1249,
+958, 651, 135, 767, 1179, 917, 842,
+1185, 749, 643, 761, 1209, 798, 610,
+833, 981, 572, 562, 767))
+mu0 = as.numeric(solve(t(x) %*% x) %*% t(x) %*% y0)
+delta0 = 0.1
+gamma0 = 0.1
+a0 = 0.25
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 6342,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+
+```
+
+
+The trace plot below shows adequate mixing. 
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.25')
+```
+
+```{r}
+a0 = 0.5
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 93849,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+```
+
+When $a0=0.5$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.5')
+```
+
+
+```{r}
+a0 = 0.75
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 37481,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+```
+
+When $a0=0.75$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.75')
+```
+
+
+```{r}
+a0 = 1
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 99910,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+```
+
+When $a0=1$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=1')
+```
+
+```{r}
+
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  int<lower=1> K;
+  real<lower=0> a0;
+  real<lower=0> delta0;
+  real<lower=0> gamma0;
+  vector[K] mu0;
+  vector[N] y;
+  matrix[N, K] x;
+  matrix[K, K] xx_inv;
+}
+parameters {
+  vector[K] beta;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real<lower=0> sigma = inv_sqrt(tau);
+}
+model {
+  y ~ normal(x * beta, sigma);
+}
+")
+
+# 'tau ~ gamma(delta0*inv(2), gamma0*inv(2));
+#   beta ~ multi_normal(mu0, inv(a0)*inv(tau) * xx_inv);'
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+a0 = 0
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 82419,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+
+```
+
+When $a0=0$, the variance on the prior goes to infinity implying an uninformative / flat prior. The trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0')
+```
+
+The hyperparameter $a0$ controls the strength given to the prior information, with smaller priors implying a larger variance in the prior distribution. Subsequently, HPD regions are smaller as $a0$ increases. Though all HPD intervals grew smaller as $a0$ increased, the effect was most pronounced for the larger intervals. Since the frequentist analysis was similar to the model with a flat prior, the same conclusions apply. 
+
+Now onto the sensitivity analysis using $a0=0.5$ and varying $\delta_0$ and $\gamma_0$. 
+
+
+```{r}
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  int<lower=1> K;
+  real<lower=0> a0;
+  real<lower=0> delta0;
+  real<lower=0> gamma0;
+  vector[K] mu0;
+  vector[N] y;
+  matrix[N, K] x;
+  matrix[K, K] xx_inv;
+}
+parameters {
+  vector[K] beta;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real<lower=0> sigma = inv_sqrt(tau);
+}
+model {
+  target += gamma_lpdf(tau | delta0*inv(2), gamma0*inv(2));
+  target += multi_normal_lpdf(beta | mu0, inv(a0)*inv(tau) * xx_inv);
+  y ~ normal(x * beta, sigma);
+}
+")
+
+# 'tau ~ gamma(delta0*inv(2), gamma0*inv(2));
+#   beta ~ multi_normal(mu0, inv(a0)*inv(tau) * xx_inv);'
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+# define data
+delta0 = 1
+gamma0 = 1
+a0 = 0.5
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 6342,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+
+```
+
+
+When $\delta_0 = \gamma_0 = 1$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.5, delta0=gamma0=1')
+```
+
+
+```{r}
+
+# define data
+delta0 = 5
+gamma0 = 5
+a0 = 0.5
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 63421,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+
+```
+
+When $\delta_0 = \gamma_0 = 5$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.5, delta0=gamma0=5')
+```
+
+```{r}
+
+# define data
+delta0 = 10
+gamma0 = 10
+a0 = 0.5
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  seed = 63421,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+
+```
+
+When $\delta_0 = \gamma_0 = 10$, the trace plot shows adequate mixing.
+
+```{r}
+mcmc_trace(fit$draws(format='df'))
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, a0=0.5, delta0=gamma0=10')
+```
+
+Similar to $a0$, $delta_0$ and $gamma_0$ control (indirectly) how much to weigh the prior information. Since $delta_0$ and $gamma_0$ are always the same here, the mean does not change (staying at 1) but the variance of the prior on $\tau$ decreases as $delta_0$ and $gamma_0$ grow, which leads to the variance of $\beta|\tau$ tending to be smaller which leads to the smaller HPD regions. As above, same conclusions with respect to a frequentist analysis. 
+
+
+### Sub-part ii
+
+Using the g-prior.
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.25
+delta0 = 0.1
+gamma0 = 0.1
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.25, delta0=gamma0=0.1')
+```
+
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.5
+delta0 = 0.1
+gamma0 = 0.1
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.5, delta0=gamma0=0.1')
+```
+
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.75
+delta0 = 0.1
+gamma0 = 0.1
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.75, delta0=gamma0=0.1')
+```
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 1
+delta0 = 0.1
+gamma0 = 0.1
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=1, delta0=gamma0=0.1')
+```
+
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.5
+delta0 = 1
+gamma0 = 1
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.5, delta0=gamma0=1')
+```
+
+
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.5
+delta0 = 5
+gamma0 = 5
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.5, delta0=gamma0=5')
+```
+
+
+```{r}
+# define data
+mu0 = rep(0, K)
+a0 = 0.5
+delta0 = 10
+gamma0 = 10
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+```{r}
+# 95% HPD
+quantile((fit$draws('beta[2]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[4]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[12]')), p=c(0.025, 0.975)) %>% round(2)
+quantile((fit$draws('beta[14]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('beta[2]', 'beta[4]', 'beta[12]', 'beta[14]'), prob_outer=0.95) +
+  scale_y_discrete(labels = rev(c('beta_1', 'beta_3', 'beta_11', 'beta_13'))) +
+  labs(title = '95% HPD, mu0=0, a0=0.5, delta0=gamma0=10')
+```
+
+
+A similar effect occurs with respect to $a0$ and $delta_0$ and $gamma_0$ but with $\mu_0=0$ moving the point estimates towards zero. Higher values of $a0$ and $delta_0$ and $gamma_0$ move the point estimates towards 0 and shrink the intervals. 
+
+
+## Part e
+
+```{r}
+stan_file <- write_stan_file("
+data {
+  int<lower=1> N;
+  int<lower=1> Nf;
+  int<lower=1> K;
+  real<lower=0> a0;
+  real<lower=0> delta0;
+  real<lower=0> gamma0;
+  vector[K] mu0;
+  vector[N] y;
+  matrix[N, K] x;
+  matrix[K, K] xx_inv;
+  matrix[Nf, K] xf;
+}
+parameters {
+  vector[K] beta;
+  real<lower=0> tau;
+}
+transformed parameters {
+  real<lower=0> sigma = inv_sqrt(tau);
+}
+model {
+  target += gamma_lpdf(tau | delta0*inv(2), gamma0*inv(2));
+  target += multi_normal_lpdf(beta | mu0, inv(a0)*inv(tau) * xx_inv);
+  y ~ normal(x * beta, sigma);
+}
+generated quantities {
+  array[Nf] real z = normal_rng(xf*beta, sigma);
+}
+")
+
+# 'tau ~ gamma(delta0*inv(2), gamma0*inv(2));
+#   beta ~ multi_normal(mu0, inv(a0)*inv(tau) * xx_inv);'
+
+model = cmdstan_model(stan_file, pedantic=TRUE)
+
+# define data
+delta0 = 0.1
+gamma0 = 0.1
+a0 = 0.5
+Nf = 2
+xf = matrix(c(1,119,0,87,45,41,480,934,3,2,70,20,288,126,
+              1,177,1,122,166,157,641,1071,168,423,142,58,689,276),
+            ncol=2) %>% t()
+
+data_list = list(N=N, y=y, x=x, K=K, mu0=mu0, delta0=delta0, gamma0=gamma0, a0=a0, xx_inv=xx_inv, Nf=Nf, xf=xf)
+
+fit = model$sample(
+  data = data_list,
+  iter_sampling = 1000,
+  parallel_chains = 4,
+  refresh = 0
+)
+
+```
+
+
+```{r}
+# 95% HPD
+quantile((fit$draws('z[2]')), p=c(0.025, 0.975)) %>% round(2)
+
+mcmc_intervals(fit$draws(), pars = c('z[1]', 'z[2]'), prob_outer=0.95) +
+  labs(title = '95% HPD, z')
+```
+
+
+
+## Part f
+
+```{r}
+# original scale x
+x = model.matrix(~.-R, data=data)
+
+# compute cpo statistic through loop
+cpo = numeric(N)
+for (i in 1:N) {
+  x.tmp = x[-i,]
+  y.tmp = y[-i]
+  beta_hat.tmp = solve(t(x.tmp)%*%x.tmp)%*%t(x.tmp)%*%y.tmp
+  M.tmp = x.tmp%*%solve(t(x.tmp)%*%x.tmp)%*%t(x.tmp)
+  s2.tmp = (t(y.tmp) %*% (diag(N-1) - M.tmp) %*% y.tmp) / (N-K-1)
+  loc.tmp = t(x[i,]) %*% beta_hat.tmp
+  scale.tmp = sqrt(s2.tmp * (1 + t(x[i,])%*%solve(t(x.tmp)%*%x.tmp)%*%x[i,]))
+  cpo[i] = dlst(y[i], df=N-K-1, mu=loc.tmp, sigma=scale.tmp)
+}
+
+# plot boxplot of cpo to identify outliers
+boxplot(cpo, main='Boxplot of CPO statistics')
+```
+
+From the boxplot of CPO statistics it does not appear that there are especially discordant observations though there may be some moderately discordant observations. 
+
+```{r}
+k.cb = rep(qnorm(0.5 + 0.5*(0.95)^(1/N)), N)
+
+pp <- K
+lmf <- lm(y ~ x)
+ # linear models object
+lms <- summary(lmf)
+lmi <- lm.influence(lmf)
+ # influence object
+epshat <- residuals(lmf)
+ # residuals
+mii <- lmi$hat
+ # diagonal elements of M
+s2 <- (lms$sigma)^2
+ # MSE
+alpha <- (N - pp) / 2
+ # posterior shape hyperparameter for tau
+lambda <- (N - pp) * s2 / 2 # posterior scale hyperparameter for tau
+
+# Chaloner and Brant statistic function
+cb.func <- function(tau, alpha.cb, lambda.cb, k.cb, epshat.cb, m.cb){
+  Z1 <- ( k.cb - epshat.cb * sqrt(tau)) / sqrt(m.cb)
+  Z2 <- (-k.cb - epshat.cb * sqrt(tau)) / sqrt(m.cb)
+  p.tau <- lambda.cb^alpha.cb * gamma(alpha.cb)^(-1) * tau^(alpha.cb - 1) * exp(-lambda.cb * tau)
+  constant <- 1 - pnorm(Z1) + pnorm(Z2)
+  return( constant * p.tau )
+}
+p.cb <- numeric(N)
+ # vector to store C&B stats answers
+for(i in 1:N){
+  p.cb[i] <- integrate(cb.func, lower = 0, upper = Inf,
+                       alpha.cb = alpha, lambda.cb = lambda, k.cb = k.cb[i],
+                       epshat.cb = epshat[i], m.cb = mii[i])$value
+}
+
+# comparison
+which(p.cb > 2*pnorm(-k.cb))
+```
+
+The Chaloner and Brant method also did not detect any outliers. Conclude there are not outliers to worry about.
+
+
+
+
+## Part g
+
+
+
+
+## Part h
+
+
+I found positive associations of age, education level, male unemployment rate in the 35-49 age group, and income inequality on crime rate, although the CI around the coefficients on education level and male unemployment rate were large. This result followed from a Bayesian linear regression model with 10 other covariates and persisted with noninformative priors and power priors using historical data for a variety of choices of hyperparameters. Use of the g-prior, however, along with some choice of hyperparameter pushed the associations towards zero. Finally, outliers were not detected in the data. 
+
+
+
