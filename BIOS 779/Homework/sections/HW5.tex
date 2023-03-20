@@ -124,10 +124,15 @@ A conjugate prior for $\beta$ is
 
 Then the likelihood function and prior function $\pi(\beta)$
 \begin{align*}
-p(y| \beta) & \propto \exp \big( \sum_{i=1}^n y_i x_i \beta - \sum_{i=1}^n e^{X_i \beta} \big) \\
-\pi(\beta) &= \exp \big(a_0 \sum_{i=1}^n y_i x_i \beta - a_0 \sum_{i=1}^n e^{X_i \beta} \big) 
+p(y| \theta) & \propto \exp \big( \sum_{i=1}^n y_i \theta - \sum_{i=1}^n e^{\theta} \big) \\
+\pi(\theta) &= \exp \big(a_0 n [ \bar{y}_0 \theta - e^{\theta} ] \big) 
 \end{align*}
-
+This prior is equivalent to a gamma prior for $\theta$. To see this, let $u = exp(\theta)$, then $\partial_{\theta} u = exp(\theta) = u $, and
+\begin{align*}
+\pi(\mu) &= \exp \big(a_0 n [ \bar{y}_0 log(\mu) - \mu ] \big) \frac{1}{\mu} \\
+&= \mu^{a_0 n \bar{y}_0 -1 } \exp(-n a_0 \mu)
+\end{align*}
+Thus $\mu \sim gamma(a_0 n \bar{y}_0, n a_0)$
 
 \begin{itemize}
 \item[(i)] Compute the posterior mean and covariance matrix of $\beta$.

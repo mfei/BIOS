@@ -1,6 +1,6 @@
 ---
-title: "Question 4"
-author: "Michael Jetsupphasuk"
+title: "BIOS 779 Homework 5"
+author: "Mingwei Fei"
 date: "`r Sys.Date()`"
 output: pdf_document
 ---
